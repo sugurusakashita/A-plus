@@ -6,7 +6,7 @@
 * migrations -> データベースの構造定義
 * seeds -> データベーステーブルの初期値
 * start -> アプリケーションの初期化コード
-* bootstrap
+* bootstrap -> bootstrap関連
 * vendor -> Composerでインストールされたパッケージのコード群
 * .env -> 環境の設定が出来る、DBのpassとかもここ
 
