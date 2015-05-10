@@ -12,4 +12,4 @@
 
 ## composerで何か入れたとき
 * 例えば`composer require barryvdh/laravel-debugbar`
-* `composer update`を打つ
+* `composer update`を叩く
