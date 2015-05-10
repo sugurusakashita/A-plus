@@ -25,6 +25,19 @@ Route::get('/api/review/{number?}',
 		return "Number:{$number}のレビューです。";
 });
 
+
+Route::get('/json', function(){
+	Log::info("test");
+	return [
+		'result' => 'OK',
+		'data' => [
+			'id' => 7,
+			'message' => 'returning json data',
+			'now' => new DateTime,
+		],
+	];
+});
+
 Route::get('home', 'HomeController@index');
 
 Route::controllers([
