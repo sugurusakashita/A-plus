@@ -8,3 +8,7 @@
 * start -> アプリケーションの初期化コード
 * bootstrap
 * vendor -> Composerでインストールされたパッケージのコード群
+
+## composerで何か入れたとき
+* composer require barryvdh/laravel-debugbar
+* composer update

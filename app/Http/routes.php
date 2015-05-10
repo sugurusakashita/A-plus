@@ -16,6 +16,7 @@ Route::get('/', function(){
 });
 
 Route::get('/magic', function(){
+	Log::info("test");
 	return "Magic Laravel";
 });
 
