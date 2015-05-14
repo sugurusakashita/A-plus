@@ -11,36 +11,30 @@
 |
 */
 
-Route::get('/', function(){
-	return "Hello World!";
-});
+// Lavavelのスタートページへのrouting
+Route::get('/', 'WelcomeController@index');
 
-Route::get('/magic', function(){
-	Log::info("test");
-	return "Magic Laravel";
-});
-
-Route::get('/api/review/{number?}',
-	function($number = 1){
-		return "Number:{$number}のレビューです。";
-});
-
-
-Route::get('/json', function(){
-	Log::info("test");
-	return [
-		'result' => 'OK',
-		'data' => [
-			'id' => 7,
-			'message' => 'returning json data',
-			'now' => new DateTime,
-		],
-	];
+// pingでのテスト
+Route::get('/ping', function(){
+	return Response::json('pong');
 });
 
 Route::get('home', 'HomeController@index');
 
 Route::controllers([
-	'auth' => 'Auth\AuthController',
-	'password' => 'Auth\PasswordController',
+  'auth' => 'Auth\AuthController',
+  'password' => 'Auth\PasswordController',
 ]);
+
+/* 以下API用のrouting */
+
+// URLセグメントのテスト
+// 正規表現してない
+Route::get('/api/review/{number?}',
+	function($number = 1){
+		return "Number:{$number}のレビューです。";
+});
+
+// 授業データ
+Route::get('/api/classes/', 'ClassesController@index');
+Route::get('/api/classes/all', 'ClassesController@all');
