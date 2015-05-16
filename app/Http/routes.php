@@ -10,19 +10,15 @@
 | and give it the controller to call when that URI is requested.
 |
 */
+/*
+Route::get('/', 'WelcomeController@index');
+*/
 
-Route::get('/', function(){
-	return "Hello World!";
-});
+Route::get('/', 'top@index');
 
-Route::get('/magic', function(){
-	return "Magic Laravel";
-});
+Route::post('res', 'top@res');
 
-Route::get('/api/review/{number?}',
-	function($number = 1){
-		return "Number:{$number}のレビューです。";
-});
+
 
 Route::get('home', 'HomeController@index');
 
