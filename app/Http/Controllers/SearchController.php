@@ -22,16 +22,23 @@ class SearchController extends Controller {
 	 * @return Response
 	 */
 
-	public function index(){
-		$day = Input::get('day');
+
+	public function getIndex(){
+		$day = urldecode(Input::get('day'));
 		$period = Input::get('period');
 		$term = Input::get('term');
-		$query = Input::get('q');
+		$query = urldecode(Input::get('q'));
+		$token = Input::get('_token');
 
-		$data = $this->classes;
-
+		//$data = $this->classes;
 
 		$res['classes'] = $this->classes_list($day,$period,$term,$query);
+
+		$res['get'] = array('q'	=>	$query,
+							'day' => $day,
+							'period'=> $period,
+							'term' => $term,
+							'_token' =>	$token);
 
 		return view('search/search')->with('data',$res);
 	}
@@ -51,7 +58,7 @@ class SearchController extends Controller {
 		$data = $query == '0'? $data:$data->where('class_name','like','%'.$query.'%');
 
 
-		return $data->where('term',$term)->orderBy('class_period','asc')->orderBy('class_week','desc')->get();
+		return $data->where('term',$term)->orderBy('class_period','asc')->orderBy('class_week','desc')->paginate(20);
 
 	}
 

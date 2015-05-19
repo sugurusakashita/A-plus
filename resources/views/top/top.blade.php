@@ -13,6 +13,7 @@ WjinkaProj | トップ
 			<input type="hidden" name="period" value="0" />
 			<input type="hidden" name="term" value="0" />
 			<input type="submit" value="検索" />
+			<input type="hidden" name="_token" value="{{csrf_token()}}">
 		</form>
 	</div>
 <a href='/search'>詳細検索ページ</a>

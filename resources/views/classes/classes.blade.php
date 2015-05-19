@@ -8,6 +8,7 @@
 <div class ="container">
 	<div class ="row">
 		<h1><?php echo $data['detail']->class_name?></h1>
+		<hr>
 		<div class="col-md-12">
 			<h2>担当講師 | <?php echo $data['detail']->teacher?></h2>
 			<h3>学期 | <?php echo $data['detail']->term == 0? '春学期':'秋学期'?></h3>

@@ -10,7 +10,7 @@ WjinkaProj | 検索
 		<form action="/search" method="get">
 			<div class="search" >
 				<p>検索ワード</p>
-					<input type="text" size="30" placeholder="ここに検索ワードを" name="q"/>
+					<input type="text" size="30" placeholder="授業名を入力" name="q"/>
 					<input type="submit" value="検索">
 			</div>
 			<div class="search_option"> 
@@ -47,6 +47,27 @@ WjinkaProj | 検索
 			</div>
 		</form>
 	</div>
+	<div style="text-align:center; margin:30px;">
+	<p><?php 
+		echo $data['get']['term'] == 0? "春学期 ":"秋学期 ";
+			if($data['get']['day']){
+				echo  $data['get']['day'];
+				if($data['get']['day'] != "夏季"){
+					echo "曜日 ";
+				}	
+
+			}
+		echo $data['get']['period']? $data['get']['period']."限 ":"";
+		echo '「'.$data['get']['q'].'」の検索結果'?></p>
+	<p style="color:#FF0000;"><?php echo $data['classes']->total()? $data['classes']->total()."件ヒットしました！":"";?></p>
+			<?php 
+				
+				echo "<p>".$data['classes']->currentPage().' / '.$data['classes']->lastPage()."</p>";
+				echo $data['classes']->appends($data['get'])->render(); 
+			?>
+		</p>
+	</div>
+	
 	<hr>
 	<?php
 	if($data['classes']->count()){
@@ -69,6 +90,14 @@ WjinkaProj | 検索
 		echo "<p style=' color: #FF0000;'>検索結果が存在しませんでした。</p>";
 	}
 	?>
+	<div style="text-align:center; margin:30px;">
+			<?php 
+				echo $data['classes']->appends($data['get'])->render(); 		
+				echo "<p>".$data['classes']->currentPage().' / '.$data['classes']->lastPage()."</p>";
+				
+			?>
+		
+	</div>
 
 </div>
 @stop

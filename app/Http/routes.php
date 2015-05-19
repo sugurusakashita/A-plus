@@ -17,7 +17,8 @@ Route::get('/', 'WelcomeController@index');
 Route::get('/', 'TopController@index');
 Route::get('classes/{id}', 'ClassesController@index');
 //Route::get('test', 'ClassesController@test');
-Route::get('search','SearchController@index');
+//Route::post('search','SearchController@getIndex');
+
 
 
 
@@ -31,4 +32,5 @@ Route::get('home', 'HomeController@index');
 Route::controllers([
 	'auth' => 'Auth\AuthController',
 	'password' => 'Auth\PasswordController',
+	'search'	=>	'SearchController'
 ]);
