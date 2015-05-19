@@ -14,8 +14,14 @@
 Route::get('/', 'WelcomeController@index');
 */
 
-Route::get('/', 'top@index');
+Route::get('/', 'TopController@index');
+Route::get('classes/{id}', 'ClassesController@index');
+//Route::get('test', 'ClassesController@test');
+Route::get('search','SearchController@index');
 
+
+
+Route::get('input','top@index');
 Route::post('res', 'top@res');
 
 
