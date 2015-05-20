@@ -6,6 +6,7 @@ WjinkaProj | 検索
 
 @section('body')
 <div class ="container">
+	<h1>授業検索ページ</h1>
 	<div class="search_header" style="height:200px;margin:30px">
 		<form action="/search" method="get">
 			<div class="search" >
@@ -75,7 +76,7 @@ WjinkaProj | 検索
 	?>
 		
 		<div>
-			<a href="classes/<?php echo $class_data->id?>">
+			<a href="classes/index/<?php echo $class_data->id?>">
 	<?php
 			echo "<p>".$class_data->class_week."</p>";
 			echo $class_data->class_period === "00"? "NaN":"<p>".$class_data->class_period."限</p>";

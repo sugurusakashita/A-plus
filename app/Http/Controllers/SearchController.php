@@ -40,7 +40,7 @@ class SearchController extends Controller {
 							'term' => $term,
 							'_token' =>	$token);
 
-		return view('search/search')->with('data',$res);
+		return view('search/index')->with('data',$res);
 	}
 
 

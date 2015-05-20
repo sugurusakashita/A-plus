@@ -6,6 +6,7 @@ WjinkaProj | トップ
 
 @section('body')
 <div class ="container">
+	<h2 class="page-header">トップページ</h2>
 	<div class="search_header" style="margin:30px">
 		<form action="/search" method="get">
 			<input type="text" placeholder="ここに検索ワードを" size="20" name="q" />
@@ -16,7 +17,6 @@ WjinkaProj | トップ
 			<input type="hidden" name="_token" value="{{csrf_token()}}">
 		</form>
 	</div>
-<a href='/search'>詳細検索ページ</a>
 
 </div>
 @stop

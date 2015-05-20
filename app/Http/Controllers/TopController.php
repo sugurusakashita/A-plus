@@ -15,7 +15,7 @@ class TopController extends Controller {
 	public function index()
 	{
 
-		return view('top/top');
+		return view('top/index');
 		
 
 	}
