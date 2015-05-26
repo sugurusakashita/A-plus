@@ -11,6 +11,33 @@
     <link href='//fonts.googleapis.com/css?family=Roboto:400,300' rel='stylesheet' type='text/css'>
 </head>
 <body>
- @yield('body')
+	<div class="header">
+		<div class="search_header" style="margin:60px; text-align:center;">
+			<form action="/search" method="get">
+				<input type="text" placeholder="授業や講師名で検索！" size="20" name="q" />
+				<input type="hidden" name="day" value="0" />
+				<input type="hidden" name="period" value="0" />
+				<input type="hidden" name="term" value="2" />
+				<input type="submit" value="検索" />
+				<input type="hidden" name="_token" value="{{csrf_token()}}">
+			</form>
+		</div>
+	</div>
+	<hr>
+	<div class="container">
+		<div class="col-xs-12 col-md-8">
+		@yield('main_content')
+		</div>
+		<div class="col-xs-6 col-md-4">
+			<div class="side-bar">
+				<div class="search_ranking">
+				</div>
+			</div>
+		</div>
+	</div>
+	<hr>
+	<div class="footer">
+		<p style="text-align:center; margin:60px;">2015 WjinkaProj All Rights Reserved</p>
+	</div>
 </body>
 </html>

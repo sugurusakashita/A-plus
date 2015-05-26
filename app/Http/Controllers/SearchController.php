@@ -1,19 +1,23 @@
 <?php namespace App\Http\Controllers;
 
 use App\Classes;
+use App\Query;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
 use Illuminate\Http\Request;
 use Input;
+use Session;
 
 class SearchController extends Controller {
 
 	protected $classes;
+	protected $queries;
 
 
-	public function __construct(Classes $classes){
+	public function __construct(Classes $classes,Query $queries){
 		$this->classes = $classes;
+		$this->queries = $queries;
 	}
 
 	/**
@@ -24,27 +28,61 @@ class SearchController extends Controller {
 
 
 	public function getIndex(){
-		$day = urldecode(Input::get('day'));
-		$period = Input::get('period');
-		$term = Input::get('term');
-		$query = urldecode(Input::get('q'));
-		$token = Input::get('_token');
 
-		//$data = $this->classes;
+		//検索からinputしたら
+		if($token = Input::get('_token')){
 
-		$res['classes'] = $this->classes_list($day,$period,$term,$query);
 
-		$res['get'] = array('q'	=>	$query,
+			$day = htmlspecialchars(Input::get('day'),ENT_QUOTES);
+			$period = Input::get('period');
+			$term = Input::get('term');
+			$query = htmlspecialchars(Input::get('q'),ENT_QUOTES);
+			$query = trim(mb_convert_kana($query,"s"));
+
+			$search_queries = mb_split("/\s/",$query);
+
+			//検索の値をDBに
+			if($search_queries){
+				$queries = $this->queries;				
+				foreach ($search_queries as $v) {
+					if(!empty($v)){
+						if (is_null($target_word = $queries->where('word', '=',$v)->first()) ){
+								$queries["word"] = $v;
+								$queries->save();					
+						}else{
+							$target_word->increment("count");
+						}	
+					}
+				}
+			}
+			$search_session = array('q'	=>	$query,
 							'day' => $day,
 							'period'=> $period,
 							'term' => $term,
 							'_token' =>	$token);
 
+			Session::put("search_session",$search_session);
+		//pagenationなどはセッションから取得
+		}else{
+			$search_session = Session::get("search_session");
+			
+			$day = $search_session['day'];
+			$period = $search_session['period'];
+			$term = $search_session['term'];
+			$query = $search_session['q'];
+			
+		}
+
+
+		$res['classes'] = $this->classes_list($day,$period,$term,$query)->paginate(20);
+
+		$res['get'] = $search_session;
+
 		return view('search/index')->with('data',$res);
 	}
 
 
-	public function classes_list($day,$period,$term,$query){
+	function classes_list($day,$period,$term,$query){
 
 		$data = $this->classes;
 
@@ -53,12 +91,13 @@ class SearchController extends Controller {
 			$period = '00';
 		}
 
-		$data = $day == '0'? $data:$data->where('class_week',$day);
-		$data = $period === '0'? $data:$data->where('class_period',$period);
-		$data = $query == '0'? $data:$data->where('class_name','like','%'.$query.'%');
+		$data = $day == '0'?	$data:$data->where('class_week',$day);
+		$data = $period === '0'?$data:$data->where('class_period',$period);
+		$data = $term == '2'?	$data:$data->where('term',$term);
+		$data = $query == '0'?  $data:$data->where('class_name','like','%'.$query.'%');
 
 
-		return $data->where('term',$term)->orderBy('class_period','asc')->orderBy('class_week','desc')->paginate(20);
+		return $data->orderBy('class_period','asc')->orderBy('class_week','desc');
 
 	}
 

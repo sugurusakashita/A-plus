@@ -4,7 +4,7 @@
 授業レビュー　|　完了
 @stop
 
-@section('body')
+@section('main_content')
 <div class ="container">
 	<div class ="row">
 		<div class="col-md-12">

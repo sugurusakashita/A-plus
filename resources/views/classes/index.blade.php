@@ -4,7 +4,7 @@
 授業詳細 | {{ $data['detail']['class_name'] }}
 @stop
 
-@section('body')
+@section('main_content')
 <div class ="container">
 	<div class ="row">
 		<h1><?php echo $data['detail']->class_name?></h1>

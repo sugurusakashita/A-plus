@@ -4,43 +4,48 @@
 WjinkaProj | 検索
 @stop
 
-@section('body')
-<div class ="container">
+@section('main_content')
 	<h1>授業検索ページ</h1>
 	<div class="search_header" style="height:200px;margin:30px">
 		<form action="/search" method="get">
 			<div class="search" >
 				<p>検索ワード</p>
-					<input type="text" size="30" placeholder="授業名を入力" name="q"/>
+					<input type="text" size="30" placeholder="授業名を入力" name="q" value="{{{ $data['get']['q']? $data['get']['q']:"" }}}"/>
 					<input type="submit" value="検索">
 			</div>
 			<div class="search_option"> 
 				<p>曜日</p>
 					<select name="day">
 						<option value="0">指定なし</option>
-						<option>月</option>
-						<option>火</option>
-						<option>水</option>
-						<option>木</option>
-						<option>金</option>
-						<option>土</option>
-						<option>夏季</option>
+					<?php 
+						$days = ["指定なし","月","火","水","木","金","土","夏季"];
+						for($i = 1;$i < 7;$i++){ 
+
+							$str =  "<option value=".$days[$i];
+							$str .= $data['get']['day'] == $days[$i]? " selected >":" >";
+							$str .= $days[$i]."</option>";
+							echo $str;
+						}
+					?>
+
 					</select>
 				<p>時限</p>
 					<select name="period">
 						<option value="0">指定なし</option>
-						<option value="1">1限</option>
-						<option value="2">2限</option>
-						<option value="3">3限</option>
-						<option value="4">4限</option>
-						<option value="5">5限</option>
-						<option value="6">6限</option>
-						<option value="7">7限</option>
+					<?php 
+						for($i = 1;$i < 8;$i++){ 
+							$str =  "<option value=".$i;
+							$str .= $data['get']['period'] == $i? " selected >":" >";
+							$str .= $i."限</option>";
+							echo $str;
+						}
+					?>						
 					</select>
 				<p>学期</p>
 					<select name="term">
-						<option value="0">春学期</option>
-						<option value="1">秋学期</option>
+						<option value="2"  {{{ $data['get']['term'] == 2? "selected":"" }}}>指定なし</option> 
+						<option value="0"  {{{ $data['get']['term'] == 0? " selected":"" }}}>春学期</option>
+						<option value="1"  {{{ $data['get']['term'] == 1? " selected":"" }}}>秋学期</option>
 					</select>
 
 				
@@ -50,7 +55,8 @@ WjinkaProj | 検索
 	</div>
 	<div style="text-align:center; margin:30px;">
 	<p><?php 
-		echo $data['get']['term'] == 0? "春学期 ":"秋学期 ";
+		$term = ["春学期 ","秋学期 "];
+		echo $data['get']['term'] == 2? "":$term[$data['get']['term']];
 			if($data['get']['day']){
 				echo  $data['get']['day'];
 				if($data['get']['day'] != "夏季"){
@@ -59,12 +65,14 @@ WjinkaProj | 検索
 
 			}
 		echo $data['get']['period']? $data['get']['period']."限 ":"";
-		echo '「'.$data['get']['q'].'」の検索結果'?></p>
+		echo '「'.$data['get']['q'].'」の検索結果'
+		?>
+	</p>
 	<p style="color:#FF0000;"><?php echo $data['classes']->total()? $data['classes']->total()."件ヒットしました！":"";?></p>
 			<?php 
 				
 				echo "<p>".$data['classes']->currentPage().' / '.$data['classes']->lastPage()."</p>";
-				echo $data['classes']->appends($data['get'])->render(); 
+				echo $data['classes']->render(); 
 			?>
 		</p>
 	</div>
@@ -80,8 +88,9 @@ WjinkaProj | 検索
 	<?php
 			echo "<p>".$class_data->class_week."</p>";
 			echo $class_data->class_period === "00"? "NaN":"<p>".$class_data->class_period."限</p>";
-			echo "<p>".$class_data->class_name."</p><hr>";
+			echo "<p>".$class_data->class_name."</p>";
 	?>
+				<hr>
 			</a>
 		</div>
 		
@@ -93,12 +102,10 @@ WjinkaProj | 検索
 	?>
 	<div style="text-align:center; margin:30px;">
 			<?php 
-				echo $data['classes']->appends($data['get'])->render(); 		
+				echo $data['classes']->render(); 		
 				echo "<p>".$data['classes']->currentPage().' / '.$data['classes']->lastPage()."</p>";
 				
 			?>
 		
 	</div>
-
-</div>
 @stop

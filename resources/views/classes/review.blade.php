@@ -4,7 +4,7 @@
 授業レビュー | {{ $data['detail']['class_name'] }}
 @stop
 
-@section('body')
+@section('main_content')
 <div class ="container">
 	<div class ="row">
 		<div class="col-md-12">

@@ -4,8 +4,7 @@
 WjinkaProj | トップ
 @stop
 
-@section('body')
-<div class ="container">
+@section('main_content')
 	<h2 class="page-header">トップページ</h2>
 	<div class="search_header" style="margin:30px">
 		<form action="/search" method="get">
@@ -17,6 +16,4 @@ WjinkaProj | トップ
 			<input type="hidden" name="_token" value="{{csrf_token()}}">
 		</form>
 	</div>
-
-</div>
 @stop
