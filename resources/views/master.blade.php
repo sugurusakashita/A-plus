@@ -18,7 +18,7 @@
     <div class="container">
       <div class="row-fluid">
         <div class="brand">
-          <a href="/" class="">WjinkaProj</a>
+          <a href="/" class="">早稲田大学人間科学部自主シラバス</a>
         </div>
         <nav class="right-float">
           <a href="#" class="btn btn-pill btn-primary-outline">Top</a>
@@ -28,19 +28,24 @@
       </div>
     </div>
   </header>
-	<div class="header">
-		<div class="search_header" style="margin:60px; text-align:center;">
+
+	<div class="container">
+		<div class="search_header" style="margin-top:20px; text-align:center;">
 			<form action="/search" method="get">
-				<input type="text" class="form-element" placeholder="授業や講師名で検索！" size="20" name="q" style="width: 50%;"/>
-				<input type="hidden" name="day" value="0" />
-				<input type="hidden" name="period" value="0" />
-				<input type="hidden" name="term" value="2" />
-				<input type="submit" class="btn btn-primary btn-sm" value="検索" />
-				<input type="hidden" name="_token" value="{{csrf_token()}}">
+        <div class="form-element-group">
+          <input type="text" class="form-element" placeholder="授業や講師名で検索！" name="q"/>
+          <input type="hidden" name="day" value="0" />
+          <input type="hidden" name="period" value="0" />
+          <input type="hidden" name="term" value="2" />
+          <input type="hidden" name="_token" value="{{csrf_token()}}">
+          <span class="form-group-btn">
+            <button class="btn btn-default btn-primary" type="submit">検索</button>
+          </span>
+        </div>
 			</form>
 		</div>
 	</div>
-	<hr>
+
   <div class="container">
       <div class="row-fluid">
         <div class="col8">
@@ -51,9 +56,12 @@
         </div>
       </div>
   </div>
-	<hr>
-	<div class="footer" style="text-align:center; margin:60px;">
-		<p >2015 WjinkaProj All Rights Reserved</p>
-	</div>
+  <footer style="margin-top: 30px; margin-bottom: 30px;">
+    <div class="container">
+      <ul class="list-group">
+        <li class="list-group-element">2015 WjinkaProj All Rights Reserved</li>
+      </ul>
+    </div>
+  </footer>
 </body>
 </html>

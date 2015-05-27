@@ -5,23 +5,21 @@ WjinkaProj | トップ
 @stop
 
 @section('main_content')
-	<h2 class="page-header">トップページ</h2>
-	<div class="search_header" style="margin:30px">
-		<form action="/search" method="get">
-			<input type="text" placeholder="ここに検索ワードを" size="20" name="q" />
-			<input type="hidden" name="day" value="0" />
-			<input type="hidden" name="period" value="0" />
-			<input type="hidden" name="term" value="0" />
-			<input type="submit" value="検索" />
-			<input type="hidden" name="_token" value="{{csrf_token()}}">
-		</form>
+	<h3 class="page-header">製作陣</h3>
 		<blockquote>
-		  <p>wjinkaは不滅だ</p>
+		  <p>老害 in the Sky</p>
 		  <cite>@xk_vls</cite>
 		</blockquote>
 		<blockquote>
 		  <p>今日もウイスキーが美味い</p>
-		  <cite>@shalman</cite>
+		  <cite>@reastral_crm</cite>
 		</blockquote>
-	</div>
+		<blockquote>
+		  <p>そこに私はいません</p>
+		  <cite>@kuriiiimu</cite>
+		</blockquote>
+		<blockquote>
+		  <p>俺が次世代人科最強エンジニアだ</p>
+		  <cite>@zo58nari</cite>
+		</blockquote>
 @stop
