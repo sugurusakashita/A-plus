@@ -13,19 +13,23 @@ class SearchController extends Controller {
 
 	protected $classes;
 	protected $queries;
+	protected $ranking;
 
 
-	public function __construct(Classes $classes,Query $queries){
+	public function __construct(Classes $classes,Query $queries,RankingController $ranking){
 		$this->classes = $classes;
 		$this->queries = $queries;
+		$this->ranking = $ranking;
 	}
 
 	/**
-	 * Display a listing of the resource.
+	 * 検索インデックス
 	 *
-	 * @return Response
+	 * @param void
+	 * @author shalman
+	 * @return view
+	 *
 	 */
-
 
 	public function getIndex(){
 
@@ -55,6 +59,7 @@ class SearchController extends Controller {
 					}
 				}
 			}
+
 			$search_session = array('q'	=>	$query,
 							'day' => $day,
 							'period'=> $period,
@@ -74,13 +79,22 @@ class SearchController extends Controller {
 		}
 
 
-		$res['classes'] = $this->classes_list($day,$period,$term,$query)->paginate(20);
+		$data['classes'] = $this->classes_list($day,$period,$term,$query)->paginate(20);
+		$data['get'] = $search_session;
+		$data['search_ranking'] = $this->ranking->returnSearchRankingList();
+		$data{'access_ranking'} = $this->ranking->returnAccessRankingList();
 
-		$res['get'] = $search_session;
-
-		return view('search/index')->with('data',$res);
+		return view('search/index')->with('data',$data);
 	}
 
+	/**
+	 * 検索メソッド
+	 *
+	 * @param String,int,int,String
+	 * @author shalman
+	 * @return obj
+	 *
+	 */
 
 	function classes_list($day,$period,$term,$query){
 

@@ -1,5 +1,45 @@
 @extends('master')
 
+@section('sidebar')
+<div class="sidebar">
+	<div class="access_ranking">
+		<span><h3>アクセスランキング</h3></span>
+		<hr>
+		<span>
+		<?php
+			$i = 1;
+			foreach ($data['access_ranking'] as $ranking) {
+				echo "<p>第 ".$i." 位　".$ranking->class_name."</p>";
+				$i++;
+			}
+		?>
+		</span>
+	</div>
+	<div class="search_word_ranking">
+		<span><h3>人気検索ワードランキング</h3></span>
+		<hr>
+		<span>
+		<?php
+			$i = 1;
+			foreach ($data['search_ranking'] as $ranking) {
+
+				echo "<p>第 ".$i." 位　".$ranking->word."</p>";
+				$i++;
+			}
+		?>
+		</span>
+	</div>
+</div>
+@stop
+
+@section('sidebar')
+<div class="sidebar">
+	<?php
+		
+	?>
+</div>
+@stop
+
 @section('title')
 WjinkaProj | 検索
 @stop

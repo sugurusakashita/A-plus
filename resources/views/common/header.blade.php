@@ -1,3 +1,4 @@
+@section('header')
 <!doctype>
 <html lang="ja">
 <head>
@@ -24,17 +25,5 @@
 		</div>
 	</div>
 	<hr>
-	<div class="container">
-		<div class="col-xs-12 col-md-8">
-		@yield('main_content')
-		</div>
-		<div class="col-xs-6 col-md-4">
-		@yield('sidebar')
-		</div>
-	</div>
-	<hr>
-	<div class="footer" style="text-align:center; margin:60px;">
-		<p >2015 WjinkaProj All Rights Reserved</p>
-	</div>
-</body>
-</html>
+@stop
+

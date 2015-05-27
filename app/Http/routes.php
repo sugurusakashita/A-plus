@@ -33,5 +33,6 @@ Route::controllers([
 	'auth' => 'Auth\AuthController',
 	'password' => 'Auth\PasswordController',
 	'search'	=>	'SearchController',
-	'classes'	=>	'ClassesController'
+	'classes'	=>	'ClassesController',
+	'ranking'	=>	'RankingController'
 ]);

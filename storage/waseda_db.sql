@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: May 26, 2015 at 07:00 AM
+-- Generation Time: May 27, 2015 at 03:34 AM
 -- Server version: 5.6.19
 -- PHP Version: 5.5.24
 
@@ -41,7 +41,8 @@ INSERT INTO `migrations` (`migration`, `batch`) VALUES
 ('2015_05_19_002022_create_classes_table', 2),
 ('2015_05_20_014116_create_reviews_table', 2),
 ('2015_05_24_175529_create_queries_table', 3),
-('2015_05_26_144347_create_session_table', 4);
+('2015_05_26_144347_create_session_table', 4),
+('2015_05_27_110255_create_pvs_table', 5);
 
 -- --------------------------------------------------------
 
@@ -58,6 +59,37 @@ CREATE TABLE IF NOT EXISTS `password_resets` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `pvs`
+--
+
+CREATE TABLE IF NOT EXISTS `pvs` (
+`id` int(10) unsigned NOT NULL,
+  `class_id` int(128) NOT NULL COMMENT 'クラスID',
+  `pv` int(128) NOT NULL DEFAULT '1' COMMENT 'ページビュー',
+  `created_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00'
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=14 ;
+
+--
+-- Dumping data for table `pvs`
+--
+
+INSERT INTO `pvs` (`id`, `class_id`, `pv`, `created_at`, `updated_at`) VALUES
+(3, 14, 2, '0000-00-00 00:00:00', '2015-05-27 02:48:29'),
+(4, 25, 1, '2015-05-27 02:48:48', '2015-05-27 02:48:48'),
+(5, 283, 1, '2015-05-27 02:49:22', '2015-05-27 02:49:22'),
+(6, 61, 1, '2015-05-27 02:49:48', '2015-05-27 02:49:48'),
+(7, 373, 1, '2015-05-27 02:50:27', '2015-05-27 02:50:27'),
+(8, 378, 1, '2015-05-27 02:50:42', '2015-05-27 02:50:42'),
+(9, 317, 1, '2015-05-27 03:23:01', '2015-05-27 03:23:01'),
+(10, 271, 1, '2015-05-27 03:26:53', '2015-05-27 03:26:53'),
+(11, 302, 1, '2015-05-27 03:27:02', '2015-05-27 03:27:02'),
+(12, 266, 1, '2015-05-27 03:27:34', '2015-05-27 03:27:34'),
+(13, 72, 1, '2015-05-27 03:32:54', '2015-05-27 03:32:54');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `queries`
 --
 
@@ -67,25 +99,25 @@ CREATE TABLE IF NOT EXISTS `queries` (
   `count` int(11) NOT NULL DEFAULT '1' COMMENT 'ワードカウント',
   `created_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00'
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=18 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=24 ;
 
 --
 -- Dumping data for table `queries`
 --
 
 INSERT INTO `queries` (`id`, `word`, `count`, `created_at`, `updated_at`) VALUES
-(1, 'データリテラシー', 2, '2015-05-26 05:02:43', '2015-05-26 05:27:41'),
-(3, 'リテラシー', 5, '2015-05-26 05:04:24', '2015-05-26 05:44:29'),
-(4, 'データ', 4, '2015-05-26 05:28:19', '2015-05-26 05:44:29'),
+(1, 'データリテラシー', 3, '2015-05-26 05:02:43', '2015-05-27 03:32:47'),
+(3, 'リテラシー', 11, '2015-05-26 05:04:24', '2015-05-26 12:05:51'),
+(4, 'データ', 6, '2015-05-26 05:28:19', '2015-05-26 10:20:15'),
 (7, '情報', 1, '2015-05-26 05:53:24', '2015-05-26 05:53:24'),
 (10, 'aaa', 1, '2015-05-26 06:04:00', '2015-05-26 06:04:00'),
 (11, '<', 1, '2015-05-26 06:04:04', '2015-05-26 06:04:04'),
-(12, '<html>', 1, '2015-05-26 06:04:09', '2015-05-26 06:04:09'),
-(13, '<html', 1, '2015-05-26 06:04:18', '2015-05-26 06:04:18'),
-(14, '<b', 1, '2015-05-26 06:05:02', '2015-05-26 06:05:02'),
-(15, '<strong', 1, '2015-05-26 06:05:07', '2015-05-26 06:05:07'),
-(16, '<strong>', 1, '2015-05-26 06:05:11', '2015-05-26 06:05:11'),
-(17, '&lt;strong&gt;', 2, '2015-05-26 06:13:10', '2015-05-26 06:13:12');
+(18, 'こここ', 1, '2015-05-26 07:21:33', '2015-05-26 07:21:33'),
+(19, 'スタディ', 10, '2015-05-26 10:35:25', '2015-05-26 12:04:48'),
+(20, '&lt;html&gt;', 1, '2015-05-26 12:06:28', '2015-05-26 12:06:28'),
+(21, '&lt;html', 3, '2015-05-26 12:07:39', '2015-05-26 12:12:13'),
+(22, '基礎', 6, '2015-05-26 12:12:24', '2015-05-26 12:14:37'),
+(23, 'ゼミ', 4, '2015-05-26 12:12:44', '2015-05-26 12:14:30');
 
 -- --------------------------------------------------------
 
@@ -104,7 +136,10 @@ CREATE TABLE IF NOT EXISTS `sessions` (
 --
 
 INSERT INTO `sessions` (`id`, `payload`, `last_activity`) VALUES
-('16f81f010faf85274b5e420a6c7d2f4a3e822978', 'YTo1OntzOjY6Il90b2tlbiI7czo0MDoic2c5S1lFZmo1YXhaRjBiVUE1Y0ZGNTdQRkFodlpoaHdUM1lhYnlZNiI7czoxNDoic2VhcmNoX3Nlc3Npb24iO2E6NTp7czoxOiJxIjtzOjA6IiI7czozOiJkYXkiO3M6MToiMCI7czo2OiJwZXJpb2QiO3M6MToiMCI7czo0OiJ0ZXJtIjtzOjE6IjIiO3M6NjoiX3Rva2VuIjtzOjQwOiJzZzlLWUVmajVheFpGMGJVQTVjRkY1N1BGQWh2Wmhod1QzWWFieVk2Ijt9czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6OTc6Imh0dHA6Ly93amlua2EuY29tL3NlYXJjaD9fdG9rZW49c2c5S1lFZmo1YXhaRjBiVUE1Y0ZGNTdQRkFodlpoaHdUM1lhYnlZNiZkYXk9MCZwZXJpb2Q9MCZxPSZ0ZXJtPTIiO31zOjU6ImZsYXNoIjthOjI6e3M6Mzoib2xkIjthOjA6e31zOjM6Im5ldyI7YTowOnt9fXM6OToiX3NmMl9tZXRhIjthOjM6e3M6MToidSI7aToxNDMyNjIzMTYyO3M6MToiYyI7aToxNDMyNjE5MDUyO3M6MToibCI7czoxOiIwIjt9fQ==', 1432623162);
+('218fe1e1bbecc2859e7f8608b1fc9a5148033e2e', 'YToxNjp7czo2OiJfdG9rZW4iO3M6NDA6IndvZ0hnelgyNU00N2ZydzJHYXdqcmdjZFAyTXVQM3F0NXpQMEh0dnkiO3M6OToiX3ByZXZpb3VzIjthOjE6e3M6MzoidXJsIjtzOjk3OiJodHRwOi8vd2ppbmthLmNvbS9zZWFyY2g/X3Rva2VuPXdvZ0hnelgyNU00N2ZydzJHYXdqcmdjZFAyTXVQM3F0NXpQMEh0dnkmZGF5PTAmcGVyaW9kPTAmcT0mdGVybT0yIjt9czo1OiJmbGFzaCI7YToyOntzOjM6Im9sZCI7YTowOnt9czozOiJuZXciO2E6MDp7fX1zOjE0OiJzZWFyY2hfc2Vzc2lvbiI7YTo1OntzOjE6InEiO3M6MDoiIjtzOjM6ImRheSI7czoxOiIwIjtzOjY6InBlcmlvZCI7czoxOiIwIjtzOjQ6InRlcm0iO3M6MToiMiI7czo2OiJfdG9rZW4iO3M6NDA6IndvZ0hnelgyNU00N2ZydzJHYXdqcmdjZFAyTXVQM3F0NXpQMEh0dnkiO31zOjU6IjE0X3B2IjtiOjE7czo1OiIyNV9wdiI7YjoxO3M6NjoiMjgzX3B2IjtiOjE7czo1OiI2MV9wdiI7YjoxO3M6NjoiMzczX3B2IjtiOjE7czo2OiIzNzhfcHYiO2I6MTtzOjY6IjMxN19wdiI7YjoxO3M6NjoiMjcxX3B2IjtiOjE7czo2OiIzMDJfcHYiO2I6MTtzOjY6IjI2Nl9wdiI7YjoxO3M6NToiNzJfcHYiO2I6MTtzOjk6Il9zZjJfbWV0YSI7YTozOntzOjE6InUiO2k6MTQzMjY5NzYxMDtzOjE6ImMiO2k6MTQzMjY5MTEwMDtzOjE6ImwiO3M6MToiMCI7fX0=', 1432697610),
+('740cdea023914354cbbd9c0b96a7e3a6cda07eef', 'YTozOntzOjY6Il90b2tlbiI7czo0MDoiU3BYdU1OMTBMNnNGMXhBYmxGWU1PUlViRDdWVmdoNmtNbVVhZFlEdCI7czo5OiJfc2YyX21ldGEiO2E6Mzp7czoxOiJ1IjtpOjE0MzI2OTEwODU7czoxOiJjIjtpOjE0MzI2OTEwODU7czoxOiJsIjtzOjE6IjAiO31zOjU6ImZsYXNoIjthOjI6e3M6Mzoib2xkIjthOjA6e31zOjM6Im5ldyI7YTowOnt9fX0=', 1432691085),
+('b2106e74bb4a8005185d7288660e11e239b70fb0', 'YTozOntzOjY6Il90b2tlbiI7czo0MDoiNEhpS2laNjdRS3BEU0N2c3JYSGdRNmRJTFpJNWdyUmtFNzU4UmxXaCI7czo5OiJfc2YyX21ldGEiO2E6Mzp7czoxOiJ1IjtpOjE0MzI2OTEwODY7czoxOiJjIjtpOjE0MzI2OTEwODY7czoxOiJsIjtzOjE6IjAiO31zOjU6ImZsYXNoIjthOjI6e3M6Mzoib2xkIjthOjA6e31zOjM6Im5ldyI7YTowOnt9fX0=', 1432691086),
+('c2af728a3b34d89ff1f699194e569103165af600', 'YTozOntzOjY6Il90b2tlbiI7czo0MDoiMGJMSXl6VDBYcFR2d1NtUTNuQko3QjdSNDdUS2l2OUFicUQzQ3dmdyI7czo5OiJfc2YyX21ldGEiO2E6Mzp7czoxOiJ1IjtpOjE0MzI2OTEwNzY7czoxOiJjIjtpOjE0MzI2OTEwNzY7czoxOiJsIjtzOjE6IjAiO31zOjU6ImZsYXNoIjthOjI6e3M6Mzoib2xkIjthOjA6e31zOjM6Im5ldyI7YTowOnt9fX0=', 1432691076);
 
 -- --------------------------------------------------------
 
@@ -582,6 +617,12 @@ ALTER TABLE `password_resets`
  ADD KEY `password_resets_email_index` (`email`), ADD KEY `password_resets_token_index` (`token`);
 
 --
+-- Indexes for table `pvs`
+--
+ALTER TABLE `pvs`
+ ADD PRIMARY KEY (`id`), ADD KEY `class_id` (`class_id`), ADD KEY `class_id_2` (`class_id`);
+
+--
 -- Indexes for table `queries`
 --
 ALTER TABLE `queries`
@@ -597,7 +638,7 @@ ALTER TABLE `sessions`
 -- Indexes for table `tm_classes`
 --
 ALTER TABLE `tm_classes`
- ADD PRIMARY KEY (`id`), ADD UNIQUE KEY `code` (`id`);
+ ADD PRIMARY KEY (`id`), ADD UNIQUE KEY `code` (`id`), ADD KEY `id` (`id`);
 
 --
 -- Indexes for table `tm_member`
@@ -622,10 +663,15 @@ ALTER TABLE `users`
 --
 
 --
+-- AUTO_INCREMENT for table `pvs`
+--
+ALTER TABLE `pvs`
+MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=14;
+--
 -- AUTO_INCREMENT for table `queries`
 --
 ALTER TABLE `queries`
-MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=18;
+MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=24;
 --
 -- AUTO_INCREMENT for table `tm_classes`
 --
@@ -646,6 +692,16 @@ MODIFY `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'レビューID',AUTO_INCREM
 --
 ALTER TABLE `users`
 MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT;
+--
+-- Constraints for dumped tables
+--
+
+--
+-- Constraints for table `pvs`
+--
+ALTER TABLE `pvs`
+ADD CONSTRAINT `授業IDリレーション` FOREIGN KEY (`class_id`) REFERENCES `tm_classes` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
