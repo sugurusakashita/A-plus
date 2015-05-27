@@ -32,14 +32,6 @@
 </div>
 @stop
 
-@section('sidebar')
-<div class="sidebar">
-	<?php
-		
-	?>
-</div>
-@stop
-
 @section('title')
 WjinkaProj | 検索
 @stop

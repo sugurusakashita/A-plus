@@ -6,10 +6,7 @@ html {
 }
 body {
   margin: 0;
-
 }
-
-
 article,
 aside,
 details,
@@ -946,7 +943,7 @@ hr {
   margin-top: 20px;
   margin-bottom: 20px;
   border: 0;
-  border-top: 1px solid #898989;
+  border-top: 1px solid #eeeeee;
 }
 .sr-only {
   position: absolute;
@@ -6234,3 +6231,5 @@ label,
 .checkbox label {
   font-weight: 300;
 }
+
+/*# sourceMappingURL=app.css.map */

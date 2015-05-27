@@ -1,0 +1,31 @@
+{
+  "name": "schema-ui",
+  "version": "2.0.0",
+  "homepage": "https://github.com/danmalarkey/schema",
+  "authors": [
+    "Dan Malarkey <dan@feature23.com>"
+  ],
+  "description": "a modular, responsive, front end framework to easily and quickly help you jumpstart your process in building complex interfaces for the web right out the box.",
+  "main": "dist/css/schema.css",
+  "keywords": [
+    "css",
+    "framework",
+    "less",
+    "framework",
+    "less",
+    "schema",
+    "schema",
+    "ui",
+    "schema",
+    "ui",
+    "framework"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}

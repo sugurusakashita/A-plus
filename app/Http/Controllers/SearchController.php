@@ -47,12 +47,12 @@ class SearchController extends Controller {
 
 			//検索の値をDBに
 			if($search_queries){
-				$queries = $this->queries;				
+				$queries = $this->queries;
 				foreach ($search_queries as $v) {
 					if(!empty($v)){
 						if (is_null($target_word = $queries->where('word', '=',$v)->first()) ){
 								$queries["word"] = $v;
-								$queries->save();					
+								$queries->save();
 						}else{
 							$target_word->increment("count");
 						}	

@@ -15,5 +15,13 @@ WjinkaProj | トップ
 			<input type="submit" value="検索" />
 			<input type="hidden" name="_token" value="{{csrf_token()}}">
 		</form>
+		<blockquote>
+		  <p>wjinkaは不滅だ</p>
+		  <cite>@xk_vls</cite>
+		</blockquote>
+		<blockquote>
+		  <p>今日もウイスキーが美味い</p>
+		  <cite>@shalman</cite>
+		</blockquote>
 	</div>
 @stop
