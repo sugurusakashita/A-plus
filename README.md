@@ -19,6 +19,8 @@
 https://bitbucket.org/wjinka/wjinka-portal/downloads
 より。
 
+
+
 ```
 
 APP_ENV=local
@@ -32,6 +34,8 @@ DB_PASSWORD="mysqlのパス"
 
 CACHE_DRIVER=file
 SESSION_DRIVER=file
+//Devブランチ、現在はセッションをdb管理しています。(今後はmasterもdb管理の予定)適宜変更してください。
+//SESSION_DRIVER=database
 QUEUE_DRIVER=sync
 
 MAIL_DRIVER=smtp
