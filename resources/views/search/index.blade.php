@@ -26,25 +26,6 @@ WjinkaProj | 検索
 	</div>
 </div>
 
-@if($data['classes']->count())
-	@foreach ($data['classes'] as $class_data)
-
-	<div style="margin-bottom: 15px;">
-			<ul class="list-group">
-			  <li class="list-group-element"><span class="badge info">{{ $class_data->class_week }}</span>　<span class="badge warning"><?php echo $class_data->class_period === "00"? "その他":$class_data->class_period."限"; ?></span></li>
-			  <li class="list-group-element"><a href="classes/index/{{ $class_data->id }}">{{ $class_data->class_name }}</a></li>
-			</ul>
-	</div>
-
-	@endforeach
-@else
-	<p style='color: #FF0000;'>検索結果が存在しませんでした。<br />再検索してください。</p>
-@endif
-
-	<div style="margin: 20px auto; height: 40px;">
-		<?php echo $data['classes']->render(); ?>
-	</div>
-
 	<form action="/search" method="get">
 		<table class="table table-bordered">
 	    <thead>
@@ -104,4 +85,24 @@ WjinkaProj | 検索
 		</table>
 		<input type="hidden" name="_token" value="{{csrf_token()}}">
 	</form>
+
+@if($data['classes']->count())
+	@foreach ($data['classes'] as $class_data)
+
+	<div style="margin-bottom: 15px;">
+			<ul class="list-group">
+			  <li class="list-group-element"><span class="badge info">{{ $class_data->class_week }}</span>　<span class="badge warning"><?php echo $class_data->class_period === "00"? "その他":$class_data->class_period."限"; ?></span></li>
+			  <li class="list-group-element"><a href="classes/index/{{ $class_data->id }}">{{ $class_data->class_name }}</a></li>
+			</ul>
+	</div>
+
+	@endforeach
+@else
+	<p style='color: #FF0000;'>検索結果が存在しませんでした。<br />再検索してください。</p>
+@endif
+
+	<div style="margin: 20px auto; height: 40px;">
+		<?php echo $data['classes']->render(); ?>
+	</div>
+
 @stop

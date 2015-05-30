@@ -1,7 +1,7 @@
 @extends('master')
 
 @section('title')
-WjinkaProj | トップ
+A+plus
 @stop
 
 @section('main_content')
