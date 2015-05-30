@@ -2,7 +2,7 @@
   <div class="container">
     <div class="row-fluid">
       <div class="brand">
-        <a href="/" class="">wjinka project　（このスペースにでっかくバナー入れたい？）</a>
+        <a href="/" class="">jinka stone　（このスペースにでっかくバナー入れたい？）</a>
       </div>
 <!--       <nav class="right-float">
         <a href="#" class="btn btn-pill btn-primary-outline">Top</a>
