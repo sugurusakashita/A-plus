@@ -5,7 +5,7 @@ WjinkaProj | トップ
 @stop
 
 @section('main_content')
-	<h3 class="page-header">製作陣</h3>
+	<h4 class="page-header">credits</h4>
 		<blockquote>
 		  <p>老害 in the Sky</p>
 		  <cite>@xk_vls</cite>
@@ -19,7 +19,7 @@ WjinkaProj | トップ
 		  <cite>@kuriiiimu</cite>
 		</blockquote>
 		<blockquote>
-		  <p>俺が次世代人科最強エンジニアだ</p>
+		  <p>俺が次世代人科最強エンジニア</p>
 		  <cite>@zo58nari</cite>
 		</blockquote>
 @stop
