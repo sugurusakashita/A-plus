@@ -14,21 +14,7 @@
     <![endif]-->
 </head>
 <body>
-  <header class="nav" style="margin-top: 10px;">
-    <div class="container">
-      <div class="row-fluid">
-        <div class="brand">
-          <a href="/" class="">早稲田大学人間科学部自主シラバス</a>
-        </div>
-        <nav class="right-float">
-          <a href="#" class="btn btn-pill btn-primary-outline">Top</a>
-          <a href="#" class="btn-pill">Search</a>
-          <a href="#" class="btn-pill">Library</a>
-        </nav>
-      </div>
-    </div>
-  </header>
-
+  @include('common.header')
 	<div class="container">
 		<div class="search_header" style="margin-top:20px; text-align:center;">
 			<form action="/search" method="get">
@@ -56,12 +42,6 @@
         </div>
       </div>
   </div>
-  <footer style="margin-top: 30px; margin-bottom: 30px;">
-    <div class="container">
-      <ul class="list-group">
-        <li class="list-group-element">2015 WjinkaProj All Rights Reserved</li>
-      </ul>
-    </div>
-  </footer>
+  @include('common.footer')
 </body>
 </html>
