@@ -34,12 +34,13 @@ class ClassesController extends Controller {
 	 *
 	 */
 
-	public function getIndex($id,Pv $pv){
+	public function getIndex($id,Pv $pv,TagController $tag){
 
 		$classes = $this->classes;
 
 		$data['review'] = $this->returnReviewDetailByClassId($id);
 		$data['detail'] = $classes->find($id);
+		$data['tag'] 	= $tag->returnTagNamesByClassId($id); 
 		$data['search_ranking'] = $this->ranking->returnSearchRankingList();
 		$data['access_ranking'] = $this->ranking->returnAccessRankingList();
 		//ユニークPVカウント

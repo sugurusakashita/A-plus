@@ -48,6 +48,12 @@
 				<h3>学期 | <?php echo $data['detail']->term == 0? '春学期':'秋学期'?></h3>
 				<h3>曜日 | <?php echo $data['detail']->class_week?></h3>
 				<h3>時限 | <?php echo $data['detail']->class_period?>限</h3>
+				<h3>タグ | 
+				@foreach($data['tag'] as $t)
+					<a hregf="">#{{ $t[0]->tag_name }}</a>
+				@endforeach
+				</h3>
+				<a href=""><p>タグを追加する！</p></a>
 			</div>
 			<div>
 				<h2 class="page-header">授業レビュー</h2>
