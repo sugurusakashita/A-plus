@@ -9,6 +9,7 @@
     </title>
     <link href="{{ asset('/css/app.css') }}" rel="stylesheet">
     <link href='//fonts.googleapis.com/css?family=Roboto:400,300' rel='stylesheet' type='text/css'>
+    @yield('js')
 </head>
 <body>
 	<div class="header">

@@ -32,12 +32,22 @@
 </div>
 @stop
 
+@section('js')
+<script type="text/javascript" src="/js/classes.js"></script>
+@stop
+
 @section('title')
 授業詳細 | {{ $data['detail']['class_name'] }}
 @stop
 
 @section('main_content')
 	<div class ="row">
+		@if($data['tag']['add_result']->added_tag)
+			<p style="color:red;">タグが追加されました。</p>
+		@endif
+		@if($data['tag']['add_result']->deleted_tag)
+			<p style="color:red;">タグが削除されました。</p>
+		@endif
 		<h1><?php echo $data['detail']->class_name?></h1>
 
 		<div class="col-md-12">
@@ -55,13 +65,29 @@
 				<h3>時限 | <?php echo $data['detail']->class_period?>限</h3>
 				<h3>教室 | {{ $data['detail']->room_name }}</h3>
 				<h3>タグ | 
-				@if($data['tag'])
-					@foreach($data['tag'] as $t)
-						<a hregf="">#{{ $t[0]->tag_name }}</a>
+				@if($data['tag']['list'])
+					@foreach($data['tag']['list'] as $t)
+						<form action="#" method="POST" name="delete_tag">
+							<input type="submit" value="×"> 
+							<a href="">#{{ $t->tag_name }}</a>
+							<input type="hidden" value="{{ $t->tag_name }}" name="delete_tag_name">
+							<input type="hidden" name="_token" value="{{csrf_token()}}" />							
+						</form>
 					@endforeach
+					
 				@endif
 				</h3>
-				<a href="/tag/add/{{ $data['detail']->id }}"><p>タグを追加する！</p></a><br>
+				<div class="add_tag">
+					<a href="/tag/add/{{ $data['detail']->id }}"><p>リストからタグを追加する！</p></a><br>
+					<p>ない場合は...</p>
+					<form action="#" method="POST" name="add_tag">
+						<input type="text" size="32" placeholder="ここに新しいタグを入力!" required name="add_tag_name" value=""/>
+						<input type="hidden" name="_token" value="{{csrf_token()}}" />
+						<button type="submit" name="add_button" >追加</button>
+					</form>
+
+				</div>
+				
 				@if($data['detail']->summary)
 					<h4>授業要旨</h4>
 					<hr>

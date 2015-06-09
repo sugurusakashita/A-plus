@@ -5,6 +5,6 @@ use Illuminate\Database\Eloquent\Model;
 class Tag extends Model {
 
 	protected $table = "tags";
-	protected $filable = ["tag_name"];
+	protected $filable = ["class_id","tag_name"];
 
 }

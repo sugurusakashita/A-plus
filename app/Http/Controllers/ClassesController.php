@@ -38,13 +38,14 @@ class ClassesController extends Controller {
 	 *
 	 */
 
-	public function getIndex($id,Pv $pv,TagController $tag){
+	public function getIndex($id,Pv $pv,TagController $tag,Request $request){
 
 		$classes = $this->classes;
 
 		$data['review'] = $this->returnReviewDetailByClassId($id);
 		$data['detail'] = $classes->find($id);
-		$data['tag'] 	= $tag->returnTagNamesByClassId($id); 
+		$data['tag']['list'] 	= $tag->returnTagNamesByClassId($id); 
+		$data['tag']['add_result'] = $request;
 		$data['teacher'] = $this->returnTeachersNameByClassId($id);
 		$data['search_ranking'] = $this->ranking->returnSearchRankingList();
 		$data['access_ranking'] = $this->ranking->returnAccessRankingList();
@@ -59,11 +60,22 @@ class ClassesController extends Controller {
 			Session::put($id.'_pv',true);
 		}
 		
-
-
 		return view('classes/index')->with('data',$data);
 	}
 
+	public function postIndex($id,TagController $tag,Request $request){
+		$get_str　= "";
+		if($request->add_tag_name){
+			$result = $tag->addTag($id,$request->add_tag_name);
+			$get_str = "?added_tag=".$result;
+		}
+		if($request->delete_tag_name){
+			$result = $tag->deleteTag($id,$request->delete_tag_name);
+			$get_str = "?deleted_tag=".$result;
+		}
+
+		return redirect()->to("/classes/index/".$id.$get_str);
+	}
 	/**
 	 * 授業レビュー投稿
 	 *

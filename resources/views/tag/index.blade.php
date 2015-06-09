@@ -33,14 +33,38 @@
 @stop
 
 @section('title')
-タグ検索 | {{ $data['detail']['class_name'] }}
+タグ追加 | {{ $data['detail']->class_name }}
 @stop
 
 @section('main_content')
 	<div class ="row">
-		@foreach($data['tag'] as $t)
-			<p>{{ $t[0]->tag_name }}</p>
-		@endforeach
-
+		<h1>{{ $data['detail']->class_name }}にタグを追加する</h1>
+		<hr>
+		<h2>タグ一覧</h2>
+<!--
+	@foreach($data['tag_names'] as $t)
+		<a href="">{{ $t->tag_name }}</a><?php echo "　"?>
+	@endforeach
+-->
+	@foreach($data['tag_names'] as $t)
+		<form action ="/classes/index/{{ $data['detail']->id }}" method="POST" name="add_tag">
+				<button type="submit">追加する</button>
+				<p>{{ $t->tag_name }}</p>
+				<input type="hidden" value="{{ $t->tag_name }}" name="add_tag_name">
+				<input type="hidden" name="_token" value="{{csrf_token()}}" />
+				<hr>
+		</form>
+	@endforeach
+		<!-- 
+		<table class="table table-striped table-hover">
+			<tbody>
+				<tr>
+				@foreach($data['tag_names'] as $t)
+					<td width="224">{{ $t }}</td>
+				@endforeach
+				</tr>
+			</tbody>
+		</table>
+		-->
 	</div>
 @stop
