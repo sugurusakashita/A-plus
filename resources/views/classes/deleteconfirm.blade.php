@@ -9,7 +9,7 @@
 	<div class ="row">
 		<div class="col-md-12">
 			<h2 class="page-header">レビュー削除確認</h2>
-			<form action="/classes/deletecomplete" method="POST">
+			<form action="/classes/delete-complete" method="POST">
 				<div class="form-group">
 					<label>受講時の学年</label>
 					{{ $data['detail']['grade'] }}年{{ $data['detail']['grade'] == 5? "生以上":""}}

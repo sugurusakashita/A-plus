@@ -22,8 +22,7 @@ class TagController extends Controller {
 		foreach ($test as $v) {
 			var_dump($v[0]->tag_name);
 		}
-		//var_dump($test);
-		
+		//var_dump($test);	
 	}
 
 	public function returnTagNamesByClassId($class_id){
