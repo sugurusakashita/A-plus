@@ -3,6 +3,7 @@
 use App\Classes;
 use App\Review;
 use App\Pv;
+use App\Teacher;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
@@ -10,18 +11,21 @@ use Illuminate\Http\Request;
 
 use Input;
 use Session;
+use DB;
 
 class ClassesController extends Controller {
 
 	protected $classes;
 	protected $review;
 	protected $ranking;
+	protected $teacher;
 
 
-	public function __construct(Classes $classes,Review $review,RankingController $ranking){
+	public function __construct(Classes $classes,Review $review,Teacher $teacher,RankingController $ranking){
 		$this->classes = $classes;
 		$this->review = $review;
 		$this->ranking = $ranking;
+		$this->teacher = $teacher;
 
 	}
 
@@ -34,12 +38,15 @@ class ClassesController extends Controller {
 	 *
 	 */
 
-	public function getIndex($id,Pv $pv){
+	public function getIndex($id,Pv $pv,TagController $tag,Request $request){
 
 		$classes = $this->classes;
 
 		$data['review'] = $this->returnReviewDetailByClassId($id);
 		$data['detail'] = $classes->find($id);
+		$data['tag']['list'] 	= $tag->returnTagNamesByClassId($id); 
+		$data['tag']['add_result'] = $request;
+		$data['teacher'] = $this->returnTeachersNameByClassId($id);
 		$data['search_ranking'] = $this->ranking->returnSearchRankingList();
 		$data['access_ranking'] = $this->ranking->returnAccessRankingList();
 		//ユニークPVカウント
@@ -52,10 +59,23 @@ class ClassesController extends Controller {
 			}
 			Session::put($id.'_pv',true);
 		}
-
+		
 		return view('classes/index')->with('data',$data);
 	}
 
+	public function postIndex($id,TagController $tag,Request $request){
+		$get_str　= "";
+		if($request->add_tag_name){
+			$result = $tag->addTag($id,$request->add_tag_name);
+			$get_str = "?added_tag=".$result;
+		}
+		if($request->delete_tag_name){
+			$result = $tag->deleteTag($id,$request->delete_tag_name);
+			$get_str = "?deleted_tag=".$result;
+		}
+
+		return redirect()->to("/classes/index/".$id.$get_str);
+	}
 	/**
 	 * 授業レビュー投稿
 	 *
@@ -139,7 +159,7 @@ class ClassesController extends Controller {
 	 *
 	 */
 
-	public function postEditconfirm(Request $request){
+	public function postEditConfirm(Request $request){
 
 		$data = $request->all();
 
@@ -157,7 +177,7 @@ class ClassesController extends Controller {
 	 *
 	 */
 
-	public function postEditcomplete(Request $request){
+	public function postEditComplete(Request $request){
 				
 		$id = $request->review_id;
 		$review = $this->review->find($id);
@@ -180,7 +200,7 @@ class ClassesController extends Controller {
 	 *
 	 */
 
-	public function postDeleteconfirm(Request $request){
+	public function postDeleteConfirm(Request $request){
 
 		$data = $request->all();
 		$id = $data['review_id'];
@@ -199,7 +219,7 @@ class ClassesController extends Controller {
 	 *
 	 */
 
-	public function postDeletecomplete(Request $request){
+	public function postDeleteComplete(Request $request){
 				
 		$id = $request->review_id;
 		$review = $this->review->find($id);
@@ -239,5 +259,39 @@ class ClassesController extends Controller {
 
 		$data = $review->find($id);
 		return $data;
+	}
+
+	/**
+	 * 講師名をclass_idからget
+	 *
+	 * @param string
+	 * @author shalman
+	 * @return array
+	 *
+	 */
+
+	function returnTeachersNameByClassId($class_id){
+
+		$classes = $this->classes;
+		$teacher = $this->teacher;
+
+		//例外処理
+		//$teacher_ids = $classes->select("teacher_ids")->where("id",$class_id)->first()->teacher_ids;
+		$teacher_ids = $classes->find($class_id)->teacher_ids;
+		if(!$teacher_ids){
+			return null;
+		}
+		$array_ids = explode(",",$teacher_ids);
+		foreach ($array_ids as $teacher_id) {
+			//$result[] = $teacher->select("teacher_name")->where("id",$teacher_id)->first()->teacher_name;
+			$result[] = $teacher->find($teacher_id)->teacher_name;
+		}
+/*
+		$sql = DB::pretend(function(){
+
+		});
+*/		
+		return $result;
+		
 	}
 }

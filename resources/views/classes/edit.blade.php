@@ -9,7 +9,7 @@
 	<div class ="row">
 		<div class="col-md-12">
 			<h2 class="page-header">授業レビュー | 再編集</h2>
-			<form action="/classes/editconfirm" method="POST">
+			<form action="/classes/edit-confirm" method="POST">
 				<div class="form-group">
 					<label>受講時の学年</label>
 					<select name="grade" class="form-control">
@@ -55,7 +55,7 @@
 				<input type="hidden" name="class_id" value="{{ $data['detail']['class_id'] }}">
 				<input type="hidden" name="_token" value="{{csrf_token()}}">
 				<button type="submit" class="btn btn-default">入力を確認する</button>
-				<a href="{{ $_SERVER['HTTP_REFERER'] }}">戻る</a>
+				<a href="{{ @$_SERVER['HTTP_REFERER'] }}">戻る</a>
 			</form>
 		</div>
 	</div>

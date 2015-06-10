@@ -9,7 +9,7 @@
 	<div class ="row">
 		<div class="col-md-12">
 			<h2 class="page-header">レビュー確認</h2>
-			<form action="/classes/editcomplete" method="POST">
+			<form action="/classes/edit-complete" method="POST">
 				<div class="form-group">
 					<label>受講時の学年</label>
 					{{ $data['grade'] }}年{{ $data['grade'] == 5? "生以上":""}}
