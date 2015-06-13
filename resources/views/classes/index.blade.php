@@ -13,24 +13,103 @@
 @stop
 
 @section('main_content')
-		@if($data['tag']['add_result']->added_tag)
-			<p style="color:red;">タグが追加されました。</p>
-		@endif
-		@if($data['tag']['add_result']->deleted_tag)
-			<p style="color:red;">タグが削除されました。</p>
-		@endif
+			<div class="col-md-12">
+			 @if($data['tag']['add_result']->added_tag)
+			 	<p style="color:red;">タグが追加されました。</p>
+			 @endif
+			 @if($data['tag']['add_result']->deleted_tag)
+			 	<p style="color:red;">タグが削除されました。</p>
+			 @endif
 
-<!-- 		<div class="panel panel-default">
-		 <div class="panel-body">
-		 </div>
-		</div>
- -->	<div class="col-md-12">
 			<div style="margin: 0 auto 20px;">
 
-				<div class="alert a-is-info" style="margin: 0 auto 20px;">
+				<!-- タイトル -->
+				<div class="alert a-is-info" style="margin: 0 auto 5px;">
 				 <p><?php echo $data['detail']->class_name?></p>
 				</div>
 
+				<!-- タグ作ってる -->
+			 	@if($data['tag']['list'])
+				 	<div style="padding: 10px;">
+				 		@foreach($data['tag']['list'] as $t)
+				 		<span class="btn-label info">
+				 			<form action="#" method="POST" name="delete_tag" style="margin: 0;">
+				 				<input type="submit" value="×" style="color: black;">
+				 				<a href="" style="color: white; font-size: 1.5em;">#{{ $t->tag_name }}</a>
+				 				<input type="hidden" value="{{ $t->tag_name }}" name="delete_tag_name">
+				 				<input type="hidden" name="_token" value="{{csrf_token()}}" />
+				 			</form>
+			 			</span>
+				 		@endforeach
+				 	</div>
+			 	@else
+				 	<div class="form-element-group">
+						<input class="form-element" type="text" placeholder="ここに新しいタグを入力!"/>
+						<span class="form-group-btn">
+							<button class="btn btn-default" type="submit" name="add_button">追加</button>
+						</span>
+		 	    </div>
+
+
+				 	<div class="add_tag">
+				 		<a href="/tag/add/{{ $data['detail']->id }}"><p>リストからタグを追加する！</p></a>
+				 		<p>ない場合は...
+				 		<form action="#" method="POST" name="add_tag">
+				 			<input type="text" size="32" placeholder="ここに新しいタグを入力!" required name="add_tag_name" value=""/>
+				 			<input type="hidden" name="_token" value="{{csrf_token()}}" />
+				 			<button type="submit" name="add_button">追加</button>
+				 		</form>
+				 		</p>
+				 	</div>
+			 	@endif
+
+			 	<!-- 授業レピュー -->
+				<div>
+					<div>
+						<?php if(!$data['review']->count()){ ?>
+							<p style='color:#FF0000;'>この授業はまだレビューされていません。</p>
+							<button class="btn btn-primary"><a href="/classes/review/{{ $data['detail']['id'] }}" style="color: white;">この授業をレビューする！</a></button>
+						<?php } else { ?>
+						<table class="table table-striped table-hover">
+							<thead>
+								<tr>
+								<th>投稿者</th>
+								<th>レビュー</th>
+								<th>評価度</th>
+								<th>作成日時</th>
+								<th>更新日時</th>
+								</tr>
+							</thead>
+						<tbody>
+				      @foreach($data['review'] as $r)
+				    	<tr>
+				    		<td>ゲストユーザ</td>
+				         	<td>{{{ $r->review_comment }}}</td>
+				         	<td>{{{ $r->stars }}}</td>
+				         	<td>{{{ $r->created_at }}}</td>
+				         	<td>{{{ $r->updated_at }}}</td>
+				         	<td>
+				          <!-- <a href="/classes/show/" class="btn btn-default btn-xs">詳細</a> -->
+				          <form action="/classes/edit" method="get">
+				          	<input type="hidden" value="{{{ $r->id }}}" name="review_id">
+				          	<input type="hidden" name="_token" value="{{csrf_token()}}" />
+				          	<button type="submit" class="btn btn-success btn-xs" />編集</button>
+				          </form>
+				          <form action="/classes/delete-confirm" method="POST">
+				          	<input type="hidden" value="{{{ $r->id }}}" name="review_id">
+				          	<input type="hidden" name="_token" value="{{csrf_token()}}" />
+				          	<button type="submit" class="btn btn-danger btn-xs">削除</button>
+				          </form>
+				  				</td>
+				 				</tr>
+				      @endforeach
+				      <?php }; ?>
+							</tbody>
+						</table>
+					</div>
+				</div>
+
+			 	<!-- 授業要旨 -->
 				@if($data['detail']->summary)
 				<div class="panel panel-info">
 				 <div class="panel-title">
@@ -42,6 +121,7 @@
 				</div>
 				@endif
 
+				<!-- 基本情報 -->
 				<table class="table table-bordered" style="margin: 20px auto;">
 				  <thead>
 				    <tr>
@@ -68,79 +148,8 @@
 			      </tr>
 			    </tbody>
 				</table>
-				<h3>タグ |
-				@if($data['tag']['list'])
-					@foreach($data['tag']['list'] as $t)
-						<form action="#" method="POST" name="delete_tag">
-							<input type="submit" value="×"> 
-							<a href="">#{{ $t->tag_name }}</a>
-							<input type="hidden" value="{{ $t->tag_name }}" name="delete_tag_name">
-							<input type="hidden" name="_token" value="{{csrf_token()}}" />
-						</form>
-					@endforeach
-				@endif
-				</h3>
-				<div class="add_tag">
-					<a href="/tag/add/{{ $data['detail']->id }}"><p>リストからタグを追加する！</p></a><br>
-					<p>ない場合は...</p>
-					<form action="#" method="POST" name="add_tag">
-						<input type="text" size="32" placeholder="ここに新しいタグを入力!" required name="add_tag_name" value=""/>
-						<input type="hidden" name="_token" value="{{csrf_token()}}" />
-						<button type="submit" name="add_button" >追加</button>
-					</form>
-				</div>
-			</div>
 
-			<div>
-				<h2 class="page-header">授業レビュー</h2>
-				<hr>
-				<div>
-			      	<table class="table table-striped table-hover">
-			          	<thead>
-				          	<tr>
-				              <th>投稿者</th>
-				              <th>レビュー</th>
-				              <th>評価度</th>
-				              <th>作成日時</th>
-				              <th>更新日時</th>
-				          	</tr>
-			          	</thead>
-			          	<tbody>
- <?php
-					if(!$data['review']->count()){
-						echo "<p style='color:#FF0000;'>この授業はまだレビューされていません。</p>";
-					}else{
- ?>
-          @foreach($data['review'] as $r)
-			              	<tr>
-			              		<td>ゲストユーザ</td>	
-			                   	<td>{{{ $r->review_comment }}}</td>
-			                   	<td>{{{ $r->stars }}}</td>
-			                   	<td>{{{ $r->created_at }}}</td>
-			                   	<td>{{{ $r->updated_at }}}</td>
-			                   	<td>
-			                    <!-- <a href="/classes/show/" class="btn btn-default btn-xs">詳細</a> -->
-			                    <form action="/classes/edit" method="get">
-			                    	<input type="hidden" value="{{{ $r->id }}}" name="review_id">
-			                    	<input type="hidden" name="_token" value="{{csrf_token()}}" />
-			                    	<button type="submit" class="btn btn-success btn-xs" />編集</button>
-			                    </form>
-			                    <form action="/classes/delete-confirm" method="POST">
-			                    	<input type="hidden" value="{{{ $r->id }}}" name="review_id">
-			                    	<input type="hidden" name="_token" value="{{csrf_token()}}" />
-			                    	<button type="submit" class="btn btn-danger btn-xs">削除</button>
-			                    </form>
-                  				</td>
-             				</tr>
-          @endforeach
-<?php
-		}
-?>
-         				</tbody>
-         			</table>
-				</div>
 			</div>
-			<a href="/classes/review/{{ $data['detail']['id'] }}"><p>この授業をレビューする！</p></a>
 		</div>
-		<a href="/search"><p>検索に戻る</p></a>
+		<a href="/search"><p>検索結果に戻る</p></a>
 @stop
