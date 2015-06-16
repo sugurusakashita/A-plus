@@ -42,7 +42,7 @@
 			 			</span>
 				 		@endforeach
 				 	</div>
-			 	@else
+			 	@endif
 				 	<div class="form-element-group">
 						<input class="form-element" type="text" placeholder="ここに新しいタグを入力!"/>
 						<span class="form-group-btn">
@@ -61,7 +61,6 @@
 				 		</form>
 				 		</p>
 				 	</div>
-			 	@endif
 
 			 	<!-- 授業レピュー -->
 				<div>

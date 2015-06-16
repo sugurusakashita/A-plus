@@ -63,6 +63,10 @@ class TagController extends Controller {
 	public function addTag($class_id,$tag_name){
 		$tag = $this->tag;
 
+		if($tag->where("class_id","=",$class_id)->where("tag_name","=",$tag_name)->first()){
+			return NULL;
+		}
+
 		$tag->class_id = $class_id;
 		$tag->tag_name = $tag_name;
 
