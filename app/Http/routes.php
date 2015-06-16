@@ -28,7 +28,16 @@ Route::get('/api/classes/', function(){
 		return Response::json($classes);
 });
 
+// 一授業のみを取得
 Route::get('/api/classes/{class_id}', function($class_id){
-		$class = DB::table('classes')->where('class_id', $class_id)->first();
+		$class = DB::table('classes')
+			->where('class_id', $class_id)->first();
+		return Response::json($class);
+});
+
+// 一授業のコメントを取得
+Route::get('/api/classes/{class_id}/reviews/', function($class_id){
+		$class = DB::table('review')
+			->where('class_id', $class_id)->get();
 		return Response::json($class);
 });
