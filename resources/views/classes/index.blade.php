@@ -52,7 +52,7 @@
 
 
 				 	<div class="add_tag">
-				 		<a href="/tag/add/{{ $data['detail']->id }}"><p>リストからタグを追加する！</p></a>
+				 		<a href="/tag/add/{{ $data['detail']->class_id }}"><p>リストからタグを追加する！</p></a>
 				 		<p>ない場合は...
 				 		<form action="#" method="POST" name="add_tag">
 				 			<input type="text" size="32" placeholder="ここに新しいタグを入力!" required name="add_tag_name" value=""/>
@@ -68,7 +68,7 @@
 					<div>
 						<?php if(!$data['review']->count()){ ?>
 							<p style='color:#FF0000;'>この授業はまだレビューされていません。</p>
-							<button class="btn btn-primary"><a href="/classes/review/{{ $data['detail']['id'] }}" style="color: white;">この授業をレビューする！</a></button>
+							<button class="btn btn-primary"><a href="/classes/review/{{ $data['detail']->class_id }}" style="color: white;">この授業をレビューする！</a></button>
 						<?php } else { ?>
 						<table class="table table-striped table-hover">
 							<thead>
@@ -91,12 +91,12 @@
 				         	<td>
 				          <!-- <a href="/classes/show/" class="btn btn-default btn-xs">詳細</a> -->
 				          <form action="/classes/edit" method="get">
-				          	<input type="hidden" value="{{{ $r->id }}}" name="review_id">
+				          	<input type="hidden" value="{{{ $r->review_id }}}" name="review_id">
 				          	<input type="hidden" name="_token" value="{{csrf_token()}}" />
 				          	<button type="submit" class="btn btn-success btn-xs" />編集</button>
 				          </form>
 				          <form action="/classes/delete-confirm" method="POST">
-				          	<input type="hidden" value="{{{ $r->id }}}" name="review_id">
+				          	<input type="hidden" value="{{{ $r->review_id }}}" name="review_id">
 				          	<input type="hidden" name="_token" value="{{csrf_token()}}" />
 				          	<button type="submit" class="btn btn-danger btn-xs">削除</button>
 				          </form>
@@ -136,8 +136,8 @@
 			      <tr>
 			        <td>
 			        	@if($data['teacher'])
-			        		@foreach($data['teacher'] as $teacher_name)
-			        			<a href="">{{ $teacher_name }}</a>
+			        		@foreach($data['teacher'] as $teacher)
+			        			<a href="">{{ $teacher->teacher_name }}</a>
 			        		@endforeach
 			        	@endif
 			        </th>

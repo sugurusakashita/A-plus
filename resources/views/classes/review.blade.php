@@ -50,7 +50,7 @@
 				<p>いいえ
 				</p><input type="radio" value="0" name="diff_teacher"  checked />
 				</div>
-				<input type="hidden" name="class_id" value="{{ $data['detail']['id'] }}">
+				<input type="hidden" name="class_id" value="{{ $data['detail']->class_id }}">
 				<input type="hidden" name="_token" value="{{csrf_token()}}">
 				<button type="submit" class="btn btn-default">入力を確認する</button>
 				<a href="{{ $_SERVER['HTTP_REFERER'] }}">戻る</a>

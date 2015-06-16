@@ -47,7 +47,7 @@
 	@endforeach
 -->
 	@foreach($data['tag_names'] as $t)
-		<form action ="/classes/index/{{ $data['detail']->id }}" method="POST" name="add_tag">
+		<form action ="/classes/index/{{ $data['detail']->class_id }}" method="POST" name="add_tag">
 				<button type="submit">追加する</button>
 				<p>{{ $t->tag_name }}</p>
 				<input type="hidden" value="{{ $t->tag_name }}" name="add_tag_name">

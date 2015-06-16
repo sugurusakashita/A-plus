@@ -26,6 +26,20 @@ class ClassesController extends Controller {
 		$this->review = $review;
 		$this->ranking = $ranking;
 		$this->teacher = $teacher;
+		/*
+		DB::enableQueryLog();
+		$sql = DB::pretend(function(){
+			Classes::find(512)->teachers;
+		});
+		*/
+		//$classes->find(512);
+		
+		/*
+		DB::listen(function($sql,$binding,$time){
+
+			var_dump($sql);
+		});
+		*/
 
 	}
 
@@ -46,7 +60,7 @@ class ClassesController extends Controller {
 		$data['detail'] = $classes->find($id);
 		$data['tag']['list'] 	= $tag->returnTagNamesByClassId($id); 
 		$data['tag']['add_result'] = $request;
-		$data['teacher'] = $this->returnTeachersNameByClassId($id);
+		$data['teacher'] = $this->classes->find($id)->teachers;
 		$data['search_ranking'] = $this->ranking->returnSearchRankingList();
 		$data['access_ranking'] = $this->ranking->returnAccessRankingList();
 		//ユニークPVカウント
@@ -59,7 +73,7 @@ class ClassesController extends Controller {
 			}
 			Session::put($id.'_pv',true);
 		}
-		
+
 		return view('classes/index')->with('data',$data);
 	}
 
@@ -269,7 +283,7 @@ class ClassesController extends Controller {
 	 * @return array
 	 *
 	 */
-
+/*
 	function returnTeachersNameByClassId($class_id){
 
 		$classes = $this->classes;
@@ -286,12 +300,9 @@ class ClassesController extends Controller {
 			//$result[] = $teacher->select("teacher_name")->where("id",$teacher_id)->first()->teacher_name;
 			$result[] = $teacher->find($teacher_id)->teacher_name;
 		}
-/*
-		$sql = DB::pretend(function(){
-
-		});
-*/		
+	
 		return $result;
 		
 	}
+*/
 }
