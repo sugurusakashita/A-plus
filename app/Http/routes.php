@@ -1,40 +1,34 @@
 <?php
 
-/*
-|--------------------------------------------------------------------------
-| Application Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register all of the routes for an application.
-| It's a breeze. Simply tell Laravel the URIs it should respond to
-| and give it the controller to call when that URI is requested.
-|
-*/
-
-// Lavavelのスタートページへのrouting
-Route::get('/', 'WelcomeController@index');
-
-// pingでのテスト
-Route::get('/ping', function(){
-	return Response::json('pong');
-});
-
+Route::get('/', 'TopController@index');
 Route::get('home', 'HomeController@index');
 
 Route::controllers([
-  'auth' => 'Auth\AuthController',
-  'password' => 'Auth\PasswordController',
+	'auth' => 'Auth\AuthController',
+	'password' => 'Auth\PasswordController',
+	'search'	=>	'SearchController',
+	'classes'	=>	'ClassesController',
+	'ranking'	=>	'RankingController',
+	'tag'		=>	'TagController',
 ]);
 
-/* 以下API用のrouting */
 
-// URLセグメントのテスト
-// 正規表現してない
-Route::get('/api/review/{number?}',
-	function($number = 1){
-		return "Number:{$number}のレビューです。";
+
+
+/* 以下API */
+
+// api root
+Route::get('/api/', function(){
+		return "API root";
 });
 
-// 授業データ
-Route::get('/api/classes/', 'ClassesController@index');
-Route::get('/api/classes/all', 'ClassesController@all');
+// 全授業を取得
+Route::get('/api/classes/', function(){
+		$classes = DB::table('classes')->get();
+		return Response::json($classes);
+});
+
+Route::get('/api/classes/{class_id}', function($class_id){
+		$class = DB::table('classes')->where('class_id', $class_id)->first();
+		return Response::json($class);
+});

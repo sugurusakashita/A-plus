@@ -10,19 +10,9 @@
 * vendor -> Composerでインストールされたパッケージのコード群
 * .env -> 環境の設定が出来る、DBのpassとかもここ
 
-## composerで何か入れたとき
-* 例えば`composer require barryvdh/laravel-debugbar`
-* `composer update`を叩く
-
 ## .env構成(ローカル)
 
 * envはgit管理していないので、各自ローカルに合わせてパスを入力してください。
-
-* waseda_dbに関してはbitbucketログイン後、
-https://bitbucket.org/wjinka/wjinka-portal/downloads
-より。
-
-```
 
 APP_ENV=local
 APP_DEBUG=true
@@ -43,7 +33,3 @@ MAIL_PORT=2525
 MAIL_USERNAME=null
 MAIL_PASSWORD=null
 
-```
-## composerで何か入れたとき
-* 例えば`composer require barryvdh/laravel-debugbar`
-* `composer update`を叩く
