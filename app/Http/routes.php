@@ -41,3 +41,11 @@ Route::get('/api/classes/{class_id}/reviews/', function($class_id){
 			->where('class_id', $class_id)->get();
 		return Response::json($class);
 });
+
+// 一授業の特定の１コメントを取得
+Route::get('/api/classes/{class_id}/reviews/{rev_id}', function($class_id, $rev_id){
+		$class = DB::table('review')
+			->where('class_id', $class_id)
+			->where('review_id', $rev_id)->get();
+		return Response::json($class);
+});
