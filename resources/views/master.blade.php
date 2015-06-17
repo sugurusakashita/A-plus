@@ -26,17 +26,6 @@
 			</form>
 		</div>
 	</div>
-
-  <div class="container">
-      <div class="row-fluid">
-        <div class="col8">
-          @yield('main_content')
-        </div>
-        <div class="col4">
-          @yield('sidebar')
-        </div>
-      </div>
-  </div>
   @include('common.footer')
 </body>
 </html>
