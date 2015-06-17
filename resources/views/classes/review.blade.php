@@ -47,23 +47,22 @@
         	</select>
         </th>
         <td>
-					<div class="radio-btn">
-					  <label>
-							<input type="radio" value="1" name="diff_teacher" />
-					    はい
-					  </label>
-					</div>
-					<div class="radio-btn">
-					  <label>
-							<input type="radio" value="0" name="diff_teacher" checked />
-					    いいえ
-					  </label>
-					</div>
+			<div class="radio-btn">
+			  <label>
+					<input type="radio" value="1" name="diff_teacher" />
+			    はい
+			  </label>
+			</div>
+			<div class="radio-btn">
+			  <label>
+					<input type="radio" value="0" name="diff_teacher" checked />
+			    いいえ
+			  </label>
+			</div>
         </th>
       </tr>
     </tbody>
 	</table>
-
 	<div class="form-group">
 		<label>授業の感想</label>
 		<textarea placeholder="50字以上、500字以下で入力してください。" name="review_comment" rows="4" required class="form-control form-element"></textarea>
