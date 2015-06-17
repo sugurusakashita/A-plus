@@ -65,9 +65,9 @@
 			 	<!-- 授業レピュー -->
 				<div>
 					<div>
+						<button class="btn btn-primary"><a href="/classes/review/{{ $data['detail']->class_id }}" style="color: white;">この授業をレビューする！</a></button>
 						<?php if(!$data['review']->count()){ ?>
 							<p style='color:#FF0000;'>この授業はまだレビューされていません。</p>
-							<button class="btn btn-primary"><a href="/classes/review/{{ $data['detail']->class_id }}" style="color: white;">この授業をレビューする！</a></button>
 						<?php } else { ?>
 						<table class="table table-striped table-hover">
 							<thead>
