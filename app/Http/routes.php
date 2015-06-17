@@ -16,6 +16,7 @@ Route::controllers([
 
 
 /* 以下API */
+// TODO : status codeを返す
 
 // api root
 Route::get('/api/', function(){
