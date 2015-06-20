@@ -93,6 +93,14 @@ WjinkaProj | 検索
 			<ul class="list-group">
 			  <li class="list-group-element"><span class="badge info">{{ $class_data->class_week }}</span>　<span class="badge warning"><?php echo $class_data->class_period === "00"? "その他":$class_data->class_period."限"; ?></span></li>
 			  <li class="list-group-element"><a href="classes/index/{{ $class_data->class_id }}">{{ $class_data->class_name }}</a></li>
+
+			  @if($class_data->teachers()->get()->count())
+			  <li class="list-group-element">
+			  	@foreach($class_data->teachers()->get() as $teacher)
+			 	 <a href="">{{ $teacher->teacher_name }}</a>
+			 	@endforeach
+			  </li>
+			  @endif
 			</ul>
 	</div>
 
