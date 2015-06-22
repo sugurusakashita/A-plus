@@ -79,12 +79,29 @@ class SearchController extends Controller {
 			$period = $search_session['period'];
 			$term = $search_session['term'];
 			$query = $search_session['q'];
+
+			$query = trim(mb_convert_kana($query,"s"));
+			mb_regex_encoding( "UTF-8" );
+			//複数検索ワードを配列に
+			$search_queries = mb_split("\s",$query);
 			
 		}
 
-		
-		$data['classes'] = $this->classes_list($day,$period,$term,$search_queries)->paginate(10);
-		//$data['classes'] = new LengthAwarePaginator($data['classes']->get(),$data['classes']->count(),10);
+		//配列要素は5つまで
+		while(count($search_queries) > 5){
+			array_pop($search_queries);
+		}
+		//ページネーション用変数
+		$page = Input::get("page");
+		$limit = 10;
+		$page_num = is_null($page)? 0:$page;
+		$offset = $limit * $page_num;
+		$data['classes'] = $this->classes_list($day,$period,$term,$search_queries);
+		$total = $data['classes']->count();
+
+		//ページネーター作成
+		$data['classes'] = new LengthAwarePaginator($data['classes']->skip($offset)->take($limit)->get(),$total,10,$page,array("path"=>"search"));
+
 		$data['get'] = $search_session;
 		
 
@@ -137,8 +154,6 @@ class SearchController extends Controller {
 	function getQueryEngine($search_queries){
 		//マスターデータ
 		$data = $this->classes;
-		//whereで絞る用変数
-		$result = $data;
 		//テスト配列
 		//$search_queries = array("データ");
 
@@ -153,19 +168,19 @@ class SearchController extends Controller {
 			if(!is_null($data->teachers()->orWhere('teacher_name','like','%'.$query.'%')->first())) {
 				$search_obj = $data->teachers()->orWhere('teacher_name','like','%'.$query.'%')->get();
 				//重み処理
+				//教師は重み2倍
 				foreach ($search_obj as $v) {
 					$id = $v["original"]["pivot_class_id"];
 					if(!array_key_exists($id,$weight)){
-						$weight[$id] = 1;
+						$weight[$id] = 2;
 					}else{
 					//2回以降
-						$weight[$id]++;
+						$weight[$id] = $weight[$id] + 2;
 					}
 				}
 			}
 			else if(!is_null($data->orWhere('class_name','like','%'.$query.'%')->first())){
 				$search_obj = $data->orWhere('class_name','like','%'.$query.'%')->get();
-				//$result = $result->orWhere('class_name','like','%'.$query.'%');
 				//重み処理
 				foreach($search_obj as $v){
 					$id = $v->class_id;
@@ -205,7 +220,6 @@ class SearchController extends Controller {
 		//配列の順序通りにDBから引っ張る
 		$placeholders = implode(',',array_fill(0, count($ids), '?')); // string for the query
 
-		//var_dump($result);
 		return $data->whereIn("class_id",$ids)->orderByRaw("field(class_id,{$placeholders})", $ids);
 
 		/*
