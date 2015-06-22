@@ -23,6 +23,7 @@ WjinkaProj | 検索
 			echo $data['get']['period']? $data['get']['period']."限 ":"";
 			echo '「'.$data['get']['q'].'」の検索結果'
 		?>
+		<?php echo $data['classes']->total()? $data['classes']->total()."件ヒットしました！":"";?>
 	</div>
 </div>
 

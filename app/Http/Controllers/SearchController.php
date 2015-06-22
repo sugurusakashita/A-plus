@@ -94,13 +94,13 @@ class SearchController extends Controller {
 		//ページネーション用変数
 		$page = Input::get("page");
 		$limit = 10;
-		$page_num = is_null($page)? 0:$page;
-		$offset = $limit * $page_num;
+		$page_num = is_null($page)? 1:$page;
+		$offset = ($limit * $page_num) - $limit;
 		$data['classes'] = $this->classes_list($day,$period,$term,$search_queries);
 		$total = $data['classes']->count();
 
 		//ページネーター作成
-		$data['classes'] = new LengthAwarePaginator($data['classes']->skip($offset)->take($limit)->get(),$total,10,$page,array("path"=>"search"));
+		$data['classes'] = new LengthAwarePaginator($data['classes']->skip($offset)->take($limit)->get(),$total,$limit,$page,array("path"=>"search"));
 
 		$data['get'] = $search_session;
 		
