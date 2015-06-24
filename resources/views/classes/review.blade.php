@@ -13,7 +13,9 @@
 	    <tr>
 	      <th>受講時の学年</th>
 	      <th>受講時の年度</th>
-	      <th>評価度</th>
+	      <th>総合評価度</th>
+        　<th>単位の取りやすさ</th>
+        　<th>GP(成績)の取りやすさ</th>
 	      <th>現在の講師と異なる</th>
 	    </tr>
 	  </thead>
@@ -45,6 +47,24 @@
         		<option value="4">☆4</option>
         		<option value="5">☆5</option>
         	</select>
+        </th>
+        <td>
+            <select name="unit_stars" class="form-control">
+                <option value="1">☆1</option>
+                <option value="2">☆2</option>
+                <option value="3">☆3</option>
+                <option value="4">☆4</option>
+                <option value="5">☆5</option>
+            </select>
+        </th>
+        <td>
+            <select name="grade_stars" class="form-control">
+                <option value="1">☆1</option>
+                <option value="2">☆2</option>
+                <option value="3">☆3</option>
+                <option value="4">☆4</option>
+                <option value="5">☆5</option>
+            </select>
         </th>
         <td>
 			<div class="radio-btn">

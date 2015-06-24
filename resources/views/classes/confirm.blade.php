@@ -12,7 +12,9 @@
 	    <tr>
 	      <th>受講時の学年</th>
 	      <th>受講時の年度</th>
-	      <th>評価度</th>
+	      <th>総合評価度</th>
+          <th>単位の取りやすさ</th>
+          <th>GP(成績)の取りやすさ</th>
 	      <th>現在の講師と異なる</th>
 	    </tr>
 	  </thead>
@@ -26,6 +28,12 @@
 	      </th>
 	      <td>
 	      	{{ $data['stars'] }}
+	      </th>
+	      <td>
+	      	{{ $data['unit_stars'] }}
+	      </th>
+	      <td>
+	      	{{ $data['grade_stars'] }}
 	      </th>
 	      <td>
 					{{ $data['diff_teacher'] == 1? "はい":"いいえ" }}
@@ -47,6 +55,8 @@
 	<input type="hidden" name="year" value="{{$data['year']}}">
 	<input type="hidden" name="review_comment" value="{{$data['review_comment']}}">
 	<input type="hidden" name="stars" value="{{$data['stars']}}">
+	<input type="hidden" name="unit_stars" value="{{$data['unit_stars']}}">
+	<input type="hidden" name="grade_stars" value="{{$data['grade_stars']}}">
 	<input type="hidden" name="diff_teacher" value="{{$data['diff_teacher']}}">
 	<input type="hidden" name="_token" value="{{csrf_token()}}">
 	<button type="submit" class="btn btn-primary">投稿する</button>

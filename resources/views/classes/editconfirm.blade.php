@@ -29,6 +29,14 @@
 					{{ $data['stars'] }}
 				</div>
 				<div class="form-group">
+					<label>単位の取りやすさ</label>
+					{{ $data['unit_stars'] }}
+				</div>
+				<div class="form-group">
+					<label>GP(成績)の取りやすさ</label>
+					{{ $data['grade_stars'] }}
+				</div>
+				<div class="form-group">
 					<label>現在の講師と異なる</label>
 					<p>はい</p>{{ $data['diff_teacher'] == 1? "●":"○" }}
 					<p>いいえ</p>{{ $data['diff_teacher'] == 0? "●":"○" }}<br>
@@ -39,6 +47,8 @@
 				<input type="hidden" name="year" value="{{$data['year']}}">
 				<input type="hidden" name="review_comment" value="{{$data['review_comment']}}">
 				<input type="hidden" name="stars" value="{{$data['stars']}}">
+				<input type="hidden" name="unit_stars" value="{{$data['unit_stars']}}">
+				<input type="hidden" name="grade_stars" value="{{$data['grade_stars']}}">
 				<input type="hidden" name="diff_teacher" value="{{$data['diff_teacher']}}">
 				<input type="hidden" name="_token" value="{{csrf_token()}}">
 				<button type="submit" class="btn btn-default">投稿する</button>

@@ -25,8 +25,16 @@
 					</div>
 				</div>
 				<div class="form-group">
-					<label>評価度</label>
+					<label>総合評価度</label>
 					{{ $data['detail']['stars'] }}
+				</div>
+				<div class="form-group">
+					<label>単位の取りやすさ</label>
+					{{ $data['detail']['unit_stars'] }}
+				</div>
+				<div class="form-group">
+					<label>GP(成績)の取りやすさ</label>
+					{{ $data['detail']['grade_stars'] }}
 				</div>
 				<div class="form-group">
 					<label>現在の講師と異なる</label>

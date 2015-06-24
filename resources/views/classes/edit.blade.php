@@ -37,8 +37,24 @@
 					<textarea placeholder="50字以上、500字以下で入力してください。" name="review_comment" rows="4" required class="form-control">{{{ $data['detail']['review_comment'] }}}</textarea> 
 				</div>
 				<div class="form-group">
-				<label>評価度</label>
+				<label>総合評価度</label>
 				<select name="stars" class="form-control">
+					<option value="1" {{{ $data['detail']['stars'] == 1? "selected":"" }}} >☆1</option>
+					<option value="2" {{{ $data['detail']['stars'] == 2? "selected":"" }}} >☆2</option>
+					<option value="3" {{{ $data['detail']['stars'] == 3? "selected":"" }}} >☆3</option>
+					<option value="4" {{{ $data['detail']['stars'] == 4? "selected":"" }}} >☆4</option>
+					<option value="5" {{{ $data['detail']['stars'] == 5? "selected":"" }}} >☆5</option>
+				</select>
+				<label>単位の取りやすさ</label>
+				<select name="unit_stars" class="form-control">
+					<option value="1" {{{ $data['detail']['stars'] == 1? "selected":"" }}} >☆1</option>
+					<option value="2" {{{ $data['detail']['stars'] == 2? "selected":"" }}} >☆2</option>
+					<option value="3" {{{ $data['detail']['stars'] == 3? "selected":"" }}} >☆3</option>
+					<option value="4" {{{ $data['detail']['stars'] == 4? "selected":"" }}} >☆4</option>
+					<option value="5" {{{ $data['detail']['stars'] == 5? "selected":"" }}} >☆5</option>
+				</select>
+				<label>GP(成績)の取りやすさ</label>
+				<select name="grade_stars" class="form-control">
 					<option value="1" {{{ $data['detail']['stars'] == 1? "selected":"" }}} >☆1</option>
 					<option value="2" {{{ $data['detail']['stars'] == 2? "selected":"" }}} >☆2</option>
 					<option value="3" {{{ $data['detail']['stars'] == 3? "selected":"" }}} >☆3</option>

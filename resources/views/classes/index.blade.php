@@ -74,9 +74,9 @@
 								<tr>
 								<th>投稿者</th>
 								<th>レビュー</th>
-								<th>評価度</th>
-								<th>作成日時</th>
-								<th>更新日時</th>
+								<th>総合評価度</th>
+								<th>単位の取りやすさ</th>
+								<th>GP(成績)の取りやすさ</th>
 								</tr>
 							</thead>
 						<tbody>
@@ -85,8 +85,8 @@
 				    		<td>ゲストユーザ</td>
 				         	<td>{{{ $r->review_comment }}}</td>
 				         	<td>{{{ $r->stars }}}</td>
-				         	<td>{{{ $r->created_at }}}</td>
-				         	<td>{{{ $r->updated_at }}}</td>
+				         	<td>{{{ $r->unit_stars }}}</td>
+				         	<td>{{{ $r->grade_stars }}}</td>
 				         	<td>
 				          <!-- <a href="/classes/show/" class="btn btn-default btn-xs">詳細</a> -->
 				          <form action="/classes/edit" method="get">

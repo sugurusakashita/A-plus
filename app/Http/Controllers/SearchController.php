@@ -5,6 +5,8 @@ use App\Query;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\Teacher;
+use App\Review;
+use App\Tag;
 
 use Illuminate\Http\Request;
 use Input;
@@ -16,12 +18,16 @@ class SearchController extends Controller {
 	protected $classes;
 	protected $queries;
 	protected $ranking;
+	protected $review;
+	protected $tag;
 
 
-	public function __construct(Classes $classes,Query $queries,RankingController $ranking){
+	public function __construct(Classes $classes,Query $queries,Review $review,Tag $tag,RankingController $ranking){
 		$this->classes = $classes;
 		$this->queries = $queries;
 		$this->ranking = $ranking;
+		$this->review = $review;
+		$this->tag = $tag;
 	}
 
 	/**
@@ -103,7 +109,8 @@ class SearchController extends Controller {
 		$data['classes'] = new LengthAwarePaginator($data['classes']->skip($offset)->take($limit)->get(),$total,$limit,$page,array("path"=>"search"));
 
 		$data['get'] = $search_session;
-		
+		$data['review'] = $this->review;
+		$data['tag'] = $this->tag;		
 
 		$data['search_ranking'] = $this->ranking->returnSearchRankingList();
 		$data{'access_ranking'} = $this->ranking->returnAccessRankingList();

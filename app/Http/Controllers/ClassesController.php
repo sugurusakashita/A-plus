@@ -74,6 +74,7 @@ class ClassesController extends Controller {
 			Session::put($id.'_pv',true);
 		}
 
+
 		return view('classes/index')->with('data',$data);
 	}
 
@@ -138,11 +139,13 @@ class ClassesController extends Controller {
 
 		$review = $this->review;
 
-		$data = $request->all();
-		$review->fill($data);
+		$data['id'] = $request->class_id;
+		$req = $request->all();
+		$review->fill($req);
     	$review->save();
 
-		return view('classes/complete');
+
+		return view('classes/complete')->with('data',$data);
 	}
 
 	/**
@@ -158,8 +161,7 @@ class ClassesController extends Controller {
 
 		$data['all'] = $request->all();
 		$id = $data['all']['review_id'];
-		$data['detail'] = $this->returnReviewDetailByReviewId($id);
-
+		$data['detail'] = $this->review->find($id);
 		return view('classes/edit')->with('data',$data);
 	}
 
@@ -196,12 +198,14 @@ class ClassesController extends Controller {
 		$id = $request->review_id;
 		$review = $this->review->find($id);
 
-		$data = $request->all();
+		$req = $request->all();
 
-		$review->fill($data);
+		$review->fill($req);
     	$review->save();
 
-		return view('classes/editcomplete');
+    	$data['id'] = $request->class_id;
+
+		return view('classes/editcomplete')->with('data',$data);
 	}
 
 
@@ -218,7 +222,7 @@ class ClassesController extends Controller {
 
 		$data = $request->all();
 		$id = $data['review_id'];
-		$data['detail'] = $this->returnReviewDetailByReviewId($id);
+		$data['detail'] = $this->review->find($id);
 
 		return view('classes/deleteconfirm')->with('data',$data);
 
@@ -235,12 +239,13 @@ class ClassesController extends Controller {
 
 	public function postDeleteComplete(Request $request){
 				
-		$id = $request->review_id;
-		$review = $this->review->find($id);
+		$review_id = $request->review_id;
+		$review = $this->review->find($review_id);
 
 		$review->delete();
 
-		return view('classes/deletecomplete');
+		$data['id'] = $request->class_id;
+		return view('classes/deletecomplete')->with('data',$data);
 	}
 
 	/**
@@ -260,20 +265,6 @@ class ClassesController extends Controller {
 		return $data;
 	}
 
-	/**
-	 * レビュー詳細をreview_idから1つだけget
-	 *
-	 * @param int
-	 * @author shalman
-	 * @return object
-	 *
-	 */
-	function returnReviewDetailByReviewId($id){
-		$review = $this->review;
-
-		$data = $review->find($id);
-		return $data;
-	}
 
 	/**
 	 * 講師名をclass_idからget

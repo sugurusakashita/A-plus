@@ -10,7 +10,7 @@
 		<div class="col-md-12">
 			<h2 class="page-header">レビュー投稿完了</h2>
 			<p>投稿が完了しました。</p>
-			<a href="/search?q=&day=0&period=0&term=0">検索に戻る</a>
+			<a href="/classes/index/{{ $data['id'] }}">授業ページに戻る</a>
 		</div>
 	</div>
 </div>

@@ -93,13 +93,43 @@ WjinkaProj | 検索
 	<div style="margin-bottom: 15px;">
 			<ul class="list-group">
 			  <li class="list-group-element"><span class="badge info">{{ $class_data->class_week }}</span>　<span class="badge warning"><?php echo $class_data->class_period === "00"? "その他":$class_data->class_period."限"; ?></span></li>
-			  <li class="list-group-element"><a href="classes/index/{{ $class_data->class_id }}">{{ $class_data->class_name }}</a></li>
+			  <li class="list-group-element">
+			  	<a href="classes/index/{{ $class_data->class_id }}">{{ $class_data->class_name }}</a>			  	
+			  		<?php
+			  			$class_id = $class_data->class_id;
+			  			$review_count = $data['review']->where("class_id","=",$class_id)->get()->count();
+			  			$tags = $data['tag']->where("class_id","=",$class_id)->get();
+			  		?>
+			  		<p>
+			  		@if($review_count)
+			  		
+			  			レビュー件数:  {{ $review_count }}件あります！	  		
+			  		@endif 
+			  		</p>
+			  		@if($tags)
+			  			@foreach($tags as $tag)
+					  		<span class="btn-label info">
+					  			{{ $tag->tag_name }}
+					  		</span>	
+			  			@endforeach
+			  		@endif
+			  </li>
 
 			  @if($class_data->teachers()->get()->count())
 			  <li class="list-group-element">
 			  	@foreach($class_data->teachers()->get() as $teacher)
-			 	 <a href="">{{ $teacher->teacher_name }}</a>
+			 	 <a href="/search/">{{ $teacher->teacher_name }}</a>
 			 	@endforeach
+			  </li>
+			  @endif
+
+			  @if($class_data->summary)
+			  <?php 
+			  	//要約作成
+			  	$summary = mb_strimwidth($class_data->summary,0,200,"...");
+			  ?>
+			  <li class="list-group-element">
+			  	<p>{{ $summary }}</p>
 			  </li>
 			  @endif
 			</ul>
