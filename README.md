@@ -10,26 +10,4 @@
 * vendor -> Composerでインストールされたパッケージのコード群
 * .env -> 環境の設定が出来る、DBのpassとかもここ
 
-## .env構成(ローカル)
-
-* envはgit管理していないので、各自ローカルに合わせてパスを入力してください。
-
-APP_ENV=local
-APP_DEBUG=true
-APP_KEY="ランダムなString"
-
-DB_HOST=localhost
-DB_DATABASE=waseda_db
-DB_USERNAME=root
-DB_PASSWORD="mysqlのパス"
-
-CACHE_DRIVER=file
-SESSION_DRIVER=file
-QUEUE_DRIVER=sync
-
-MAIL_DRIVER=smtp
-MAIL_HOST=mailtrap.io
-MAIL_PORT=2525
-MAIL_USERNAME=null
-MAIL_PASSWORD=null
 
