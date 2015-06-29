@@ -7,9 +7,7 @@
     </title>
 </head>
 <body>
-  <div class="container">
     @include('common.header')
-  </div>
   <div class="container">
     <div class="search_header" style="margin-top:20px; text-align:center;">
       <form action="/search" method="get">
