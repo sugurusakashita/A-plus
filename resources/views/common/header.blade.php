@@ -1,30 +1,24 @@
-<header class="nav" style="margin-top: 10px;">
+<header class="nav" style="margin: 30px 0;">
   <div class="container">
     <div class="row-fluid">
       <div class="brand">
         <a href="/" class="">A+plus</a>
       </div>
-      <div style="float: right;">
-        <ul class="nav navbar-nav navbar-right">
-          @if (Auth::guest())
-            <li><a href="{{ url('/auth/login') }}">Login</a></li>
-            <li><a href="{{ url('/auth/register') }}">Register</a></li>
-          @else
-            <li class="dropdown" >
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">{{ Auth::user()->name }} <span class="caret"></span></a>
-              <ul class="dropdown-menu" role="menu" style="position:static; height: 40px;">
-                <li><a href="{{ url('/auth/logout') }}">Logout</a></li>
-              </ul>
-            </li>
-          @endif
-        </ul>
-      </div>
-<!--       <nav class="right-float">
-        <a href="#" class="btn btn-pill btn-primary-outline">Top</a>
-        <a href="#" class="btn-pill">Search</a>
-        <a href="#" class="btn-pill">Library</a>
-      </nav>
- -->    
+      <nav class="right-float">
+        <a href="/" class="btn-pill">TOPページ</a>
+        <a href="{{ url('/search/')}}" class="btn-pill">授業レビュー</a>
+<!--         <a href="{{ url('/search/')}}" class="btn-pill">検索</a> -->
+<!--         <a href="#" class="btn-pill">Link Three</a>
+        <a href="#" class="btn-pill">Link Four</a> -->
+        @if (Auth::guest())
+          <a href="{{ url('/auth/register') }}" class="btn btn-pill btn-primary-outline">新規登録</a>
+          <a href="{{ url('/auth/login') }}" class="btn btn-pill btn-primary-outline">ログイン</a>
+        @else
+          <a href="#" class="btn-pill" >{{ Auth::user()->name }} <span class="caret"></span></a>
+          <a href="{{ url('/auth/logout') }}" class="btn btn-pill btn-primary-outline">ログアウト</a>
+        @endif
+      </nav> 
     </div>
+
   </div>
 </header>
