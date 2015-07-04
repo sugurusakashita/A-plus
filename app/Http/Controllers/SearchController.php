@@ -42,6 +42,7 @@ class SearchController extends Controller {
 	public function getIndex(){
 
 		$search_queries = array();
+		$search_session = ["day" =>"0","period" => "0","term" => "2","q" =>""];
 		//検索からinputしたら
 		if($token = Input::get('_token')){
 
@@ -50,6 +51,8 @@ class SearchController extends Controller {
 			$period = Input::get('period');
 			$term = Input::get('term');
 			$query = htmlspecialchars(Input::get('q'),ENT_QUOTES);
+			//マルチバイトでエンコードされてる時があるのでURLデコードする。
+			$query = urldecode($query);
 			$query = trim(mb_convert_kana($query,"s"));
 			mb_regex_encoding( "UTF-8" );
 			//複数検索ワードを配列に
@@ -77,10 +80,15 @@ class SearchController extends Controller {
 							'_token' =>	$token);
 
 			Session::put("search_session",$search_session);
+			
 		//pagenationなどはセッションから取得
 		}else{
-			$search_session = Session::get("search_session");
-			
+			if(Session::has("search_session")){
+				$search_session = Session::get("search_session");
+				
+			}
+
+
 			$day = $search_session['day'];
 			$period = $search_session['period'];
 			$term = $search_session['term'];

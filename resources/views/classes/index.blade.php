@@ -43,24 +43,55 @@
 				 		@endforeach
 				 	</div>
 			 	@endif
-				 	<div class="form-element-group">
-						<input class="form-element" type="text" placeholder="ここに新しいタグを入力!"/>
-						<span class="form-group-btn">
-							<button class="btn btn-default" type="submit" name="add_button">追加</button>
-						</span>
-		 	    </div>
-
-
 				 	<div class="add_tag">
-				 		<a href="/tag/add/{{ $data['detail']->class_id }}"><p>リストからタグを追加する！</p></a>
-				 		<p>ない場合は...
+				 		<p><a class="col4"href="/tag/add/{{ $data['detail']->class_id }}">リストからタグを追加する！</a>ない場合は...</p>
+				 		
 				 		<form action="#" method="POST" name="add_tag">
-				 			<input type="text" size="32" placeholder="ここに新しいタグを入力!" required name="add_tag_name" value=""/>
+				 			<input class="form-element col8" type="text" size="32" placeholder="ここに新しいタグを入力!" required name="add_tag_name" value=""/>
 				 			<input type="hidden" name="_token" value="{{csrf_token()}}" />
-				 			<button type="submit" name="add_button">追加</button>
+				 			<button class="btn btn-default col2" type="submit" name="add_button">追加</button>
 				 		</form>
-				 		</p>
+				 		
 				 	</div>
+				<!-- 基本情報 -->
+				<table class="table table-bordered" style="margin: 20px auto;">
+				  <thead>
+				    <tr>
+				      <th>担当講師</th>
+				      <th>学期</th>
+				      <th>曜日</th>
+				      <th>時限</th>
+				      <th>教室</th>
+				    </tr>
+				  </thead>
+			    <tbody>
+			      <tr>
+			        <td>
+			        	@if($data['teacher'])
+			        		@foreach($data['teacher'] as $teacher)
+			        			<a href="/search/?q={{ urldecode($teacher->teacher_name) }}&day=0&period=0&term=2&_token={{csrf_token()}}">{{ $teacher->teacher_name }}</a>
+			        		@endforeach
+			        	@endif
+			        </th>
+			        <td><?php echo $data['detail']->term == 0? '春学期':'秋学期'?></th>
+			        <td><?php echo $data['detail']->class_week?></th>
+			        <td><?php echo $data['detail']->class_period?>限</th>
+			        <td>{{ $data['detail']->room_name }}</th>
+			      </tr>
+			    </tbody>
+				</table>
+
+			 	<!-- 授業要旨 -->
+				@if($data['detail']->summary)
+				<div class="panel panel-info">
+				 <div class="panel-title">
+				   授業要旨
+				 </div>
+				 <div class="panel-body">
+				 	{{ $data['detail']->summary }}
+				 </div>
+				</div>
+				@endif
 
 			 	<!-- 授業レピュー -->
 				<div>
@@ -108,45 +139,8 @@
 					</div>
 				</div>
 
-			 	<!-- 授業要旨 -->
-				@if($data['detail']->summary)
-				<div class="panel panel-info">
-				 <div class="panel-title">
-				   授業要旨
-				 </div>
-				 <div class="panel-body">
-				 	{{ $data['detail']->summary }}
-				 </div>
-				</div>
-				@endif
 
-				<!-- 基本情報 -->
-				<table class="table table-bordered" style="margin: 20px auto;">
-				  <thead>
-				    <tr>
-				      <th>担当講師</th>
-				      <th>学期</th>
-				      <th>曜日</th>
-				      <th>時限</th>
-				      <th>教室</th>
-				    </tr>
-				  </thead>
-			    <tbody>
-			      <tr>
-			        <td>
-			        	@if($data['teacher'])
-			        		@foreach($data['teacher'] as $teacher)
-			        			<a href="">{{ $teacher->teacher_name }}</a>
-			        		@endforeach
-			        	@endif
-			        </th>
-			        <td><?php echo $data['detail']->term == 0? '春学期':'秋学期'?></th>
-			        <td><?php echo $data['detail']->class_week?></th>
-			        <td><?php echo $data['detail']->class_period?>限</th>
-			        <td>{{ $data['detail']->room_name }}</th>
-			      </tr>
-			    </tbody>
-				</table>
+
 
 			</div>
 		</div>
