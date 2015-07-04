@@ -97,9 +97,9 @@
 				<div>
 					<div>
 						<button class="btn btn-primary"><a href="/classes/review/{{ $data['detail']->class_id }}" style="color: white;">この授業をレビューする！</a></button>
-						<?php if(!$data['review']->count()){ ?>
+						@if(!$data['review']->count())
 							<p style='color:#FF0000;'>この授業はまだレビューされていません。</p>
-						<?php } else { ?>
+						@else 
 						<table class="table table-striped table-hover">
 							<thead>
 								<tr>
@@ -113,7 +113,7 @@
 						<tbody>
 				      @foreach($data['review'] as $r)
 				    	<tr>
-				    		<td>ゲストユーザ</td>
+				    		<td><?php echo $r->users()->first()? $r->users()->first()->name:"不明なユーザ"; ?></td>
 				         	<td>{{{ $r->review_comment }}}</td>
 				         	<td>{{{ $r->stars }}}</td>
 				         	<td>{{{ $r->unit_stars }}}</td>
@@ -133,7 +133,7 @@
 				  				</td>
 				 				</tr>
 				      @endforeach
-				      <?php }; ?>
+				      @endif
 							</tbody>
 						</table>
 					</div>

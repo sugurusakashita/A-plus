@@ -8,6 +8,7 @@ use App\Teacher;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Auth;
 
 use Input;
 use Session;
@@ -56,7 +57,7 @@ class ClassesController extends Controller {
 
 		$classes = $this->classes;
 
-		$data['review'] = $this->returnReviewDetailByClassId($id);
+		$data['review'] = $this->review->where('class_id','=',$id)->get();
 		$data['detail'] = $classes->find($id);
 		$data['tag']['list'] 	= $tag->returnTagNamesByClassId($id); 
 		$data['tag']['add_result'] = $request;
@@ -73,7 +74,6 @@ class ClassesController extends Controller {
 			}
 			Session::put($id.'_pv',true);
 		}
-
 
 		return view('classes/index')->with('data',$data);
 	}
@@ -101,11 +101,13 @@ class ClassesController extends Controller {
 	 */
 
 	public function getReview($id){
+		if (!Auth::check()){
+			//ログインチェック
+			return redirect()->to("/auth/login");   
+		}
 
 		$classes = $this->classes;
-
 		$data['detail'] =  $classes->find($id);
-
 		return view('classes/review')->with('data',$data);
 	}
 
@@ -119,9 +121,11 @@ class ClassesController extends Controller {
 	 */
 
 	public function postConfirm(Request $request){
-
+		if (!Auth::check()){
+			//ログインチェック
+			return redirect()->to("/auth/login");   
+		}
 		$data = $request->all();
-
 		return view('classes/confirm')->with('data',$data);
 
 	}
@@ -136,11 +140,14 @@ class ClassesController extends Controller {
 	 */
 
 	public function postComplete(Request $request){
-
+		if (!Auth::check()){
+			//ログインチェック
+			return redirect()->to("/auth/login");   
+		}
 		$review = $this->review;
-
 		$data['id'] = $request->class_id;
 		$req = $request->all();
+		$req['user_id'] = $request->user()->user_id;
 		$review->fill($req);
     	$review->save();
 
@@ -158,7 +165,10 @@ class ClassesController extends Controller {
 	 */
 
 	public function getEdit(Request $request){
-
+		if (!Auth::check()){
+			//ログインチェック
+			return redirect()->to("/auth/login");   
+		}
 		$data['all'] = $request->all();
 		$id = $data['all']['review_id'];
 		$data['detail'] = $this->review->find($id);
@@ -176,7 +186,10 @@ class ClassesController extends Controller {
 	 */
 
 	public function postEditConfirm(Request $request){
-
+		if (!Auth::check()){
+			//ログインチェック
+			return redirect()->to("/auth/login");   
+		}
 		$data = $request->all();
 
 		return view('classes/editconfirm')->with('data',$data);
@@ -194,7 +207,10 @@ class ClassesController extends Controller {
 	 */
 
 	public function postEditComplete(Request $request){
-				
+		if (!Auth::check()){
+			//ログインチェック
+			return redirect()->to("/auth/login");   
+		}				
 		$id = $request->review_id;
 		$review = $this->review->find($id);
 
@@ -219,7 +235,10 @@ class ClassesController extends Controller {
 	 */
 
 	public function postDeleteConfirm(Request $request){
-
+		if (!Auth::check()){
+			//ログインチェック
+			return redirect()->to("/auth/login");   
+		}
 		$data = $request->all();
 		$id = $data['review_id'];
 		$data['detail'] = $this->review->find($id);
@@ -238,7 +257,10 @@ class ClassesController extends Controller {
 	 */
 
 	public function postDeleteComplete(Request $request){
-				
+		if (!Auth::check()){
+			//ログインチェック
+			return redirect()->to("/auth/login");   
+		}				
 		$review_id = $request->review_id;
 		$review = $this->review->find($review_id);
 
@@ -256,7 +278,7 @@ class ClassesController extends Controller {
 	 * @return object(many)
 	 *
 	 */
-
+/*
 	function returnReviewDetailByClassId($id){
 
 		$review = $this->review;
@@ -264,7 +286,7 @@ class ClassesController extends Controller {
 		$data = $review->where('class_id',$id)->orderBy('updated_at','desc')->get();
 		return $data;
 	}
-
+*/
 
 	/**
 	 * 講師名をclass_idからget

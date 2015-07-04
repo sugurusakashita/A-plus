@@ -8,7 +8,10 @@ use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
 
 class User extends Model implements AuthenticatableContract, CanResetPasswordContract {
 
+	protected $primaryKey = 'user_id';
+
 	use Authenticatable, CanResetPassword;
+
 
 	/**
 	 * The database table used by the model.
@@ -30,5 +33,11 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
 	 * @var array
 	 */
 	protected $hidden = ['password', 'remember_token'];
+
+    public function reviews()
+    {
+        return $this->hasMany('App\Review','user_id');
+    }
+
 
 }
