@@ -5,8 +5,6 @@
     <?php
       $i = 1;
       foreach ($data['access_ranking'] as $ranking) {
-        // aタグにしてあるから工夫次第でリンク張れる
-        // 今はtokenないからぶっ壊れてる
         echo "<a class='list-group-element' href=/classes/index/".$ranking->class_id."><span class='badge success'>". $i ."</span>　" . $ranking->class_name."</a>";
         $i++;
       }
@@ -20,7 +18,7 @@
     <?php
       $i = 1;
       foreach ($data['search_ranking'] as $ranking) {
-        echo "<a class='list-group-element'><span class='badge success'>". $i ."</span>　".$ranking->word."</a>";
+        echo "<a class='list-group-element' href=/search?q=".$ranking->word."><span class='badge success'>". $i ."</span>　".$ranking->word."</a>";
         $i++;
       }
     ?>
