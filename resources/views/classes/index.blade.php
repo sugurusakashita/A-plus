@@ -45,13 +45,13 @@
 			 	@endif
 				 	<div class="add_tag">
 				 		<p><a class="col4"href="/tag/add/{{ $data['detail']->class_id }}">リストからタグを追加する！</a>ない場合は...</p>
-				 		
+
 				 		<form action="#" method="POST" name="add_tag">
 				 			<input class="form-element col8" type="text" size="32" placeholder="ここに新しいタグを入力!" required name="add_tag_name" value=""/>
 				 			<input type="hidden" name="_token" value="{{csrf_token()}}" />
 				 			<button class="btn btn-default col2" type="submit" name="add_button">追加</button>
 				 		</form>
-				 		
+
 				 	</div>
 				<!-- 基本情報 -->
 				<table class="table table-bordered" style="margin: 20px auto;">
@@ -96,10 +96,10 @@
 			 	<!-- 授業レピュー -->
 				<div>
 					<div>
-						<button class="btn btn-primary"><a href="/classes/review/{{ $data['detail']->class_id }}" style="color: white;">この授業をレビューする！</a></button>
+						<a href="/classes/review/{{ $data['detail']->class_id }}"><button class="btn btn-primary">この授業をレビューする！</button></a>
 						@if(!$data['review']->count())
 							<p style='color:#FF0000;'>この授業はまだレビューされていません。</p>
-						@else 
+						@else
 						<table class="table table-striped table-hover">
 							<thead>
 								<tr>
@@ -138,11 +138,7 @@
 						</table>
 					</div>
 				</div>
-
-
-
-
 			</div>
 		</div>
-		<a href="/search"><p>検索結果に戻る</p></a>
+		<a href="/search"><button class="btn btn-sm btn-default">検索結果に戻る</button></a>
 @stop

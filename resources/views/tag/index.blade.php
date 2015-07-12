@@ -1,35 +1,7 @@
 @extends('master')
 
 @section('sidebar')
-<div class="sidebar">
-	<div class="access_ranking">
-		<span><h3>アクセスランキング</h3></span>
-		<hr>
-		<span>
-		<?php
-			$i = 1;
-			foreach ($data['access_ranking'] as $ranking) {
-				echo "<p>第 ".$i." 位　".$ranking->class_name."</p>";
-				$i++;
-			}
-		?>
-		</span>
-	</div>
-	<div class="search_word_ranking">
-		<span><h3>人気検索ワードランキング</h3></span>
-		<hr>
-		<span>
-		<?php
-			$i = 1;
-			foreach ($data['search_ranking'] as $ranking) {
-
-				echo "<p>第 ".$i." 位　".$ranking->word."</p>";
-				$i++;
-			}
-		?>
-		</span>
-	</div>
-</div>
+@include('common.sidebar')
 @stop
 
 @section('title')
@@ -38,8 +10,12 @@
 
 @section('main_content')
 	<div class ="row">
-		<h1>{{ $data['detail']->class_name }}にタグを追加する</h1>
-		<hr>
+
+		<!-- タイトル -->
+		<div class="alert a-is-info" style="margin: 0 auto 5px;">
+		 <p>「{{ $data['detail']->class_name }}」にタグを追加する</p>
+		</div>
+
 		<h2>タグ一覧</h2>
 <!--
 	@foreach($data['tag_names'] as $t)
