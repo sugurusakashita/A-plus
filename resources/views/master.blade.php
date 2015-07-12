@@ -27,10 +27,10 @@
 
   <div class="container">
       <div class="row-fluid">
-        <div class="col8">
+        <div class="col9">
           @yield('main_content')
         </div>
-        <div class="col4">
+        <div class="col3">
           @yield('sidebar')
         </div>
       </div>

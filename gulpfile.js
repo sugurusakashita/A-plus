@@ -13,7 +13,7 @@ var elixir = require('laravel-elixir');
 
 // gulpを叩くとapp.lessをコンパイルします
 // という訳でschema.lessに差し替えます
-// コンパイル後のファイルはpublish/css内にdistされます
+// コンパイル後のファイルはpublic/css内にdistされます
 
 elixir(function(mix) {
     // mix.less('app.less');
