@@ -2,6 +2,7 @@
 <html lang="ja">
 <head>
     @include('common.meta')
+    @yield('css')
     <title>
         @yield('title')
     </title>
@@ -36,5 +37,6 @@
       </div>
   </div>
   @include('common.footer')
+  @yield('js')
 </body>
 </html>

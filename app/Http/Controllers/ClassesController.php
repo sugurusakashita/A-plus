@@ -56,14 +56,21 @@ class ClassesController extends Controller {
 	public function getIndex($id,Pv $pv,TagController $tag,Request $request){
 
 		$classes = $this->classes;
+		$review  = $this->review;
 
-		$data['review'] = $this->review->where('class_id','=',$id)->get();
+		$data['review'] = $review->where('class_id','=',$id)->get();
 		$data['detail'] = $classes->find($id);
 		$data['tag']['list'] 	= $tag->returnTagNamesByClassId($id); 
 		$data['tag']['add_result'] = $request;
 		$data['teacher'] = $this->classes->find($id)->teachers;
 		$data['search_ranking'] = $this->ranking->returnSearchRankingList();
 		$data['access_ranking'] = $this->ranking->returnAccessRankingList();
+
+		$attendance = $review->select(DB::raw('attendance, count(attendance) as total'))->where('class_id','=',$id)->groupBy('attendance')->get();
+		$final_evaluation = $review->select(DB::raw('final_evaluation, count(final_evaluation) as total'))->where('class_id','=',$id)->groupBy('final_evaluation')->get();
+
+		$data['attendance_pie'] = $this->makeJsonForPie($attendance,"attendance");
+		$data['final_evaluation_pie'] = $this->makeJsonForPie($final_evaluation,"final_evaluation");
 		//ユニークPVカウント
 		if(!Session::has($id.'_pv')){
 			if(is_null($record = $pv->where('class_id','=',$id)->first())){
@@ -74,8 +81,31 @@ class ClassesController extends Controller {
 			}
 			Session::put($id.'_pv',true);
 		}
+		
 
 		return view('classes/index')->with('data',$data);
+	}
+
+	public function makeJsonForPie($data,$type){
+		$color = ["#e74c3c","#16a085","#2c3e50"];
+
+		$result = NULL;
+		for ($i=0; $i < $data->count(); $i++) { 
+		 	$type_name = $data[$i]->$type;
+		 	$count = $data[$i]->total;
+
+		 	$result[$i]["legend"] = $type_name;
+		 	$result[$i]["value"] = $count;
+		 	$result[$i]["color"] = $color[$i];
+		}
+
+		 if(is_null($result)){
+		 	return null;
+		 }
+		 $result = json_encode($result, JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT | JSON_UNESCAPED_UNICODE );
+
+		 return $result;
+
 	}
 
 	public function postIndex($id,TagController $tag,Request $request){
@@ -126,6 +156,7 @@ class ClassesController extends Controller {
 			return redirect()->to("/auth/login");   
 		}
 		$data = $request->all();
+		$data['detail'] = $this->classes->find($request->class_id);
 		return view('classes/confirm')->with('data',$data);
 
 	}

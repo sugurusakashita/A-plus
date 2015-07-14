@@ -4,8 +4,16 @@
 @include('common.sidebar')
 @stop
 
-@section('js')
-<script type="text/javascript" src="/js/classes.js"></script>
+@section('css')
+<style type="text/css">
+svg{
+	margin:0 50px;
+	width: 75%;
+}
+text{
+  fill: #FFF;
+}	
+</style>
 @stop
 
 @section('title')
@@ -13,6 +21,7 @@
 @stop
 
 @section('main_content')
+
 			<div class="col-md-12">
 			 @if($data['tag']['add_result']->added_tag)
 			 	<p style="color:red;">タグが追加されました。</p>
@@ -47,7 +56,7 @@
 				 		<p><a class="col4"href="/tag/add/{{ $data['detail']->class_id }}">リストからタグを追加する！</a>ない場合は...</p>
 
 				 		<form action="#" method="POST" name="add_tag">
-				 			<input class="form-element col8" type="text" size="32" placeholder="ここに新しいタグを入力!" required name="add_tag_name" value=""/>
+				 			<input class="form-element col5" type="text" size="32" placeholder="ここに新しいタグを入力!" required name="add_tag_name" value=""/>
 				 			<input type="hidden" name="_token" value="{{csrf_token()}}" />
 				 			<button class="btn btn-default col2" type="submit" name="add_button">追加</button>
 				 		</form>
@@ -92,7 +101,6 @@
 				 </div>
 				</div>
 				@endif
-
 			 	<!-- 授業レピュー -->
 				<div>
 					<div>
@@ -100,6 +108,16 @@
 						@if(!$data['review']->count())
 							<p style='color:#FF0000;'>この授業はまだレビューされていません。</p>
 						@else
+						<div class="pie_graph">
+							<div class="col6">
+								<p>最終評価法</p><hr>
+								<svg id="evaluation_pie"></svg>
+							</div>
+							<div class="col6">
+								<p>出席</p><hr>
+								<svg id="attendance_pie"></svg>
+							</div>
+						</div>
 						<table class="table table-striped table-hover">
 							<thead>
 								<tr>
@@ -141,4 +159,17 @@
 			</div>
 		</div>
 		<a href="/search"><button class="btn btn-sm btn-default">検索結果に戻る</button></a>
+@stop
+
+@section('js')
+	@if($data['review']->count())
+		<!--円グラフ用JS-->
+		<script type="text/javascript" src="{{ asset('/js/d3.js') }}"></script>
+		<script type="text/javascript">
+			var attendance_data = <?php echo $data['attendance_pie']; ?>;
+			var evaluation_data = <?php echo $data['final_evaluation_pie']; ?>;
+		</script>
+		<script type="text/javascript" src="{{ asset('/js/evaluation_pie.js') }}"></script>
+		<script type="text/javascript" src="{{ asset('/js/attendance_pie.js') }}"></script>
+	@endif
 @stop
