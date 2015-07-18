@@ -12,6 +12,10 @@ svg{
 }
 text{
   fill: #FFF;
+}
+.new-tag-field{
+	display: none;
+	margin: 20px 0;
 }	
 </style>
 @stop
@@ -39,31 +43,26 @@ text{
 
 				<!-- タグ作ってる -->
 			 	@if($data['tag']['list'])
-				 	<div style="padding: 10px;">
+				 	<div id="tag-list" style="padding: 10px;">
 				 		@foreach($data['tag']['list'] as $t)
 				 		<span class="btn-label info">
-				 			<form action="#" method="POST" name="delete_tag" style="margin: 0;">
-				 				<input type="submit" value="×" style="color: black;">
+				 				<input class="delete-tag-button" type="submit" value="×" style="color: black;">
 				 				<a href="" style="color: white; font-size: 1.5em;">#{{ $t->tag_name }}</a>
-				 				<input type="hidden" value="{{ $t->tag_name }}" name="delete_tag_name">
-				 				<input type="hidden" name="_token" value="{{csrf_token()}}" />
-				 			</form>
 			 			</span>
 				 		@endforeach
 				 	</div>
 			 	@endif
 				 	<div class="add_tag">
-				 		<p><a class="col4"href="/tag/add/{{ $data['detail']->class_id }}">リストからタグを追加する！</a>ない場合は...</p>
-
-				 		<form action="#" method="POST" name="add_tag">
-				 			<input class="form-element col5" type="text" size="32" placeholder="ここに新しいタグを入力!" required name="add_tag_name" value=""/>
+				 		<p><a class="col4 btn btn-pill btn-primary-outline" href="/tag/add/{{ $data['detail']->class_id }}">リストからタグを追加する！</a></p>
+				 		<button class="btn btn-pill btn-warning-outline" id="add-new-tag">新しくタグを追加する!</button>
+				 		<div class="new-tag-field">
+				 			<input class="form-element col5" type="text" size="32" placeholder="ここに新しいタグを入力!" required id="add-tag-filed" value=""/>
 				 			<input type="hidden" name="_token" value="{{csrf_token()}}" />
-				 			<button class="btn btn-default col2" type="submit" name="add_button">追加</button>
-				 		</form>
-
+				 			<button class="btn btn-default col2" type="submit" id="add-tag-button">追加</button>
+				 		</div>
 				 	</div>
 				<!-- 基本情報 -->
-				<table class="table table-bordered" style="margin: 20px auto;">
+				<table class="table table-bordered"  style="margin: 20px auto;">
 				  <thead>
 				    <tr>
 				      <th>担当講師</th>
@@ -172,4 +171,8 @@ text{
 		<script type="text/javascript" src="{{ asset('/js/evaluation_pie.js') }}"></script>
 		<script type="text/javascript" src="{{ asset('/js/attendance_pie.js') }}"></script>
 	@endif
+	<script type="text/javascript">
+		var class_id = <?php echo $data['detail']->class_id; ?>; 
+	</script>
+	<script type="text/javascript" src="{{ asset('/js/classes.js') }}"></script>
 @stop
