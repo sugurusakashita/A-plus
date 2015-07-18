@@ -20,18 +20,19 @@ jQuery(function ($) {
                 crossDomain:false,
                 success: function(data, dataType)
                 {
-                	alert(data["message"]);
                     if(data["success"] === false){
+                        alertify.error(data["message"]);
                     	return null;
                     }
                     var new_tag = '<span class="btn-label info"><input class="delete-tag-button" type="submit" value="×" style="color: black;"><a href="" style="color: white; font-size: 1.5em;">#'+tag_name+'</a></span>';
 
                     $("#tag-list").append(new_tag).hide().fadeIn("slow");
+                    alertify.success(data["message"]);
 
                 },
                 error: function(XMLHttpRequest, textStatus, errorThrown)
                 {
-                    alert('Error : ' + errorThrown);
+                    alertify.error('Error : ' + errorThrown);
                 }
             });
 	});
@@ -58,18 +59,19 @@ jQuery(function ($) {
                 crossDomain:false,
                 success: function(data, dataType)
                 {
-                	alert(data["message"]);
                     if(data["success"] === false){
+                        alertify.error(data["message"]);
                     	return null;
                     }
                     target_tag.parent().fadeOut("slow",function(){
                     	$(this).remove();
                     });
+                    alertify.success(data["message"]);
 
                 },
                 error: function(XMLHttpRequest, textStatus, errorThrown)
                 {
-                    alert('Error : ' + errorThrown);
+                    alertify.error('Error : ' + errorThrown);
                 }
             });
 	});

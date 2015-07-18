@@ -5,6 +5,8 @@
 @stop
 
 @section('css')
+<link rel="stylesheet" type="text/css" href="{{ asset("css/alertify.core.css") }}">
+<link rel="stylesheet" type="text/css" href="{{ asset("css/alertify.default.css") }}">
 <style type="text/css">
 svg{
 	margin:0 50px;
@@ -171,6 +173,7 @@ text{
 		<script type="text/javascript" src="{{ asset('/js/evaluation_pie.js') }}"></script>
 		<script type="text/javascript" src="{{ asset('/js/attendance_pie.js') }}"></script>
 	@endif
+	<script type="text/javascript" src="{{ asset('/js/alertify.js') }}"></script>
 	<script type="text/javascript">
 		var class_id = <?php echo $data['detail']->class_id; ?>; 
 	</script>
