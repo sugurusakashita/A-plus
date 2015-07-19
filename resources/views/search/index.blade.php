@@ -13,7 +13,7 @@ WjinkaProj | 検索
 	<table class="table table-bordered">
     <thead>
 	    <tr>
-	      <th>検索ワード</th>
+	      <th>フリーワード検索</th>
 	      <th>曜日</th>
 	      <th>時限</th>
 	      <th>学期</th>
@@ -22,7 +22,7 @@ WjinkaProj | 検索
 	  <tbody>
 	      <td>
 	      	<div class="form-element-group">
-	      		<input class="form-element" type="text" size="20" placeholder="授業名を入力" name="q" value="{{{ $data['get']['q']? $data['get']['q']:"" }}}"/>
+	      		<input class="form-element" type="text" size="20" placeholder="授業名・教師名・キーワードで検索！" name="q" value="{{{ $data['get']['q']? $data['get']['q']:"" }}}"/>
       	     <span class="form-group-btn">
       	      <button class="btn btn-default btn-primary" type="submit">検索</button>
       	     </span>
@@ -98,12 +98,13 @@ WjinkaProj | 検索
 			  			$review_count = $data['review']->where("class_id","=",$class_id)->get()->count();
 			  			$tags = $data['tag']->where("class_id","=",$class_id)->get();
 			  		?>
-			  		<p>
-			  		@if($review_count)
 			  		
-			  			レビュー件数:  {{ $review_count }}件あります！	  		
+			  		@if($review_count)
+			  		<p>
+			  			レビュー件数:  {{ $review_count }}件あります！	
+			  			</p>  		
 			  		@endif 
-			  		</p>
+			  		
 			  		@if($tags)
 			  			@foreach($tags as $tag)
 					  		<span class="btn-label info">

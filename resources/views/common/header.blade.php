@@ -1,10 +1,10 @@
-<header class="nav" style="margin: 30px 0;">
+<header class="nav" style="padding: 5px 0; margin: 0 0 10px; background-color:rgba(255,0,0,0.3)">
   <div class="container">
     <div class="row-fluid">
       <div class="brand">
-        <a href="/" class=""><img src="/image/Aplus.png" style="width:200px; height:auto;"></a>
+        <a href="/" style="padding:0;"><img src="{{ asset('image/A+plus_logo_global_trans@2x.png') }}" alt="a+plus_global_logo" width=120></a>
       </div>
-      <nav class="right-float">
+      <nav class="right-float" style="padding-top:3px;">
         <a href="/" class="btn-pill">TOPページ</a>
         <a href="{{ url('/search/')}}" class="btn-pill">授業レビュー</a>
 <!--         <a href="{{ url('/search/')}}" class="btn-pill">検索</a> -->

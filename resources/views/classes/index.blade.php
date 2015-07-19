@@ -44,16 +44,17 @@ text{
 				</div>
 
 				<!-- タグ作ってる -->
+				<div id="tag-list" style="padding: 10px;">
 			 	@if($data['tag']['list'])
-				 	<div id="tag-list" style="padding: 10px;">
+				 	
 				 		@foreach($data['tag']['list'] as $t)
 				 		<span class="btn-label info">
 				 				<input class="delete-tag-button" type="submit" value="×" style="color: black;">
 				 				<a href="" style="color: white; font-size: 1.5em;">#{{ $t->tag_name }}</a>
 			 			</span>
 				 		@endforeach
-				 	</div>
 			 	@endif
+			 	</div>
 				 	<div class="add_tag">
 				 		<p><a class="col4 btn btn-pill btn-primary-outline" href="/tag/add/{{ $data['detail']->class_id }}">リストからタグを追加する！</a></p>
 				 		<button class="btn btn-pill btn-warning-outline" id="add-new-tag">新しくタグを追加する!</button>
