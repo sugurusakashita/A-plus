@@ -1,4 +1,4 @@
-<header class="nav" style="padding: 5px 0; margin: 0 0 10px; background-color:rgba(255,0,0,0.3)">
+<header class="nav" style="padding: 5px 0; margin: 0 0 10px; background-color:rgba(255,0,0,0.26)">
   <div class="container">
     <div class="row-fluid">
       <div class="brand">

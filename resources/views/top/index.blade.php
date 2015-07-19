@@ -6,18 +6,32 @@ A+plus
 
 @section('main_content')
 <style type="text/css">
-   body {
-/*      background-color: #486d46;
-      background-image: url("/image/top_back.jpg");
+   body{
+      background-color: #486d46;
+      background-image: url("{{ asset('image/bg_top_filtered.jpg') }}");
       background-size: cover;
       background-attachment: fixed;
-      background-position: center center;*/
+      background-position: center;
    }
-   .nav {
-     background-color: rgba(0,0,0,0);
+/*   section:before{
+     content: "";
+     z-index: -1;
+     -webkit-filter: blur(4px);
+     -ms-filter: blur(4px);
+     filter: blur(4px);
+     position: absolute;
+     width: 100%;
+     height: 100%;
+     margin: 0;
+     padding: 0;
+   } */
+   .img_container{
+      background-color: rgba(255,255,255,0.85);
+      width: 100%;
    }
    .bland_img{
       display: block;
+      /*background-color: rgba(255,255,255,0.5);*/
       margin: 12% auto 7%;
    }
    .search_header{
@@ -26,8 +40,8 @@ A+plus
    }
 </style>
   <div class="container">
-    <div>
-       <img class="bland_img" src="{{ asset('image/A+plus_logo@1x.png') }}" alt="a+plus_logo" width=510>
+    <div class="img_container">
+       <img class="bland_img" src="{{ asset('image/A+plus_logo_trans@1x.png') }}" alt="a+plus_logo" width=510>
     </div>
     <div class="search_header">
       <form action="/search" method="get">
