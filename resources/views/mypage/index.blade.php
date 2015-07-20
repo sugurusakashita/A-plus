@@ -4,13 +4,28 @@
 A+plus
 @stop
 
+@section('css')
+<style>
+	#history{
+		margin: 15px 0;
+	}
+</style>
+@stop
+
 @section('main_content')
-	<p>ユーザー名</p>
-	<hr>
-	<p>{{ $data['user']->name }}</p>
-	<hr>
-	<p>レビュー履歴</p>
-	<hr>
+	<div class="panel panel-info">
+		<div class="panel-title">
+			ユーザー名
+		</div>
+		<div class="panel-body">
+			{{ $data['user']->name }}
+		</div>
+	</div>
+	<div class="panel panel-default" id="history">
+		<div class="panel-body">
+			レビュー履歴
+		</div>
+	</div>
 	@if(!$data['reviews']->count())
 	<p style='color:#FF0000;'>まだレビューされていません。</p>
 	@else 
