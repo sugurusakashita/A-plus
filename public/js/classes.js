@@ -1,4 +1,11 @@
 jQuery(function ($) {
+
+    // getAverageStar([APIのURL], [星を表示したいhtml上のid]);
+    // 平均値を取得し、星を表示する
+    getAverageStar('stars-average', '#raty_stars_average');
+    getAverageStar('credit-average', '#raty_credit_average');
+    getAverageStar('grade-average', '#raty_grade_average');
+
 	$('#add-new-tag').click(function(){
 		$('.new-tag-field').fadeIn("slow");
 	});
@@ -76,5 +83,17 @@ jQuery(function ($) {
             });
 	});
 
-
+    function getAverageStar(url, html_id){
+        $.ajax({
+            type: "GET",
+            url: "../../classes/" + url + "/" + class_id,
+            crossDomain:false,
+            success: function(data, dataType){
+                $(html_id).raty().raty('score', data).raty('readOnly', true);
+            },
+            error: function(XMLHttpRequest, textStatus, errorThrown){
+                $(html_id).raty().raty('readOnly', true);
+            }
+        });
+    }
 });

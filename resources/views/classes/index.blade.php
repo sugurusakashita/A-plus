@@ -75,14 +75,16 @@
 		 		<table class="table table-bordered" style="margin: 20px auto; text-align: center;">
 		 		  <thead>
 		 		    <tr>
+		 		      <th>総合評価度(平均)</th>
 		 		      <th>単位の取りやすさ(平均)</th>
 		 		      <th>GP(成績)の取りやすさ(平均)</th>
 		 		    </tr>
 		 		  </thead>
 		 	    <tbody>
 		 	      <tr>
-		 	        <td>3</td>
-		 	        <td>5</td>
+		 	        <td id="raty_stars_average"></td>
+		 	        <td id="raty_credit_average"></td>
+		 	        <td id="raty_grade_average"></td>
 		 	      </tr>
 		 	    </tbody>
 		 		</table>
@@ -214,7 +216,8 @@
 
 	</script>
 	<script type="text/javascript">
-		var class_id = <?php echo $data['detail']->class_id; ?>; 
+		var class_id = <?php echo $data['detail']->class_id; ?>;
 	</script>
+	<script type="text/javascript" src="{{ asset('/raty_lib/jquery.raty.js') }}"></script>
 	<script type="text/javascript" src="{{ asset('/js/classes.js') }}"></script>
 @stop

@@ -71,7 +71,7 @@ class ClassesController extends Controller {
 	 */
 
 	public function makeJsonForPie($data,$type){
-		$color = ["#e74c3c","#16a085","#2c3e50"];
+		$color = ["#e74c3c","#16a085","#2c3e50","#258cd1"];
 
 		$result = NULL;
 		for ($i=0; $i < $data->count(); $i++) {
@@ -286,6 +286,15 @@ class ClassesController extends Controller {
 		return view('classes/deletecomplete')->with('data',$data);
 	}
 
+	/**
+	 * ユニークアカウントをカウント
+	 *
+	 * @param pv, id
+	 * @author shalman
+	 * @return none
+	 *
+	 */
+
 	public function countUniqueAccount($pv,$id){
 		if(!Session::has($id.'_pv')){
 			if(is_null($record = $pv->where('class_id','=',$id)->first())){
@@ -296,6 +305,75 @@ class ClassesController extends Controller {
 			}
 			Session::put($id.'_pv',true);
 		}
+	}
+
+	/**
+	 * 総合評価度の平均値を返す
+	 *
+	 * @param id
+	 * @author b-kaxa
+	 * @return int
+	 *
+	 */
+
+	public function getStarsAverage($id, Request $request){
+
+		$sum = 0;
+		$all_data = $this->review->reviews($id);
+
+		// 全ての単位の取りやすさの値を合計する
+		foreach ($all_data as $v) {
+			$sum += $v['stars'];
+		}
+
+		// 平均値を返す
+		return number_format($sum / count($all_data),1);
+	}
+
+	/**
+	 * GPの取りやすさの平均値を返す
+	 *
+	 * @param id
+	 * @author b-kaxa
+	 * @return int
+	 *
+	 */
+
+	public function getGradeAverage($id, Request $request){
+
+		$sum = 0;
+		$all_data = $this->review->reviews($id);
+
+		// 全てのGPの取りやすさの値を合計する
+		foreach ($all_data as $v) {
+			$sum += $v['grade_stars'];
+		}
+
+		// 平均値を返す
+		return number_format($sum / count($all_data),1);
+	}
+
+	/**
+	 * 単位の取りやすさの平均値を返す
+	 *
+	 * @param id
+	 * @author b-kaxa
+	 * @return int
+	 *
+	 */
+
+	public function getCreditAverage($id, Request $request){
+
+		$sum = 0;
+		$all_data = $this->review->reviews($id);
+
+		// 全ての単位の取りやすさの値を合計する
+		foreach ($all_data as $v) {
+			$sum += $v['unit_stars'];
+		}
+
+		// 平均値を返す
+		return number_format($sum / count($all_data),1);
 	}
 
 	/**
