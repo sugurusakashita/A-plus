@@ -56,7 +56,7 @@ A+plus
 			<div class="panel-title">入学年度</div>
 			<div class="panel-body">
 				<form class="entrance_year" action='#' method='POST'>
-				<span class="profile-value">{{ $data['user']->entrance_year }}</span>年度
+				<span class="profile-value">{{ $data['user']->entrance_year }}{{ $data['user']->entrance_year == "その他"? "":"年度"  }}</span>
 				<input type="hidden" name="_token" value="{{ csrf_token() }}">
 				<button class="btn btn-sm btn-success btn-xs edit-button right-float" />編集</button>
 				</form>

@@ -1,13 +1,13 @@
 jQuery(function ($) {
     $(".edit-button").click(function(){
-        var prof_p = $(this).siblings(".profile-value");
+        var prof_span = $(this).siblings(".profile-value");
         var name = $(this).parent().attr("class");
         var type = "text";
         if(name == "email"){
             type = "email";
         }
 
-        var edit_form = "<input type="+type+" name="+name+" class='form-group edit-prof-field' value="+prof_p.text()+">";
+        var edit_form = "<input type="+type+" name="+name+" class='form-group edit-prof-field' value="+prof_span.text()+">";
         var after_button = '<button type="submit" class="btn btn-sm btn-danger btn-xs complete-button right-float">完了</button>';
 
         if(name == "entrance_year"){
@@ -55,7 +55,7 @@ jQuery(function ($) {
 
 
 
-        prof_p.replaceWith(edit_form);
+        prof_span.replaceWith(edit_form);
         $(this).replaceWith(after_button);
         
         
