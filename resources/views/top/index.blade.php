@@ -6,38 +6,33 @@ A+plus
 
 @section('main_content')
 <style type="text/css">
-   body{
-      background-color: #486d46;
-      background-image: url("{{ asset('image/bg_top_filtered.jpg') }}");
-      background-size: cover;
-      background-attachment: fixed;
-      background-position: center;
-   }
-/*   section:before{
-     content: "";
-     z-index: -1;
-     -webkit-filter: blur(4px);
-     -ms-filter: blur(4px);
-     filter: blur(4px);
-     position: absolute;
-     width: 100%;
-     height: 100%;
-     margin: 0;
-     padding: 0;
-   } */
-   .img_container{
-      background-color: rgba(255,255,255,0.85);
-      width: 100%;
-   }
-   .bland_img{
-      display: block;
-      /*background-color: rgba(255,255,255,0.5);*/
-      margin: 12% auto 7%;
-   }
-   .search_header{
-      width:50%;
-      margin: 0 auto 20%;
-   }
+  body{
+    background-color: #fff;
+    background-image: url("{{ asset('image/bg_top_filtered.jpg') }}");
+    background-size: cover;
+    background-attachment: fixed;
+    background-position: center;
+  }
+  .img_container{
+    background-color: rgba(255,255,255,0.85);
+    width: 100%;
+  }
+  .bland_img{
+    display: block;
+    margin: 12% auto 7%;
+  }
+  .search_header{
+    width:50%;
+    margin: 0 auto 20%;
+  }
+  @media screen and (max-width: 47.9375rem) {
+    .bland_img{
+      width: 80%;
+    }
+    .search_header{
+       width:90%;
+    }
+  }
 </style>
   <div class="container">
     <div class="img_container">
