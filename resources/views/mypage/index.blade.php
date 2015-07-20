@@ -6,8 +6,11 @@ A+plus
 
 @section('css')
 <style>
-	#history{
+	.profile-list{
 		margin: 15px 0;
+	}
+	form{
+		margin:0;
 	}
 </style>
 @stop
@@ -25,64 +28,87 @@ A+plus
 		</div>
 	@endif
 	<div class="profile-list">
-		<p>ユーザー名</p>
-		<form class="name" action='#' method='POST'>
-			<p class="profile-value">{{ $data['user']->name }}</p>
-			<input type="hidden" name="_token" value="{{ csrf_token() }}">
-			<button class="btn btn-success btn-xs edit-button" />編集</button>		
-		</form>
-		<hr>
+		<div class="panel panel-default">
+			<div class="panel-title">ユーザー名</div>
+			<div class="panel-body">
+				<form class="name" action='#' method='POST'>
+					<span class="profile-value">{{ $data['user']->name }}</span>
+					<input type="hidden" name="_token" value="{{ csrf_token() }}">
+					<button class="btn btn-sm btn-success btn-xs edit-button right-float" />編集</button>
+				</form>
+			</div>
+		</div>
 	</div>
 	<div class="profile-list">
-		<p>登録メールアドレス</p>
-		<form class="email" action='#' method='POST'>
-			<p class="profile-value">{{ $data['user']->email }}</p>
-			<input type="hidden" name="_token" value="{{ csrf_token() }}">
-			<button class="btn btn-success btn-xs edit-button" />編集</button>
-		</form>
-		<hr>
+		<div class="panel panel-default">
+			<div class="panel-title">登録メールアドレス</div>
+			<div class="panel-body">
+				<form class="email" action='#' method='POST'>
+				<span class="profile-value">{{ $data['user']->email }}</span>
+				<input type="hidden" name="_token" value="{{ csrf_token() }}">
+				<button class="btn btn-sm btn-success btn-xs edit-button right-float" />編集</button>
+				</form>
+			</div>
+		</div>
 	</div>
 	<div class="profile-list">
-		<p>入学年度</p>
-		<form class="entrance_year" action='#' method='POST'>
-			<p class="profile-value">{{ $data['user']->entrance_year }}</p>
-			<p>年度</p>
-			<input type="hidden" name="_token" value="{{ csrf_token() }}">
-			<button class="btn btn-success btn-xs edit-button" />編集</button>
-		</form>
-		<hr>		
+		<div class="panel panel-default">
+			<div class="panel-title">入学年度</div>
+			<div class="panel-body">
+				<form class="entrance_year" action='#' method='POST'>
+				<span class="profile-value">{{ $data['user']->entrance_year }}</span>年度
+				<input type="hidden" name="_token" value="{{ csrf_token() }}">
+				<button class="btn btn-sm btn-success btn-xs edit-button right-float" />編集</button>
+				</form>
+			</div>
+		</div>
 	</div>
 	<div class="profile-list">
-		<p>学部</p>
-		<form class="faculty" action='#' method='POST'>
-			<p class="profile-value">{{ $data['user']->faculty }}</p>
-			<input type="hidden" name="_token" value="{{ csrf_token() }}">
-			<button class="btn btn-success btn-xs edit-button" />編集</button>
-		</form>
-		<hr>		
+		<div class="panel panel-default">
+			<div class="panel-title">学部</div>
+			<div class="panel-body">
+				<form class="faculty" action='#' method='POST'>
+				<span class="profile-value">{{ $data['user']->faculty }}</span>
+				<input type="hidden" name="_token" value="{{ csrf_token() }}">
+				<button class="btn btn-sm btn-success btn-xs edit-button right-float" />編集</button>
+				</form>
+			</div>
+		</div>
 	</div>
 	<div class="profile-list">
-		<p>性別</p>
-		<form class="sex" action='#' method='POST'>
-			<p class="profile-value">{{ $data['user']->sex }}</p>
-			<input type="hidden" name="_token" value="{{ csrf_token() }}">
-			<button class="btn btn-success btn-xs edit-button" />編集</button>
-		</form>
-		<hr>		
+		<div class="panel panel-default">
+			<div class="panel-title">性別</div>
+			<div class="panel-body">
+				<form class="sex" action='#' method='POST'>
+				<span class="profile-value">{{ $data['user']->sex }}</span>
+				<input type="hidden" name="_token" value="{{ csrf_token() }}">
+				<button class="btn btn-sm btn-success btn-xs edit-button right-float" />編集</button>
+				</form>
+			</div>
+		</div>
 	</div>
 	<div class="profile-list">
-		<p>パスワード</p>
-		<p class="profile-value">**********</p>
-		<!-- Laravelの仕様？暫定。 -->
-		<p>パスワードの変更は、お手数ですが一度リセットしてから再設定となります。</p>
-		<a href="/password/email">こちらからメールを送信して再設定してください。</a>
-		<hr>		
+		<div class="panel panel-default">
+			<div class="panel-title">パスワード</div>
+			<div class="panel-body">
+				<span class="profile-value">**********</span>
+				<input type="hidden" name="_token" value="{{ csrf_token() }}">
+			</div>
+		</div>
 	</div>
+
+	<div class="panel panel-default">
+		<div class="panel-body">
+			パスワードの変更は、お手数ですが一度リセットしてから再設定となります。<br />
+			<a href="/password/email">こちらからメールを送信して再設定してください。</a>
+		</div>
+	</div>
+
 	<p>レビュー履歴</p>
 	<hr>
 	@if(!$data['reviews']->count())
 	<p style='color:#FF0000;'>まだレビューされていません。</p>
-	@else 
+	@else
 	<table class="table table-striped table-hover">
 		<thead>
 			<tr>

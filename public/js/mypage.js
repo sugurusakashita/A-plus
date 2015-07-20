@@ -2,13 +2,13 @@ jQuery(function ($) {
     $(".edit-button").click(function(){
         var prof_p = $(this).siblings(".profile-value");
         var name = $(this).parent().attr("class");
-        var type = "text"
+        var type = "text";
         if(name == "email"){
             type = "email";
         }
 
         var edit_form = "<input type="+type+" name="+name+" class='form-group edit-prof-field' value="+prof_p.text()+">";
-        var after_button = '<button type="submit" class="btn btn-danger btn-xs complete-button">完了</button>';
+        var after_button = '<button type="submit" class="btn btn-sm btn-danger btn-xs complete-button right-float">完了</button>';
 
         if(name == "entrance_year"){
             //ヒアドキュメント風に取得
