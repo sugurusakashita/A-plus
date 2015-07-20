@@ -7,6 +7,7 @@
 @section('js')
 <link rel="stylesheet" href="/raty_lib/jquery.raty.css">
 <script type="text/javascript" src="{{ asset('/js/review.js') }}"></script>
+<script type="text/javascript" src="{{ asset('/js/alertify.js') }}"></script>
 <script type="text/javascript" src="{{ asset('/raty_lib/jquery.raty.js') }}"></script>
 <script>
   // 評価を星で表しています
@@ -20,7 +21,8 @@
 <div class="alert a-is-info" style="margin: 0 auto 5px;">
  <p>レビュー入力 | {{ $data['detail']['class_name']}}</p>
 </div>
-<form action="/classes/confirm" method="POST">
+<!-- <form action="/classes/confirm" method="POST"> -->
+<form>
 	<table class="table table-bordered" style="margin: 20px auto;">
 	    <tr>
 	      <th scope="row">受講時の学年</th>
@@ -115,7 +117,7 @@
 	</table>
 	<div class="form-group">
 		<label>授業の感想</label>
-		<textarea placeholder="例) 大学生活において必要なスキルを学ぶための授業。レポートの正しい書き方、Macbookの使い方などを学ぶ。&#13;&#10;先生はおおらかな人なので遅刻は厳しくない。しかし、声が小さく、スライドも文字が小さいので理解しにくい。&#13;&#10;最終レポートは1000字だが、出せば単位は来る" name="review_comment" rows="4" required class="form-control form-element"></textarea>
+		<textarea placeholder="例) 大学生活において必要なスキルを学ぶための授業。レポートの正しい書き方、Macbookの使い方などを学ぶ。&#13;&#10;先生はおおらかな人なので遅刻は厳しくない。しかし、声が小さく、スライドも文字が小さいので理解しにくい。&#13;&#10;最終レポートは1000字だが、出せば単位は来る" name="review_comment" rows="4" class="form-control form-element"></textarea>
 	</div>
 	<input type="hidden" name="class_id" value="{{ $data['detail']->class_id }}">
 	<input type="hidden" name="_token" value="{{csrf_token()}}">

@@ -21,6 +21,16 @@ class TagController extends Controller {
 		$this->ranking = $ranking;
 
 	}
+
+	/**
+	 * タグ一覧ページ
+	 *
+	 * @param $id(int)
+	 * @author shalman
+	 * @return view
+	 *
+	 */
+
 	public function getAdd($id){
 		$tag = $this->tag;
 
