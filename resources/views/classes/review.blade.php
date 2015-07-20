@@ -21,8 +21,7 @@
 <div class="alert a-is-info" style="margin: 0 auto 5px;">
  <p>レビュー入力 | {{ $data['detail']['class_name']}}</p>
 </div>
-<!-- <form action="/classes/confirm" method="POST"> -->
-<form>
+<form action="/classes/confirm" method="POST">
 	<table class="table table-bordered" style="margin: 20px auto;">
 	    <tr>
 	      <th scope="row">受講時の学年</th>
