@@ -92,7 +92,7 @@
 
 				 	<!-- 授業要旨 -->
 					@if($data['detail']->summary)
-					<div class="panel panel-info">
+					<div class="panel panel-info" style="margin: 20px auto;">
 					 <div class="panel-title">
 					   授業要旨
 					 </div>
@@ -106,7 +106,13 @@
 			 	</div>
 
 				@if(!$data['review']->count())
-				<div id="tab2" class="tab-contents" style="background-color: red; padding: 15px 0">
+				<div id="tab2" class="tab-contents">
+					<div class="alert a-is-danger alert-removed fade in" style="margin: 20px auto;">
+						この授業はまだレビューされていません。
+					</div>
+					<a href="/classes/review/{{ $data['detail']->class_id }}"><button class="btn btn-primary">この授業をレビューする！</button></a>
+				</div>
+				<div id="tab3" class="tab-contents">
 					<div class="alert a-is-danger alert-removed fade in" style="margin: 20px auto;">
 						この授業はまだレビューされていません。
 					</div>
@@ -168,11 +174,11 @@
 		         	<td>{{{ $r->review_comment }}}</td>
 		 				</tr>
 			      @endforeach
-			      @endif
 						</tbody>
 					</table>
 					<a href="/classes/review/{{ $data['detail']->class_id }}"><button class="btn btn-primary">この授業をレビューする！</button></a>
 				</div>
+				@endif
 			</div>
 		</div>
 		<a href="/search"><button class="btn btn-sm btn-default">検索結果に戻る</button></a>
