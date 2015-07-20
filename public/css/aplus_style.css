@@ -1,3 +1,17 @@
+body{
+  background: url('/image/lined_paper.png');
+}
+
+header.nav{
+  padding: 5px 0;
+  margin: 0 0 25px;
+  background-color: #f7b977;
+}
+
 .sidebar {
   font-size: 0.9em;
+}
+
+table{
+  background-color: #fff;
 }
