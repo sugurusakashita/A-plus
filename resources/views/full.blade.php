@@ -15,6 +15,7 @@
       </div>
   </div>
   @include('common.footer')
+    <script type="text/javascript" src="{{ asset('/js/alertify.js') }}"></script>
   @yield('js')
 </body>
 </html>

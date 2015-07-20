@@ -13,19 +13,73 @@ A+plus
 @stop
 
 @section('main_content')
-	<div class="panel panel-info">
-		<div class="panel-title">
-			ユーザー名
+	@if (count($errors) > 0)
+		<div class="alert alert-danger">
+			<p>
+			入力の一部に誤りがあります。</p><br><br>
+			<ul>
+				@foreach ($errors->all() as $error)
+					<li>{{ $error }}</li>
+				@endforeach
+			</ul>
 		</div>
-		<div class="panel-body">
-			{{ $data['user']->name }}
-		</div>
+	@endif
+	<div class="profile-list">
+		<p>ユーザー名</p>
+		<form class="name" action='#' method='POST'>
+			<p class="profile-value">{{ $data['user']->name }}</p>
+			<input type="hidden" name="_token" value="{{ csrf_token() }}">
+			<button class="btn btn-success btn-xs edit-button" />編集</button>		
+		</form>
+		<hr>
 	</div>
-	<div class="panel panel-default" id="history">
-		<div class="panel-body">
-			レビュー履歴
-		</div>
+	<div class="profile-list">
+		<p>登録メールアドレス</p>
+		<form class="email" action='#' method='POST'>
+			<p class="profile-value">{{ $data['user']->email }}</p>
+			<input type="hidden" name="_token" value="{{ csrf_token() }}">
+			<button class="btn btn-success btn-xs edit-button" />編集</button>
+		</form>
+		<hr>
 	</div>
+	<div class="profile-list">
+		<p>入学年度</p>
+		<form class="entrance_year" action='#' method='POST'>
+			<p class="profile-value">{{ $data['user']->entrance_year }}</p>
+			<p>年度</p>
+			<input type="hidden" name="_token" value="{{ csrf_token() }}">
+			<button class="btn btn-success btn-xs edit-button" />編集</button>
+		</form>
+		<hr>		
+	</div>
+	<div class="profile-list">
+		<p>学部</p>
+		<form class="faculty" action='#' method='POST'>
+			<p class="profile-value">{{ $data['user']->faculty }}</p>
+			<input type="hidden" name="_token" value="{{ csrf_token() }}">
+			<button class="btn btn-success btn-xs edit-button" />編集</button>
+		</form>
+		<hr>		
+	</div>
+	<div class="profile-list">
+		<p>性別</p>
+		<form class="sex" action='#' method='POST'>
+			<p class="profile-value">{{ $data['user']->sex }}</p>
+			<input type="hidden" name="_token" value="{{ csrf_token() }}">
+			<button class="btn btn-success btn-xs edit-button" />編集</button>
+		</form>
+		<hr>		
+	</div>
+	<div class="profile-list">
+		<p>パスワード</p>
+		<p class="profile-value">**********</p>
+		<!-- Laravelの仕様？暫定。 -->
+		<p>パスワードの変更は、お手数ですが一度リセットしてから再設定となります。</p>
+		<a href="/password/email">こちらからメールを送信して再設定してください。</a>
+		<hr>		
+	</div>
+	<p>レビュー履歴</p>
+	<hr>
 	@if(!$data['reviews']->count())
 	<p style='color:#FF0000;'>まだレビューされていません。</p>
 	@else 
@@ -65,4 +119,8 @@ A+plus
   @endif
 		</tbody>
 	</table>
+@stop
+
+@section('js')
+	<script type="text/javascript" src="{{ asset('/js/mypage.js') }}"></script>
 @stop

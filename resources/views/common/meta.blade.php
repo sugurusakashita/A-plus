@@ -4,6 +4,8 @@
 <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=1">
 <link href="{{ asset('/css/schema.min.css') }}" rel="stylesheet">
 <link href="{{ asset('/css/aplus_style.css') }}" rel="stylesheet">
+<link rel="stylesheet" type="text/css" href="{{ asset("css/alertify.core.css") }}">
+<link rel="stylesheet" type="text/css" href="{{ asset("css/alertify.default.css") }}">
 <link href='//fonts.googleapis.com/css?family=Roboto:400,300' rel='stylesheet' type='text/css'>
 <script type="text/javascript" src="https://code.jquery.com/jquery-1.11.3.js"></script>
 <!--[if lt IE 9]>
