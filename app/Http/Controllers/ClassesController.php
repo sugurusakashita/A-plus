@@ -121,6 +121,7 @@ class ClassesController extends Controller {
 
 		return redirect()->to("/classes/index/".$id.$get_str);
 	}
+
 	/**
 	 * 授業レビュー投稿
 	 *
@@ -133,7 +134,7 @@ class ClassesController extends Controller {
 	public function getReview($id){
 		if (!Auth::check()){
 			//ログインチェック
-			return redirect()->to("/auth/login");   
+			return redirect()->to("/auth/login");
 		}
 
 		$classes = $this->classes;
