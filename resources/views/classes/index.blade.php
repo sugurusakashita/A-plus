@@ -80,7 +80,7 @@ text{
 			        <td>
 			        	@if($data['teacher'])
 			        		@foreach($data['teacher'] as $teacher)
-			        			<a href="/search/?q={{ urldecode($teacher->teacher_name) }}&day=0&period=0&term=2&_token={{csrf_token()}}">{{ $teacher->teacher_name }}</a>
+			        			<a href="/search?q={{ urldecode($teacher->teacher_name) }}&day=0&period=0&term=2&_token={{csrf_token()}}">{{ $teacher->teacher_name }}</a>
 			        		@endforeach
 			        	@endif
 			        </th>
