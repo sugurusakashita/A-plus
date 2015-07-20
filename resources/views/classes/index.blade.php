@@ -8,17 +8,23 @@
 <link rel="stylesheet" type="text/css" href="{{ asset('css/alertify.core.css') }}">
 <link rel="stylesheet" type="text/css" href="{{ asset('css/alertify.default.css') }}">
 <style type="text/css">
-svg{
-	margin:0 50px;
-	width: 75%;
-}
-text{
-  fill: #FFF;
-}
-.new-tag-field{
-	display: none;
-	margin: 20px 0;
-}
+	svg{
+		margin:0 50px;
+		width: 75%;
+	}
+	text{
+	  fill: #FFF;
+	}
+	.new-tag-field{
+		display: none;
+		margin: 20px 0;
+	}
+	.bar_graph{
+		background-color: #91BFC3;
+	}
+	.pie_graph{
+		overflow: auto;
+	}
 </style>
 @stop
 
@@ -129,15 +135,23 @@ text{
 								この授業はまだレビューされていません。
 							</div>
 						@else
-						<div class="pie_graph">
+						<!-- 一旦非表示 -->
+						<div class="pie_graph col12">
 							<div class="col6">
 								<p>最終評価法</p><hr>
 								<svg id="evaluation_pie"></svg>
 							</div>
-							<div class="col6">
+<!-- 							<div class="col6">
 								<p>出席</p><hr>
 								<svg id="attendance_pie"></svg>
+							</div> -->
+							<div class="col6">
+								<p>授業の評価</p><hr>
+								<svg id="attendance_pie"></svg>
 							</div>
+						</div>
+						<div id="attendance_bar_graph" class="bar_graph col6">
+							<p>出席</p>
 						</div>
 						<table class="table table-bordered">
 							<thead>
@@ -186,9 +200,9 @@ text{
 @stop
 
 @section('js')
+	<script type="text/javascript" src="{{ asset('/js/d3.js') }}"></script>
 	@if($data['review']->count())
 		<!--円グラフ用JS-->
-		<script type="text/javascript" src="{{ asset('/js/d3.js') }}"></script>
 		<script type="text/javascript">
 			var attendance_data = <?php echo $data['attendance_pie']; ?>;
 			var evaluation_data = <?php echo $data['final_evaluation_pie']; ?>;
@@ -196,7 +210,9 @@ text{
 		<script type="text/javascript" src="{{ asset('/js/evaluation_pie.js') }}"></script>
 		<script type="text/javascript" src="{{ asset('/js/attendance_pie.js') }}"></script>
 	@endif
-	<script type="text/javascript" src="{{ asset('/js/alertify.js') }}"></script>
+	<script type="text/javascript" src="{{ asset('/js/bar_graph.js') }}">
+
+	</script>
 	<script type="text/javascript">
 		var class_id = <?php echo $data['detail']->class_id; ?>; 
 	</script>

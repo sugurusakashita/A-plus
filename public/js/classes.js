@@ -75,42 +75,6 @@ jQuery(function ($) {
                 }
             });
 	});
-	//タグ削除
- // 	$('.delete-tag-button').click(function(){
-	// 	//対象となるタグ
-	// 	var target_tag = $(this);
-	// 	//タグ名取得
-	// 	var tag_name =  $(this).siblings().text();
-	// 	//#を削除
-	// 	tag_name = tag_name.replace("#","");
-
-	// 	var params = {
-	// 			"class_id":class_id,
-	// 			"tag_name":tag_name,
-	// 			"_token":$('meta[name="csrf-token"]').attr('content')
-	// 		};
- //            $.ajax({
- //                type: "POST",
- //                url: "../../tag/delete",
- //                dataType: "Json",
- //                data: params,
- //                success: function(data, dataType)
- //                {
- //                	alert(data["message"]);
- //                    if(data["success"] === false){
- //                    	return null;
- //                    }
- //                    target_tag.parent().fadeOut("slow",function(){
- //                    	$(this).remove();
- //                    });
-
- //                },
- //                error: function(XMLHttpRequest, textStatus, errorThrown)
- //                {
- //                    alert('Error : ' + errorThrown);
- //                }
- //            });
-	// });
 
 
 });
