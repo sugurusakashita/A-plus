@@ -29,7 +29,7 @@ jQuery(function ($) {
                 {
                     if(data["success"] === false){
                         alertify.error(data["message"]);
-                    	return null;
+                        return null;
                     }
                     var new_tag = '<span class="btn-label info"><input class="delete-tag-button" type="submit" value="×" style="color: black;"><a href="" style="color: white; font-size: 1.5em;">#'+tag_name+'</a></span>';
 
@@ -68,10 +68,10 @@ jQuery(function ($) {
                 {
                     if(data["success"] === false){
                         alertify.error(data["message"]);
-                    	return null;
+                        return null;
                     }
                     target_tag.parent().fadeOut("slow",function(){
-                    	$(this).remove();
+                        $(this).remove();
                     });
                     alertify.success(data["message"]);
 
@@ -96,4 +96,14 @@ jQuery(function ($) {
             }
         });
     }
+
+    $('.tab-index a').click(function(e){
+        $('.tab-index .active').removeClass('active');
+        $(this).parent().addClass('active');
+        $('.tab-contents').each(function(){
+            $(this).removeClass('active');
+        });
+        $(this.hash).addClass('active');
+        e.preventDefault();
+    });
 });
