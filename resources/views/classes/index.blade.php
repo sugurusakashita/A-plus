@@ -152,7 +152,7 @@
 								<svg id="attendance_pie"></svg>
 							</div>
 						</div>
-						<div id="attendance_bar_graph" class="bar_graph col6">
+						<div id="attendance_bar_graph" class="bar_graph col7">
 							<p>出席</p>
 						</div>
 						<table class="table table-bordered">
