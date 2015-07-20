@@ -118,12 +118,10 @@ class SearchController extends Controller {
 
 		$data['get'] = $search_session;
 		$data['review'] = $this->review;
-		$data['tag'] = $this->tag;		
+		$data['tag'] = $this->tag;
 
 		$data['search_ranking'] = $this->ranking->returnSearchRankingList();
 		$data{'access_ranking'} = $this->ranking->returnAccessRankingList();
-
-
 
 		return view('search/index')->with('data',$data);
 	}
