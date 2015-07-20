@@ -59,3 +59,11 @@ A+plus
     </div>
   </div>
 @stop
+
+@section('js')
+  <?php if(old('alert')){?>
+    <script type="text/javascript"> 
+          alertify.success({{ old("alert") }});
+    </script>
+  <?php }?>
+@stop
