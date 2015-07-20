@@ -21,27 +21,11 @@ class ClassesController extends Controller {
 	protected $ranking;
 	protected $teacher;
 
-
 	public function __construct(Classes $classes,Review $review,Teacher $teacher,RankingController $ranking){
 		$this->classes = $classes;
 		$this->review = $review;
 		$this->ranking = $ranking;
 		$this->teacher = $teacher;
-		/*
-		DB::enableQueryLog();
-		$sql = DB::pretend(function(){
-			Classes::find(512)->teachers;
-		});
-		*/
-		//$classes->find(512);
-		
-		/*
-		DB::listen(function($sql,$binding,$time){
-
-			var_dump($sql);
-		});
-		*/
-
 	}
 
 	/**
@@ -55,42 +39,42 @@ class ClassesController extends Controller {
 
 	public function getIndex($id,Pv $pv,TagController $tag,Request $request){
 
-		$classes = $this->classes;
-		$review  = $this->review;
+		$data = array(
+			'review'  => $this->review->reviews($id),
+			'detail'  => $this->classes->find($id),
+			'teacher' => $this->classes->find($id)->teachers,
+			'tag' 	  => array(
+					'list' 			 => $tag->returnTagNamesByClassId($id),
+					'add_result' => $request
+				),
+			'search_ranking' => $this->ranking->returnSearchRankingList(),
+			'access_ranking' => $this->ranking->returnAccessRankingList()
+		);
 
-		$data['review'] = $review->where('class_id','=',$id)->get();
-		$data['detail'] = $classes->find($id);
-		$data['tag']['list'] 	= $tag->returnTagNamesByClassId($id); 
-		$data['tag']['add_result'] = $request;
-		$data['teacher'] = $this->classes->find($id)->teachers;
-		$data['search_ranking'] = $this->ranking->returnSearchRankingList();
-		$data['access_ranking'] = $this->ranking->returnAccessRankingList();
+		$data['attendance_pie'] 			= $this->makeJsonForPie($this->review->attendance($id),"attendance");
+		$data['final_evaluation_pie'] = $this->makeJsonForPie($this->review->final_evaluations($id),"final_evaluation");
 
-		$attendance = $review->select(DB::raw('attendance, count(attendance) as total'))->where('class_id','=',$id)->groupBy('attendance')->get();
-		$final_evaluation = $review->select(DB::raw('final_evaluation, count(final_evaluation) as total'))->where('class_id','=',$id)->groupBy('final_evaluation')->get();
-
-		$data['attendance_pie'] = $this->makeJsonForPie($attendance,"attendance");
-		$data['final_evaluation_pie'] = $this->makeJsonForPie($final_evaluation,"final_evaluation");
-		//ユニークPVカウント
-		if(!Session::has($id.'_pv')){
-			if(is_null($record = $pv->where('class_id','=',$id)->first())){
-				$pv['class_id'] = $id;
-				$pv->save();
-			}else{
-				$record->increment('pv');
-			}
-			Session::put($id.'_pv',true);
-		}
-		
+		// ユニークPVカウント
+		// 正しく動くかわからない…
+		$this->countUniqueAccount($pv,$id);
 
 		return view('classes/index')->with('data',$data);
 	}
+
+	/**
+	 * 円グラフ用jsonに変換
+	 *
+	 * @param array, string
+	 * @author shalman
+	 * @return json
+	 *
+	 */
 
 	public function makeJsonForPie($data,$type){
 		$color = ["#e74c3c","#16a085","#2c3e50"];
 
 		$result = NULL;
-		for ($i=0; $i < $data->count(); $i++) { 
+		for ($i=0; $i < $data->count(); $i++) {
 		 	$type_name = $data[$i]->$type;
 		 	$count = $data[$i]->total;
 
@@ -300,6 +284,18 @@ class ClassesController extends Controller {
 
 		$data['id'] = $request->class_id;
 		return view('classes/deletecomplete')->with('data',$data);
+	}
+
+	public function countUniqueAccount($pv,$id){
+		if(!Session::has($id.'_pv')){
+			if(is_null($record = $pv->where('class_id','=',$id)->first())){
+				$pv['class_id'] = $id;
+				$pv->save();
+			}else{
+				$record->increment('pv');
+			}
+			Session::put($id.'_pv',true);
+		}
 	}
 
 	/**

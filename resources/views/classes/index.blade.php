@@ -106,11 +106,11 @@ text{
 			 	<!-- 授業レピュー -->
 				<div>
 					<div>
+						<a href="/classes/review/{{ $data['detail']->class_id }}"><button class="btn btn-primary">この授業をレビューする！</button></a>
 						@if(!$data['review']->count())
 							<div class="alert a-is-danger alert-removed fade in" style="margin: 20px auto;">
 								この授業はまだレビューされていません。
 							</div>
-							<a href="/classes/review/{{ $data['detail']->class_id }}"><button class="btn btn-primary">この授業をレビューする！</button></a>
 						@else
 						<div class="pie_graph">
 							<div class="col6">
