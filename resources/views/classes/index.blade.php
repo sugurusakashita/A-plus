@@ -46,7 +46,6 @@ text{
 				<!-- タグ作ってる -->
 				<div id="tag-list" style="padding: 10px;">
 			 	@if($data['tag']['list'])
-				 	
 				 		@foreach($data['tag']['list'] as $t)
 				 		<span class="btn-label info">
 				 				<input class="delete-tag-button" type="submit" value="×" style="color: black;">
@@ -55,15 +54,33 @@ text{
 				 		@endforeach
 			 	@endif
 			 	</div>
-				 	<div class="add_tag">
-				 		<p><a class="col4 btn btn-pill btn-primary-outline" href="/tag/add/{{ $data['detail']->class_id }}">リストからタグを追加する！</a></p>
-				 		<button class="btn btn-pill btn-warning-outline" id="add-new-tag">新しくタグを追加する!</button>
-				 		<div class="new-tag-field">
-				 			<input class="form-element col5" type="text" size="32" placeholder="ここに新しいタグを入力!" required id="add-tag-filed" value=""/>
-				 			<input type="hidden" name="_token" value="{{csrf_token()}}" />
-				 			<button class="btn btn-default col2" type="submit" id="add-tag-button">追加</button>
-				 		</div>
-				 	</div>
+
+			 	<!-- タグの追加 -->
+			 	<div class="add_tag">
+			 		<a class="col4 btn btn-pill btn-primary" href="/tag/add/{{ $data['detail']->class_id }}">リストからタグを追加する！</a>&nbsp;
+			 		<button class="btn btn-pill btn-warning" id="add-new-tag">新しくタグを追加する!</button>
+			 		<div class="new-tag-field">
+			 			<input class="form-element col5" type="text" size="32" placeholder="ここに新しいタグを入力!" required id="add-tag-filed" value=""/>&nbsp;
+			 			<input type="hidden" name="_token" value="{{csrf_token()}}" />
+			 			<button class="btn btn-default col2" type="submit" id="add-tag-button">追加</button>
+			 		</div>
+			 	</div>
+
+		 		<table class="table table-bordered" style="margin: 20px auto; text-align: center;">
+		 		  <thead>
+		 		    <tr>
+		 		      <th>単位の取りやすさ(平均)</th>
+		 		      <th>GP(成績)の取りやすさ(平均)</th>
+		 		    </tr>
+		 		  </thead>
+		 	    <tbody>
+		 	      <tr>
+		 	        <td>3</td>
+		 	        <td>5</td>
+		 	      </tr>
+		 	    </tbody>
+		 		</table>
+
 				<!-- 基本情報 -->
 				<table class="table table-bordered" style="margin: 20px auto;">
 				  <thead>
@@ -84,10 +101,10 @@ text{
 			        		@endforeach
 			        	@endif
 			        </th>
-			        <td><?php echo $data['detail']->term == 0? '春学期':'秋学期'?></th>
-			        <td><?php echo $data['detail']->class_week?></th>
-			        <td><?php echo $data['detail']->class_period?>限</th>
-			        <td>{{ $data['detail']->room_name }}</th>
+			        <td><?php echo $data['detail']->term == 0? '春学期':'秋学期'?></td>
+			        <td><?php echo $data['detail']->class_week?></td>
+			        <td><?php echo $data['detail']->class_period?>限</td>
+			        <td>{{ $data['detail']->room_name }}</td>
 			      </tr>
 			    </tbody>
 				</table>
@@ -122,26 +139,29 @@ text{
 								<svg id="attendance_pie"></svg>
 							</div>
 						</div>
-						<table class="table table-striped table-hover">
+						<table class="table table-bordered">
 							<thead>
 								<tr>
 								<th>投稿者</th>
-								<th>レビュー</th>
 								<th>総合評価度</th>
-								<th>単位の取りやすさ</th>
-								<th>GP(成績)の取りやすさ</th>
+								<th>レビュー</th>
+<!-- 								<th>単位の取りやすさ</th>
+								<th>GP(成績)の取りやすさ</th> -->
 								</tr>
 							</thead>
-						<tbody>
+							<tbody>
 				      @foreach($data['review'] as $r)
 				    	<tr>
-				    		<td><?php echo $r->users()->first()? $r->users()->first()->name:"不明なユーザ"; ?></td>
-				         	<td>{{{ $r->review_comment }}}</td>
-				         	<td>{{{ $r->stars }}}</td>
-				         	<td>{{{ $r->unit_stars }}}</td>
-				         	<td>{{{ $r->grade_stars }}}</td>
-				         	<td>
-				          <!-- <a href="/classes/show/" class="btn btn-default btn-xs">詳細</a> -->
+				    		<td>
+				    			<img src="/image/dummy.png"><br />
+				    			<?php echo $r->users()->first()? $r->users()->first()->name:"不明なユーザ"; ?>
+				    		</td>
+			         	<td>{{{ $r->stars }}}</td>
+			         	<td>{{{ $r->review_comment }}}</td>
+<!-- 				         	<td>{{{ $r->unit_stars }}}</td>
+				         	<td>{{{ $r->grade_stars }}}</td> -->
+<!-- 				         	<td>
+				          <a href="/classes/show/" class="btn btn-default btn-xs">詳細</a>
 				          <form action="/classes/edit" method="get">
 				          	<input type="hidden" value="{{{ $r->review_id }}}" name="review_id">
 				          	<input type="hidden" name="_token" value="{{csrf_token()}}" />
@@ -152,8 +172,8 @@ text{
 				          	<input type="hidden" name="_token" value="{{csrf_token()}}" />
 				          	<button type="submit" class="btn btn-danger btn-xs">削除</button>
 				          </form>
-				  				</td>
-				 				</tr>
+				  				</td> -->
+			 				</tr>
 				      @endforeach
 				      @endif
 							</tbody>
