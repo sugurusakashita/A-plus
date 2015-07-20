@@ -9,7 +9,7 @@ jQuery(function ($) {
 		var tag_name = $('#add-tag-filed').val();
 		var params = {
 				"class_id":class_id,
-				"tag_name":tag_name,				
+				"tag_name":tag_name,
 				"_token":$('meta[name="csrf-token"]').attr('content')
 			};
             $.ajax({

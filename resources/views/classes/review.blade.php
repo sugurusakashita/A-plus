@@ -5,10 +5,18 @@
 @stop
 
 @section('js')
+<link rel="stylesheet" href="/raty_lib/jquery.raty.css">
 <script type="text/javascript" src="{{ asset('/js/review.js') }}"></script>
+<script type="text/javascript" src="{{ asset('/raty_lib/jquery.raty.js') }}"></script>
+<script>
+  // 評価を星で表しています
+  $(".raty_stars").raty('set', { scoreName: 'stars' });
+  $(".raty_unit_stars").raty('set', { scoreName: 'unit_stars' });
+  $(".raty_grade_stars").raty('set', { scoreName: 'grade_stars' });
+</script>
 @stop
-@section('main_content')
 
+@section('main_content')
 <div class="alert a-is-info" style="margin: 0 auto 5px;">
  <p>レビュー入力 | {{ $data['detail']['class_name']}}</p>
 </div>
@@ -18,7 +26,7 @@
 	      <th scope="row">受講時の学年</th>
           <td>
             <select name="grade" class="form-control">
-                  <option value="">選択してください</option>
+                <option value="">選択してください</option>
                 <option value="1">1年生</option>
                 <option value="2">2年生</option>
                 <option value="3">3年生</option>
@@ -42,41 +50,17 @@
         </tr>
         <tr>
 	      <th scope="row">総合評価度</th>
-          <td>
-            <select name="stars" class="form-control">
-                  <option value="">選択してください</option>
-                <option value="1">☆1</option>
-                <option value="2">☆2</option>
-                <option value="3">☆3</option>
-                <option value="4">☆4</option>
-                <option value="5">☆5</option>
-            </select>
+          <td class="raty_stars">
           </td>
         </tr>
         <tr>
           <th scope="row">単位の取りやすさ</th>
-          <td>
-              <select name="unit_stars" class="form-control">
-                  <option value="">選択してください</option>
-                  <option value="1">☆1</option>
-                  <option value="2">☆2</option>
-                  <option value="3">☆3</option>
-                  <option value="4">☆4</option>
-                  <option value="5">☆5</option>
-              </select>
+          <td class="raty_unit_stars">
           </td>
         </tr>
         <tr>
           <th scope="row">GP(成績)の取りやすさ</th>
-          <td>
-              <select name="grade_stars" class="form-control">
-                  <option value="">選択してください</option>
-                  <option value="1">☆1</option>
-                  <option value="2">☆2</option>
-                  <option value="3">☆3</option>
-                  <option value="4">☆4</option>
-                  <option value="5">☆5</option>
-              </select>
+          <td class="raty_grade_stars">
           </td>
         </tr>
         <tr>

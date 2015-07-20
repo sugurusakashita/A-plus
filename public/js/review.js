@@ -10,7 +10,7 @@ jQuery(function ($) {
 		if(type == "期末試験"){
 			$('.bring').fadeIn('normal');
 		}else{
-			$('.bring').fadeOut('normal');	
+			$('.bring').fadeOut('normal');
 		}
 	});
 

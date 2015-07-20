@@ -199,7 +199,7 @@ class ClassesController extends Controller {
 	public function getEdit(Request $request){
 		if (!Auth::check()){
 			//ログインチェック
-			return redirect()->to("/auth/login");   
+			return redirect()->to("/auth/login");
 		}
 		$data['all'] = $request->all();
 		$id = $data['all']['review_id'];
@@ -220,7 +220,7 @@ class ClassesController extends Controller {
 	public function postEditConfirm(Request $request){
 		if (!Auth::check()){
 			//ログインチェック
-			return redirect()->to("/auth/login");   
+			return redirect()->to("/auth/login");
 		}
 		$data = $request->all();
 

@@ -1,5 +1,6 @@
 /vendor
 /node_modules
 /sql
+/bower_components
 .env
 .DS_Store

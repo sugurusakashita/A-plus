@@ -5,8 +5,8 @@
 @stop
 
 @section('css')
-<link rel="stylesheet" type="text/css" href="{{ asset("css/alertify.core.css") }}">
-<link rel="stylesheet" type="text/css" href="{{ asset("css/alertify.default.css") }}">
+<link rel="stylesheet" type="text/css" href="{{ asset('css/alertify.core.css') }}">
+<link rel="stylesheet" type="text/css" href="{{ asset('css/alertify.default.css') }}">
 <style type="text/css">
 svg{
 	margin:0 50px;
@@ -18,7 +18,7 @@ text{
 .new-tag-field{
 	display: none;
 	margin: 20px 0;
-}	
+}
 </style>
 @stop
 
