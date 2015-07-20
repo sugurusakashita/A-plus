@@ -138,7 +138,9 @@ WjinkaProj | 検索
 
 	@endforeach
 @else
-	<p style='color: #FF0000;'>検索結果が存在しませんでした。<br />再検索してください。</p>
+	<div class="alert a-is-danger alert-removed fade in">
+		検索結果が存在しませんでした。再検索してください。
+	</div>
 @endif
 
 	<div style="margin: 20px auto; height: 40px;">
