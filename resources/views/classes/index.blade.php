@@ -65,7 +65,7 @@ text{
 				 		</div>
 				 	</div>
 				<!-- 基本情報 -->
-				<table class="table table-bordered"  style="margin: 20px auto;">
+				<table class="table table-bordered" style="margin: 20px auto;">
 				  <thead>
 				    <tr>
 				      <th>担当講師</th>
@@ -106,9 +106,11 @@ text{
 			 	<!-- 授業レピュー -->
 				<div>
 					<div>
-						<a href="/classes/review/{{ $data['detail']->class_id }}"><button class="btn btn-primary">この授業をレビューする！</button></a>
 						@if(!$data['review']->count())
-							<p style='color:#FF0000;'>この授業はまだレビューされていません。</p>
+							<div class="alert a-is-danger alert-removed fade in" style="margin: 20px auto;">
+								この授業はまだレビューされていません。
+							</div>
+							<a href="/classes/review/{{ $data['detail']->class_id }}"><button class="btn btn-primary">この授業をレビューする！</button></a>
 						@else
 						<div class="pie_graph">
 							<div class="col6">
