@@ -23,21 +23,32 @@
 						<input type="hidden" name="_token" value="{{ csrf_token() }}">
 
 						<div class="form-group">
-							<label class="col-md-4 control-label">ユーザーネーム(公開)</label>
+							<div class="control-label col-md-4">
+								<label  >プロフィール画像(公開・任意)</label>
+							</div>
 							<div class="col-md-6">
+								<img class="thumbnail_photo" src="{{ asset('image/dummy.png')}}" width="100" height="100" alt="dummy_image">
+								<input type="file" name="photo" value="{{ old('photo') }}">
+							</div>
+						</div>
+
+						<div class="form-group">
+							<label class="col-md-4 control-label">ユーザーネーム(公開・必須)</label>
+							<div class="col-md-6">
+								
 								<input type="text" class="form-control" name="name" value="{{ old('name') }}">
 							</div>
 						</div>
 
 						<div class="form-group">
-							<label class="col-md-4 control-label">メールアドレス(非公開)</label>
+							<label class="col-md-4 control-label">メールアドレス(非公開・必須)</label>
 							<div class="col-md-6">
 								<input type="email" class="form-control" name="email" value="{{ old('email') }}">
 							</div>
 						</div>
 						<!-- 追加 -->
 						<div class="form-group">
-							<label class="col-md-4 control-label">入学年度(公開)</label>
+							<label class="col-md-4 control-label">入学年度(公開・任意)</label>
 							<div class="col-md-6">
 								<select name="entrance_year" class="form-control" value="{{ old('entrance_year') }}">
 									<option value="">選択してください</option>
@@ -52,7 +63,7 @@
 							</div>
 						</div>
 						<div class="form-group">
-							<label class="col-md-4 control-label">学部(公開)</label>
+							<label class="col-md-4 control-label">学部(公開・任意)</label>
 							<div class="col-md-6">
 								<select name="faculty" class="form-control" value="{{ old('faculty') }}">
 									<option value="">選択してください</option>
@@ -68,7 +79,7 @@
 							</div>
 						</div>　
 						<div class="form-group">
-							<label class="col-md-4 control-label">性別(公開)</label>
+							<label class="col-md-4 control-label">性別(公開・任意)</label>
 							<div class="col-md-6">
 								<div class="col-md-6">
 									<input type="radio" name="sex" value="男性">
@@ -82,14 +93,14 @@
 						</div>
 						<!-- ここまで -->
 						<div class="form-group">
-							<label class="col-md-4 control-label">パスワード(非公開)</label>
+							<label class="col-md-4 control-label">パスワード(非公開・必須)</label>
 							<div class="col-md-6">
 								<input type="password" class="form-control" name="password">
 							</div>
 						</div>
 
 						<div class="form-group">
-							<label class="col-md-4 control-label">パスワード確認</label>
+							<label class="col-md-4 control-label">パスワード確認(必須)</label>
 							<div class="col-md-6">
 								<input type="password" class="form-control" name="password_confirmation">
 							</div>
