@@ -1,6 +1,6 @@
-@extends('app')
+@extends('master')
 
-@section('content')
+@section('main_content')
 <div class="container-fluid">
 	<div class="row">
 		<div class="col-md-8 col-md-offset-2">
@@ -27,8 +27,10 @@
 								<label  >プロフィール画像(公開・任意)</label>
 							</div>
 							<div class="col-md-6">
-								<img class="thumbnail_photo" src="{{ asset('image/dummy.png')}}" width="100" height="100" alt="dummy_image">
-								<input type="file" name="photo" value="{{ old('photo') }}">
+								<img class="thumbnail_avatar" src="{{ asset('image/dummy.png')}}" width="100" height="100" alt="dummy_image">
+								<input id = "file_input" type="file" name="avatar">
+								<button type="button" id="reset_avatar">画像をリセットする</button>
+								<p class="warning" style="color:red">画像の大きさは100×100px、画像ファイルはjpg,png,gifのみで、大きさは1MBまでです。<br>画像が大きい場合は縮小拡大されます。</p>
 							</div>
 						</div>
 
@@ -122,4 +124,8 @@
 		</div>
 	</div>
 </div>
+@endsection
+
+@section('js')
+<script type="text/javascript" src="{{ asset('js/register.js') }}"></script>
 @endsection
