@@ -59,14 +59,14 @@ function barGraph(data){
         });
 
    //棒グラフアニメーション
-   bar_chart.transition().delay(1000).duration(1000)
+   bar_chart.transition().delay(1500).duration(1500)
   .attr("width",function(d, i){ return d["pix"]; });
 }
 
 function tab_changed(data){
   var bar_chart = d3.select("#attendance_bar_graph").selectAll("rect").data(data).attr("width", 0);
 
-  bar_chart.transition().delay(1000).duration(1000)
+  bar_chart.transition().delay(1000).duration(1500)
   .attr("width",function(d, i){ return d["pix"]; });
 }
 

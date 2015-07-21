@@ -139,11 +139,12 @@
 					</table>
 
 					<div class="pie_graph">
-							<p>最終評価法</p>
+							<h3>最終評価法</h3><hr>
 							<svg id="evaluation_pie"></svg>
 					</div>
 					<div class="bar_graph col7">
-						<p>出席</p>
+						<h3>平常点評価</h3><hr>
+						<h4>出席</h4>
 					</div>
 					<a href="/classes/review/{{ $data['detail']->class_id }}"><button class="btn btn-primary">この授業をレビューする！</button></a>
 				</div>
