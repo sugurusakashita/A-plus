@@ -4,8 +4,8 @@
 // サイズを設定
 // ウィンドウサイズによって可変する
 var size = {
-  width : 600,
-  height: 600
+  width : 100,
+  height: 100
 };
 
 // d3用の変数
@@ -101,9 +101,16 @@ function animate(data){
     });
 }
 
-
 // 初期化
-render(evaluation_data);
+//タブ変更してからレンダー
+$('.tab-index a').click(function(){
+  if($(this).attr("href") == "#tab2"){
+    render(evaluation_data);
+    update();
+    animate(evaluation_data);
+    
+  }
+});
 update();
-animate(evaluation_data);
+
 win.on("resize", update); // ウィンドウのリサイズイベントにハンドラを設定

@@ -138,17 +138,11 @@
 				    </tbody>
 					</table>
 
-					<div class="pie_graph col12">
-						<div class="col6">
-							最終評価法
+					<div class="pie_graph">
+							<p>最終評価法</p>
 							<svg id="evaluation_pie"></svg>
-						</div>
-						<div class="col6">
-							授業の評価
-							<svg id="attendance_pie"></svg>
-						</div>
 					</div>
-					<div id="attendance_bar_graph" class="bar_graph col7">
+					<div class="bar_graph col7">
 						<p>出席</p>
 					</div>
 					<a href="/classes/review/{{ $data['detail']->class_id }}"><button class="btn btn-primary">この授業をレビューする！</button></a>
@@ -193,7 +187,7 @@
 			var evaluation_data = <?php echo $data['final_evaluation_pie']; ?>;
 		</script>
 		<script type="text/javascript" src="{{ asset('/js/evaluation_pie.js') }}"></script>
-		<script type="text/javascript" src="{{ asset('/js/attendance_pie.js') }}"></script>
+		<!--<script type="text/javascript" src="{{ asset('/js/attendance_pie.js') }}"></script> -->
 	@endif
 	<script type="text/javascript" src="{{ asset('/js/bar_graph.js') }}">
 

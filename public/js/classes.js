@@ -104,6 +104,7 @@ jQuery(function ($) {
             $(this).removeClass('active');
         });
         $(this.hash).addClass('active');
+
         e.preventDefault();
     });
 });
