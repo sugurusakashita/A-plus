@@ -53,12 +53,33 @@ class ClassesController extends Controller {
 
 		$data['attendance_pie'] 			= $this->makeJsonForPie($this->review->attendance($id),"attendance");
 		$data['final_evaluation_pie'] = $this->makeJsonForPie($this->review->final_evaluations($id),"final_evaluation");
+		$data['actual_syllabus_url']  = $this->makeActualSyllabusUrl($data['detail']);
 
 		// ユニークPVカウント
 		// 正しく動くかわからない…
 		$this->countUniqueAccount($pv,$id);
 
 		return view('classes/index')->with('data',$data);
+	}
+
+	/**
+	 * 本家シラバス用のurlを作成
+	 *
+	 * @param array
+	 * @author b-kaxa
+	 * @return string
+	 *
+	 */
+
+	public function makeActualSyllabusUrl($data){
+
+		// stringで記述する
+		$url_year = "2015";
+		$dep_name = "19";
+		$w_syllabus_url = "https://www.wsl.waseda.jp/syllabus/JAA104.php?pKey=";
+
+		return $w_syllabus_url . $data['class_code'] . $data['class_no'] . $url_year . $data['class_code'] . $dep_name . "&pLng=jp";
+
 	}
 
 	/**
