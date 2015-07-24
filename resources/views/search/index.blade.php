@@ -20,13 +20,14 @@ WjinkaProj | 検索
       </tr>
     </thead>
 	  <tbody>
+	    <tr>
 	      <td>
 	      	<div class="form-element-group">
 	      		<input class="form-element" type="text" size="20" placeholder="授業名・教師名・キーワードで検索！" name="q" value="{{{ $data['get']['q']? $data['get']['q']:"" }}}"/>
       	     <span class="form-group-btn">
       	      <button class="btn btn-default btn-primary" type="submit">検索</button>
       	     </span>
-  	    </div>
+	  	    </div>
 	      </td>
 	      <td>
 		      <select name="day">
@@ -35,8 +36,8 @@ WjinkaProj | 検索
 		      	$days = ["指定なし","月","火","水","木","金","土","夏季"];
 		      	for($i = 1;$i < 7;$i++){
 
-		      		$str =  "<option value=".$days[$i];
-		      		$str .= $data['get']['day'] == $days[$i]? " selected >":" >";
+		      		$str =  "<option value=\"".$days[$i];
+		      		$str .= $data['get']['day'] == $days[$i]? "\" selected >":"\" >";
 		      		$str .= $days[$i]."</option>";
 		      		echo $str;
 		      	}
@@ -48,8 +49,8 @@ WjinkaProj | 検索
 	      		<option value="0">指定なし</option>
 	      	<?php
 	      		for($i = 1;$i < 8;$i++){
-	      			$str =  "<option value=".$i;
-	      			$str .= $data['get']['period'] == $i? " selected >":" >";
+	      			$str =  "<option value=\"".$i;
+	      			$str .= $data['get']['period'] == $i? "\" selected >":"\" >";
 	      			$str .= $i."限</option>";
 	      			echo $str;
 	      		}
