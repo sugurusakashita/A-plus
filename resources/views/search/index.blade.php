@@ -21,12 +21,12 @@ WjinkaProj | 検索
     </thead>
 	  <tbody>
 	    <tr>
-	      <td>
+	      <td width="50%">
 	      	<div class="form-element-group">
-	      		<input class="form-element" type="text" size="20" placeholder="授業名・教師名・キーワードで検索！" name="q" value="{{{ $data['get']['q']? $data['get']['q']:"" }}}"/>
-      	     <span class="form-group-btn">
-      	      <button class="btn btn-default btn-primary" type="submit">検索</button>
-      	     </span>
+						<input class="form-element" type="text" size="20" placeholder="授業名・教師名・キーワードで検索！" name="q" value="{{{ $data['get']['q']? $data['get']['q']:"" }}}" />
+						<span class="form-group-btn">
+							<button class="btn btn-primary" type="submit">検索</button>
+						</span>
 	  	    </div>
 	      </td>
 	      <td>
