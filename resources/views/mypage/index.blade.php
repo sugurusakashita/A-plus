@@ -1,7 +1,7 @@
 @extends('master')
 
 @section('title')
-A+plus
+マイページ | A+plus
 @stop
 
 @section('css')
@@ -27,6 +27,16 @@ A+plus
 			</ul>
 		</div>
 	@endif
+	<div class="profile-list">
+		<div class="panel panel-default">
+			<div class="panel-title">プロフィール画像</div>
+			<div class="panel-body">
+				<img class="profile-value" width="100" height="100" src="{{ $data['user']->avatar? asset('avatar/'.$data['user']->avatar):asset('image/dummy.png') }}">
+				<input type="hidden" name="_token" value="{{ csrf_token() }}">
+				<a class="btn btn-sm btn-success btn-xs right-float" href="/mypage/avatar" />編集</a>
+			</div>
+		</div>
+	</div>
 	<div class="profile-list">
 		<div class="panel panel-default">
 			<div class="panel-title">ユーザー名</div>
@@ -141,12 +151,24 @@ A+plus
 			         </form>
 	  			</td>
 	 		</tr>
+
  		@endforeach
   @endif
+  <?php echo old("message"); ?>
 		</tbody>
+  
 	</table>
 @stop
 
 @section('js')
+	<script type="text/javascript" >
+		var message;
+		<?php if(old("message")){ ?>
+			message = <?php echo '"'.old("message").'"'; ?>;
+		<?php } ?>
+
+		
+		
+	</script>
 	<script type="text/javascript" src="{{ asset('/js/mypage.js') }}"></script>
 @stop

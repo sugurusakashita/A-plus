@@ -11,6 +11,7 @@ use Illuminate\Foundation\Auth\ResetsPasswords;
 use Illuminate\Http\Request;
 use Auth;
 use Hash;
+use Session;
 
 class MyPageController extends Controller {
 
@@ -42,7 +43,8 @@ class MyPageController extends Controller {
 		}
 		$data['user'] = $this->user;
 		$data['reviews'] = $this->review;
-
+		
+		//$data['message'] = $request->message;
 		return view('mypage/index')->with('data',$data);
 
 	}
@@ -91,8 +93,18 @@ class MyPageController extends Controller {
 		return view('mypage/index')->with('data',$data);
 
 	}
-/*
-	public function getChangePassword(){
+
+	public function getAvatar(){
+		if (!Auth::check()){
+			//ログインチェック
+			return redirect()->to("/auth/login");   
+		}
+
+		$data['user'] = $this->user;
+
+		return view('mypage/avatar')->with('data',$data);
+	}
+	public function postAvatarComplete(Request $request){
 		if (!Auth::check()){
 			//ログインチェック
 			return redirect()->to("/auth/login");   
@@ -100,10 +112,34 @@ class MyPageController extends Controller {
 
 		$data['user'] = $this->user;
 		$data['reviews'] = $this->review;
+		$message = "プロフィール画像の変更が完了しました。";
+		
 
-		return view('mypage/password')->with('data',$data);
+		//設定されていない場合、NULL
+		$avatar = $request->file('avatar');
+		if(is_null($avatar)) {
+			$data['user']->avatar = NULL;
+			$data['user']->save();
+			
+			return redirect()->to('mypage/index')->withInput(array("message" => $message));
+		}
+		//バリデーション
+		$validation["avatar"] = 'image|mimes:jpeg,jpg,gif,png|max:1000';	
+		$this->validate($request,$validation);
+
+		//ファイル保存
+		$file_name = $data['user']->name."_avt";
+		$file = $avatar->move("avatar",$file_name);
+
+		//ファイルネームをDBに保存
+		$data['user']->avatar = $file_name;
+		$this->user->save();
+
+		
+		return redirect()->to('mypage/index')->withInput(array("message" => $message));
+
 	}
-
+/*
 	public function postChangePasswordComplete(Guard $auth,Request $request){
 		if (!Auth::check()){
 			//ログインチェック
@@ -128,5 +164,5 @@ class MyPageController extends Controller {
 
 		return view('mypage/passwordcomplete')->with('data',$data);
 	}
-	*/
+*/
 }

@@ -5,7 +5,7 @@
 	<div class="row">
 		<div class="col-md-8 col-md-offset-2">
 			<div class="panel panel-default">
-				<div class="panel-heading">A+plus | 無料会員登録</div>
+				<div class="panel-heading">無料会員登録 | A+plus</div>
 				<div class="panel-body">
 					@if (count($errors) > 0)
 						<div class="alert alert-danger">
@@ -19,15 +19,15 @@
 						</div>
 					@endif
 
-					<form class="form-horizontal" role="form" method="POST" action="{{ url('/auth/register') }}">
+					<form class="form-horizontal" role="form" method="POST" action="{{ url('/auth/register') }}" enctype='multipart/form-data'>
 						<input type="hidden" name="_token" value="{{ csrf_token() }}">
 
 						<div class="form-group">
 							<div class="control-label col-md-4">
-								<label  >プロフィール画像(公開・任意)</label>
+								<label  >プロフィール画像</label>
 							</div>
 							<div class="col-md-6">
-								<img class="thumbnail_avatar" src="{{ asset('image/dummy.png')}}" width="100" height="100" alt="dummy_image">
+								<img class="thumbnail_avatar" src="/image/dummy.png" width="100" height="100" alt="dummy_image">
 								<input id = "file_input" type="file" name="avatar">
 								<button type="button" id="reset_avatar">画像をリセットする</button>
 								<p class="warning" style="color:red">画像の大きさは100×100px、画像ファイルはjpg,png,gifのみで、大きさは1MBまでです。<br>画像が大きい場合は縮小拡大されます。</p>
@@ -35,7 +35,7 @@
 						</div>
 
 						<div class="form-group">
-							<label class="col-md-4 control-label">ユーザーネーム(公開・必須)</label>
+							<label class="col-md-4 control-label">ユーザーネーム</label>
 							<div class="col-md-6">
 								
 								<input type="text" class="form-control" name="name" value="{{ old('name') }}">
@@ -43,14 +43,14 @@
 						</div>
 
 						<div class="form-group">
-							<label class="col-md-4 control-label">メールアドレス(非公開・必須)</label>
+							<label class="col-md-4 control-label">メールアドレス</label>
 							<div class="col-md-6">
 								<input type="email" class="form-control" name="email" value="{{ old('email') }}">
 							</div>
 						</div>
 						<!-- 追加 -->
 						<div class="form-group">
-							<label class="col-md-4 control-label">入学年度(公開・任意)</label>
+							<label class="col-md-4 control-label">入学年度</label>
 							<div class="col-md-6">
 								<select name="entrance_year" class="form-control" value="{{ old('entrance_year') }}">
 									<option value="">選択してください</option>
@@ -65,7 +65,7 @@
 							</div>
 						</div>
 						<div class="form-group">
-							<label class="col-md-4 control-label">学部(公開・任意)</label>
+							<label class="col-md-4 control-label">学部</label>
 							<div class="col-md-6">
 								<select name="faculty" class="form-control" value="{{ old('faculty') }}">
 									<option value="">選択してください</option>
@@ -81,10 +81,10 @@
 							</div>
 						</div>　
 						<div class="form-group">
-							<label class="col-md-4 control-label">性別(公開・任意)</label>
+							<label class="col-md-4 control-label">性別</label>
 							<div class="col-md-6">
 								<div class="col-md-6">
-									<input type="radio" name="sex" value="男性">
+									<input type="radio" name="sex" value="男性" checked>
 									<p>男性</p>									
 								</div>
 								<div class="col-md-6">
@@ -95,14 +95,14 @@
 						</div>
 						<!-- ここまで -->
 						<div class="form-group">
-							<label class="col-md-4 control-label">パスワード(非公開・必須)</label>
+							<label class="col-md-4 control-label">パスワード</label>
 							<div class="col-md-6">
 								<input type="password" class="form-control" name="password">
 							</div>
 						</div>
 
 						<div class="form-group">
-							<label class="col-md-4 control-label">パスワード確認(必須)</label>
+							<label class="col-md-4 control-label">パスワード確認</label>
 							<div class="col-md-6">
 								<input type="password" class="form-control" name="password_confirmation">
 							</div>

@@ -19,8 +19,7 @@ $(function(){
   $("#reset_avatar").click(function(){
     $("#file_input").val("");
     $(".thumbnail_avatar").attr("src","/image/dummy.png");
-     alertify.success("画像をリセットしました。");
+     alertify.success("画像をリセットしました。")
   });
-
 
 });

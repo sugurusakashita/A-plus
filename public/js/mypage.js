@@ -65,4 +65,8 @@ jQuery(function ($) {
         console.log($(this).siblings(".edit-prof-field").val());
     });
 
+    if(message){
+        alertify.success(message);
+    }
+
 });

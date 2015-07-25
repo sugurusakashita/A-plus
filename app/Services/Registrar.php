@@ -16,11 +16,9 @@ class Registrar implements RegistrarContract {
 	public function validator(array $data)
 	{
 		return Validator::make($data, [
-			'name' => 'required|max:20|unique:users',
+			'avatar' => 'image|mimes:jpeg,jpg,gif,png|max:1000',
+			'name' => 'required|max:10|unique:users',
 			'email' => 'required|email|max:255|unique:users',
-			'entrance_year' => 'required',
-			'faculty' =>	'required',
-			'sex'	=>	'required',
 			'password' => 'required|confirmed|min:6',
 		]);
 	}
@@ -32,9 +30,12 @@ class Registrar implements RegistrarContract {
 	 * @return User
 	 */
 	public function create(array $data)
-	{
+	{	
+		$file_name = $data['name']."_avt";
+		$file = $data["avatar"]->move("avatar",$file_name);
 		//Session::flash("alert","初めまして！".$data['name']."さん！<br>A+plusを使って賢く大学生活を過ごしましょう！");
 		return User::create([
+			'avatar' => $file_name,
 			'name' => $data['name'],
 			'email' => $data['email'],
 			'entrance_year' => $data['entrance_year'],
