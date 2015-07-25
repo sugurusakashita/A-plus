@@ -27,6 +27,7 @@ class ClassesController extends Controller {
 	protected static $w_syllabus_url = "https://www.wsl.waseda.jp/syllabus/JAA104.php?pKey=";
 
 	const REVIEW_POST_SESSION = 'review_post_session';
+	const AUTH_LOGIN_REDIRECT_ID = 'auth_login_redirect_id';
 
 	public function __construct(Classes $classes,Review $review,Teacher $teacher,RankingController $ranking){
 		$this->classes = $classes;
@@ -139,8 +140,9 @@ class ClassesController extends Controller {
 	 */
 
 	public function getReview($id){
+		//ログインチェック
 		if (!Auth::check()){
-			//ログインチェック
+			Session::put(self::AUTH_LOGIN_REDIRECT_ID, $id);
 			return redirect()->to("/auth/login");
 		}
 

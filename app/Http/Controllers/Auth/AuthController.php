@@ -4,6 +4,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Contracts\Auth\Guard;
 use Illuminate\Contracts\Auth\Registrar;
 use Illuminate\Foundation\Auth\AuthenticatesAndRegistersUsers;
+use Session;
 
 class AuthController extends Controller {
 
@@ -20,6 +21,11 @@ class AuthController extends Controller {
 
 	use AuthenticatesAndRegistersUsers;
 
+	// デフォルトのリダイレクト先
+	protected $redirectTo = '/';
+
+	const AUTH_LOGIN_REDIRECT_ID = 'auth_login_redirect_id';
+
 	/**
 	 * Create a new authentication controller instance.
 	 *
@@ -31,6 +37,12 @@ class AuthController extends Controller {
 	{
 		$this->auth = $auth;
 		$this->registrar = $registrar;
+
+		// ユーザーが授業をレビューしようと思ってログイン処理を要求されたとき、
+		// その授業レビューページへリダイレクトする
+		if($id = Session::get(self::AUTH_LOGIN_REDIRECT_ID)){
+			$this->redirectTo = '/classes/review/' . $id;
+		}
 
 		$this->middleware('guest', ['except' => 'getLogout']);
 	}
