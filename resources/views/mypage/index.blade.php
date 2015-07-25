@@ -154,7 +154,6 @@
 
  		@endforeach
   @endif
-  <?php echo old("message"); ?>
 		</tbody>
   
 	</table>
