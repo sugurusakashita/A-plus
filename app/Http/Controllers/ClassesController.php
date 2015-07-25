@@ -26,6 +26,8 @@ class ClassesController extends Controller {
 	protected static $dep_name = "19";
 	protected static $w_syllabus_url = "https://www.wsl.waseda.jp/syllabus/JAA104.php?pKey=";
 
+	const REVIEW_POST_SESSION = 'review_post_session';
+
 	public function __construct(Classes $classes,Review $review,Teacher $teacher,RankingController $ranking){
 		$this->classes = $classes;
 		$this->review = $review;
@@ -142,6 +144,9 @@ class ClassesController extends Controller {
 			return redirect()->to("/auth/login");
 		}
 
+		// 二重投稿確認用
+		Session::put(self::REVIEW_POST_SESSION, csrf_token());
+
 		$classes = $this->classes;
 		$data['detail'] =  $classes->find($id);
 		return view('classes/review')->with('data',$data);
@@ -161,6 +166,12 @@ class ClassesController extends Controller {
 			//ログインチェック
 			return redirect()->to("/auth/login");   
 		}
+
+		// 二重投稿のチェック
+		if(!Session::get(self::REVIEW_POST_SESSION)){
+			return redirect()->back()->withInput();
+		}
+
 		$data = $request->all();
 		$data['detail'] = $this->classes->find($request->class_id);
 		return view('classes/confirm')->with('data',$data);
