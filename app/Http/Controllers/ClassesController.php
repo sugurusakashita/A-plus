@@ -21,6 +21,11 @@ class ClassesController extends Controller {
 	protected $ranking;
 	protected $teacher;
 
+	// 公式シラバスURL用
+	protected static $url_year = "2015";
+	protected static $dep_name = "19";
+	protected static $w_syllabus_url = "https://www.wsl.waseda.jp/syllabus/JAA104.php?pKey=";
+
 	public function __construct(Classes $classes,Review $review,Teacher $teacher,RankingController $ranking){
 		$this->classes = $classes;
 		$this->review = $review;
@@ -73,12 +78,7 @@ class ClassesController extends Controller {
 
 	public function makeActualSyllabusUrl($data){
 
-		// stringで記述する
-		$url_year = "2015";
-		$dep_name = "19";
-		$w_syllabus_url = "https://www.wsl.waseda.jp/syllabus/JAA104.php?pKey=";
-
-		return $w_syllabus_url . $data['class_code'] . $data['class_no'] . $url_year . $data['class_code'] . $dep_name . "&pLng=jp";
+		return self::$w_syllabus_url . $data['class_code'] . $data['class_no'] . self::$url_year . $data['class_code'] . self::$dep_name . "&pLng=jp";
 
 	}
 

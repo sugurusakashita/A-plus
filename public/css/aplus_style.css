@@ -61,7 +61,7 @@ text{
   border-right: 1px solid #ccc;
 }
 .tab-index .active {
-  background-color: #ff9;
+  background-color: #fff;
 }
 .tab-contents {
   background-color: white;

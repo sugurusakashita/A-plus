@@ -103,7 +103,7 @@
 					@endif
 				 	<!-- 授業レピュー -->
 				 	<a href="/classes/review/{{ $data['detail']->class_id }}"><button class="btn btn-primary">この授業をレビューする！</button></a>
-				 	<a href="{{ $data['actual_syllabus_url'] }}" target="_blank"><button class="btn btn-info">本家シラバスを見る</button></a>
+				 	<a href="{{ $data['actual_syllabus_url'] }}" target="_blank"><button class="btn btn-info">公式シラバスを見る</button></a>
 			 	</div>
 
 				@if(!$data['review']->count())
