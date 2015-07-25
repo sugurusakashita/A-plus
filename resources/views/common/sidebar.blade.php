@@ -18,7 +18,7 @@
     <?php
       $i = 1;
       foreach ($data['search_ranking'] as $ranking) {
-        echo "<a class='list-group-element' href=/search?q=".$ranking->word."><span class='badge success'>". $i ."</span>　".$ranking->word."</a>";
+        echo "<a class='list-group-element'><span class='badge success'>". $i ."</span>　".$ranking->word."</a>";
         $i++;
       }
     ?>
