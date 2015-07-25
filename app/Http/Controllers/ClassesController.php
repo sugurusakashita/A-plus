@@ -199,6 +199,13 @@ class ClassesController extends Controller {
 			//ログインチェック
 			return redirect()->to("/auth/login");   
 		}
+
+		if(Session::get(self::REVIEW_POST_SESSION)){
+			Session::forget(self::REVIEW_POST_SESSION);
+		} else {
+			return redirect()->to('/');
+		}
+
 		$review = $this->review;
 		$data['id'] = $request->class_id;
 		$req = $request->all();
