@@ -200,6 +200,7 @@ class ClassesController extends Controller {
 			return redirect()->to("/auth/login");   
 		}
 
+		// 投稿完了したら該当セッションを削除、リロードしたらTOPへリダイレクト
 		if(Session::get(self::REVIEW_POST_SESSION)){
 			Session::forget(self::REVIEW_POST_SESSION);
 		} else {
