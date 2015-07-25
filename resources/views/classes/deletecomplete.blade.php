@@ -9,8 +9,8 @@
 	<div class ="row">
 		<div class="col-md-12">
 			<h2 class="page-header">レビュー削除完了</h2>
-		<p>レビューの削除が完了しました。</p>
-		<a href="/classes/index/{{ $data['id'] }}">授業ページに戻る</a>
+			<p>レビューの削除が完了しました。</p>
+			<a href="/mypage/index">マイページに戻る</a>
 		</div>
 	</div>
 
