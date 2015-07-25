@@ -146,6 +146,11 @@ class ClassesController extends Controller {
 			return redirect()->to("/auth/login");
 		}
 
+		// ログインしてリダイレクトしてきたら該当セッションを削除
+		if(Session::get(self::AUTH_LOGIN_REDIRECT_ID)){
+			Session::forget(self::AUTH_LOGIN_REDIRECT_ID);
+		}
+
 		// 二重投稿確認用
 		Session::put(self::REVIEW_POST_SESSION, csrf_token());
 
