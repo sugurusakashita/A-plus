@@ -1,4 +1,4 @@
-@extends('master')
+@extends('full')
 
 @section('title')
 無料会員登録 | A+plus
@@ -24,12 +24,20 @@
 				<input type="hidden" name="_token" value="{{ csrf_token() }}">
 
 				<div class="form-group">
-					<label>プロフィール画像</label>
-					<div class="col-md-6">
-						<img class="thumbnail_avatar" src="/image/dummy.png" width="100" height="100" alt="dummy_image">
-						<input id = "file_input" type="file" name="avatar">
-						<button type="button" id="reset_avatar">画像をリセットする</button>
-						<p class="warning" style="color:red">画像の大きさは100×100px、画像ファイルはjpg,png,gifのみで、大きさは1MBまでです。<br>画像が大きい場合は縮小拡大されます。</p>
+					<label for="file_input">プロフィール画像</label>
+					<table class="table table-bordered" style="border: none !important;">
+						<tr><td rowspan="2" style="border: none !important;">
+							<img class="thumbnail_avatar" src="/image/dummy.png" width="100" height="100" alt="dummy_image">
+							</td>
+							<td style="border: none !important;"><input id="file_input" type="file" name="avatar" class="form-element"></td>
+						</tr>
+						<tr><td style="border: none !important;"><button type="button" id="reset_avatar" class="btn btn-default">画像をリセットする</button></td></tr>
+					</table>
+				</div>
+
+				<div class="panel panel-danger" style="margin-bottom: 15px;">
+					<div class="panel-title">
+					画像の大きさは100×100px、画像ファイルはjpg,png,gifのみで、大きさは1MBまでです。<br>画像が大きい場合は縮小拡大されます。
 					</div>
 				</div>
 
