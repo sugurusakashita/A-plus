@@ -102,7 +102,9 @@
 					</div>
 					@endif
 				 	<!-- 授業レピュー -->
+				 	@if(!$data['wrote_review'])
 				 	<a href="/classes/review/{{ $data['detail']->class_id }}"><button class="btn btn-primary">この授業をレビューする！</button></a>
+				 	@endif
 				 	<a href="{{ $data['actual_syllabus_url'] }}" target="_blank"><button class="btn btn-info">公式シラバスを見る</button></a>
 			 	</div>
 
@@ -147,7 +149,9 @@
 						<h3>平常点評価</h3><hr>
 						<h4>出席</h4>
 					</div>
+					@if(!$data['wrote_review'])
 					<a href="/classes/review/{{ $data['detail']->class_id }}"><button class="btn btn-primary">この授業をレビューする！</button></a>
+					@endif
 				</div>
 
 				<div id="tab3" class="tab-contents">
@@ -172,7 +176,9 @@
 			      @endforeach
 						</tbody>
 					</table>
+					@if(!$data['wrote_review'])
 					<a href="/classes/review/{{ $data['detail']->class_id }}"><button class="btn btn-primary">この授業をレビューする！</button></a>
+					@endif
 				</div>
 				@endif
 			</div>

@@ -59,6 +59,13 @@ class ClassesController extends Controller {
 			'access_ranking' => $this->ranking->returnAccessRankingList()
 		);
 
+		// ユーザーのログイン状態によってレビューするボタンを出し分ける
+		if (Auth::check()) {
+			$data['wrote_review'] = $this->review->wrote_review($id, $request->user()->user_id);
+		} else {
+			$data['wrote_review'] = false;
+		}
+
 		$data['attendance_pie'] 			= $this->makeJsonForPie($this->review->attendance($id),"attendance");
 		$data['final_evaluation_pie'] = $this->makeJsonForPie($this->review->final_evaluations($id),"final_evaluation");
 		$data['actual_syllabus_url']  = $this->makeActualSyllabusUrl($data['detail']);
@@ -139,7 +146,7 @@ class ClassesController extends Controller {
 	 *
 	 */
 
-	public function getReview($id){
+	public function getReview($id, Request $request){
 		//ログインチェック
 		if (!Auth::check()){
 			Session::put(self::AUTH_LOGIN_REDIRECT_ID, $id);
@@ -149,6 +156,11 @@ class ClassesController extends Controller {
 		// ログインしてリダイレクトしてきたら該当セッションを削除
 		if(Session::get(self::AUTH_LOGIN_REDIRECT_ID)){
 			Session::forget(self::AUTH_LOGIN_REDIRECT_ID);
+		}
+
+		// もしレビュー済みの場合
+		if($this->review->wrote_review($id, $request->user()->user_id)){
+			return redirect()->to("classes/index/" . $id);
 		}
 
 		// 二重投稿確認用
