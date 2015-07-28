@@ -167,8 +167,8 @@
 			      @foreach($data['review'] as $r)
 			    	<tr>
 			    		<td>
-			    			<img src="/image/dummy.png"><br />
-			    			<?php echo $r->users()->first()? $r->users()->first()->name:"不明なユーザ"; ?>
+			    			<img src="{{ isset($r->users()->first()->avatar)? $r->users()->first()->avatar:asset('/image/dummy.png') }}"><br />
+			    			{{ isset($r->users()->first()->name)? $r->users()->first()->name:"不明なユーザ" }}
 			    		</td>
 		         	<td>{{{ $r->stars }}}</td>
 		         	<td>{{{ $r->review_comment }}}</td>
