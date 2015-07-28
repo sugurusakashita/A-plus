@@ -44,6 +44,11 @@
 					<button type="submit" class="btn btn-primary">Login</button>
 					<a class="btn btn-link" href="{{ url('/password/email') }}">パスワードを忘れましたか？</a>
 				</div>
+				<div class="form-group">
+					<a href="/auth/twitter-oauth">Twitterでログイン</a>
+					<a href="/auth/facebook-oauth">Facebookでログイン</a>	
+				</div>
+
 			</form>
 		</div>
 	</div>

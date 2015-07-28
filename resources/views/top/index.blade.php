@@ -56,9 +56,14 @@ A+plus
 @stop
 
 @section('js')
-  <?php if(old('alert')){?>
+  
     <script type="text/javascript"> 
-          alertify.success({{ old("alert") }});
+      //アラートメッセージ用
+      <?php if(old('message')){ ?>
+        alertify.success(<?php echo '"'.old("message").'"'; ?>);
+      <?php } ?>
+      <?php if(old('alert')){ ?>
+        alertify.error(<?php echo '"'.old("alert").'"'; ?>);  
+      <?php } ?>      
     </script>
-  <?php }?>
 @stop

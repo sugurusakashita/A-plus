@@ -7,6 +7,7 @@ use Illuminate\Foundation\Auth\AuthenticatesAndRegistersUsers;
 use Session;
 use Socialize;
 use Illuminate\Http\Request;
+use App\User;
 
 class AuthController extends Controller {
 
@@ -28,6 +29,8 @@ class AuthController extends Controller {
 
 	const AUTH_LOGIN_REDIRECT_ID = 'auth_login_redirect_id';
 
+	//ソーシャルログイン用userデータ
+	protected $user;
 	/**
 	 * Create a new authentication controller instance.
 	 *
@@ -35,8 +38,9 @@ class AuthController extends Controller {
 	 * @param  \Illuminate\Contracts\Auth\Registrar  $registrar
 	 * @return void
 	 */
-	public function __construct(Guard $auth, Registrar $registrar)
+	public function __construct(Guard $auth, Registrar $registrar,User $user)
 	{
+		$this->user = $user;
 		$this->auth = $auth;
 		$this->registrar = $registrar;
 
@@ -50,7 +54,7 @@ class AuthController extends Controller {
 	}
 
 	/**
-	 * Twitter API OAuth 新規登録処理
+	 * Twitter API OAuth リダイレクト処理
 	 * 
 	 * @author shalman
 	 * @return void
@@ -62,7 +66,7 @@ class AuthController extends Controller {
 	}
 
 	/**
-	 * Twitter API Callback 新規登録処理
+	 * Twitter API Callback 新規登録/ログイン処理
 	 *
 	 * @author shalman
 	 * @return void
@@ -70,12 +74,16 @@ class AuthController extends Controller {
 	public function getTwitterCallback(){
 
 		$data = array();
+		$user = $this->user;
 		$social =  Socialize::with('twitter')->user();
 		
-		$data['message'] = "Twitterからの情報を取得しました";
-
-
 		$data["social_id"] = $social->getId();
+		//ログイン
+		if($user = $user->where("social_id",'=',$data["social_id"])->first()){
+			$this->auth->loginUsingId($user->user_id);
+			return redirect()->intended($this->redirectTo);
+		}
+		$data['message'] = "Twitterからの情報を取得しました";
 		$data["name"] = $social->getName();
 		//TwitterAPIではEmail情報が取れないらしい。
 		$data["email"] = $social->getEmail();
@@ -86,7 +94,7 @@ class AuthController extends Controller {
 	}
 
 	/**
-	 * Facebook API OAuth 新規登録処理
+	 * Facebook API OAuth リダイレクト処理
 	 * 
 	 * @author shalman
 	 * @return void
@@ -98,7 +106,7 @@ class AuthController extends Controller {
 	}
 
 	/**
-	 * Facebook API Callback 新規登録処理
+	 * Facebook API Callback 新規登録/ログイン処理
 	 *
 	 * @author shalman
 	 * @return void
@@ -106,12 +114,16 @@ class AuthController extends Controller {
 	public function getFacebookCallback(){
 
 		$data = array();
+		$user = $this->user;
 		$social =  Socialize::with('facebook')->user();
-		
-		$data['message'] = "facebookからの情報を取得しました";
-
-
 		$data["social_id"] = $social->getId();
+
+		//ログイン
+		if($user = $user->where("social_id",'=',$data["social_id"])->first()){
+			$this->auth->loginUsingId($user->user_id);
+			return redirect()->intended($this->redirectTo);
+		}
+		$data['message'] = "facebookからの情報を取得しました";
 		$data["name"] = $social->getName();
 		$data["email"] = $social->getEmail();
 		$data["avatar_url"] = $social->getAvatar();
@@ -132,12 +144,8 @@ class AuthController extends Controller {
 		if(!old("social_id")){
 			$data["alert"] = "不正な手続きを検知しました。<br>お手数ですが、もう一度登録しなおしてください。";
 			 return redirect()->to("/")->withInput($data);
-		 }
-		
-		//更新しても消えないようにフラッシュに入れる
-		//Session::put("callback",old("callback"));
+		 }		
 		$data['message'] = old("message");
-
 
 		return view("auth/socialregister")->with("data",$data);
 	}
