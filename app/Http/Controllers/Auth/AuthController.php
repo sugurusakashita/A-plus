@@ -86,6 +86,40 @@ class AuthController extends Controller {
 	}
 
 	/**
+	 * Facebook API OAuth 新規登録処理
+	 * 
+	 * @author shalman
+	 * @return void
+	 */
+	public function getFacebookOauth(){
+
+    	return Socialize::with('facebook')->redirect();
+
+	}
+
+	/**
+	 * Facebook API Callback 新規登録処理
+	 *
+	 * @author shalman
+	 * @return void
+	 */
+	public function getFacebookCallback(){
+
+		$data = array();
+		$social =  Socialize::with('facebook')->user();
+		
+		$data['message'] = "facebookからの情報を取得しました";
+
+
+		$data["social_id"] = $social->getId();
+		$data["name"] = $social->getName();
+		$data["email"] = $social->getEmail();
+		$data["avatar_url"] = $social->getAvatar();
+		//return view("auth/socialregister")->with("data",$data);
+		return redirect()->to('/auth/social-register')->withInput($data);
+		//return redirect()->to('/auth/register')->withInput($data);
+	}
+	/**
 	 * ソーシャル登録フォーム
 	 *
 	 * @author shalman

@@ -52,6 +52,10 @@ class Registrar implements RegistrarContract {
 				$path = asset("avatar/".$file_name);
 			}
 		}
+		//通常ログイン用
+		if(!isset($data['social_id'])){
+			$data['social_id'] = NULL;
+		}
 	
 		//Session::flash("alert","初めまして！".$data['name']."さん！<br>A+plusを使って賢く大学生活を過ごしましょう！");
 		return User::create([
@@ -61,6 +65,7 @@ class Registrar implements RegistrarContract {
 			'entrance_year' => $data['entrance_year'],
 			'faculty' => $data['faculty'],
 			'sex'	=>	$data['sex'],
+			'social_id' => $data['social_id'],
 			'password' => bcrypt($data['password']),
 		]);
 	}

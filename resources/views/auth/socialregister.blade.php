@@ -116,7 +116,7 @@
 				<div class="form-group">
 					<div class="panel panel-danger">
 						<div class="panel-body">
-							登録の前に、必ず<a href="/term">「利用規約および個人情報の利用に関するポリシー」</a>をご覧ください。<br />
+							登録の前に、必ず<a href="/term" target="_blank">「利用規約および個人情報の利用に関するポリシー」</a>をご覧ください。<br />
 							全項目において同意できた方のみ登録ボタンをクリックしてください。
 						</div>
 					</div>
