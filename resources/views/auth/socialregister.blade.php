@@ -8,7 +8,6 @@
 
 <div class="col-md-8 col-md-offset-2">
 	<div class="panel panel-default">
-		<a href="/auth/twitter-oauth">Twitterで登録</a>
 		<div class="panel-body">
 			@if (count($errors) > 0)
 				<div class="alert alert-danger">
@@ -24,22 +23,34 @@
 
 			<form class="form-horizontal" role="form" method="POST" action="{{ url('/auth/register') }}" enctype='multipart/form-data'>
 				<input type="hidden" name="_token" value="{{ csrf_token() }}">
+				<input type="hidden" name="social_id" value="{{ old('social_id') }}">
+				
 
 				<div class="form-group">
 					<label for="file_input">プロフィール画像</label>
 					<table class="table table-bordered" style="border: none !important;">
 						<tr><td rowspan="2" style="border: none !important;">
-							<img class="thumbnail_avatar" src="/image/dummy.png" width="100" height="100" alt="dummy_image">
+							<img class="thumbnail_avatar" src="{{ old('avatar_url')? old('avatar_url'):'/image/dummy.png'}}" width="100" height="100" alt="dummy_image">
 							</td>
-							<td style="border: none !important;"><input id="file_input" type="file" name="avatar" class="form-element"></td>
+							<td class="upload_content"style="border: none !important;">
+								<input type="hidden" name="avatar_url" value="{{ old('avatar_url') }}">
+								<input id="file_input" type="file" name="avatar" class="form-element" style="display:none;">
+							</td>
 						</tr>
-						<tr><td style="border: none !important;"><button type="button" id="reset_avatar" class="btn btn-default">画像をリセットする</button></td></tr>
+						<tr>
+							<td style="border: none !important;">
+								<button type="button" id="sns_button" class="btn btn-default">SNSからの画像を利用する</button>
+								<button type="button" id="photo_button" class="btn btn-default">写真をアップロードする</button>
+								<button type="button" id="reset_avatar_button" class="btn btn-default">デフォルト画像を利用する</button>
+								
+							</td>
+						</tr>
 					</table>
 				</div>
 
 				<div class="panel panel-danger" style="margin-bottom: 15px;">
 					<div class="panel-title">
-					画像の大きさは100×100px、画像ファイルはjpg,png,gifのみで、大きさは1.5MBまでです。<br>画像が大きい場合は縮小拡大されます。
+					画像の大きさは100×100px以内、画像ファイルはjpg,png,gifのみで、大きさは1.5MBまでです。<br>画像が大きい場合は縮小拡大されます。
 					</div>
 				</div>
 
@@ -122,5 +133,9 @@
 @endsection
 
 @section('js')
-<script type="text/javascript" src="{{ asset('js/register.js') }}"></script>
+<script type="text/javascript">
+	var message = <?php echo "'".old("message")."'"; ?>;
+	var avatar_url = <?php echo "'".old("avatar_url")."'"; ?>;
+</script>
+<script type="text/javascript" src="{{ asset('js/socialregister.js') }}"></script>
 @endsection

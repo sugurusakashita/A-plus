@@ -20,11 +20,6 @@ class MyPageController extends Controller {
 
 
 	public function __construct(User $user,Request $request,Review $review){
-		if (!Auth::check()){
-			//ログインチェック
-			return redirect()->to("/auth/login");   
-		}
-
 		$user_id = $request->user()->user_id;
 
 		$this->user = $user->find($user_id);
@@ -123,16 +118,18 @@ class MyPageController extends Controller {
 			
 			return redirect()->to('mypage/index')->withInput(array("message" => $message));
 		}
+
 		//バリデーション
-		$validation["avatar"] = 'image|mimes:jpeg,jpg,gif,png|max:1000';	
+		$validation["avatar"] = 'image|mimes:jpeg,jpg,gif,png|max:1500';	
 		$this->validate($request,$validation);
 
 		//ファイル保存
-		$file_name = $data['user']->name."_avt";
+		$name = htmlspecialchars($data['user']->name,ENT_QUOTES);
+		$file_name = $data['user']->name."_avt.".$avatar->guessClientExtension();
 		$file = $avatar->move("avatar",$file_name);
-
-		//ファイルネームをDBに保存
-		$data['user']->avatar = $file_name;
+		$path = asset("avatar/".$file_name);
+		//ファイルパスをDBに保存
+		$data['user']->avatar = $path;
 		$this->user->save();
 
 		

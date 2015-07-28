@@ -136,6 +136,7 @@ return [
 		'Illuminate\Validation\ValidationServiceProvider',
 		'Illuminate\View\ViewServiceProvider',
 
+
 		/*
 		 * Application Service Providers...
 		 */
@@ -145,6 +146,8 @@ return [
 		'App\Providers\EventServiceProvider',
 		'App\Providers\RouteServiceProvider',
 
+		// social auth
+		'Laravel\Socialite\SocialiteServiceProvider',
 	],
 
 	/*
@@ -190,6 +193,7 @@ return [
 		'Route'     => 'Illuminate\Support\Facades\Route',
 		'Schema'    => 'Illuminate\Support\Facades\Schema',
 		'Session'   => 'Illuminate\Support\Facades\Session',
+		'Socialize' => 'Laravel\Socialite\Facades\Socialite',
 		'Storage'   => 'Illuminate\Support\Facades\Storage',
 		'URL'       => 'Illuminate\Support\Facades\URL',
 		'Validator' => 'Illuminate\Support\Facades\Validator',

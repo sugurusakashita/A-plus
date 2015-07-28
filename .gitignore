@@ -3,6 +3,5 @@
 /sql
 /bower_components
 composer.phar
-composer.lock
 .env
 .DS_Store

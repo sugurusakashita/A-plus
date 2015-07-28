@@ -31,7 +31,7 @@
 		<div class="panel panel-default">
 			<div class="panel-title">プロフィール画像</div>
 			<div class="panel-body">
-				<img class="profile-value" width="100" height="100" src="{{ $data['user']->avatar? asset('avatar/'.$data['user']->avatar):asset('image/dummy.png') }}">
+				<img class="profile-value" width="100" height="100" src="{{ $data['user']->avatar? $data['user']->avatar:asset('image/dummy.png') }}">
 				<input type="hidden" name="_token" value="{{ csrf_token() }}">
 				<a class="btn btn-sm btn-success btn-xs right-float" href="/mypage/avatar" />編集</a>
 			</div>

@@ -23,14 +23,14 @@
 			<div class="form-group">
 				<div class="control-label col-md-4">
 					<label>現在のプロフィール画像</label>
-					<img src="{{ $data['user']->avatar? asset('avatar/'.$data['user']->avatar):asset('image/dummy.png') }}" width="100" height="100" alt="user_image">
+					<img src="{{ $data['user']->avatar? $data['user']->avatar:asset('image/dummy.png') }}" width="100" height="100" alt="user_image">
 				</div>
 				<div class="col-md-6">
 				<label>新しいプロフィール画像</label>
 					<img class="thumbnail_avatar" src='{{ asset("image/dummy.png") }}' width="100" height="100" alt="dummy_image">
 					<input id = "file_input" type="file" name="avatar">
 					<button type="button" id="reset_avatar">画像をリセットする</button>
-					<p class="warning" style="color:red">画像の大きさは100×100px、画像ファイルはjpg,png,gifのみで、大きさは1MBまでです。<br>画像が大きい場合は縮小拡大されます。</p>
+					<p class="warning" style="color:red">画像の大きさは100×100px、画像ファイルはjpg,png,gifのみで、大きさは1.5MBまでです。<br>画像が大きい場合は縮小拡大されます。</p>
 				</div>
 			</div>
 			<div class="form-group">
