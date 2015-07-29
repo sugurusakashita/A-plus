@@ -1,60 +1,55 @@
-@extends('app')
+@extends('full')
 
-@section('content')
-<div class="container-fluid">
-	<div class="row">
-		<div class="col-md-8 col-md-offset-2">
-			<div class="panel panel-default">
-				<div class="panel-heading">Login</div>
-				<div class="panel-body">
-					@if (count($errors) > 0)
-						<div class="alert alert-danger">
-							<strong>Whoops!</strong> There were some problems with your input.<br><br>
-							<ul>
-								@foreach ($errors->all() as $error)
-									<li>{{ $error }}</li>
-								@endforeach
-							</ul>
-						</div>
-					@endif
+@section('title')
+ログイン | A+plus
+@stop
 
-					<form class="form-horizontal" role="form" method="POST" action="{{ url('/auth/login') }}">
-						<input type="hidden" name="_token" value="{{ csrf_token() }}">
-
-						<div class="form-group">
-							<label class="col-md-4 control-label">E-Mail Address</label>
-							<div class="col-md-6">
-								<input type="email" class="form-control" name="email" value="{{ old('email') }}">
-							</div>
-						</div>
-
-						<div class="form-group">
-							<label class="col-md-4 control-label">Password</label>
-							<div class="col-md-6">
-								<input type="password" class="form-control" name="password">
-							</div>
-						</div>
-
-						<div class="form-group">
-							<div class="col-md-6 col-md-offset-4">
-								<div class="checkbox">
-									<label>
-										<input type="checkbox" name="remember"> Remember Me
-									</label>
-								</div>
-							</div>
-						</div>
-
-						<div class="form-group">
-							<div class="col-md-6 col-md-offset-4">
-								<button type="submit" class="btn btn-primary">Login</button>
-
-								<a class="btn btn-link" href="{{ url('/password/email') }}">Forgot Your Password?</a>
-							</div>
-						</div>
-					</form>
+@section('main_content')
+<div class="col12">
+	<div class="panel panel-default">
+		<div class="panel-body">
+			@if (count($errors) > 0)
+				<div class="alert alert-danger">
+					入力の一部に誤りがあります。<br><br>
+					<ul>
+						@foreach ($errors->all() as $error)
+							<li>{{ $error }}</li>
+						@endforeach
+					</ul>
 				</div>
-			</div>
+			@endif
+
+			<form class="form-horizontal" role="form" method="POST" action="{{ url('/auth/login') }}">
+				<input type="hidden" name="_token" value="{{ csrf_token() }}">
+
+				<div class="form-group">
+					<label for="emailID">E-Mail Address</label>
+					<input type="email" id="emailID" class="form-element" name="email" value="{{ old('email') }}">
+				</div>
+
+				<div class="form-group">
+					<label for="passwordID">Password</label>
+					<input type="password" id="passwordID" class="form-element" name="password">
+				</div>
+
+				<div class="form-group">
+					<div class="checkbox">
+						<label>
+							<input type="checkbox" name="remember"> Remember Me
+						</label>
+					</div>
+				</div>
+
+				<div class="form-group">
+					<button type="submit" class="btn btn-primary">Login</button>
+					<a class="btn btn-link" href="{{ url('/password/email') }}">パスワードを忘れましたか？</a>
+				</div>
+				<div class="form-group">
+					<a href="/auth/twitter-oauth">Twitterでログイン</a>
+					<a href="/auth/facebook-oauth">Facebookでログイン</a>	
+				</div>
+
+			</form>
 		</div>
 	</div>
 </div>

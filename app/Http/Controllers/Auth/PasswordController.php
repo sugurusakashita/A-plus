@@ -32,7 +32,8 @@ class PasswordController extends Controller {
 		$this->auth = $auth;
 		$this->passwords = $passwords;
 
-		$this->middleware('guest');
+		//コメントアウトにより、ログインユーザーもパスワードリセットページに遷移できる。(パス変更のため。)
+		//$this->middleware('guest');
 	}
 
 }

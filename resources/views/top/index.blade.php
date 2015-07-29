@@ -1,25 +1,69 @@
-@extends('master')
+@extends('full')
 
 @section('title')
 A+plus
 @stop
 
 @section('main_content')
-	<h4 class="page-header">credits</h4>
-		<blockquote>
-		  <p>老害 in the Sky</p>
-		  <cite>@xk_vls</cite>
-		</blockquote>
-		<blockquote>
-		  <p>今日もウイスキーが美味い</p>
-		  <cite>@reastral_crm</cite>
-		</blockquote>
-		<blockquote>
-		  <p>そこに私はいません</p>
-		  <cite>@kuriiiimu</cite>
-		</blockquote>
-		<blockquote>
-		  <p>俺が次世代人科最強エンジニア</p>
-		  <cite>@zo58nari</cite>
-		</blockquote>
+<style type="text/css">
+  body{
+    background-color: #fff;
+    background-image: url("{{ asset('image/bg_top_filtered.jpg') }}");
+    background-size: cover;
+    background-attachment: fixed;
+    background-position: center;
+  }
+  .img_container{
+    background-color: rgba(255,255,255,0.85);
+    width: 100%;
+  }
+  .bland_img{
+    display: block;
+    margin: 12% auto 7%;
+  }
+  .search_header{
+    width:50%;
+    margin: 0 auto 20%;
+  }
+  @media screen and (max-width: 47.9375rem) {
+    .bland_img{
+      width: 80%;
+    }
+    .search_header{
+       width:90%;
+    }
+  }
+</style>
+  <div class="container">
+    <div class="img_container">
+       <img class="bland_img" src="{{ asset('image/Aplus_logo_trans@1x.png') }}" alt="a+plus_logo" width=510>
+    </div>
+    <div class="search_header">
+      <form action="/search" method="get">
+        <div class="form-element-group">
+          <input type="text" class="form-element" placeholder="授業や講師名で検索！" name="q"/>
+          <input type="hidden" name="day" value="0" />
+          <input type="hidden" name="period" value="0" />
+          <input type="hidden" name="term" value="2" />
+          <input type="hidden" name="_token" value="{{csrf_token()}}">
+          <span class="form-group-btn">
+            <button class="btn btn-default btn-primary" type="submit">検索</button>
+          </span>
+        </div>
+      </form>
+    </div>
+  </div>
+@stop
+
+@section('js')
+  
+    <script type="text/javascript"> 
+      //アラートメッセージ用
+      <?php if(old('message')){ ?>
+        alertify.success(<?php echo '"'.old("message").'"'; ?>);
+      <?php } ?>
+      <?php if(old('alert')){ ?>
+        alertify.error(<?php echo '"'.old("alert").'"'; ?>);  
+      <?php } ?>      
+    </script>
 @stop

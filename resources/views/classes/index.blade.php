@@ -4,8 +4,10 @@
 @include('common.sidebar')
 @stop
 
-@section('js')
-<script type="text/javascript" src="/js/classes.js"></script>
+@section('css')
+<link rel="stylesheet" type="text/css" href="{{ asset('css/alertify.core.css') }}">
+<link rel="stylesheet" type="text/css" href="{{ asset('css/alertify.default.css') }}">
+<link rel="stylesheet" type="text/css" href="{{ asset('css/aplus_style.css') }}">
 @stop
 
 @section('title')
@@ -13,6 +15,7 @@
 @stop
 
 @section('main_content')
+
 			<div class="col-md-12">
 			 @if($data['tag']['add_result']->added_tag)
 			 	<p style="color:red;">タグが追加されました。</p>
@@ -29,126 +32,177 @@
 				</div>
 
 				<!-- タグ作ってる -->
+				<div id="tag-list" style="padding: 10px;">
 			 	@if($data['tag']['list'])
-				 	<div style="padding: 10px;">
 				 		@foreach($data['tag']['list'] as $t)
 				 		<span class="btn-label info">
-				 			<form action="#" method="POST" name="delete_tag" style="margin: 0;">
-				 				<input type="submit" value="×" style="color: black;">
+				 				<input class="delete-tag-button" type="submit" value="×" style="color: black;">
 				 				<a href="" style="color: white; font-size: 1.5em;">#{{ $t->tag_name }}</a>
-				 				<input type="hidden" value="{{ $t->tag_name }}" name="delete_tag_name">
-				 				<input type="hidden" name="_token" value="{{csrf_token()}}" />
-				 			</form>
 			 			</span>
 				 		@endforeach
-				 	</div>
 			 	@endif
-				 	<div class="form-element-group">
-						<input class="form-element" type="text" placeholder="ここに新しいタグを入力!"/>
-						<span class="form-group-btn">
-							<button class="btn btn-default" type="submit" name="add_button">追加</button>
-						</span>
-		 	    </div>
+			 	</div>
 
+			 	<!-- タグの追加 -->
+			 	<div class="add_tag">
+			 		<a class="col4 btn btn-pill btn-primary" href="/tag/add/{{ $data['detail']->class_id }}">リストからタグを追加する！</a>&nbsp;
+			 		<button class="btn btn-pill btn-warning" id="add-new-tag">新しくタグを追加する!</button>
+			 		<div class="new-tag-field">
+			 			<input class="form-element col5" type="text" size="32" placeholder="ここに新しいタグを入力!" required id="add-tag-filed" value=""/>&nbsp;
+			 			<input type="hidden" name="_token" value="{{csrf_token()}}" />
+			 			<button class="btn btn-default col2" type="submit" id="add-tag-button">追加</button>
+			 		</div>
+			 	</div>
 
-				 	<div class="add_tag">
-				 		<a href="/tag/add/{{ $data['detail']->class_id }}"><p>リストからタグを追加する！</p></a>
-				 		<p>ない場合は...
-				 		<form action="#" method="POST" name="add_tag">
-				 			<input type="text" size="32" placeholder="ここに新しいタグを入力!" required name="add_tag_name" value=""/>
-				 			<input type="hidden" name="_token" value="{{csrf_token()}}" />
-				 			<button type="submit" name="add_button">追加</button>
-				 		</form>
-				 		</p>
-				 	</div>
+			 	<div class="tab-index">
+			 		<ul>
+			 			<li class="active"><a href="#tab1">基本情報</a></li>
+			 			<li><a href="#tab2">評価</a></li>
+			 			<li><a href="#tab3">レビュー</a></li>
+			 		</ul>
+			 	</div>
+			 	<div id="tab1" class="tab-contents active">
+					<!-- 基本情報 -->
+					<table class="table table-bordered" style="margin: 20px auto;">
+					  <thead>
+					    <tr>
+					      <th>担当講師</th>
+					      <th>学期</th>
+					      <th>曜日</th>
+					      <th>時限</th>
+					      <th>教室</th>
+					    </tr>
+					  </thead>
+				    <tbody>
+				      <tr>
+				        <td>
+				        	@if($data['teacher'])
+				        		@foreach($data['teacher'] as $teacher)
+				        			<a href="/search?q={{ urldecode($teacher->teacher_name) }}&day=0&period=0&term=2&_token={{csrf_token()}}">{{ $teacher->teacher_name }}</a>
+				        		@endforeach
+				        	@endif
+				        </th>
+				        <td><?php echo $data['detail']->term == 0? '春学期':'秋学期'?></td>
+				        <td><?php echo $data['detail']->class_week?></td>
+				        <td><?php echo $data['detail']->class_period?>限</td>
+				        <td>{{ $data['detail']->room_name }}</td>
+				      </tr>
+				    </tbody>
+					</table>
 
-			 	<!-- 授業レピュー -->
-				<div>
-					<div>
-						<button class="btn btn-primary"><a href="/classes/review/{{ $data['detail']->class_id }}" style="color: white;">この授業をレビューする！</a></button>
-						<?php if(!$data['review']->count()){ ?>
-							<p style='color:#FF0000;'>この授業はまだレビューされていません。</p>
-						<?php } else { ?>
-						<table class="table table-striped table-hover">
-							<thead>
-								<tr>
-								<th>投稿者</th>
-								<th>レビュー</th>
-								<th>評価度</th>
-								<th>作成日時</th>
-								<th>更新日時</th>
-								</tr>
-							</thead>
-						<tbody>
-				      @foreach($data['review'] as $r)
-				    	<tr>
-				    		<td>ゲストユーザ</td>
-				         	<td>{{{ $r->review_comment }}}</td>
-				         	<td>{{{ $r->stars }}}</td>
-				         	<td>{{{ $r->created_at }}}</td>
-				         	<td>{{{ $r->updated_at }}}</td>
-				         	<td>
-				          <!-- <a href="/classes/show/" class="btn btn-default btn-xs">詳細</a> -->
-				          <form action="/classes/edit" method="get">
-				          	<input type="hidden" value="{{{ $r->review_id }}}" name="review_id">
-				          	<input type="hidden" name="_token" value="{{csrf_token()}}" />
-				          	<button type="submit" class="btn btn-success btn-xs" />編集</button>
-				          </form>
-				          <form action="/classes/delete-confirm" method="POST">
-				          	<input type="hidden" value="{{{ $r->review_id }}}" name="review_id">
-				          	<input type="hidden" name="_token" value="{{csrf_token()}}" />
-				          	<button type="submit" class="btn btn-danger btn-xs">削除</button>
-				          </form>
-				  				</td>
-				 				</tr>
-				      @endforeach
-				      <?php }; ?>
-							</tbody>
-						</table>
+				 	<!-- 授業要旨 -->
+					@if($data['detail']->summary)
+					<div class="panel panel-info" style="margin: 20px auto;">
+					 <div class="panel-title">
+					   授業要旨
+					 </div>
+					 <div class="panel-body">
+					 	{{ $data['detail']->summary }}
+					 </div>
 					</div>
+					@endif
+				 	<!-- 授業レピュー -->
+				 	@if(!$data['wrote_review'])
+				 	<a href="/classes/review/{{ $data['detail']->class_id }}"><button class="btn btn-primary">この授業をレビューする！</button></a>
+				 	@endif
+				 	<a href="{{ $data['actual_syllabus_url'] }}" target="_blank"><button class="btn btn-info">公式シラバスを見る</button></a>
+			 	</div>
+
+				@if(!$data['review']->count())
+				<div id="tab2" class="tab-contents">
+					<div class="alert a-is-danger alert-removed fade in" style="margin: 20px auto;">
+						この授業はまだレビューされていません。
+					</div>
+					<a href="/classes/review/{{ $data['detail']->class_id }}"><button class="btn btn-primary">この授業をレビューする！</button></a>
+				</div>
+				<div id="tab3" class="tab-contents">
+					<div class="alert a-is-danger alert-removed fade in" style="margin: 20px auto;">
+						この授業はまだレビューされていません。
+					</div>
+					<a href="/classes/review/{{ $data['detail']->class_id }}"><button class="btn btn-primary">この授業をレビューする！</button></a>
+				</div>
+				@else
+				<div id="tab2" class="tab-contents">
+
+					<table class="table table-bordered" style="margin: 20px auto; text-align: center;">
+					  <thead>
+					    <tr>
+					      <th>総合評価度(平均)</th>
+					      <th>単位の取りやすさ(平均)</th>
+					      <th>GP(成績)の取りやすさ(平均)</th>
+					    </tr>
+					  </thead>
+				    <tbody>
+				      <tr>
+				        <td id="raty_stars_average"></td>
+				        <td id="raty_credit_average"></td>
+				        <td id="raty_grade_average"></td>
+				      </tr>
+				    </tbody>
+					</table>
+
+					<div class="pie_graph">
+							<h3>最終評価法</h3><hr>
+							<svg id="evaluation_pie"></svg>
+					</div>
+					<div class="bar_graph col7">
+						<h3>平常点評価</h3><hr>
+						<h4>出席</h4>
+					</div>
+					@if(!$data['wrote_review'])
+					<a href="/classes/review/{{ $data['detail']->class_id }}"><button class="btn btn-primary">この授業をレビューする！</button></a>
+					@endif
 				</div>
 
-			 	<!-- 授業要旨 -->
-				@if($data['detail']->summary)
-				<div class="panel panel-info">
-				 <div class="panel-title">
-				   授業要旨
-				 </div>
-				 <div class="panel-body">
-				 	{{ $data['detail']->summary }}
-				 </div>
+				<div id="tab3" class="tab-contents">
+					<table class="table table-bordered" style="margin: 20px auto;">
+						<thead>
+							<tr>
+							<th>投稿者</th>
+							<th>総合評価度</th>
+							<th>レビュー</th>
+							</tr>
+						</thead>
+						<tbody>
+			      @foreach($data['review'] as $r)
+			    	<tr>
+			    		<td>
+			    			<img src="{{ isset($r->users()->first()->avatar)? $r->users()->first()->avatar:asset('/image/dummy.png') }}"><br />
+			    			{{ isset($r->users()->first()->name)? $r->users()->first()->name:"不明なユーザ" }}
+			    		</td>
+		         	<td>{{{ $r->stars }}}</td>
+		         	<td>{{{ $r->review_comment }}}</td>
+		 				</tr>
+			      @endforeach
+						</tbody>
+					</table>
+					@if(!$data['wrote_review'])
+					<a href="/classes/review/{{ $data['detail']->class_id }}"><button class="btn btn-primary">この授業をレビューする！</button></a>
+					@endif
 				</div>
 				@endif
-
-				<!-- 基本情報 -->
-				<table class="table table-bordered" style="margin: 20px auto;">
-				  <thead>
-				    <tr>
-				      <th>担当講師</th>
-				      <th>学期</th>
-				      <th>曜日</th>
-				      <th>時限</th>
-				      <th>教室</th>
-				    </tr>
-				  </thead>
-			    <tbody>
-			      <tr>
-			        <td>
-			        	@if($data['teacher'])
-			        		@foreach($data['teacher'] as $teacher)
-			        			<a href="">{{ $teacher->teacher_name }}</a>
-			        		@endforeach
-			        	@endif
-			        </th>
-			        <td><?php echo $data['detail']->term == 0? '春学期':'秋学期'?></th>
-			        <td><?php echo $data['detail']->class_week?></th>
-			        <td><?php echo $data['detail']->class_period?>限</th>
-			        <td>{{ $data['detail']->room_name }}</th>
-			      </tr>
-			    </tbody>
-				</table>
-
 			</div>
 		</div>
-		<a href="/search"><p>検索結果に戻る</p></a>
+		<a href="/search"><button class="btn btn-sm btn-default">検索結果に戻る</button></a>
+@stop
+
+@section('js')
+	<script type="text/javascript" src="{{ asset('/js/d3.js') }}"></script>
+	@if($data['review']->count())
+		<!--円グラフ用JS-->
+		<script type="text/javascript">
+			var attendance_data = <?php echo $data['attendance_pie']; ?>;
+			var evaluation_data = <?php echo $data['final_evaluation_pie']; ?>;
+		</script>
+		<script type="text/javascript" src="{{ asset('/js/evaluation_pie.js') }}"></script>
+		<!--<script type="text/javascript" src="{{ asset('/js/attendance_pie.js') }}"></script> -->
+	@endif
+	<script type="text/javascript" src="{{ asset('/js/bar_graph.js') }}">
+
+	</script>
+	<script type="text/javascript">
+		var class_id = <?php echo $data['detail']->class_id; ?>;
+	</script>
+	<script type="text/javascript" src="{{ asset('/raty_lib/jquery.raty.js') }}"></script>
+	<script type="text/javascript" src="{{ asset('/js/classes.js') }}"></script>
 @stop

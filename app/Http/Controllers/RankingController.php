@@ -2,7 +2,7 @@
 
 use App\Classes;
 use App\Query;
-use App\PV;
+use App\Pv;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 

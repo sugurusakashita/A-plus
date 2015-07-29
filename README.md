@@ -1,4 +1,7 @@
-# wjinkaProj
+![A+plus](http://www.shalm.red/Aplus_logo_trans@1x.png)
+
+# A+plus
+* work in progress...
 
 ## 構成
 * app -> アプリケーション内容

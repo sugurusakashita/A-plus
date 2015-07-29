@@ -3,6 +3,7 @@
 use App\User;
 use Validator;
 use Illuminate\Contracts\Auth\Registrar as RegistrarContract;
+use Session;
 
 class Registrar implements RegistrarContract {
 
@@ -14,8 +15,13 @@ class Registrar implements RegistrarContract {
 	 */
 	public function validator(array $data)
 	{
+
 		return Validator::make($data, [
-			'name' => 'required|max:255',
+			//2MBを超えるアップロードだと、バリデーションが効かない？
+			//サーバー側が500エラーで保存はされない。要検証。
+			'avatar' => 'max:1500|image|mimes:jpeg,jpg,gif,png',
+			'avatar_url' => 'string|url', 
+			'name' => 'required|max:20|unique:users',
 			'email' => 'required|email|max:255|unique:users',
 			'password' => 'required|confirmed|min:6',
 		]);
@@ -28,10 +34,38 @@ class Registrar implements RegistrarContract {
 	 * @return User
 	 */
 	public function create(array $data)
-	{
+	{	
+		//保存PATH
+		$path ="";
+
+		if(isset($data["avatar_url"])){
+			$path = $data["avatar_url"];
+		}
+
+		//アバターの保存
+		if(isset($data["avatar"])) {
+			if($data["avatar"]){
+				//念のためサニタイズ
+				$name = htmlspecialchars($data['name'],ENT_QUOTES);
+				$file_name = $name."_avt.".$data["avatar"]->guessClientExtension();
+				$file = $data["avatar"]->move("avatar",$file_name);	
+				$path = asset("avatar/".$file_name);
+			}
+		}
+		//通常ログイン用
+		if(!isset($data['social_id'])){
+			$data['social_id'] = NULL;
+		}
+	
+		//Session::flash("alert","初めまして！".$data['name']."さん！<br>A+plusを使って賢く大学生活を過ごしましょう！");
 		return User::create([
+			'avatar' => $path,
 			'name' => $data['name'],
 			'email' => $data['email'],
+			'entrance_year' => $data['entrance_year'],
+			'faculty' => $data['faculty'],
+			'sex'	=>	$data['sex'],
+			'social_id' => $data['social_id'],
 			'password' => bcrypt($data['password']),
 		]);
 	}
