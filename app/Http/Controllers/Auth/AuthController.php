@@ -27,7 +27,7 @@ class AuthController extends Controller {
 	// デフォルトのリダイレクト先
 	protected $redirectTo = '/';
 
-	const AUTH_LOGIN_REDIRECT_ID = 'auth_login_redirect_id';
+	//const AUTH_LOGIN_REDIRECT_ID = 'auth_login_redirect_id';
 
 	//ソーシャルログイン用userデータ
 	protected $user;
@@ -46,9 +46,9 @@ class AuthController extends Controller {
 
 		// ユーザーが授業をレビューしようと思ってログイン処理を要求されたとき、
 		// その授業レビューページへリダイレクトする
-		if($id = Session::get(self::AUTH_LOGIN_REDIRECT_ID)){
-			$this->redirectTo = '/classes/review/' . $id;
-		}
+		// if($id = Session::get(self::AUTH_LOGIN_REDIRECT_ID)){
+		// 	$this->redirectTo = '/classes/review/' . $id;
+		// }
 
 		$this->middleware('guest', ['except' => 'getLogout']);
 	}

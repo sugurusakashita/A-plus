@@ -27,13 +27,16 @@ class ClassesController extends Controller {
 	protected static $w_syllabus_url = "https://www.wsl.waseda.jp/syllabus/JAA104.php?pKey=";
 
 	const REVIEW_POST_SESSION = 'review_post_session';
-	const AUTH_LOGIN_REDIRECT_ID = 'auth_login_redirect_id';
+	//const AUTH_LOGIN_REDIRECT_ID = 'auth_login_redirect_id';
 
 	public function __construct(Classes $classes,Review $review,Teacher $teacher,RankingController $ranking){
 		$this->classes = $classes;
 		$this->review = $review;
 		$this->ranking = $ranking;
 		$this->teacher = $teacher;
+
+		//Authフィルタのホワイトリスト
+		$this->middleware("auth",["only" => ["getReview","postConfirm","postComplete","getEdit","postEditConfirm","postEditComplete","postDeleteConfirm","postDeleteComplete"]]);
 	}
 
 	/**
@@ -71,7 +74,6 @@ class ClassesController extends Controller {
 		$data['actual_syllabus_url']  = $this->makeActualSyllabusUrl($data['detail']);
 
 		// ユニークPVカウント
-		// 正しく動くかわからない…
 		$this->countUniqueAccount($pv,$id);
 
 		return view('classes/index')->with('data',$data);
@@ -148,15 +150,15 @@ class ClassesController extends Controller {
 
 	public function getReview($id, Request $request){
 		//ログインチェック
-		if (!Auth::check()){
-			Session::put(self::AUTH_LOGIN_REDIRECT_ID, $id);
-			return redirect()->to("/auth/login");
-		}
+		// if (!Auth::check()){
+		// 	Session::put(self::AUTH_LOGIN_REDIRECT_ID, $id);
+		// 	return redirect()->to("/auth/login");
+		// }
 
 		// ログインしてリダイレクトしてきたら該当セッションを削除
-		if(Session::get(self::AUTH_LOGIN_REDIRECT_ID)){
-			Session::forget(self::AUTH_LOGIN_REDIRECT_ID);
-		}
+		// if(Session::get(self::AUTH_LOGIN_REDIRECT_ID)){
+		// 	Session::forget(self::AUTH_LOGIN_REDIRECT_ID);
+		// }
 
 		// もしレビュー済みの場合
 		if($this->review->wrote_review($id, $request->user()->user_id)){
@@ -181,11 +183,6 @@ class ClassesController extends Controller {
 	 */
 
 	public function postConfirm(Request $request){
-		if (!Auth::check()){
-			//ログインチェック
-			return redirect()->to("/auth/login");   
-		}
-
 		// 二重投稿のチェック
 		if(!Session::get(self::REVIEW_POST_SESSION)){
 			return redirect()->back()->withInput();
@@ -207,11 +204,6 @@ class ClassesController extends Controller {
 	 */
 
 	public function postComplete(Request $request){
-		if (!Auth::check()){
-			//ログインチェック
-			return redirect()->to("/auth/login");   
-		}
-
 		// 投稿完了したら該当セッションを削除、リロードしたらTOPへリダイレクト
 		if(Session::get(self::REVIEW_POST_SESSION)){
 			Session::forget(self::REVIEW_POST_SESSION);
@@ -240,10 +232,6 @@ class ClassesController extends Controller {
 	 */
 
 	public function getEdit(Request $request){
-		if (!Auth::check()){
-			//ログインチェック
-			return redirect()->to("/auth/login");
-		}
 		$data['all'] = $request->all();
 		$id = $data['all']['review_id'];
 		$data['detail'] = $this->review->find($id);
@@ -261,10 +249,6 @@ class ClassesController extends Controller {
 	 */
 
 	public function postEditConfirm(Request $request){
-		if (!Auth::check()){
-			//ログインチェック
-			return redirect()->to("/auth/login");
-		}
 		$data = $request->all();
 
 		return view('classes/editconfirm')->with('data',$data);
@@ -281,11 +265,7 @@ class ClassesController extends Controller {
 	 *
 	 */
 
-	public function postEditComplete(Request $request){
-		if (!Auth::check()){
-			//ログインチェック
-			return redirect()->to("/auth/login");   
-		}				
+	public function postEditComplete(Request $request){				
 		$id = $request->review_id;
 		$review = $this->review->find($id);
 
@@ -310,10 +290,6 @@ class ClassesController extends Controller {
 	 */
 
 	public function postDeleteConfirm(Request $request){
-		if (!Auth::check()){
-			//ログインチェック
-			return redirect()->to("/auth/login");   
-		}
 		$data = $request->all();
 		$id = $data['review_id'];
 		$data['detail'] = $this->review->find($id);
@@ -331,11 +307,7 @@ class ClassesController extends Controller {
 	 *
 	 */
 
-	public function postDeleteComplete(Request $request){
-		if (!Auth::check()){
-			//ログインチェック
-			return redirect()->to("/auth/login");   
-		}				
+	public function postDeleteComplete(Request $request){				
 		$review_id = $request->review_id;
 		$review = $this->review->find($review_id);
 
@@ -434,53 +406,4 @@ class ClassesController extends Controller {
 		// 平均値を返す
 		return number_format($sum / count($all_data),1);
 	}
-
-	/**
-	 * レビュー詳細をclass_idからリスト化してget
-	 *
-	 * @param int
-	 * @author shalman
-	 * @return object(many)
-	 *
-	 */
-/*
-	function returnReviewDetailByClassId($id){
-
-		$review = $this->review;
-
-		$data = $review->where('class_id',$id)->orderBy('updated_at','desc')->get();
-		return $data;
-	}
-*/
-
-	/**
-	 * 講師名をclass_idからget
-	 *
-	 * @param string
-	 * @author shalman
-	 * @return array
-	 *
-	 */
-/*
-	function returnTeachersNameByClassId($class_id){
-
-		$classes = $this->classes;
-		$teacher = $this->teacher;
-
-		//例外処理
-		//$teacher_ids = $classes->select("teacher_ids")->where("id",$class_id)->first()->teacher_ids;
-		$teacher_ids = $classes->find($class_id)->teacher_ids;
-		if(!$teacher_ids){
-			return null;
-		}
-		$array_ids = explode(",",$teacher_ids);
-		foreach ($array_ids as $teacher_id) {
-			//$result[] = $teacher->select("teacher_name")->where("id",$teacher_id)->first()->teacher_name;
-			$result[] = $teacher->find($teacher_id)->teacher_name;
-		}
-	
-		return $result;
-		
-	}
-*/
 }
