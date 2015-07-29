@@ -94,7 +94,7 @@
 					<label>性別</label>
 					<div class="radio-btn">
 						<label>
-						<input type="radio" name="sex" value="男性" checked>
+						<input type="radio" name="sex" value="男性">
 						男性
 						</label>
 					</div>

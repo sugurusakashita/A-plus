@@ -22,6 +22,9 @@ class Registrar implements RegistrarContract {
 			'avatar' => 'max:1500|image|mimes:jpeg,jpg,gif,png',
 			'avatar_url' => 'string|url', 
 			'name' => 'required|max:20|unique:users',
+			'entrance_year' => 'required',
+			'faculty' => 'required',
+			'sex'	=>	'required',
 			'email' => 'required|email|max:255|unique:users',
 			'password' => 'required|confirmed|min:6',
 		]);
