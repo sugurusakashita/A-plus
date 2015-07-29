@@ -143,7 +143,7 @@ class AuthController extends Controller {
 		//例外処理
 		if(!old("social_id")){
 			$data["alert"] = "不正な手続きを検知しました。<br>お手数ですが、もう一度登録しなおしてください。";
-			 return redirect()->to("/")->withInput($data);
+			 return redirect()->to($this->redirectTo)->withInput($data);
 		 }		
 		$data['message'] = old("message");
 

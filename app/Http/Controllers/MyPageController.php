@@ -20,6 +20,13 @@ class MyPageController extends Controller {
 
 
 	public function __construct(User $user,Request $request,Review $review){
+
+		//ミドルウェアでゲストユーザをフィルタ
+		$this->middleware('auth');	
+		if (!Auth::check()){
+			//ログインチェック
+			return redirect()->to("/auth/login");   
+		}
 		$user_id = $request->user()->user_id;
 
 		$this->user = $user->find($user_id);
@@ -32,10 +39,6 @@ class MyPageController extends Controller {
 	 */
 	public function getIndex()
 	{
-		if (!Auth::check()){
-			//ログインチェック
-			return redirect()->to("/auth/login");   
-		}
 		$data['user'] = $this->user;
 		$data['reviews'] = $this->review;
 		
@@ -45,11 +48,6 @@ class MyPageController extends Controller {
 	}
 	public function postIndex(Request $request)
 	{
-		if (!Auth::check()){
-			//ログインチェック
-			return redirect()->to("/auth/login");   
-		}
-
 		//バリデーション
 		$validation = array();
 		if(!is_null($request->name)){
@@ -90,26 +88,17 @@ class MyPageController extends Controller {
 	}
 
 	public function getAvatar(){
-		if (!Auth::check()){
-			//ログインチェック
-			return redirect()->to("/auth/login");   
-		}
 
 		$data['user'] = $this->user;
 
 		return view('mypage/avatar')->with('data',$data);
 	}
 	public function postAvatarComplete(Request $request){
-		if (!Auth::check()){
-			//ログインチェック
-			return redirect()->to("/auth/login");   
-		}
 
 		$data['user'] = $this->user;
 		$data['reviews'] = $this->review;
 		$message = "プロフィール画像の変更が完了しました。";
 		
-
 		//設定されていない場合、NULL
 		$avatar = $request->file('avatar');
 		if(is_null($avatar)) {
@@ -136,30 +125,4 @@ class MyPageController extends Controller {
 		return redirect()->to('mypage/index')->withInput(array("message" => $message));
 
 	}
-/*
-	public function postChangePasswordComplete(Guard $auth,Request $request){
-		if (!Auth::check()){
-			//ログインチェック
-			return redirect()->to("/auth/login");   
-		}
-
-
-		if(Hash::check($request->old_password,$this->user->password)){
-			echo "yes";
-			return null;
-		}
-		echo "no";
-		return null;
-
-
-		$this->validate($request,[
-				'_token' => 'required',
-				'old_password' => 'required|exists:users,password',
-				'password' => 'required|confirmed|min:6',
-			]);
-
-
-		return view('mypage/passwordcomplete')->with('data',$data);
-	}
-*/
 }
