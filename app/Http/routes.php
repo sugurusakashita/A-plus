@@ -13,7 +13,7 @@ Route::controllers([
 	'mypage'	=>	'MyPageController',
 ]);
 
-
+Route::resource('photos.comments', 'Api\PhotoCommentController');
 
 
 /* 以下API */
