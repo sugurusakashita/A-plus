@@ -11,6 +11,8 @@ Route::controllers([
 	'ranking'	=>	'RankingController',
 	'tag'		=>	'TagController',
 	'mypage'	=>	'MyPageController',
+	'term'		=>	'TermController',
+	
 ]);
 
 
