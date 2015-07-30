@@ -11,7 +11,7 @@
 @stop
 
 @section('title')
-授業詳細 | {{ $data['detail']['class_name'] }}
+{{ $data['detail']['class_name'] }} | A+plus
 @stop
 
 @section('main_content')
@@ -28,7 +28,7 @@
 
 				<!-- タイトル -->
 				<div class="alert a-is-info" style="margin: 0 auto 5px;">
-				 <p><?php echo $data['detail']->class_name?></p>
+				 <p>{{ $data['detail']->class_name }}</p>
 				</div>
 
 				<!-- タグ作ってる -->
@@ -62,6 +62,16 @@
 			 		</ul>
 			 	</div>
 			 	<div id="tab1" class="tab-contents active">
+					<!-- 成績評価方法 -->
+<!-- 					<div style="overflow:auto;">
+						<div class="col6" >
+								<h3>成績評価方法</h3><hr>
+								<svg id="evaluation_pie"></svg>
+						</div>
+						<div class="col6" >
+								<h3>評価基準</h3><hr>
+						</div>						
+					</div> -->
 					<!-- 基本情報 -->
 					<table class="table table-bordered" style="margin: 20px auto;">
 					  <thead>
@@ -167,7 +177,7 @@
 			      @foreach($data['review'] as $r)
 			    	<tr>
 			    		<td>
-			    			<img src="{{ isset($r->users()->first()->avatar)? $r->users()->first()->avatar:asset('/image/dummy.png') }}"><br />
+			    			<img src="{{ isset($r->users()->first()->avatar)? $r->users()->first()->avatar:asset('/image/dummy.png') }}" width="70"height="70"><br />
 			    			{{ isset($r->users()->first()->name)? $r->users()->first()->name:"不明なユーザ" }}
 			    		</td>
 <!-- 		         	<td>{{{ $r->stars }}}</td> -->
@@ -190,11 +200,26 @@
 	<script type="text/javascript" src="{{ asset('/js/d3.js') }}"></script>
 	@if($data['review']->count())
 		<!--円グラフ用JS-->
-		<script type="text/javascript">
-			var attendance_data = <?php echo $data['attendance_pie']; ?>;
-			var evaluation_data = <?php echo $data['final_evaluation_pie']; ?>;
-		</script>
 		<script type="text/javascript" src="{{ asset('/js/evaluation_pie.js') }}"></script>
+		<script type="text/javascript">
+
+			var attendance_data = <?php echo $data['attendance_pie']; ?>,
+				evaluation_data = <?php echo $data['final_evaluation_pie']; ?>;
+
+			var e = new pieClass("#evaluation_pie");
+
+			// 初期化
+			//タブ変更してからレンダー
+			$('.tab-index a').click(function(){
+			  if($(this).attr("href") == "#tab2"){
+			    e.render(evaluation_data);
+			    e.update();
+			    e.animate(evaluation_data); 
+			  }
+			});
+			e.update();
+			e.win.on("resize", e.update()); // ウィンドウのリサイズイベントにハンドラを設定	
+		</script>
 		<!--<script type="text/javascript" src="{{ asset('/js/attendance_pie.js') }}"></script> -->
 	@endif
 	<script type="text/javascript" src="{{ asset('/js/bar_graph.js') }}">
