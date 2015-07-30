@@ -159,7 +159,7 @@
 						<thead>
 							<tr>
 							<th>投稿者</th>
-							<th>総合評価度</th>
+<!-- 							<th>総合評価度</th> -->
 							<th>レビュー</th>
 							</tr>
 						</thead>
@@ -170,7 +170,7 @@
 			    			<img src="{{ isset($r->users()->first()->avatar)? $r->users()->first()->avatar:asset('/image/dummy.png') }}"><br />
 			    			{{ isset($r->users()->first()->name)? $r->users()->first()->name:"不明なユーザ" }}
 			    		</td>
-		         	<td>{{{ $r->stars }}}</td>
+<!-- 		         	<td>{{{ $r->stars }}}</td> -->
 		         	<td>{{{ $r->review_comment }}}</td>
 		 				</tr>
 			      @endforeach
