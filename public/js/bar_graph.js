@@ -12,23 +12,23 @@ function barGraph(data){
         if(data[i]["value"] > max_percent){
           max_percent = data[i]["value"];
           max_id = i;
-        }        
+        }
     }
     //shema.css/col7 だとrectの最大width 280px
-    data[max_id]["pix"] = 280;     
- 
+    data[max_id]["pix"] = 280;
+
     //valueにパーセントの値を入れる
-    for(var i = 0;i < data.length;i++){
-        if(i != max_id){
+    for(var j = 0; j < data.length; j++){
+        if(j != max_id){
           //最大のバーを100%とした時のその他のピクセルを計算
-          data[i]["pix"] =  data[max_id]["pix"] / (data[max_id]["value"] / data[i]["value"]);
+          data[j]["pix"] =  data[max_id]["pix"] / (data[max_id]["value"] / data[j]["value"]);
         }
         //roundで小数点を丸めてパーセント化
-        data[i]["percent"] = Math.round(data[i]["value"] / sum * 100);
+        data[j]["percent"] = Math.round(data[j]["value"] / sum * 100);
     }
     // 棒グラフ
     var barHeight = 50;
-    var w = 600;
+    var w = '100%';
     var h = data.length * barHeight;
     var svg = d3.select(".bar_graph").append("svg").attr("width", w).attr("height", h).attr("id","attendance_bar_graph");
     // グラフの追加
@@ -46,10 +46,9 @@ function barGraph(data){
 
     //パーセントの表示
     svg.selectAll("p").data(data).enter().append("text")
-    
-  .attr("x", function(d, i){ return d["pix"] / 2 + 85 })
+  .attr("x", function(d, i){ return d["pix"] / 2 + 85; })
   .attr("y", function(d, i) { return i * barHeight + barHeight / 2 - 1; })
-  .text(function(d) { return d["percent"] + "\%"; });
+  .text(function(d) { return d["percent"] + '%'; });
 
     // 棒グラフのスタイル
     svg.selectAll("rect").data(data)

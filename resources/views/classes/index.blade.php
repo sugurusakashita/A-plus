@@ -150,7 +150,7 @@
 							<h3>最終評価法</h3><hr>
 							<svg id="evaluation_pie"></svg>
 					</div>
-					<div class="bar_graph col7">
+					<div class="bar_graph">
 						<h3>平常点評価</h3><hr>
 						<h4>出席</h4>
 					</div>
