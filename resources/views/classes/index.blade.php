@@ -28,7 +28,7 @@
 
 				<!-- タイトル -->
 				<div class="alert a-is-info" style="margin: 0 auto 5px;">
-				 <p><?php echo $data['detail']->class_name?></p>
+				 <p style="font-size: 1.75em;"><?php echo $data['detail']->class_name?></p>
 				</div>
 
 				<!-- タグ作ってる -->
@@ -45,12 +45,17 @@
 
 			 	<!-- タグの追加 -->
 			 	<div class="add_tag">
-			 		<a class="col4 btn btn-pill btn-primary" href="/tag/add/{{ $data['detail']->class_id }}">リストからタグを追加する！</a>&nbsp;
-			 		<button class="btn btn-pill btn-warning" id="add-new-tag">新しくタグを追加する!</button>
-			 		<div class="new-tag-field">
-			 			<input class="form-element col5" type="text" size="32" placeholder="ここに新しいタグを入力!" required id="add-tag-filed" value=""/>&nbsp;
+			 		<table style="width: 100%; text-align: center; background: none;">
+			 			<tr><td>
+					 		<a href="/tag/add/{{ $data['detail']->class_id }}" style="color: white;"><button class="btn btn-pill btn-info-outline">リストからタグを追加</button></a>&nbsp;
+				 		</td><td>
+					 		<button class="btn btn-pill btn-info-outline" id="add-new-tag">新しくタグを追加</button>
+			 			</td></tr>
+			 		</table>
+			 		<div class="new-tag-field" style="width: 100%;">
+			 			<input class="form-element col8" type="text" size="32" placeholder="ここに新しいタグを入力!" required id="add-tag-filed" value=""/>&nbsp;
 			 			<input type="hidden" name="_token" value="{{csrf_token()}}" />
-			 			<button class="btn btn-default col2" type="submit" id="add-tag-button">追加</button>
+			 			<button class="btn btn-default col3" type="submit" id="add-tag-button">追加</button>
 			 		</div>
 			 	</div>
 
@@ -183,7 +188,7 @@
 				@endif
 			</div>
 		</div>
-		<a href="/search"><button class="btn btn-sm btn-default">検索結果に戻る</button></a>
+		<a href="/search"><button class="btn btn-sm btn-default" style="margin-bottom: 20px;">検索結果に戻る</button></a>
 @stop
 
 @section('js')

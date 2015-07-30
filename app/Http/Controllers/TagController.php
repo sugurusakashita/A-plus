@@ -106,7 +106,7 @@ class TagController extends Controller {
 		$result = $tag->save();
 
 		$data["success"] = $result;
-		$data["message"] = $result == true? "タグの追加に成功しました。":"タグの追加に失敗しました。";
+		$data["message"] = $result == true? "タグを追加しました！":"タグの追加に失敗しました。";
 
 		return json_encode($data);
 
@@ -144,7 +144,7 @@ class TagController extends Controller {
 		$result = $record->delete();
 
 		$data["success"] = $result;
-		$data["message"] = $result == true? "タグの削除に成功しました。":"タグの削除に失敗しました。";
+		$data["message"] = $result == true? "タグを削除しました。":"タグの削除に失敗しました。";
 
 		return json_encode($data); 
 
