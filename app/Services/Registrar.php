@@ -41,6 +41,9 @@ class Registrar implements RegistrarContract {
 		//保存PATH
 		$path ="";
 
+		//GreetingMessage
+		$message = "初めまして！".$data['name']."さん！<br>A+plusを使って賢く大学生活を過ごしましょう！";
+
 		if(isset($data["avatar_url"])){
 			$path = $data["avatar_url"];
 		}
@@ -59,8 +62,8 @@ class Registrar implements RegistrarContract {
 		if(!isset($data['social_id'])){
 			$data['social_id'] = NULL;
 		}
-	
-		//Session::flash("alert","初めまして！".$data['name']."さん！<br>A+plusを使って賢く大学生活を過ごしましょう！");
+		//メッセージ仕込み
+		Session::put("top_message",$message);
 		return User::create([
 			'avatar' => $path,
 			'name' => $data['name'],

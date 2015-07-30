@@ -59,11 +59,14 @@ A+plus
   
     <script type="text/javascript"> 
       //アラートメッセージ用
-      <?php if(old('message')){ ?>
-        alertify.success(<?php echo '"'.old("message").'"'; ?>);
-      <?php } ?>
-      <?php if(old('alert')){ ?>
-        alertify.error(<?php echo '"'.old("alert").'"'; ?>);  
-      <?php } ?>      
+
+      <?php
+      if($v = $data["message"]){
+          echo "alertify.success('".$v."');";        
+      } 
+      if($v = $data["alert"]){
+          echo "alertify.error('".$v."');";        
+      } 
+      ?>    
     </script>
 @stop
