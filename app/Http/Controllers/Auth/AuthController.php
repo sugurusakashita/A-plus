@@ -83,7 +83,7 @@ class AuthController extends Controller {
 			$this->auth->loginUsingId($user->user_id);
 			return redirect()->intended($this->redirectTo);
 		}
-		$data['message'] = "Twitterからの情報を取得しました";
+		$data['message'] = "Twitterから情報を取得しました";
 		$data["name"] = $social->getName();
 		//TwitterAPIではEmail情報が取れないらしい。
 		$data["email"] = $social->getEmail();
@@ -123,7 +123,8 @@ class AuthController extends Controller {
 			$this->auth->loginUsingId($user->user_id);
 			return redirect()->intended($this->redirectTo);
 		}
-		$data['message'] = "facebookからの情報を取得しました";
+		
+		$data['message'] = "facebookから情報を取得しました";
 		$data["name"] = $social->getName();
 		$data["email"] = $social->getEmail();
 		$data["avatar_url"] = $social->getAvatar();
@@ -138,12 +139,12 @@ class AuthController extends Controller {
 	 * @return void
 	 */
 	public function getSocialRegister(){
+		//更新してもフラッシュデータ保持
 		Session::reflash();
-		var_dump(old());
 		//例外処理
 		if(!old("social_id")){
-			$data["alert"] = "不正な手続きを検知しました。<br>お手数ですが、もう一度登録しなおしてください。";
-			 return redirect()->to($this->redirectTo)->withInput($data);
+			$data["top_alert"] = "不正な手続きを検知しました。<br>お手数ですが、もう一度登録しなおしてください。";
+			return redirect()->to($this->redirectTo)->withInput($data);
 		 }		
 		$data['message'] = old("message");
 
