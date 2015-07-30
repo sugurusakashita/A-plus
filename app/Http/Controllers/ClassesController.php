@@ -352,18 +352,9 @@ class ClassesController extends Controller {
 	 *
 	 */
 
-	public function getStarsAverage($id, Request $request){
+	public function getStarsAverage($id){
 
-		$sum = 0;
-		$all_data = $this->review->reviews($id);
-
-		// 全ての単位の取りやすさの値を合計する
-		foreach ($all_data as $v) {
-			$sum += $v['stars'];
-		}
-
-		// 平均値を返す
-		return number_format($sum / count($all_data),1);
+		return $this->calcAverage($id, 'stars');
 	}
 
 	/**
@@ -375,18 +366,9 @@ class ClassesController extends Controller {
 	 *
 	 */
 
-	public function getGradeAverage($id, Request $request){
+	public function getGradeAverage($id){
 
-		$sum = 0;
-		$all_data = $this->review->reviews($id);
-
-		// 全てのGPの取りやすさの値を合計する
-		foreach ($all_data as $v) {
-			$sum += $v['grade_stars'];
-		}
-
-		// 平均値を返す
-		return number_format($sum / count($all_data),1);
+		return $this->calcAverage($id, 'grade_stars');
 	}
 
 	/**
@@ -398,18 +380,36 @@ class ClassesController extends Controller {
 	 *
 	 */
 
-	public function getCreditAverage($id, Request $request){
+	public function getCreditAverage($id){
 
+		return $this->calcAverage($id, 'unit_stars');
+	}
+
+	/**
+	 * 平均値を返す
+	 *
+	 * @param id 授業id
+	 * @param key 取得したい項目
+	 * @author b-kaxa
+	 * @return int
+	 *
+	 */
+
+	public function calcAverage($id, $key){
 		$sum = 0;
 		$all_data = $this->review->reviews($id);
 
 		// 全ての単位の取りやすさの値を合計する
 		foreach ($all_data as $v) {
-			$sum += $v['unit_stars'];
+			$sum += $v[$key];
 		}
 
-		// 平均値を返す
-		return number_format($sum / count($all_data),1);
+		if (0 === $sum) {
+			return $sum;
+		} else {
+			// 平均値を返す
+			return number_format($sum / count($all_data),1);
+		}
 	}
 
 	/**

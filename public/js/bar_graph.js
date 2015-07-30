@@ -69,11 +69,16 @@ function tab_changed(data){
   .attr("width",function(d, i){ return d["pix"]; });
 }
 
-barGraph(attendance_data);
+// そもそもattendance_dataが未定義の場合はグラフを表示させてはいけない
+if (typeof attendance_data !== "undefined") {
+  barGraph(attendance_data);
+}
 
 // 初期化
 //タブ変更してからレンダー
 $('.tab-index a').click(function(){
-  tab_changed(attendance_data);
+  if (typeof attendance_data !== "undefined") {
+    tab_changed(attendance_data);
+  }
 });
 
