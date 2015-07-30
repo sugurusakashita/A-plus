@@ -187,7 +187,9 @@ class ClassesController extends Controller {
 		if(!Session::get(self::REVIEW_POST_SESSION)){
 			return redirect()->back()->withInput();
 		}
-
+		//レビューバリデーション
+		$this->reviewValidation($request);
+		
 		$data = $request->all();
 		$data['detail'] = $this->classes->find($request->class_id);
 		return view('classes/confirm')->with('data',$data);
@@ -251,6 +253,9 @@ class ClassesController extends Controller {
 	public function postEditConfirm(Request $request){
 		$data = $request->all();
 
+		//レビューバリデーション
+		$this->reviewValidation($request);
+		
 		return view('classes/editconfirm')->with('data',$data);
 
 	}
@@ -405,5 +410,24 @@ class ClassesController extends Controller {
 
 		// 平均値を返す
 		return number_format($sum / count($all_data),1);
+	}
+
+	/**
+	 * レビューバリデーション
+	 *
+	 * @param request
+	 * @author shalman
+	 * @return mixed
+	 *
+	 */
+
+	public function reviewValidation($request){
+		return $this->validate($request,[
+			"grade" => "required",
+			"stars" => "required",
+			"unit_stars" => "required",
+			"grade_stars" => "required",
+			"review_comment" => "required|min:10|max:500"
+			]);
 	}
 }
