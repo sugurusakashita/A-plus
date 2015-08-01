@@ -67,16 +67,6 @@
 			 		</ul>
 			 	</div>
 			 	<div id="tab1" class="tab-contents active">
-					<!-- 成績評価方法 -->
-<!-- 					<div style="overflow:auto;">
-						<div class="col6" >
-								<h3>成績評価方法</h3><hr>
-								<svg id="evaluation_pie"></svg>
-						</div>
-						<div class="col6" >
-								<h3>評価基準</h3><hr>
-						</div>						
-					</div> -->
 					<!-- 基本情報 -->
 					<table class="table table-bordered" style="margin: 20px auto;">
 					  <thead>
@@ -104,7 +94,18 @@
 				      </tr>
 				    </tbody>
 					</table>
-
+					<!-- 成績評価方法 -->
+					<div style="overflow:auto;">
+						<div class="col6" >
+								<h3>円グラフ</h3><hr>
+								<svg id="eval_pie"></svg>
+						</div>
+						<div class="col6" >
+								<h3>棒グラフ</h3><hr>
+								<div id="eval_bar">
+								</div>
+						</div>						
+					</div>
 				 	<!-- 授業要旨 -->
 					@if($data['detail']->summary)
 					<div class="panel panel-info" style="margin: 20px auto;">
@@ -206,28 +207,50 @@
 	@if($data['review']->count())
 		<!--円グラフ用JS-->
 		<script type="text/javascript" src="{{ asset('/js/evaluation_pie.js') }}"></script>
+		<script type="text/javascript" src="{{ asset('/js/bar_graph.js') }}"></script>
 		<script type="text/javascript">
-
+		//グラフデータ
 			var attendance_data = <?php echo $data['attendance_pie']; ?>,
-				evaluation_data = <?php echo $data['final_evaluation_pie']; ?>;
+				final_evaluation_data = <?php echo $data['final_evaluation_pie']; ?>,
+				test_data = [{"legend":"レポート","value":70,"color":"#e74c3c"},{"legend":"試験","value":10,"color":"#16a085"},{"legend":"平常点評価","value":20,"color":"#2c3e50"}];
 
 			var e = new pieClass("#evaluation_pie");
+			//テスト用
+			var w = new pieClass("#eval_pie");
+			var b = new barClass("#eval_bar",test_data);
+
+			var eval_flag = final_evaluation_data[0]["value"];
+			//初回読み込み
+			b.barGraph();
+
+		    w.render(test_data);
+		    w.update();
+		    w.animate(test_data); 
 
 			// 初期化
 			//タブ変更してからレンダー
 			$('.tab-index a').click(function(){
 			  if($(this).attr("href") == "#tab2"){
-			    e.render(evaluation_data);
-			    e.update();
-			    e.animate(evaluation_data); 
+			  	if(eval_flag){
+			  		//タブ2で動くグラフ
+				    e.render(final_evaluation_data);
+				    e.update();
+				    e.animate(final_evaluation_data); 
+			  	}
+			  	
 			  }
+			  b.tab_changed();
 			});
-			e.update();
-			e.win.on("resize", e.update()); // ウィンドウのリサイズイベントにハンドラを設定	
+			//e.update();
+			// ウィンドウのリサイズイベントにハンドラを設定
+			if(eval_flag){
+				e.win.on("resize", e.update()); 	
+			}
+			
 		</script>
 		<!--<script type="text/javascript" src="{{ asset('/js/attendance_pie.js') }}"></script> -->
 	@endif
-	<script type="text/javascript" src="{{ asset('/js/bar_graph.js') }}">
+	
 
 	</script>
 	<script type="text/javascript">
