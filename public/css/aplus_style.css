@@ -73,3 +73,9 @@ text{
 .tab-contents.active {
   display: block;
 }
+
+footer {
+  padding:20px 18px 70px;
+  overflow:auto;
+  background-color: #B2C9CE;
+}
