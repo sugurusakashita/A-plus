@@ -39,24 +39,20 @@ class SearchController extends Controller {
 	 *
 	 */
 
-	public function getIndex(){
+	public function getIndex(Request $request){
 
 		$search_queries = array();
 		$search_session = ["day" =>"0","period" => "0","term" => "2","q" =>""];
+
 		//検索からinputしたら
-		if($token = Input::get('_token')){
+		if($token = $request->_token){
+			//検索オプション定義、サニタイズ
+			$day	 	= htmlspecialchars($request->day,ENT_QUOTES);
+			$period 	= htmlspecialchars($request->period,ENT_QUOTES);
+			$term 		= htmlspecialchars($request->term,ENT_QUOTES);
+			$query 		= htmlspecialchars(Input::get('q'),ENT_QUOTES);
 
-
-			$day = htmlspecialchars(Input::get('day'),ENT_QUOTES);
-			$period = Input::get('period');
-			$term = Input::get('term');
-			$query = htmlspecialchars(Input::get('q'),ENT_QUOTES);
-			//マルチバイトでエンコードされてる時があるのでURLデコードする。
-			$query = urldecode($query);
-			$query = trim(mb_convert_kana($query,"s"));
-			mb_regex_encoding( "UTF-8" );
-			//複数検索ワードを配列に
-			$search_queries = mb_split("\s",$query);
+			$search_queries = $this->query2array($query);
 
 			//検索の値をDBに
 			if($search_queries){
@@ -72,12 +68,12 @@ class SearchController extends Controller {
 					}
 				}
 			}
-
-			$search_session = array('q'	=>	$query,
-							'day' => $day,
-							'period'=> $period,
-							'term' => $term,
-							'_token' =>	$token);
+			//検索の値をセッションに
+			$search_session = array('q'		=>	$query,
+									'day' 	=> $day,
+									'period'=> $period,
+									'term' 	=> $term,
+									'_token' =>	$token);
 
 			Session::put("search_session",$search_session);
 			
@@ -94,11 +90,7 @@ class SearchController extends Controller {
 			$term = $search_session['term'];
 			$query = $search_session['q'];
 
-			$query = trim(mb_convert_kana($query,"s"));
-			mb_regex_encoding( "UTF-8" );
-			//複数検索ワードを配列に
-			$search_queries = mb_split("\s",$query);
-			
+			$search_queries = $this->query2array($query);
 		}
 
 		//配列要素は5つまで
@@ -116,6 +108,7 @@ class SearchController extends Controller {
 		//ページネーター作成
 		$data['classes'] = new LengthAwarePaginator($data['classes']->skip($offset)->take($limit)->get(),$total,$limit,$page,array("path"=>"search"));
 
+		$data['term'] = ["春学期 ","秋学期 "];
 		$data['get'] = $search_session;
 		$data['review'] = $this->review;
 		$data['tag'] = $this->tag;
@@ -126,6 +119,28 @@ class SearchController extends Controller {
 		return view('search/index')->with('data',$data);
 	}
 
+	/**
+	 * query 2 array
+	 * 検索ワードを空白で区切り、配列としてreturnします。
+	 *
+	 * @param String
+	 * @author shalman
+	 * @return array	 
+	 *
+	 */
+
+	function query2array($query){
+		$query = urldecode($query);
+		//全角空白を半角に
+		$query = trim(mb_convert_kana($query,"s"));
+		//エンコード
+		mb_regex_encoding( "UTF-8" );
+		//複数検索ワードを配列に
+		$search_queries = mb_split("\s",$query);
+
+		return $search_queries;
+
+	}
 	/**
 	 * 検索メソッド
 	 *
@@ -158,6 +173,7 @@ class SearchController extends Controller {
 
 	/**
 	 * クエリーエンジン
+	 * AND検索
 	 *
 	 * @param array
 	 * @author shalman
