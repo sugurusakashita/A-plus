@@ -47,10 +47,10 @@ class SearchController extends Controller {
 		//検索からinputしたら
 		if($token = $request->_token){
 			//検索オプション定義、サニタイズ
-			$day	 	= htmlspecialchars($request->day,ENT_QUOTES);
-			$period 	= htmlspecialchars($request->period,ENT_QUOTES);
-			$term 		= htmlspecialchars($request->term,ENT_QUOTES);
-			$query 		= htmlspecialchars(Input::get('q'),ENT_QUOTES);
+			$day	 	= htmlspecialchars($request->day ?:"0",ENT_QUOTES);
+			$period 	= htmlspecialchars($request->period ?:"0",ENT_QUOTES);
+			$term 		= htmlspecialchars($request->term ?:"2",ENT_QUOTES);
+			$query 		= htmlspecialchars(Input::get('q') ?:"",ENT_QUOTES);
 
 			$search_queries = $this->query2array($query);
 
@@ -85,14 +85,13 @@ class SearchController extends Controller {
 			}
 
 
-			$day = $search_session['day'];
-			$period = $search_session['period'];
-			$term = $search_session['term'];
-			$query = $search_session['q'];
+			$day = $search_session['day'] ?:"0";
+			$period = $search_session['period'] ?:"0";
+			$term = $search_session['term'] ?:"2";
+			$query = $search_session['q'] ?:"";
 
 			$search_queries = $this->query2array($query);
 		}
-
 		//配列要素は5つまで
 		while(count($search_queries) > 5){
 			array_pop($search_queries);
@@ -110,6 +109,7 @@ class SearchController extends Controller {
 
 		$data['term'] = ["春学期 ","秋学期 "];
 		$data['get'] = $search_session;
+
 		$data['review'] = $this->review;
 		$data['tag'] = $this->tag;
 
@@ -150,7 +150,7 @@ class SearchController extends Controller {
 	 *
 	 */
 
-	function classes_list($day =0,$period = 0,$term = 2,$search_queries = ""){
+	function classes_list($day,$period,$term,$search_queries){
 
 		$data = $this->classes;
 
@@ -158,7 +158,6 @@ class SearchController extends Controller {
 		if($day == '夏季'){
 			$period = '00';
 		}
-
 		$data = empty($search_queries)?  $data:$this->getQueryEngine($search_queries);
 		//$data = $search_queries == ""?  $data:$data->where("class_name","like","%".$search_queries[0]."%");
 		$data = $day == '0'?	$data:$data->where('class_week',$day);
