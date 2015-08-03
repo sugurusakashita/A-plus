@@ -20,6 +20,8 @@ class PasswordController extends Controller {
 
 	use ResetsPasswords;
 
+	protected $subject = "A+plus | 会員パスワード再設定メール";
+
 	/**
 	 * Create a new password controller instance.
 	 *
