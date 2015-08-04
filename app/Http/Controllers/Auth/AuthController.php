@@ -8,6 +8,7 @@ use Session;
 use Socialize;
 use Illuminate\Http\Request;
 use App\User;
+use Auth;
 
 class AuthController extends Controller {
 
@@ -50,7 +51,8 @@ class AuthController extends Controller {
 		// 	$this->redirectTo = '/classes/review/' . $id;
 		// }
 
-		$this->middleware('guest', ['except' => 'getLogout']);
+		$this->middleware('guest', ['except' => ['getLogout','getDeleteAccount','postDeleteAccount']]);
+		$this->middleware('auth', ['only' => ['getDeleteAccount','postDeleteAccount']]);
 	}
 
 	/**
@@ -151,6 +153,44 @@ class AuthController extends Controller {
 		return view("auth/socialregister")->with("data",$data);
 	}
 
+	/**
+	 * 退会ページ
+	 *
+	 * @author shalman
+	 * @return void
+	 */
+	public function getDeleteAccount(){
+		//誤動作で削除しないように、(authからのリダイレクトなど)セッションで確認。
+		Session::flash("delete_flg",1);
+
+		return view("/auth/deleteaccount");
+	}
+
+	/**
+	 * 退会処理
+	 *
+	 * @author shalman
+	 * @return void
+	 */
+	public function postDeleteAccount(){
+		if(!session("delete_flg")){
+			$data["top_alert"] = "不正な手続きを検知しました。<br>退会処理は完了していませんので、もう一度お手続きをしてください。";
+			return redirect()->To($this->redirectTo)->withInput($data);
+		}
+
+		// user_id取得
+		$id = Auth::user()->user_id;
+		
+		//削除
+		if($this->user->find($id)->delete()){
+			$data["top_message"] = "退会が完了いたしました。<br>ご利用ありがとうございました。";
+		}else{
+			$data["top_alert"] = "退会処理の途中でエラーが発生しました。";
+		}
+
+		return redirect()->To($this->redirectTo)->withInput($data);
+
+	}
 	/**
 	 * ソーシャル連携登録処理
 	 *

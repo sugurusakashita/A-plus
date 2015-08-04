@@ -12,6 +12,8 @@ Route::controllers([
 	'tag'		=>	'TagController',
 	'mypage'	=>	'MyPageController',
 	'term'		=>	'TermController',
+	'help'		=>	'HelpController',
+	'about'		=>	'AboutController',
 	
 ]);
 

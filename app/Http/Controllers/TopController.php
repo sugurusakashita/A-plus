@@ -15,8 +15,7 @@ class TopController extends Controller {
 	 */
 	public function index()
 	{
-		//暫定、新規登録メッセージのみ受け取る
-		$data["message"] = Session::pull("top_message");
+		$data["message"] = old("top_message") ?: Session::pull("top_message");
 
  		//不正アクセスアラートを受け取る
   		$data["alert"] = old("top_alert");
