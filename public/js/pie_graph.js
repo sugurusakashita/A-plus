@@ -49,7 +49,7 @@ var pieClass = (function(){
       .attr("dy", ".35em")
       .attr("font-this.size", function(d){ return d.value / maxValue * 20; }) //最大のサイズを20に
       .style("text-anchor", "middle")
-      .text(function(d){ return d.data.legend; });
+      .text(function(d){ return d.data.legend+"  "+d.data.value+"%"; });
   }
 
 

@@ -26,7 +26,10 @@ class ClassesController extends Controller {
 	protected static $dep_name = "19";
 	protected static $w_syllabus_url = "https://www.wsl.waseda.jp/syllabus/JAA104.php?pKey=";
 
+	protected $color = ["#2c3e50","#e74c3c","#16a085","#258cd1"];
+
 	const REVIEW_POST_SESSION = 'review_post_session';
+	
 	//const AUTH_LOGIN_REDIRECT_ID = 'auth_login_redirect_id';
 
 	public function __construct(Classes $classes,Review $review,Teacher $teacher,RankingController $ranking){
@@ -62,13 +65,15 @@ class ClassesController extends Controller {
 			'access_ranking' => $this->ranking->returnAccessRankingList()
 		);
 
+
+
 		// ユーザーのログイン状態によってレビューするボタンを出し分ける
 		if (Auth::check()) {
 			$data['wrote_review'] = $this->review->wrote_review($id, $request->user()->user_id);
 		} else {
 			$data['wrote_review'] = false;
 		}
-
+		$data['evaluation'] = $this->makeEvaluationData($data['detail']);
 		$data['attendance_pie'] 			= $this->makeJsonForPie($this->review->attendance($id),"attendance");
 		$data['final_evaluation_pie'] = $this->makeJsonForPie($this->review->final_evaluations($id),"final_evaluation");
 		$data['actual_syllabus_url']  = $this->makeActualSyllabusUrl($data['detail']);
@@ -95,7 +100,7 @@ class ClassesController extends Controller {
 	}
 
 	/**
-	 * 円グラフ用jsonに変換
+	 * レビューデータからd3グラフ用jsonに変換
 	 *
 	 * @param array, string
 	 * @author shalman
@@ -104,7 +109,8 @@ class ClassesController extends Controller {
 	 */
 
 	public function makeJsonForPie($data,$type){
-		$color = ["#e74c3c","#16a085","#2c3e50","#258cd1"];
+		
+		
 
 		$result = NULL;
 		for ($i=0; $i < $data->count(); $i++) {
@@ -113,7 +119,7 @@ class ClassesController extends Controller {
 
 		 	$result[$i]["legend"] = $type_name;
 		 	$result[$i]["value"] = $count;
-		 	$result[$i]["color"] = $color[$i];
+		 	$result[$i]["color"] = $this->color[$i];
 		}
 
 		 if(is_null($result)){
@@ -124,6 +130,50 @@ class ClassesController extends Controller {
 		 return $result;
 
 	}
+
+	/**
+	 * makeEvaluationData
+	 * 成績評価を授業データから配列に変換
+	 *
+	 * @param mixed
+	 * @author shalman
+	 * @return array
+	 *
+	 */
+
+	public function makeEvaluationData($data){
+		//評価法全て
+		$col = array(
+			"exam" => "試験",
+			"report" => "レポート",
+			"attitude" => "平常点評価",
+			"other" => "その他");
+		$result = null;
+
+		for ($i=0; $i < count($col); $i++) { 
+
+			//exam,report,attitude,otherのいずれか
+			$value = array_keys($col)[$i];
+			//試験,レポート,,のいずれか
+			$legend = array_values($col)[$i];
+			
+			if(!$data->$value){
+				// 0%だった場合パス
+				continue;
+			}
+			$result[$i]["legend"]	=	$legend;
+			$result[$i]["value"]	= 	$data->$value; 
+			$result[$i]["color"] 	=	$this->color[$i];
+		}
+		//配列リセット
+		$result = array_values($result);
+		//JSON変換
+		$result = json_encode($result, JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT | JSON_UNESCAPED_UNICODE );
+
+		return $result;
+
+	}
+
 
 	public function postIndex($id,TagController $tag,Request $request){
 		$get_str　= "";

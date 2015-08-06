@@ -28,7 +28,8 @@
 
 				<!-- タイトル -->
 				<div class="alert a-is-info" style="margin: 0 auto 5px;">
-				 <p style="font-size: 1.75em;"><?php echo $data['detail']->class_name?></p>
+				 <p style="font-size: 1.75em;">{{ $data['detail']->class_name }}</p>
+				 <p class="raty_stars_average"></p>
 				</div>
 
 				<!-- タグ作ってる -->
@@ -95,16 +96,15 @@
 				    </tbody>
 					</table>
 					<!-- 成績評価方法 -->
+					<div class="col6">
+						<h3>Lorem Ipsum</h3><hr>
+						<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
+					</div>
 					<div style="overflow:auto;">
 						<div class="col6" >
-								<h3>円グラフ</h3><hr>
+								<h3>成績評価方法</h3><hr>
 								<svg id="eval_pie"></svg>
-						</div>
-						<div class="col6" >
-								<h3>棒グラフ</h3><hr>
-								<div id="eval_bar">
-								</div>
-						</div>						
+						</div>					
 					</div>
 				 	<!-- 授業要旨 -->
 					@if($data['detail']->summary)
@@ -150,9 +150,9 @@
 					  </thead>
 				    <tbody>
 				      <tr>
-				        <td id="raty_stars_average"></td>
-				        <td id="raty_credit_average"></td>
-				        <td id="raty_grade_average"></td>
+				        <td class="raty_stars_average"></td>
+				        <td class="raty_credit_average"></td>
+				        <td class="raty_grade_average"></td>
 				      </tr>
 				    </tbody>
 					</table>
@@ -204,54 +204,33 @@
 
 @section('js')
 	<script type="text/javascript" src="{{ asset('/js/d3.js') }}"></script>
-	@if($data['review']->count())
-		<!--円グラフ用JS-->
-		<script type="text/javascript" src="{{ asset('/js/evaluation_pie.js') }}"></script>
-		<script type="text/javascript" src="{{ asset('/js/bar_graph.js') }}"></script>
-		<script type="text/javascript">
-		//グラフデータ
-			var attendance_data = <?php echo $data['attendance_pie']; ?>,
-				final_evaluation_data = <?php echo $data['final_evaluation_pie']; ?>,
-				test_data = [{"legend":"レポート","value":70,"color":"#e74c3c"},{"legend":"試験","value":10,"color":"#16a085"},{"legend":"平常点評価","value":20,"color":"#2c3e50"}];
+	<script type="text/javascript" src="{{ asset('/js/pie_graph.js') }}"></script>
+	<script type="text/javascript" src="{{ asset('/js/bar_graph.js') }}"></script>
+	
+	<script type="text/javascript">
 
-			var e = new pieClass("#evaluation_pie");
+		//グラフデータ
+			//var attendance_data = <?php echo $data['attendance_pie']; ?>,
+				// final_evaluation_data = <?php echo $data['final_evaluation_pie']; ?>,
+				// 円グラフ用JS
+				evaluation_data = <?php echo $data['evaluation']; ?>;
+
 			//テスト用
 			var w = new pieClass("#eval_pie");
-			var b = new barClass("#eval_bar",test_data);
 
-			var eval_flag = final_evaluation_data[0]["value"];
 			//初回読み込み
-			b.barGraph();
-
-		    w.render(test_data);
+		    w.render(evaluation_data);
 		    w.update();
-		    w.animate(test_data); 
+		    w.animate(evaluation_data); 
 
 			// 初期化
 			//タブ変更してからレンダー
-			$('.tab-index a').click(function(){
-			  if($(this).attr("href") == "#tab2"){
-			  	if(eval_flag){
-			  		//タブ2で動くグラフ
-				    e.render(final_evaluation_data);
-				    e.update();
-				    e.animate(final_evaluation_data); 
-			  	}
-			  	
-			  }
-			  b.tab_changed();
-			});
-			//e.update();
-			// ウィンドウのリサイズイベントにハンドラを設定
-			if(eval_flag){
-				e.win.on("resize", e.update()); 	
-			}
-			
-		</script>
-		<!--<script type="text/javascript" src="{{ asset('/js/attendance_pie.js') }}"></script> -->
-	@endif
-	
+			// $('.tab-index a').click(function(){
+			//   if($(this).attr("href") == "#tab2"){
 
+			//   }
+			// });
+			
 	</script>
 	<script type="text/javascript">
 		var class_id = <?php echo $data['detail']->class_id; ?>;
