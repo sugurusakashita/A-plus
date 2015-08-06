@@ -1,29 +1,47 @@
-@extends('full')
+@extends('top')
 
 @section('title')
 A+plus
 @stop
 
-@section('main_content')
+@section('css')
 <style type="text/css">
-  body{
+  .header-field{
     background-color: #fff;
     background-image: url("{{ asset('image/bg_top_filtered.jpg') }}");
     background-size: cover;
     background-attachment: fixed;
     background-position: center;
+    display: inline-block;
+    margin-top: -25px;
   }
   .img_container{
     background-color: rgba(255,255,255,0.85);
-    width: 100%;
+    margin:12% 10%;
   }
   .bland_img{
     display: block;
-    margin: 12% auto 7%;
+    margin: 0 auto;
   }
   .search_header{
     width:50%;
     margin: 0 auto 20%;
+  }
+
+  .left{
+    background-color: #F7F7F7;
+  }
+  .article{
+    margin: 5%; 
+    height: 217px;
+  }
+  .article-img{
+    width: 100%;
+    margin: 0 auto;
+    border:solid 1px #AFAFAF;
+  }
+  .article-summary{
+    background-color: #BDBDBD;
   }
   @media screen and (max-width: 47.9375rem) {
     .bland_img{
@@ -32,9 +50,16 @@ A+plus
     .search_header{
        width:90%;
     }
+    .article{
+      margin: 15%;
+    }
   }
 </style>
-  <div class="container">
+@stop
+
+@section('main_content')
+
+  <div class="header-field">
     <div class="img_container">
        <img class="bland_img" src="{{ asset('image/Aplus_logo_trans@1x.png') }}" alt="a+plus_logo" width=510>
     </div>
@@ -49,6 +74,80 @@ A+plus
         </div>
       </form>
     </div>
+  </div>
+  <div class="container left">
+  <div class="row-fluid">
+      <div class="col9">
+        <h1>News</h1><hr> 
+        <div class="articles">
+          <a href="" class="col4">
+            <div class="article">
+              <img class="article-img" src="{{ asset('image/top_back.jpg') }}" alt="article1" >
+              <div class="article-summary">
+                <label>2015/08/06</label>
+                <label>ほげほげ</label>
+              </div>
+            </div>
+          </a>
+          <a href="" class="col4">
+            <div class="article">
+              <img class="article-img" src="{{ asset('image/bg_top_filtered.jpg') }}" alt="article1" >
+              <div class="article-summary">
+                <label>2015/08/06</label>
+                <label>ほげほげ</label>
+              </div>
+            </div>
+          </a>
+          <a href="" class="col4">
+            <div class="article">
+              <img class="article-img" src="{{ asset('image/Aplus_logo_global@1x.png') }}" alt="article1" >
+              <div class="article-summary">
+                <label>2015/08/06</label>
+                <label>ほげほげ</label>
+              </div>
+            </div>
+          </a>
+        </div>
+        <div class="articles">
+          <a href="" class="col4">
+            <div class="article">
+              <img class="article-img" src="{{ asset('image/top_back.jpg') }}" alt="article1" >
+              <div class="article-summary">
+                <label>2015/08/06</label>
+                <label>ほげほげ</label>
+              </div>
+            </div>
+          </a>
+          <a href="" class="col4">
+            <div class="article">
+              <img class="article-img" src="{{ asset('image/bg_top_filtered.jpg') }}" alt="article1" >
+              <div class="article-summary">
+                <label>2015/08/06</label>
+                <label>ほげほげ</label>
+              </div>
+            </div>
+          </a>
+          <a href="" class="col4">
+            <div class="article">
+              <img class="article-img" src="{{ asset('image/Aplus_logo_global@1x.png') }}" alt="article1" >
+              <div class="article-summary">
+                <label>2015/08/06</label>
+                <label>ほげほげ</label>
+              </div>
+            </div>
+          </a>
+        </div>  
+      </div>
+      <div class="col3" class="side-content">
+        <h1>sidebar</h1><hr>  
+        <div>
+          <img class="article-img" src="{{ asset('image/Aplus_logo_global@1x.png') }}" alt="about_aplus" >
+          <ul>
+            <li><a href="/auth/facebook-oauth">facebookログイン/新規無料登録</a></li>
+          </ul>
+        </div> 
+      </div>
+  </div>
   </div>
 @stop
 
