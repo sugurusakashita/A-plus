@@ -4,12 +4,6 @@
 @include('common.sidebar')
 @stop
 
-@section('css')
-<link rel="stylesheet" type="text/css" href="{{ asset('css/alertify.core.css') }}">
-<link rel="stylesheet" type="text/css" href="{{ asset('css/alertify.default.css') }}">
-<link rel="stylesheet" type="text/css" href="{{ asset('css/aplus_style.css') }}">
-@stop
-
 @section('title')
 FAQ | A+plus
 @stop
