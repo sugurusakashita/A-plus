@@ -45,8 +45,8 @@ WjinkaProj | 検索
 		<select name="day">
 		<option value="0">指定なし</option>
 		<?php
-		$days = ["指定なし","月","火","水","木","金","土","夏季"];
-		for($i = 1;$i < 7;$i++){
+		$days = ["指定なし","月","火","水","木","金","土","無その他"];
+		for($i = 1;$i < 8;$i++){
 
 		$str =  "<option value=\"".$days[$i];
 		$str .= $data['get']['day'] == $days[$i]? "\" selected >":"\" >";
@@ -105,7 +105,7 @@ WjinkaProj | 検索
 		  		@endif
 			  </li>
 			  <li class="list-group-element">
-			  	<a href="classes/index/{{ $class_data->class_id }}">{{ $class_data->class_name }}</a>
+			  	<a href="/classes/index/{{ $class_data->class_id }}">{{ $class_data->class_name }}</a>
 			  </li>
 	  		@if(!(count($tags) == 0))
 			  <li class="list-group-element">
