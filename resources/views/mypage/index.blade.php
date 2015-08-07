@@ -109,8 +109,8 @@
 
 	<div class="panel panel-default">
 		<div class="panel-body">
-			パスワードの変更は、お手数ですが一度リセットしてから再設定となります。<br />
-			<a href="/password/email">こちらからメールを送信して再設定してください。</a>
+			パスワードの変更は、お手数ですが一度パスワードをリセットしてから再設定となります。<br />
+			<a href="/password/email">こちらから登録されているアドレスにメールを送信して再設定してください。</a>
 		</div>
 	</div>
 
@@ -139,7 +139,7 @@
 	         	<td>{{{ $review->grade_stars }}}</td>
 	         	<td>
 					<!-- <a href="/classes/show/" class="btn btn-default btn-xs">詳細</a> -->
-					<form action="/classes/edit" method="get">
+					<form action="/classes/edit" method="post">
 						<input type="hidden" value="{{{ $review->review_id }}}" name="review_id">
 						<input type="hidden" name="_token" value="{{csrf_token()}}" />
 						<button type="submit" class="btn btn-success btn-xs" />編集</button>

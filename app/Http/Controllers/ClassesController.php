@@ -40,6 +40,8 @@ class ClassesController extends Controller {
 
 		//Authフィルタのホワイトリスト
 		$this->middleware("auth",["only" => ["getReview","postConfirm","postComplete","getEdit","postEditConfirm","postEditComplete","postDeleteConfirm","postDeleteComplete"]]);
+		//他人のレビューを改竄しようとしたユーザーをフィルタ
+		$this->middleware("validReviewer",["only" => ["postEdit","postEditConfirm","postEditComplete","postDeleteConfirm","postDeleteComplete"]]);
 	}
 
 	/**
@@ -283,7 +285,7 @@ class ClassesController extends Controller {
 	 *
 	 */
 
-	public function getEdit(Request $request){
+	public function postEdit(Request $request){
 		$data['all'] = $request->all();
 		$id = $data['all']['review_id'];
 		$data['detail'] = $this->review->find($id);
