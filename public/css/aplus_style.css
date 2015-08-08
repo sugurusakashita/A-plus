@@ -18,6 +18,9 @@ svg{
   display: block;
 }
 
+#eval_pie{
+  margin: 0 auto;
+}
 #evaluation_pie{
   margin: 0 auto;
   width: 250px;

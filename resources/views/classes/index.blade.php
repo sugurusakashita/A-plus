@@ -63,7 +63,7 @@
 			 	<div class="tab-index">
 			 		<ul>
 			 			<li class="active"><a href="#tab1">基本情報</a></li>
-			 			<li><a href="#tab2">評価</a></li>
+			 			<li><a href="#tab2">投票</a></li>
 			 			<li><a href="#tab3">レビュー</a></li>
 			 		</ul>
 			 	</div>
@@ -96,11 +96,11 @@
 				    </tbody>
 					</table>
 					<!-- 成績評価方法 -->
-					<div class="col6">
-						<h3>Lorem Ipsum</h3><hr>
-						<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
-					</div>
 					<div style="overflow:auto;">
+						<div class="col6">
+							<h3>Lorem Ipsum</h3><hr>
+							<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
+						</div>
 						<div class="col6" >
 								<h3>成績評価方法</h3><hr>
 								<svg id="eval_pie"></svg>
@@ -123,43 +123,30 @@
 				 	@endif
 				 	<a href="{{ $data['actual_syllabus_url'] }}" target="_blank"><button class="btn btn-info">公式シラバスを見る</button></a>
 			 	</div>
-
-				@if(!$data['review']->count())
 				<div id="tab2" class="tab-contents">
-					<div class="alert a-is-danger alert-removed fade in" style="margin: 20px auto;">
-						この授業はまだレビューされていません。
+					<div class="col6">
+						<h3>投票方法</h3><hr>
+						<p>この授業を履修したことのある方は、右の☆をクリックして、投票しよう！</p>
+						<p>投票はレビューでもできます！</p>
 					</div>
-					<a href="/classes/review/{{ $data['detail']->class_id }}"><button class="btn btn-primary">この授業をレビューする！</button></a>
-				</div>
-				<div id="tab3" class="tab-contents">
-					<div class="alert a-is-danger alert-removed fade in" style="margin: 20px auto;">
-						この授業はまだレビューされていません。
-					</div>
-					<a href="/classes/review/{{ $data['detail']->class_id }}"><button class="btn btn-primary">この授業をレビューする！</button></a>
-				</div>
-				@else
-				<div id="tab2" class="tab-contents">
-
-					<table class="table table-bordered" style="margin: 20px auto; text-align: center;">
-					  <thead>
-					    <tr>
-					      <th>総合評価度(平均)</th>
-					      <th>単位の取りやすさ(平均)</th>
-					      <th>GP(成績)の取りやすさ(平均)</th>
-					    </tr>
-					  </thead>
-				    <tbody>
-				      <tr>
-				        <td class="raty_stars_average"></td>
-				        <td class="raty_credit_average"></td>
-				        <td class="raty_grade_average"></td>
-				      </tr>
-				    </tbody>
-					</table>
-
-					<div class="pie_graph">
-							<h3>最終評価法</h3><hr>
-							<svg id="evaluation_pie"></svg>
+					<div class="col6">
+						<table class="table table-bordered" style="margin: 20px auto; text-align: center;">
+							<tbody>
+							    <tr>
+							      	<th>総合評価度</th>
+							      	<td class="raty_stars"></td>
+							    </tr>
+							    <tr>
+							    	<th>単位の取りやすさ</th>
+							    	<td class="raty_unit_stars"></td>
+							    </tr>
+						      	<tr>
+						      		<th>GP(成績)の取りやすさ</th>
+						        	<td class="raty_grade_stars"></td>
+						      	</tr>
+					   		</tbody>
+						</table>
+						<button class="btn btn-info">投票する！</button>
 					</div>
 					<div class="bar_graph">
 						<h3>平常点評価</h3><hr>
@@ -169,8 +156,16 @@
 					<a href="/classes/review/{{ $data['detail']->class_id }}"><button class="btn btn-primary">この授業をレビューする！</button></a>
 					@endif
 				</div>
-
+				@if(!$data['review']->count())
 				<div id="tab3" class="tab-contents">
+					<div class="alert a-is-danger alert-removed fade in" style="margin: 20px auto;">
+						この授業はまだレビューされていません。
+					</div>
+					<a href="/classes/review/{{ $data['detail']->class_id }}"><button class="btn btn-primary">この授業をレビューする！</button></a>
+				</div>
+				@else
+				<div id="tab3" class="tab-contents">
+				<p style="font-size:15px; color:red;">レビューの書き直しはマイページからできます</p>
 					<table class="table table-bordered" style="margin: 20px auto;">
 						<thead>
 							<tr>
@@ -206,7 +201,7 @@
 	<script type="text/javascript" src="{{ asset('/js/d3.js') }}"></script>
 	<script type="text/javascript" src="{{ asset('/js/pie_graph.js') }}"></script>
 	<script type="text/javascript" src="{{ asset('/js/bar_graph.js') }}"></script>
-	
+	<script type="text/javascript" src="{{ asset('/raty_lib/jquery.raty.js') }}"></script>
 	<script type="text/javascript">
 
 		//グラフデータ
@@ -235,6 +230,5 @@
 	<script type="text/javascript">
 		var class_id = <?php echo $data['detail']->class_id; ?>;
 	</script>
-	<script type="text/javascript" src="{{ asset('/raty_lib/jquery.raty.js') }}"></script>
 	<script type="text/javascript" src="{{ asset('/js/classes.js') }}"></script>
 @stop
