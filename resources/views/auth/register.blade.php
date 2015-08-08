@@ -1,65 +1,127 @@
-@extends('app')
+@extends('full')
 
-@section('content')
-<div class="container-fluid">
-	<div class="row">
-		<div class="col-md-8 col-md-offset-2">
-			<div class="panel panel-default">
-				<div class="panel-heading">Register</div>
-				<div class="panel-body">
-					@if (count($errors) > 0)
-						<div class="alert alert-danger">
-							<strong>Whoops!</strong> There were some problems with your input.<br><br>
-							<ul>
-								@foreach ($errors->all() as $error)
-									<li>{{ $error }}</li>
-								@endforeach
-							</ul>
-						</div>
-					@endif
+@section('title')
+無料会員登録 | A+plus
+@stop
 
-					<form class="form-horizontal" role="form" method="POST" action="{{ url('/auth/register') }}">
-						<input type="hidden" name="_token" value="{{ csrf_token() }}">
+@section('main_content')
 
-						<div class="form-group">
-							<label class="col-md-4 control-label">Name</label>
-							<div class="col-md-6">
-								<input type="text" class="form-control" name="name" value="{{ old('name') }}">
-							</div>
-						</div>
-
-						<div class="form-group">
-							<label class="col-md-4 control-label">E-Mail Address</label>
-							<div class="col-md-6">
-								<input type="email" class="form-control" name="email" value="{{ old('email') }}">
-							</div>
-						</div>
-
-						<div class="form-group">
-							<label class="col-md-4 control-label">Password</label>
-							<div class="col-md-6">
-								<input type="password" class="form-control" name="password">
-							</div>
-						</div>
-
-						<div class="form-group">
-							<label class="col-md-4 control-label">Confirm Password</label>
-							<div class="col-md-6">
-								<input type="password" class="form-control" name="password_confirmation">
-							</div>
-						</div>
-
-						<div class="form-group">
-							<div class="col-md-6 col-md-offset-4">
-								<button type="submit" class="btn btn-primary">
-									Register
-								</button>
-							</div>
-						</div>
-					</form>
+<div class="col-md-8 col-md-offset-2">
+	<div class="panel panel-default">
+		<a href="/auth/twitter-oauth">Twitterで登録</a>
+		<a href="/auth/facebook-oauth">Facebookで登録</a>
+		<div class="panel-body">
+			@if (count($errors) > 0)
+				<div class="alert alert-danger">
+					<p>
+					入力の一部に誤りがあります。</p><br><br>
+					<ul>
+						@foreach ($errors->all() as $error)
+							<li>{{ $error }}</li>
+						@endforeach
+					</ul>
 				</div>
-			</div>
+			@endif
+
+			<form class="form-horizontal" role="form" method="POST" action="{{ url('/auth/register') }}" enctype='multipart/form-data'>
+				<input type="hidden" name="_token" value="{{ csrf_token() }}">
+
+				<div class="form-group">
+					<label for="file_input">プロフィール画像</label>
+					<table class="table table-bordered" style="border: none !important;">
+						<tr><td rowspan="2" style="border: none !important;">
+							<img class="thumbnail_avatar" src="/image/dummy.png" width="100" height="100" alt="dummy_image">
+							</td>
+							<td style="border: none !important;"><input id="file_input" type="file" name="avatar" class="form-element"></td>
+						</tr>
+						<tr><td style="border: none !important;"><button type="button" id="reset_avatar" class="btn btn-default">画像をリセットする</button></td></tr>
+					</table>
+				</div>
+
+				<div class="panel panel-danger" style="margin-bottom: 15px;">
+					<div class="panel-title">
+					画像の大きさは100×100px、画像ファイルはjpg,png,gifのみで、大きさは1.5MBまでです。<br>画像が大きい場合は縮小拡大されます。
+					</div>
+				</div>
+
+				<div class="form-group">
+					<label>ユーザーネーム</label>
+					<input type="text" class="form-element" name="name" value="{{ old('name') }}">
+				</div>
+				<div class="form-group">
+					<label>メールアドレス</label>
+					<input type="email" class="form-element" name="email" value="{{ old('email') }}">
+				</div>
+				<!-- 追加 -->
+				<div class="form-group">
+					<label>入学年度</label>
+					<select name="entrance_year" class="form-element" value="{{ old('entrance_year') }}">
+						<option value="">選択してください</option>
+						<option value="その他">2010年度以前</option>
+						<option value="2010">2010年度(修士:2年生/学部:6年生)</option>
+						<option value="2011">2011年度(修士:1年生/学部:5年生)</option>
+						<option value="2012">2012年度(学部:4年生)</option>
+						<option value="2013">2013年度(学部:3年生)</option>
+						<option value="2014">2014年度(学部:2年生)</option>
+						<option value="2015">2015年度(学部:1年生)</option>
+					</select>
+				</div>
+				<div class="form-group">
+					<label>学部</label>
+					<select name="faculty" class="form-element" value="{{ old('faculty') }}">
+						<option value="">選択してください</option>
+						<optgroup label="--------学部--------">
+							<option value="人間科学部">人間科学部</option>
+							<option value="スポーツ科学部">スポーツ科学部</option>
+						</optgroup>
+						<optgroup label="-------大学院-------">
+							<option value="人間科学研究科">人間科学研究科</option>
+							<option value="スポーツ科学研究科">スポーツ科学研究科</option>
+						</optgroup>
+					</select>
+				</div>　
+				<div class="form-group">
+					<label>性別</label>
+					<div class="radio-btn">
+						<label>
+						<input type="radio" name="sex" value="男性">
+						男性
+						</label>
+					</div>
+					<div class="radio-btn">
+						<label>
+						<input type="radio" name="sex" value="女性">
+						女性
+						</label>
+					</div>
+				</div>
+				<div class="form-group">
+					<label>パスワード</label>
+					<input type="password" class="form-element" name="password">
+				</div>
+				<div class="form-group">
+					<label>パスワード確認</label>
+					<input type="password" class="form-element" name="password_confirmation">
+				</div>
+				<div class="form-group">
+					<div class="panel panel-danger">
+						<div class="panel-body">
+							登録の前に、必ず<a href="/term" target="_blank">「利用規約および個人情報の利用に関するポリシー」</a>をご覧ください。<br />
+							全項目において同意できた方のみ登録ボタンをクリックしてください。
+						</div>
+					</div>
+				</div>
+				<div class="form-group">
+					<button type="submit" class="btn btn-primary">
+						登録
+					</button>
+				</div>
+			</form>
 		</div>
 	</div>
 </div>
+@endsection
+
+@section('js')
+<script type="text/javascript" src="{{ asset('js/register.js') }}"></script>
 @endsection

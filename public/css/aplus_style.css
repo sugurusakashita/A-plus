@@ -1,0 +1,81 @@
+body{
+  background: url('/image/lined_paper.png');
+}
+
+.nav{
+  padding: 5px 0;
+  margin: 0 0 25px;
+  background-color: #f7b977;
+}
+
+.sidebar {
+  font-size: 0.9em;
+}
+table{
+  background-color: #fff;
+}
+svg{
+  display: block;
+}
+
+#evaluation_pie{
+  margin: 0 auto;
+  width: 250px;
+  height: 250px;
+}
+wg
+text{
+  fill: #FFF;
+}
+.new-tag-field{
+  display: none;
+  margin: 20px 0;
+}
+#attendance_bar_graph{
+  /*background-color: #91BFC3;*/
+}
+.pie_graph{
+  overflow: auto;
+}
+
+/* 以下タブ用のstyle */
+.tab-index ul {
+  display: table;
+  width: 100%;
+  margin: 20px auto 0;
+  text-align: center;
+}
+.tab-index li {
+  display: table-cell;
+  width: 33%;
+  height: 44px;
+  line-height: 44px;
+  border: 1px solid #ccc;
+  background-color: #f4f4f4;
+}
+.tab-index a {
+  display: block;
+  width: 100%;
+}
+.tab-index li:not(:last-child) {
+  border-right: 1px solid #ccc;
+}
+.tab-index .active {
+  background-color: #fff;
+}
+.tab-contents {
+  background-color: white;
+  border: 1px solid #ccc;
+  border-top: none;
+  padding: 2%;
+  display: none;
+}
+.tab-contents.active {
+  display: block;
+}
+
+footer {
+  padding:20px 18px 70px;
+  overflow:auto;
+  background-color: #B2C9CE;
+}

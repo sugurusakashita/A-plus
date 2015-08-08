@@ -20,6 +20,8 @@ class PasswordController extends Controller {
 
 	use ResetsPasswords;
 
+	protected $subject = "A+plus | 会員パスワード再設定メール";
+
 	/**
 	 * Create a new password controller instance.
 	 *
@@ -32,7 +34,8 @@ class PasswordController extends Controller {
 		$this->auth = $auth;
 		$this->passwords = $passwords;
 
-		$this->middleware('guest');
+		//コメントアウトにより、ログインユーザーもパスワードリセットページに遷移できる。(パス変更のため。)
+		//$this->middleware('guest');
 	}
 
 }
