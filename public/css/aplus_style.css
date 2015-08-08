@@ -11,6 +11,9 @@ body{
 .sidebar {
   font-size: 0.9em;
 }
+.sidebar-icon{
+  font-size: 2em;
+}
 table{
   background-color: #fff;
 }
@@ -18,6 +21,9 @@ svg{
   display: block;
 }
 
+.icons{
+  margin: 10px;
+}
 #eval_pie{
   margin: 0 auto;
 }
@@ -79,6 +85,14 @@ text{
 
 footer {
   padding:20px 18px 70px;
-  overflow:auto;
   background-color: #B2C9CE;
+}
+
+.footer-sns-icons{
+  font-size: 2.7em;
+  color: #000;
+}
+
+.footer-header-icon{
+  margin: 0 14px;
 }

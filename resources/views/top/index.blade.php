@@ -83,96 +83,94 @@ A+plus
     </div>
   </div>
   <div class="container left">
-  <div class="row-fluid">
-      <div class="col9">
-        <div class="panel panel-info columns">
-         <div class="panel-title">
-          <h1>News</h1>
-        </div>
-         <div class="panel-body">
-          <div class="articles">
-            <a href="" class="col4">
-              <div class="article">
-                <img class="article-img" src="{{ asset('image/top_back.jpg') }}" alt="article1" >
-                <div class="article-summary">
-                  <label>2015/08/06</label>
-                  <label>ほげほげ</label>
-                </div>
-              </div>
-            </a>
-            <a href="" class="col4">
-              <div class="article">
-                <img class="article-img" src="{{ asset('image/bg_top_filtered.jpg') }}" alt="article1" >
-                <div class="article-summary">
-                  <label>2015/08/06</label>
-                  <label>ほげほげ</label>
-                </div>
-              </div>
-            </a>
-            <a href="" class="col4">
-              <div class="article">
-                <img class="article-img" src="{{ asset('image/Aplus_logo_global@1x.png') }}" alt="article1" >
-                <div class="article-summary">
-                  <label>2015/08/06</label>
-                  <label>ほげほげ</label>
-                </div>
-              </div>
-            </a>
+    <div class="row-fluid">
+        <div class="col9">
+          <div class="panel panel-info columns">
+           <div class="panel-title">
+            <h1><span class="icon-book icons"></span>News</h1>
           </div>
-          <div class="articles">
-            <a href="" class="col4">
-              <div class="article">
-                <img class="article-img" src="{{ asset('image/top_back.jpg') }}" alt="article1" >
-                <div class="article-summary">
-                  <label>2015/08/06</label>
-                  <label>ほげほげ</label>
+           <div class="panel-body">
+            <div class="articles">
+              <a href="" class="col4">
+                <div class="article">
+                  <img class="article-img" src="{{ asset('image/top_back.jpg') }}" alt="article1" >
+                  <div class="article-summary">
+                    <label>2015/08/06</label>
+                    <label>ほげほげ</label>
+                  </div>
                 </div>
-              </div>
-            </a>
-            <a href="" class="col4">
-              <div class="article">
-                <img class="article-img" src="{{ asset('image/bg_top_filtered.jpg') }}" alt="article1" >
-                <div class="article-summary">
-                  <label>2015/08/06</label>
-                  <label>ほげほげ</label>
+              </a>
+              <a href="" class="col4">
+                <div class="article">
+                  <img class="article-img" src="{{ asset('image/bg_top_filtered.jpg') }}" alt="article1" >
+                  <div class="article-summary">
+                    <label>2015/08/06</label>
+                    <label>ほげほげ</label>
+                  </div>
                 </div>
-              </div>
-            </a>
-            <a href="" class="col4">
-              <div class="article">
-                <img class="article-img" src="{{ asset('image/Aplus_logo_global@1x.png') }}" alt="article1" >
-                <div class="article-summary">
-                  <label>2015/08/06</label>
-                  <label>ほげほげ</label>
+              </a>
+              <a href="" class="col4">
+                <div class="article">
+                  <img class="article-img" src="{{ asset('image/Aplus_logo_global@1x.png') }}" alt="article1" >
+                  <div class="article-summary">
+                    <label>2015/08/06</label>
+                    <label>ほげほげ</label>
+                  </div>
                 </div>
-              </div>
-            </a>
-          </div>  
+              </a>
+            </div>
+            <div class="articles">
+              <a href="" class="col4">
+                <div class="article">
+                  <img class="article-img" src="{{ asset('image/top_back.jpg') }}" alt="article1" >
+                  <div class="article-summary">
+                    <label>2015/08/06</label>
+                    <label>ほげほげ</label>
+                  </div>
+                </div>
+              </a>
+              <a href="" class="col4">
+                <div class="article">
+                  <img class="article-img" src="{{ asset('image/bg_top_filtered.jpg') }}" alt="article1" >
+                  <div class="article-summary">
+                    <label>2015/08/06</label>
+                    <label>ほげほげ</label>
+                  </div>
+                </div>
+              </a>
+              <a href="" class="col4">
+                <div class="article">
+                  <img class="article-img" src="{{ asset('image/Aplus_logo_global@1x.png') }}" alt="article1" >
+                  <div class="article-summary">
+                    <label>2015/08/06</label>
+                    <label>ほげほげ</label>
+                  </div>
+                </div>
+              </a>
+            </div>  
+          </div>
         </div>
       </div>
-    </div>
       <div class="col3" class="side-content">
         <div class="panel panel-primary columns">
-         <div class="panel-title">
-          <h1>sidebar</h1>
-        </div> 
-        <div class="panel-body">
-          <img class="article-img" src="{{ asset('image/Aplus_logo_global@1x.png') }}" alt="about_aplus" >
-          <ul>
-            <li><a href="/auth/facebook-oauth">facebookログイン/新規無料登録</a></li>
-          </ul>
-        </div> 
+          <div class="panel-title">
+            <h1>sidebar</h1>
+          </div> 
+          <div class="panel-body">
+            <img class="article-img" src="{{ asset('image/Aplus_logo_global@1x.png') }}" alt="about_aplus" >
+            <ul>
+              <li><a href="/auth/facebook-oauth">facebookログイン/新規無料登録</a></li>
+            </ul>
+          </div> 
+        </div>
       </div>
     </div>
-  </div>
   </div>
 @stop
 
 @section('js')
-  
     <script type="text/javascript"> 
       //アラートメッセージ用
-
       <?php
       if($v = $data["message"]){
           echo "alertify.success('".$v."');";        

@@ -29,7 +29,7 @@
 				<!-- タイトル -->
 				<div class="alert a-is-info" style="margin: 0 auto 5px;">
 				 <p style="font-size: 1.75em;">{{ $data['detail']->class_name }}</p>
-				 <p class="raty_stars_average"></p>
+				 <span class="raty_stars_average"></span>
 				</div>
 
 				<!-- タグ作ってる -->
@@ -97,14 +97,29 @@
 					</table>
 					<!-- 成績評価方法 -->
 					<div style="overflow:auto;">
-						<div class="col6">
-							<h3>Lorem Ipsum</h3><hr>
-							<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
-						</div>
 						<div class="col6" >
-								<h3>成績評価方法</h3><hr>
-								<svg id="eval_pie"></svg>
-						</div>					
+							<h3><span class="icon-chart icons"></span>成績評価方法</h3><hr>
+							<svg id="eval_pie"></svg>
+						</div>		
+						<div class="col6">
+							<h3><span class="icon-star-full icons"></span>評価度</h3><hr>
+							<table class="table table-bordered">
+								<tbody>
+									<tr>
+										<th>総合評価度</th>
+										<td><span class="raty_stars_average"></span>(5.0点)</td>
+									</tr>
+									<tr>
+										<th>単位の取りやすさ</th>
+										<td><span class="raty_credit_average"></span>(5.0点)</td>
+									</tr>
+									<tr>
+										<th>GP(成績)の取りやすさ</th>
+										<td><span class="raty_grade_average"></span>(5.0点)</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>			
 					</div>
 				 	<!-- 授業要旨 -->
 					@if($data['detail']->summary)
