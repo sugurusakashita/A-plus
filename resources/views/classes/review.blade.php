@@ -86,6 +86,6 @@
 	<input type="hidden" name="class_id" value="{{ $data['detail']->class_id }}">
 	<input type="hidden" name="_token" value="{{csrf_token()}}">
 	<button type="submit" class="btn btn-primary">入力を確認する</button>
-	<button class="btn btn-default"><a href="{{ $_SERVER['HTTP_REFERER'] }}">戻る</a></button>
+	<a href="/classes/index/{{ $data['detail']->class_id }}"><button type="button" class="btn btn-default">授業ページに戻る</button></a>
 </form>
 @stop

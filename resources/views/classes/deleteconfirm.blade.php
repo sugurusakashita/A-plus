@@ -68,6 +68,6 @@
 	<input type="hidden" name="review_id" value="{{ $data['review_id'] }}">
 	<input type="hidden" name="_token" value="{{csrf_token()}}">
 	<button type="submit" class="btn btn-danger btn-xs">削除する</button>
-	<button class="btn btn-default"><a href="{{ $_SERVER['HTTP_REFERER'] }}">戻る</a></button>
+	<a href="/mypage/index"><button type="button" class="btn btn-default">マイページに戻る</button></a>
 </form>
 @stop

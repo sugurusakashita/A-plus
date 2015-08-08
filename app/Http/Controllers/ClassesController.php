@@ -26,7 +26,7 @@ class ClassesController extends Controller {
 	protected static $dep_name = "19";
 	protected static $w_syllabus_url = "https://www.wsl.waseda.jp/syllabus/JAA104.php?pKey=";
 
-	protected $color = ["#2c3e50","#e74c3c","#16a085","#258cd1"];
+	protected $color = ["#16a085","#91C5E6","#e74c3c","#258cd1"];
 
 	const REVIEW_POST_SESSION = 'review_post_session';
 	
@@ -41,7 +41,7 @@ class ClassesController extends Controller {
 		//Authフィルタのホワイトリスト
 		$this->middleware("auth",["only" => ["getReview","postConfirm","postComplete","getEdit","postEditConfirm","postEditComplete","postDeleteConfirm","postDeleteComplete"]]);
 		//他人のレビューを改竄しようとしたユーザーをフィルタ
-		$this->middleware("validReviewer",["only" => ["postEdit","postEditConfirm","postEditComplete","postDeleteConfirm","postDeleteComplete"]]);
+		$this->middleware("validReviewer",["only" => ["getEdit","postEditConfirm","postEditComplete","postDeleteConfirm","postDeleteComplete"]]);
 	}
 
 	/**
@@ -285,7 +285,7 @@ class ClassesController extends Controller {
 	 *
 	 */
 
-	public function postEdit(Request $request){
+	public function getEdit(Request $request){
 		$data['all'] = $request->all();
 		$id = $data['all']['review_id'];
 		$data['detail'] = $this->review->find($id);

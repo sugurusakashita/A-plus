@@ -50,6 +50,6 @@
 	<input type="hidden" name="grade_stars" value="{{$data['grade_stars']}}">
 	<input type="hidden" name="_token" value="{{csrf_token()}}">
 	<button type="submit" class="btn btn-primary">投稿する</button>
-	<button class="btn btn-default"><a href="{{ $_SERVER['HTTP_REFERER'] }}">書き直す</a></button>
+	<a href="{{ $_SERVER['HTTP_REFERER'] }}"><button class="btn btn-default">書き直す</button></a>
 </form>
 @stop

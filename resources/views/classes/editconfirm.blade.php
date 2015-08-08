@@ -51,6 +51,6 @@
 	<input type="hidden" name="review_id" value="{{ $data['review_id'] }}">
 	<input type="hidden" name="_token" value="{{csrf_token()}}">
 	<button type="submit" class="btn btn-primary">レビューを更新する</button>
-	<button class="btn btn-default"><a href="{{ $_SERVER['HTTP_REFERER'] }}">書き直す</a></button>
+	<a href="{{ $_SERVER['HTTP_REFERER'] }}"><button type="button" class="btn btn-default">書き直す</button></a>
 </form>
 @stop

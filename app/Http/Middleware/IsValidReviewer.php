@@ -29,7 +29,7 @@ class IsValidReviewer {
 	 */
 	public function handle($request,Closure $next)
 	{
-		//アクセスしている授業ID
+		//アクセスしているレビューID
 		$review_id = $request->review_id;
 		//リクエストしたユーザーのID
 		$login_user_id = $request->user()->user_id;
