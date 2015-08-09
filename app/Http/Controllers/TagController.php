@@ -93,13 +93,31 @@ class TagController extends Controller {
 
 		$tag = $this->tag;
 
+		// 例外処理系
 		//すでにタグが存在する場合
 		if($tag->where("class_id","=",$class_id)->where("tag_name","=",$tag_name)->first()){
 			$data["success"] = false;
 			$data["message"] = "すでにタグが存在します。";
 			return json_encode($data);
 		}
-
+		//空文字、スペースのみはタグとして認めない
+		if(empty(trim($tag_name))){
+			$data["success"] = false;
+			$data["message"] = "タグが入力されていません。";
+			return json_encode($data);			
+		}
+		//タグは10個まで
+		if($tag->where("class_id","=",$class_id)->count() >= 10){
+			$data["success"] = false;
+			$data["message"] = "タグは10個までです。<br>追加するには、既存のタグを削除してください。";
+			return json_encode($data);
+		}
+		//タグの文字列は20文字以内
+		if(mb_strlen($tag_name) > 20){
+			$data["success"] = false;
+			$data["message"] = "タグは20文字以内で入力してください";
+			return json_encode($data);
+		}
 		//タグ追加
 		$tag->class_id = $class_id;
 		$tag->tag_name = $tag_name;
