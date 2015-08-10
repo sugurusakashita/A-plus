@@ -83,6 +83,87 @@ jQuery(function ($) {
             });
 	});
 
+    //ajax投稿
+    $(".review-submit-button").on("click",function(){
+
+        //レビュー情報
+            // stars = $('input[name=stars]').val(),
+            // grade_stars = $('input[name=grade_stars]').val(),
+            // unit_stars = $('input[name=unit_stars]').val(),
+            // attendance = $('input[name=attendance]').val(),
+            // bring = $('input[name=bring]').val(),
+            // review_comment = $('input[name=review_comment]').val();
+
+        var params = {
+                "stars"         : $('input[name=stars]').val(),
+                "grade_stars"   : $('input[name=grade_stars]').val(),
+                "unit_stars"    : $('input[name=unit_stars]').val(),
+                "attendance"    : $('input[name=attendance]:checked').val(),
+                "bring"         : $('input[name=bring]:checked').val(),
+                "review_comment" : $('textarea[name=review_comment]').val(),
+                "class_id"      : $('input[name=class_id]').val(),
+                "_token"        :$('meta[name="csrf-token"]').attr('content')
+        }
+        $.ajax({
+            type: "POST",
+            url: "../ajax-review",
+            dataType: "Json",
+            data: params,
+            crossDomain:false,
+            success: function(data, dataType)
+            {
+                //DB登録失敗
+                if(data["success"] === false){
+                    alertify.error(data["message"]);
+                    return null;
+                }
+                //レビューフォームフェードアウト
+                $('#review-form').fadeOut("slow",function(){
+                    //そもそもエレメント削除
+                    $(this).remove();
+                    //トップへスクロール
+                    $('html,body').animate({ scrollTop: 0 }, 'slow');
+                    //ダミーアバターを設置
+                    if(!data["avatar"].length){
+                        data["avatar"] = "/image/dummy.png";
+                    }
+
+                    //追加アニメーション
+                    var tableObj;
+                    if($('.no-review').length === 0){
+                    //レビューがある  
+                        tableObj = '<tr><td><img src="'+data["avatar"]+'" width="70"height="70"><br />'+data["name"]+'</td><td>'+params['review_comment']+'</td></tr>';
+                        $('#review-table  tbody').prepend(tableObj).trigger("create"); 
+                    }else{
+                    //レビューがない
+                        $('.no-review').fadeOut("fast",function(){
+                            tableObj = '<div><table class="table table-bordered" style="margin: 20px auto;"><tbody><tr><th>投稿者</th><th>レビュー</th></tr><tr><td><img src="'+data["avatar"]+'" width="70"height="70"><br />'+data["name"]+'</td><td>'+params['review_comment']+'</td></tr></tbody></table></div>';
+                            $('#tab2').prepend(tableObj).trigger("create");
+                        });
+                    }
+                });
+
+                alertify.success(data["message"]);
+
+            },
+            error: function(XMLHttpRequest, textStatus, errorThrown)
+            {
+                var errors;
+                var res = XMLHttpRequest.responseJSON;
+                for(var name in res){
+                    //エラーフィールドに出す場合
+                    //var field = $('#validation-error-field');
+                    //field.fadeIn();
+                    //field.children("ul").children("li")remove();
+                    //field.children("ul").append("<li>").attr("style","color:red;").append(res[name][0]);
+
+                    alertify.error(res[name][0]);
+                }
+            } 
+        });
+    });
+
+
     function getAverageStar(url, html_class){
         $.ajax({
             type: "GET",

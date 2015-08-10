@@ -46,7 +46,10 @@ text{
 .pie_graph{
   overflow: auto;
 }
-
+.warning-text{
+  color: #FF5B5B;
+  font-size: 0.7em;
+}
 /* 以下タブ用のstyle */
 .tab-index ul {
   display: table;

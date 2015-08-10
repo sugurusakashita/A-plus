@@ -4,12 +4,6 @@
 @include('common.sidebar')
 @stop
 
-@section('css')
-<link rel="stylesheet" type="text/css" href="{{ asset('css/alertify.core.css') }}">
-<link rel="stylesheet" type="text/css" href="{{ asset('css/alertify.default.css') }}">
-<link rel="stylesheet" type="text/css" href="{{ asset('css/aplus_style.css') }}">
-@stop
-
 @section('title')
 {{ $data['detail']['class_name'] }} | A+plus
 @stop
@@ -62,9 +56,8 @@
 
 			 	<div class="tab-index">
 			 		<ul>
-			 			<li class="active"><a href="#tab1">基本情報</a></li>
-			 			<li><a href="#tab2">投票</a></li>
-			 			<li><a href="#tab3">レビュー</a></li>
+			 			<li class="active"><a href="#tab1"><span class="icon-price-tag"></span> 基本情報</a></li>
+			 			<li><a href="#tab2"><span class="icon-pencil2"></span> みんなのレビュー</a></li>
 			 		</ul>
 			 	</div>
 			 	<div id="tab1" class="tab-contents active">
@@ -87,7 +80,7 @@
 				        			<a href="/search?q={{ urldecode($teacher->teacher_name) }}&day=0&period=0&term=2&_token={{csrf_token()}}">{{ $teacher->teacher_name }}</a>
 				        		@endforeach
 				        	@endif
-				        </th>
+				        </td>
 				        <td><?php echo $data['detail']->term == 0? '春学期':'秋学期'?></td>
 				        <td><?php echo $data['detail']->class_week?></td>
 				        <td><?php echo $data['detail']->class_period?>限</td>
@@ -99,14 +92,19 @@
 					<div style="overflow:auto;">
 						<div class="col6" >
 							<h3><span class="icon-chart icons"></span>成績評価方法</h3><hr>
+							@if(!is_null($data['evaluation']))
 							<svg id="eval_pie"></svg>
+							@else
+							<img src="" alt="no-image">
+							@endif
+
 						</div>		
 						<div class="col6">
-							<h3><span class="icon-star-full icons"></span>評価度</h3><hr>
+							<h3><span class="icon-star-full icons"></span>みんなの評価</h3><hr>
 							<table class="table table-bordered">
 								<tbody>
 									<tr>
-										<th>総合評価度</th>
+										<th>総合</th>
 										<td><span class="raty_stars_average"></span>(5.0点)</td>
 									</tr>
 									<tr>
@@ -117,6 +115,10 @@
 										<th>GP(成績)の取りやすさ</th>
 										<td><span class="raty_grade_average"></span>(5.0点)</td>
 									</tr>
+							      	<tr>
+							      		<th>内容の充実度</th>
+							        	<td><span class="raty_grade_average"></span>(5.0点)</td>
+							      	</tr>
 								</tbody>
 							</table>
 						</div>			
@@ -124,92 +126,142 @@
 				 	<!-- 授業要旨 -->
 					@if($data['detail']->summary)
 					<div class="panel panel-info" style="margin: 20px auto;">
-					 <div class="panel-title">
-					   授業要旨
-					 </div>
-					 <div class="panel-body">
-					 	{{ $data['detail']->summary }}
-					 </div>
+					 	<div class="panel-title">
+					   		授業要旨
+					 	</div>
+					 	<div class="panel-body">
+					 		{{ $data['detail']->summary }}
+					 	</div>
+					</div>
+						<a href="{{ $data['actual_syllabus_url'] }}" target="_blank"><button class="btn btn-info">公式シラバスを見る</button></a>
+					<div class="check-official-data warning-text">
+						<p>授業情報は常に変更がございます。特に履修時は、必ず公式シラバスや履修登録ページで確認してください。</p>
 					</div>
 					@endif
-				 	<!-- 授業レピュー -->
-				 	@if(!$data['wrote_review'])
-				 	<a href="/classes/review/{{ $data['detail']->class_id }}"><button class="btn btn-primary">この授業をレビューする！</button></a>
-				 	@endif
-				 	<a href="{{ $data['actual_syllabus_url'] }}" target="_blank"><button class="btn btn-info">公式シラバスを見る</button></a>
 			 	</div>
-				<div id="tab2" class="tab-contents">
-					<div class="col6">
-						<h3>投票方法</h3><hr>
-						<p>この授業を履修したことのある方は、右の☆をクリックして、投票しよう！</p>
-						<p>投票はレビューでもできます！</p>
-					</div>
-					<div class="col6">
-						<table class="table table-bordered" style="margin: 20px auto; text-align: center;">
-							<tbody>
-							    <tr>
-							      	<th>総合評価度</th>
-							      	<td class="raty_stars"></td>
-							    </tr>
-							    <tr>
-							    	<th>単位の取りやすさ</th>
-							    	<td class="raty_unit_stars"></td>
-							    </tr>
-						      	<tr>
-						      		<th>GP(成績)の取りやすさ</th>
-						        	<td class="raty_grade_stars"></td>
-						      	</tr>
-					   		</tbody>
-						</table>
-						<button class="btn btn-info">投票する！</button>
-					</div>
-					<div class="bar_graph">
-						<h3>平常点評価</h3><hr>
-						<h4>出席</h4>
-					</div>
-					@if(!$data['wrote_review'])
-					<a href="/classes/review/{{ $data['detail']->class_id }}"><button class="btn btn-primary">この授業をレビューする！</button></a>
-					@endif
-				</div>
+			 	<div id="tab2" class="tab-contents">
 				@if(!$data['review']->count())
-				<div id="tab3" class="tab-contents">
-					<div class="alert a-is-danger alert-removed fade in" style="margin: 20px auto;">
+					<div class="alert a-is-danger alert-removed fade in no-review" style="margin: 20px auto;">
 						この授業はまだレビューされていません。
 					</div>
-					<a href="/classes/review/{{ $data['detail']->class_id }}"><button class="btn btn-primary">この授業をレビューする！</button></a>
-				</div>
 				@else
-				<div id="tab3" class="tab-contents">
-				<p style="font-size:15px; color:red;">レビューの書き直しはマイページからできます</p>
-					<table class="table table-bordered" style="margin: 20px auto;">
-						<thead>
-							<tr>
-							<th>投稿者</th>
-<!-- 							<th>総合評価度</th> -->
-							<th>レビュー</th>
-							</tr>
-						</thead>
-						<tbody>
-			      @foreach($data['review'] as $r)
-			    	<tr>
-			    		<td>
-			    			<img src="{{ isset($r->users()->first()->avatar)? $r->users()->first()->avatar:asset('/image/dummy.png') }}" width="70"height="70"><br />
-			    			{{ isset($r->users()->first()->name)? $r->users()->first()->name:"不明なユーザ" }}
-			    		</td>
-<!-- 		         	<td>{{{ $r->stars }}}</td> -->
-		         	<td>{{{ $r->review_comment }}}</td>
-		 				</tr>
-			      @endforeach
-						</tbody>
-					</table>
+				<p style="font-size:15px;">レビューの書き直しは<a href="/mypage/index">マイページ</a>からできます</p>
+					<div id="review-table">
+						<table class="table table-bordered" style="margin: 20px auto;">
+							<thead>
+								<tr>
+								<th>投稿者</th>
+	<!-- 							<th>総合評価度</th> -->
+								<th>レビュー</th>
+								</tr>
+							</thead>
+							<tbody>
+				      @foreach($data['review'] as $r)
+				    	<tr>
+				    		<td>
+				    			<img src="{{ isset($r->users()->first()->avatar)? $r->users()->first()->avatar:asset('/image/dummy.png') }}" width="70"height="70"><br />
+				    			{{ isset($r->users()->first()->name)? $r->users()->first()->name:"不明なユーザ" }}
+				    		</td>
+	<!-- 		         	<td>{{{ $r->stars }}}</td> -->
+			         	<td>{{{ $r->review_comment }}}</td>
+			 				</tr>
+				      @endforeach
+							</tbody>
+						</table>
+					</div>
+					@endif
 					@if(!$data['wrote_review'])
-					<a href="/classes/review/{{ $data['detail']->class_id }}"><button class="btn btn-primary">この授業をレビューする！</button></a>
+					<div id="review-form">
+					<!-- レビューフォーム -->
+				        <div id="validation-error-field" class="alert alert-danger" style="display:none;">
+				          <p>
+				          入力の一部に誤りがあります。</p><br><br>
+				          <ul>
+				          </ul>
+				        </div>
+						<form action="/classes/confirm" method="POST">
+							<div style="text-align:center;">
+								<h3><span class="icon-pencil2 icons"></span>レビューする！</h3>
+								<p>もし、この授業を履修したことがあれば、簡単なレビューをしていただけませんか？</p>
+							</div>
+							<hr>
+							<div style="overflow:auto;">
+								<div class="col6">
+									<table class="table table-bordered" >
+										<tbody>
+										    <tr>
+										      	<th>総合 <span class="warning-text">※必須</span></th>
+										      	<td class="raty_stars" data-number="{{ old('stars') }}"></td>
+										    </tr>
+										    <tr>
+										    	<th>単位の取りやすさ <span class="warning-text">※必須</span></th>
+										    	<td class="raty_unit_stars" data-number="{{ old('unit_stars') }}"></td>
+										    </tr>
+									      	<tr>
+									      		<th>GP(成績)の取りやすさ <span class="warning-text">※必須</span></th>
+									        	<td class="raty_grade_stars" data-number="{{ old('grade_stars') }}"></td>
+									      	</tr>
+									      	<tr>
+									      		<th>内容の充実度 <span class="warning-text">※必須</span></th>
+									        	<td class="raty_grade_stars" data-number="{{ old('grade_stars') }}"></td>
+									      	</tr>
+								   		</tbody>
+									</table>
+								</div>
+								<div class="col6">
+									<table class="table table-bordered">
+										<tbody>
+									      	<tr>
+									      		<th>出席</th>
+									        	<td>	
+									        		<ul>
+										        		<li><input type="radio" name="attendance" {{ old('attendance') === '常に取る'? 'checked':'' }} value="常に取る">常に取る</li>
+										        		<li><input type="radio" name="attendance" {{ old('attendance') === 'たまに取る'? 'checked':'' }} value="たまに取る">たまに取る</li>
+										        		<li><input type="radio" name="attendance" {{ old('attendance') === '取らない'? 'checked':'' }} value="取らない">取らない</li>	
+									        		</ul>					        		
+									        	</td>
+									      	</tr>
+									      	@if($data['detail']->exam > 0)
+									      	<tr>
+									      		<th>試験の持ち込み</th>
+									      		<td>
+									        		<ul>
+										        		<li><input type="radio" name="bring" {{ old('bring') === 'レジュメ・教科書共に可'? 'checked':'' }} value="レジュメ・教科書共に可">レジュメ・教科書共に可</li>
+										        		<li><input type="radio" name="bring" {{ old('bring') === 'レジュメのみ可'? 		'checked':'' }} value="レジュメのみ可">レジュメのみ可</li>
+										        		<li><input type="radio" name="bring" {{ old('bring') === '教科書のみ可'? 			'checked':'' }} value="教科書のみ可">教科書のみ可</li>
+										        		<li><input type="radio" name="bring" {{ old('bring') === '不可'? 				'checked':'' }} value="不可">不可</li>	
+									        		</ul>	
+									      		</td>
+									      	</tr>
+									      	@endif
+										</tbody>
+									</table>
+								</div>
+			<!-- 					<div class="bar_graph">
+									<h3>平常点評価</h3><hr>
+									<h4>出席</h4>
+								</div> -->
+							</div>
+							
+							<div class="form-group">
+								<label>授業の感想 <span class="warning-text">※必須</span></label>
+								<textarea placeholder="例) 大学生活において必要なスキルを学ぶための授業。レポートの正しい書き方、Macbookの使い方などを学ぶ。先生はおおらかな人なので遅刻は厳しくない。しかし、声が小さく、スライドも文字が小さいので理解しにくい。最終レポートは1000字だが、出せば単位は来る" name="review_comment" rows="7" class="form-control form-element">{{ old('review_comment') }}</textarea>
+								<div class="warning-text">
+									<p>感想は特定の人物、特に講師の誹謗中傷は固く禁止します。<br>万が一、そのような投稿がみられる場合はレビューの削除及び、アカウントの凍結を予告なしにする場合がございますのでご了承ください。</p>
+								</div>
+							</div>
+							<button type="button" class="btn btn-primary review-submit-button">レビューする！</button>
+							<input type="hidden" name="class_id" value="{{ $data['detail']->class_id }}">
+							<input type="hidden" name="_token" value="{{csrf_token()}}">
+						</form>
+					</div>
 					@endif
 				</div>
-				@endif
 			</div>
+			<a href="/search"><button class="btn btn-sm btn-default" style="margin-bottom: 20px;">検索結果に戻る</button></a>
 		</div>
-		<a href="/search"><button class="btn btn-sm btn-default" style="margin-bottom: 20px;">検索結果に戻る</button></a>
+		
+
 @stop
 
 @section('js')
@@ -222,17 +274,17 @@
 		//グラフデータ
 			//var attendance_data = <?php echo $data['attendance_pie']; ?>,
 				// final_evaluation_data = <?php echo $data['final_evaluation_pie']; ?>,
+			//評価JSONあれば
+			<?php if(!is_null($data['evaluation'])) {?>
 				// 円グラフ用JS
 				evaluation_data = <?php echo $data['evaluation']; ?>;
-
-			//テスト用
-			var w = new pieClass("#eval_pie");
-
-			//初回読み込み
-		    w.render(evaluation_data);
-		    w.update();
-		    w.animate(evaluation_data); 
-
+				//テスト用
+				var w = new pieClass("#eval_pie");
+				//初回読み込み
+			    w.render(evaluation_data);
+			    w.update();
+			    w.animate(evaluation_data); 				
+			<?php } ?>
 			// 初期化
 			//タブ変更してからレンダー
 			// $('.tab-index a').click(function(){

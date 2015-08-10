@@ -39,7 +39,7 @@ class ClassesController extends Controller {
 		$this->teacher = $teacher;
 
 		//Authフィルタのホワイトリスト
-		$this->middleware("auth",["only" => ["getReview","postConfirm","postComplete","getEdit","postEditConfirm","postEditComplete","postDeleteConfirm","postDeleteComplete"]]);
+		$this->middleware("auth",["only" => ["getReview","postConfirm","postComplete","getEdit","postEditConfirm","postEditComplete","postDeleteConfirm","postDeleteComplete",'postAjaxReview']]);
 		//他人のレビューを改竄しようとしたユーザーをフィルタ
 		$this->middleware("validReviewer",["only" => ["getEdit","postEditConfirm","postEditComplete","postDeleteConfirm","postDeleteComplete"]]);
 	}
@@ -144,7 +144,7 @@ class ClassesController extends Controller {
 	 */
 
 	public function makeEvaluationData($data){
-		//評価法全て
+		//公式の総合評価法全て
 		$col = array(
 			"exam" => "試験",
 			"report" => "レポート",
@@ -166,6 +166,10 @@ class ClassesController extends Controller {
 			$result[$i]["legend"]	=	$legend;
 			$result[$i]["value"]	= 	$data->$value; 
 			$result[$i]["color"] 	=	$this->color[$i];
+		}
+
+		if(is_null($result)){
+			return null;
 		}
 		//配列リセット
 		$result = array_values($result);
@@ -465,6 +469,44 @@ class ClassesController extends Controller {
 	}
 
 	/**
+	 * 授業レビュー投稿完了
+	 *
+	 * @param Request
+	 * @author shalman
+	 * @return JSON or null
+	 *
+	 */
+
+	public function postAjaxReview(Request $request){
+		//ajax以外のアクセスを禁止
+		if(!$request->ajax()){
+ 			return null;
+		}
+
+		//レビューバリデーション
+		$this->reviewValidation($request);
+		
+		$user = Auth::user();
+		$request["user_id"] = $user->user_id;
+
+		$review = $this->review;
+		$review->fill($request->all());
+		if($review->save()){
+			$data["success"] = true;
+			$data["message"] = "レビューが完了しました！<br>ありがとうございます！";
+		}else{
+			$data["success"] = false;
+			$data["message"] = "レビューの登録に失敗しました。";
+		}
+
+		$data["name"] = $user->name;
+		$data["avatar"] = $user->avatar;
+
+		return json_encode($data);
+		
+	}
+
+	/**
 	 * レビューバリデーション
 	 *
 	 * @param request
@@ -475,7 +517,7 @@ class ClassesController extends Controller {
 
 	public function reviewValidation($request){
 		return $this->validate($request,[
-			"grade" => "required",
+			// "grade" => "required",
 			"stars" => "required",
 			"unit_stars" => "required",
 			"grade_stars" => "required",
