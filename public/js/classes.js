@@ -124,9 +124,9 @@ jQuery(function ($) {
                     //そもそもエレメント削除
                     $(this).remove();
                     //トップへスクロール
-                    $('html,body').animate({ scrollTop: 0 }, 'slow');
+                    $("html,body").animate({scrollTop:$('#tab2').offset().top});
                     //ダミーアバターを設置
-                    if(!data["avatar"].length){
+                    if(data["avatar"] == null){
                         data["avatar"] = "/image/dummy.png";
                     }
 

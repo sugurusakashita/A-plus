@@ -30,6 +30,10 @@ class Review extends Model {
         return $this->select(DB::raw('attendance, count(attendance) as total'))->where('class_id','=',$id)->groupBy('attendance')->get();
     }
 
+    public function bring($id)
+    {
+        return $this->select(DB::raw('bring, count(bring) as total'))->where('class_id','=',$id)->groupBy('bring')->get();
+    }
     public function final_evaluations($id)
     {
         return $this->select(DB::raw('final_evaluation, count(final_evaluation) as total'))->where('class_id','=',$id)->groupBy('final_evaluation')->get();

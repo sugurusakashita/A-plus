@@ -101,7 +101,7 @@
 						</div>		
 						<div class="col6">
 							<h3><span class="icon-star-full icons"></span>みんなの評価</h3><hr>
-							<table class="table table-bordered">
+							<table class="table table-bordered evaluation-display">
 								<tbody>
 									<tr>
 										<th>総合</th>
@@ -121,8 +121,21 @@
 							      	</tr>
 								</tbody>
 							</table>
-						</div>			
+						</div>
+						@if($data['attendance_data'])
+						<div class="col6">
+							<h3><span class="icon-user-check icons" style="top:3px; position:relative;"></span>出席</h3><hr>
+							<div id="attendance_data"></div>
+						</div>
+						@endif
+						@if($data['bring_data'])
+						<div class="col6">
+							<h3><span class="icon-briefcase icons"></span>テストの持ち込み</h3><hr>
+							<div id="bring_data"></div>
+						</div>
+						@endif
 					</div>
+
 				 	<!-- 授業要旨 -->
 					@if($data['detail']->summary)
 					<div class="panel panel-info" style="margin: 20px auto;">
@@ -219,6 +232,7 @@
 									      	</tr>
 								   		</tbody>
 									</table>
+									<p class="right-float">☆をクリックして選択してください！</p>
 								</div>
 								<div class="col6">
 									<table class="table table-bordered">
@@ -294,10 +308,10 @@
 	<script type="text/javascript" src="{{ asset('/js/bar_graph.js') }}"></script>
 	<script type="text/javascript" src="{{ asset('/raty_lib/jquery.raty.js') }}"></script>
 	<script type="text/javascript">
-
+		var class_id = <?php echo $data['detail']->class_id; ?>;
 		//グラフデータ
-			//var attendance_data = <?php echo $data['attendance_pie']; ?>,
-				// final_evaluation_data = <?php echo $data['final_evaluation_pie']; ?>,
+			var attendance_data = <?php echo $data['attendance_data'] ?: "null;"; ?>;
+			var bring_data = 	  <?php echo $data['bring_data'] 	  ?: "null;"; ?>;
 			//評価JSONあれば
 			<?php if(!is_null($data['evaluation'])) {?>
 				// 円グラフ用JS
@@ -309,6 +323,14 @@
 			    w.update();
 			    w.animate(evaluation_data); 				
 			<?php } ?>
+			if(bring_data !== null){
+				var b = new barClass('#bring_data',bring_data);
+				b.barGraph();
+			}
+			if(attendance_data !== null){
+				var a = new barClass('#attendance_data',attendance_data);
+				a.barGraph();
+			}
 			// 初期化
 			//タブ変更してからレンダー
 			// $('.tab-index a').click(function(){
@@ -317,9 +339,6 @@
 			//   }
 			// });
 			
-	</script>
-	<script type="text/javascript">
-		var class_id = <?php echo $data['detail']->class_id; ?>;
 	</script>
 	<script type="text/javascript" src="{{ asset('/js/classes.js') }}"></script>
 @stop

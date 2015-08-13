@@ -29,7 +29,7 @@ svg{
   position:relative; 
   right:30px; 
   font-size:14px;
-  /*font-color:#000;*/
+  top: 1px;
 }
 #eval_pie{
   margin: 0 auto;
@@ -50,9 +50,12 @@ text{
 #attendance_bar_graph{
   /*background-color: #91BFC3;*/
 }
-.pie_graph{
-  overflow: auto;
+
+.evaluation-display{
+/*  margin: 16% 0;
+  position: relative;*/
 }
+
 .warning-text{
   color: #FF5B5B;
   font-size: 0.7em;

@@ -141,7 +141,7 @@ return [
 		'grade_stars' => [
 			'required' => '「GP(成績)の取りやすさ」が選択されていません。',
 		],
-		'fulfill' => [
+		'fulfill_stars' => [
 			'required' => '「内容の充実度」が選択されていません。',
 		],
 		'diff_teacher' => [

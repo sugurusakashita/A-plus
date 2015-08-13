@@ -75,9 +75,10 @@ class ClassesController extends Controller {
 		} else {
 			$data['wrote_review'] = false;
 		}
-		$data['evaluation'] = $this->makeEvaluationData($data['detail']);
-		$data['attendance_pie'] 			= $this->makeJsonForPie($this->review->attendance($id),"attendance");
-		$data['final_evaluation_pie'] = $this->makeJsonForPie($this->review->final_evaluations($id),"final_evaluation");
+		$data['evaluation'] = $this->makeEvaluationData($data['detail']); 
+		$data['attendance_data'] 	  = $this->makeAvarageData($this->review->attendance($id),"attendance");
+		$data['bring_data'] 	  = $this->makeAvarageData($this->review->bring($id),"bring");
+		//$data['final_evaluation_pie'] = $this->makeAvarageData($this->review->final_evaluations($id),"final_evaluation");
 		$data['actual_syllabus_url']  = $this->makeActualSyllabusUrl($data['detail']);
 
 		// ユニークPVカウント
@@ -102,7 +103,7 @@ class ClassesController extends Controller {
 	}
 
 	/**
-	 * レビューデータからd3グラフ用jsonに変換
+	 * レビューデータから平均値を含むJSONを作成
 	 *
 	 * @param array, string
 	 * @author shalman
@@ -110,10 +111,8 @@ class ClassesController extends Controller {
 	 *
 	 */
 
-	public function makeJsonForPie($data,$type){
+	public function makeAvarageData($data,$type){
 		
-		
-
 		$result = NULL;
 		for ($i=0; $i < $data->count(); $i++) {
 		 	$type_name = $data[$i]->$type;
@@ -124,7 +123,7 @@ class ClassesController extends Controller {
 		 	$result[$i]["color"] = $this->color[$i];
 		}
 
-		 if(is_null($result)){
+		 if(is_null($result[0]["legend"])){
 		 	return null;
 		 }
 		 $result = json_encode($result, JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT | JSON_UNESCAPED_UNICODE );
