@@ -170,7 +170,15 @@
 						</table>
 					</div>
 					@endif
-					@if(!$data['wrote_review'])
+					@if(!Auth::check())
+					<!-- ゲストユーザのみ -->
+					<div style="col12">
+						<a href="/auth/login">
+							<img src="/image/guest_review.png" alt="レビューはログイン後にできます" width="100%">
+						</a>
+					</div>
+					@elseif(!$data['wrote_review'])
+					<!-- レビュー書いたことないユーザのみ -->
 					<div id="review-form">
 					<!-- レビューフォーム -->
 				        <div id="validation-error-field" class="alert alert-danger" style="display:none;">
