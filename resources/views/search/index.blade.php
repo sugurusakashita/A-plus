@@ -5,7 +5,7 @@
 @stop
 
 @section('title')
-WjinkaProj | 検索
+「{{ $data['get']['q'] }}」検索結果 | A+plus
 @stop
 
 @section('main_content')
@@ -128,7 +128,7 @@ WjinkaProj | 検索
 			  @if($class_data->summary)
 			  <?php
 			  	//要約作成
-			  	$summary = mb_strimwidth($class_data->summary,0,200,"...");
+			  	$summary = mb_strimwidth($class_data->summary,0,150,"...");
 			  ?>
 			  <li class="list-group-element">
 			  	<p>{{ $summary }}</p>

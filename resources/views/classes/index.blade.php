@@ -173,6 +173,10 @@
 					@if(!Auth::check())
 					<!-- ゲストユーザのみ -->
 					<div style="col12">
+							<div style="text-align:center;">
+								<h3><span class="icon-pencil2 icons"></span>レビューする！</h3>
+								<p>もし、この授業を履修したことがあれば、簡単なレビューをしていただけませんか？</p>
+							</div>
 						<a href="/auth/login">
 							<img src="/image/guest_review.png" alt="レビューはログイン後にできます" width="100%">
 						</a>

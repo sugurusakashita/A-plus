@@ -5,10 +5,11 @@ A+plus
 @stop
 
 @section('css')
+<link rel="stylesheet" type="text/css" href="/css/sublimeSlideshow.css">
 <style type="text/css">
   .header-field{
-    background-color: #fff;
-    background-image: url("{{ asset('image/bg_top_filtered.jpg') }}");
+    /*background-color: #fff;*/
+    /*background-image: url("{{ asset('image/bg_top_filtered.jpg') }}");*/
     background-size: cover;
     background-attachment: fixed;
     background-position: center;
@@ -65,24 +66,24 @@ A+plus
 @stop
 
 @section('main_content')
-
-  <div class="header-field">
-    <div class="img_container">
-       <img class="bland_img" src="{{ asset('image/Aplus_logo_trans@1x.png') }}" alt="a+plus_logo" width=510>
-    </div>
-    <div class="search_header">
-      <form action="/search" method="get">
-        <div class="form-element-group">
-          <input type="text" class="form-element" placeholder="授業や講師名で検索！" name="q"/>
-          <input type="hidden" name="_token" value="{{csrf_token()}}">
-          <span class="form-group-btn">
-            <button class="btn btn-default btn-primary" type="submit">検索</button>
-          </span>
-        </div>
-      </form>
-    </div>
+<div class="header-field">
+  <div class="img_container">
+     <img class="bland_img" src="{{ asset('image/Aplus_logo_trans@1x.png') }}" alt="a+plus_logo" width=510>
   </div>
-  <div class="container left">
+  <div class="search_header">
+    <form action="/search" method="get">
+      <div class="form-element-group">
+        <input type="text" class="form-element" placeholder="授業や講師名で検索！" name="q"/>
+        <input type="hidden" name="_token" value="{{csrf_token()}}">
+        <span class="form-group-btn">
+          <button class="btn btn-default btn-primary" type="submit">検索</button>
+        </span>
+      </div>
+    </form>
+  </div>
+</div>
+<div class="left">
+  <div class="container">
     <div class="row-fluid">
         <div class="col9">
           <div class="panel panel-info columns">
@@ -166,9 +167,27 @@ A+plus
       </div>
     </div>
   </div>
+</div>
 @stop
 
 @section('js')
+    <script type="text/javascript" src="/js/jquery.sublimeSlideshow.js"></script>
+    <script type="text/javascript">
+    //スライドショー用
+    $(function(){
+        $.sublime_slideshow({
+          src:[
+          {url:"/image/bg_top_filtered.jpg",title:""},
+          {url:"image/top_back.jpg",title:""},
+          ],
+          duration:   7,
+          fade:       1,
+          scaling:    1.2,
+          rotating:   false,
+          overlay:    "image/pattern.png"
+        });
+    });
+    </script>
     <script type="text/javascript"> 
       //アラートメッセージ用
       <?php
