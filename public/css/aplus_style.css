@@ -24,6 +24,13 @@ svg{
 .icons{
   margin: 10px;
 }
+.search-icon{
+  background-color:transparent; 
+  position:relative; 
+  right:30px; 
+  font-size:14px;
+  /*font-color:#000;*/
+}
 #eval_pie{
   margin: 0 auto;
 }

@@ -98,7 +98,9 @@ jQuery(function ($) {
                 "stars"         : $('input[name=stars]').val(),
                 "grade_stars"   : $('input[name=grade_stars]').val(),
                 "unit_stars"    : $('input[name=unit_stars]').val(),
+                "fulfill_stars"    : $('input[name=fulfill_stars]').val(),
                 "attendance"    : $('input[name=attendance]:checked').val(),
+                "grade"         : $('select[name=grade]').val(), 
                 "bring"         : $('input[name=bring]:checked').val(),
                 "review_comment" : $('textarea[name=review_comment]').val(),
                 "class_id"      : $('input[name=class_id]').val(),
@@ -205,6 +207,12 @@ jQuery(function ($) {
   });
   $(".raty_grade_stars").raty('set', { 
     scoreName: 'grade_stars',
+    score : function(){
+      return $(this).attr('data-number');
+    } 
+  }); 
+  $(".raty_fulfill_stars").raty('set', { 
+    scoreName: 'fulfill_stars',
     score : function(){
       return $(this).attr('data-number');
     }  

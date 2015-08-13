@@ -521,6 +521,7 @@ class ClassesController extends Controller {
 			"stars" => "required",
 			"unit_stars" => "required",
 			"grade_stars" => "required",
+			"fulfill_stars" => "required",
 			"review_comment" => "required|min:10|max:500"
 			]);
 	}

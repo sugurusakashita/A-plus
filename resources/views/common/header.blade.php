@@ -3,11 +3,10 @@
     <div class="row-fluid">
       <div class="brand">
         <a href="/" style="padding:0;"><img src="{{ asset('image/Aplus_logo_global_trans@2x.png') }}" alt="a+plus_global_logo" width=120></a>
-        <!-- <span class="header-search" style="padding:0;">  -->
-          <form action="/search" method="get" style="float:left; margin:3px 20px;">
-            <input type="text" size="30" placeholder="授業名・教師名・キーワードで検索！" name="q" />
-            <input type="hidden" name="_token" value="{{csrf_token()}}">
-            <button class="btn btn-primary" type="submit">検索</button>          
+          <form action="/search" method="get" style="margin:10px; display:flex" class="left-float">
+            <input type="text" class="form-element-sm form-element" size="40" placeholder="授業名・教師名・キーワードで検索！" name="q" />
+            <button class="icon-search search-icon"></button>
+            <input type="hidden" name="_token" value="{{csrf_token()}}">        
           </form>
         <!-- </span> -->
       </div>

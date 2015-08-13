@@ -215,7 +215,7 @@
 									      	</tr>
 									      	<tr>
 									      		<th>内容の充実度 <span class="warning-text">※必須</span></th>
-									        	<td class="raty_grade_stars" data-number="{{ old('grade_stars') }}"></td>
+									        	<td class="raty_fulfill_stars" data-number="{{ old('fulfill_stars') }}"></td>
 									      	</tr>
 								   		</tbody>
 									</table>
@@ -223,6 +223,18 @@
 								<div class="col6">
 									<table class="table table-bordered">
 										<tbody>
+											<tr>
+												<th>受講した学年</th>
+												<td>
+													<select name="grade">
+														<option value="1">1年</option>
+														<option value="2">2年</option>
+														<option value="3">3年</option>
+														<option value="4">4年</option>
+														<option value="5">5年以上</option>
+													</select>	
+												</td>
+											</tr>
 									      	<tr>
 									      		<th>出席</th>
 									        	<td>	
