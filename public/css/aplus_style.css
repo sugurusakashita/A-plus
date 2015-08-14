@@ -156,6 +156,16 @@ text{
   display: block;
 }
 
+/* FAQ */
+
+.accordion li:nth-child(2n){
+  padding-left: 34px;
+}
+
+.accordion li:nth-child(2n+1):before {
+  content: '-　';
+}
+
 /* footer style */
 
 footer {
