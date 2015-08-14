@@ -74,8 +74,8 @@ svg{
   display: block;
 }
 .class-name{
-  color:inherit; 
-  margin:0; 
+  color:inherit;
+  margin:0;
   font-family:'Source Sans Pro','Helvetica Neue',HelveticaNeue,Helvetica,Arial,sans-serif;
 }
 .tag-full-btn{
@@ -85,9 +85,9 @@ svg{
   margin: 10px;
 }
 .search-icon{
-  background-color:transparent; 
-  position:relative; 
-  right:30px; 
+  background-color:transparent;
+  position:relative;
+  right:30px;
   font-size:14px;
   top: 1px;
 }
@@ -202,7 +202,7 @@ footer .allrights {
   .article{
     margin: 15%;
   }
-  /*top end*/`
+  /*top end*/
 
   /*classes start*/
   .class-name{
