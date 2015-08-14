@@ -30,6 +30,7 @@
         </ul>
        </div>
       </div>
+      <br />
       @endif
     <form action="/help/inquiry" method="POST">
       <div class="form-group">
