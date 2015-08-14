@@ -156,6 +156,33 @@ text{
   display: block;
 }
 
+/* register */
+
+.social_register {
+  width: 100%;
+  height: 75px;
+  text-align: center;
+}
+
+.social_register a {
+  width: 25%;
+  height: 50px;
+  margin:0 12%;
+  line-height: 50px;
+  border-radius: 3px;
+  color: #fff;
+  font-size: 1.25em;
+  font-family: 'sans-serif';
+  display: block;
+  float: left;
+}
+.social_register .twitter {
+    background-color: #55ACEE;
+}
+.social_register .facebook {
+    background-color: #415E9B;
+}
+
 /* FAQ */
 
 .accordion li:nth-child(2n){
@@ -169,6 +196,7 @@ text{
 /* footer style */
 
 footer {
+  margin-top: 20px;
   padding:20px 18px 0;
   background-color: rgb(247, 185, 119);
 }

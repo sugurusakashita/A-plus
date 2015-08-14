@@ -8,8 +8,21 @@
 
 <div class="col-md-8 col-md-offset-2">
 	<div class="panel panel-default">
-		<a href="/auth/twitter-oauth">Twitterで登録</a>
-		<a href="/auth/facebook-oauth">Facebookで登録</a>
+		<div class="panel-title">
+		  SNSアカウントで登録
+		</div>
+		<div class="panel-body">
+			<div class="social_register">
+				<a href="/auth/twitter-oauth" class="twitter">Twitter</a>
+				<a href="/auth/facebook-oauth" class="facebook">Facebook</a>
+			</div>
+		</div>
+	</div>
+	<br />
+	<div class="panel panel-default">
+		<div class="panel-title">
+			メールアドレスで登録
+		</div>
 		<div class="panel-body">
 			@if (count($errors) > 0)
 				<div class="alert alert-danger">
@@ -40,7 +53,8 @@
 
 				<div class="panel panel-danger" style="margin-bottom: 15px;">
 					<div class="panel-title">
-					画像の大きさは100×100px、画像ファイルはjpg,png,gifのみで、大きさは1.5MBまでです。<br>画像が大きい場合は縮小拡大されます。
+					画像の大きさは100×100px、画像ファイルはjpg,png,gifのみで、大きさは1.5MBまでです。<br>
+					画像が大きい場合は縮小拡大されます。
 					</div>
 				</div>
 
