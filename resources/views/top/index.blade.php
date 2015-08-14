@@ -6,63 +6,6 @@ A+plus
 
 @section('css')
 <link rel="stylesheet" type="text/css" href="/css/sublimeSlideshow.css">
-<style type="text/css">
-  .header-field{
-    /*background-color: #fff;*/
-    /*background-image: url("{{ asset('image/bg_top_filtered.jpg') }}");*/
-    background-size: cover;
-    background-attachment: fixed;
-    background-position: center;
-    display: inline-block;
-    margin-top: -25px;
-  }
-  .img_container{
-    background-color: rgba(255,255,255,0.85);
-    margin:12% 10%;
-  }
-  .bland_img{
-    display: block;
-    margin: 0 auto;
-  }
-  .search_header{
-    width:50%;
-    margin: 0 auto 20%;
-  }
-
-  .left{
-    background-color: #F7F7F7;
-  }
-
-  .columns{
-    margin: 20px 10px;
-  }
-  .articles{
-    display: inline-block;
-  }
-  .article{
-    margin: 5%; 
-    height: 217px;
-  }
-  .article-img{
-    width: 100%;
-    margin: 0 auto;
-    border:solid 1px #AFAFAF;
-  }
-  .article-summary{
-    background-color: #BDBDBD;
-  }
-  @media screen and (max-width: 47.9375rem) {
-    .bland_img{
-      width: 80%;
-    }
-    .search_header{
-       width:90%;
-    }
-    .article{
-      margin: 15%;
-    }
-  }
-</style>
 @stop
 
 @section('main_content')
@@ -175,10 +118,14 @@ A+plus
     <script type="text/javascript">
     //スライドショー用
     $(function(){
+        var device = ($(window).width() < 1021)? "sp":"pc";
         $.sublime_slideshow({
           src:[
-          {url:"/image/bg_top_filtered.jpg",title:""},
-          {url:"image/top_back.jpg",title:""},
+          {url:"/image/top-"+device+"-img1.jpg",title:""},
+          {url:"/image/top-"+device+"-img2.jpg",title:""},
+          {url:"/image/top-"+device+"-img3.jpg",title:""},
+          {url:"/image/top-"+device+"-img4.jpg",title:""},
+          {url:"/image/top-"+device+"-img5.jpg",title:""},
           ],
           duration:   7,
           fade:       1,

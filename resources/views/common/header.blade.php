@@ -15,11 +15,11 @@
         <a href="{{ url('/search/')}}" class="btn-pill">授業レビュー</a> -->
 <!--         <a href="{{ url('/search/')}}" class="btn-pill">検索</a> -->
         @if (Auth::guest())
-          <a href="{{ url('/auth/register') }}" class="btn btn-pill btn-primary-outline">新規登録</a>
-          <a href="{{ url('/auth/login') }}" class="btn btn-pill btn-primary-outline">ログイン</a>
+          <a href="{{ url('/auth/register') }}" class="btn btn-pill btn-primary">新規登録</a>
+          <a href="{{ url('/auth/login') }}" class="btn btn-pill btn-primary">ログイン</a>
         @else
           <a href="/mypage/index" class="btn-pill" >{{ Auth::user()->name }} <span class="caret"></span></a>
-          <a href="{{ url('/auth/logout') }}" class="btn btn-pill btn-primary-outline">ログアウト</a>
+          <a href="{{ url('/auth/logout') }}" class="btn btn-pill btn-primary">ログアウト</a>
         @endif
       </nav>
     </div>

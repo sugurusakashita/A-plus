@@ -22,7 +22,7 @@
 
 				<!-- タイトル -->
 				<div class="alert a-is-info" style="margin: 0 auto 5px;">
-				 <p style="font-size: 1.75em;">{{ $data['detail']->class_name }}</p>
+				 <h2 class="class-name">{{ $data['detail']->class_name }}</h2>
 				 <span class="raty_stars_average"></span>
 				</div>
 
@@ -40,14 +40,15 @@
 
 			 	<!-- タグの追加 -->
 			 	<div class="add_tag">
-			 		<table style="width: 100%; text-align: center; background: none;">
-			 			<tr><td>
-					 		<a href="/tag/add/{{ $data['detail']->class_id }}" style="color: white;"><button class="btn btn-pill btn-info-outline">リストからタグを追加</button></a>&nbsp;
-				 		</td><td>
-					 		<button class="btn btn-pill btn-info-outline" id="add-new-tag">新しくタグを追加</button>
-			 			</td></tr>
-			 		</table>
-			 		<div class="new-tag-field" style="width: 100%;">
+			 				<span class="col6 tag-full-btn">
+					 			<a href="/tag/add/{{ $data['detail']->class_id }}" style="color: white;">
+					 				<button class="btn btn-pill btn-warning-outline btn-full">リストからタグを追加</button>
+					 			</a>
+					 		</span>
+					 		<span class="col6 tag-full-btn">
+					 			<button class="btn btn-pill btn-warning-outline btn-full" id="add-new-tag">新しくタグを追加</button>
+					 		</span>
+			 		<div class="new-tag-field">
 			 			<input class="form-element col8" type="text" size="32" placeholder="ここに新しいタグを入力!" required id="add-tag-filed" value=""/>&nbsp;
 			 			<input type="hidden" name="_token" value="{{csrf_token()}}" />
 			 			<button class="btn btn-default col3" type="submit" id="add-tag-button">追加</button>
