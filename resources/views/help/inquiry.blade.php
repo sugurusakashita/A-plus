@@ -10,22 +10,31 @@
 
 @section('main_content')
 <div>
-  <h1>お問い合わせフォーム</h1>
+  <div class="panel panel-default">
+   <div class="panel-body">
+    お問い合わせフォーム
+    <!-- <h1>お問い合わせフォーム</h1> -->
+   </div>
+  </div>
+  <br />
       @if (count($errors) > 0)
-        <div class="alert alert-danger">
-          <p>
-          入力の一部に誤りがあります。</p><br><br>
-          <ul>
-            @foreach ($errors->all() as $error)
-              <li style="color:red;">{{ $error }}</li>
-            @endforeach
-          </ul>
-        </div>
+      <div class="panel panel-danger">
+       <div class="panel-title">
+         入力の一部に誤りがあります。
+       </div>
+       <div class="panel-body">
+        <ul>
+          @foreach ($errors->all() as $error)
+            <li style="color:red;">{{ $error }}</li>
+          @endforeach
+        </ul>
+       </div>
+      </div>
       @endif
     <form action="/help/inquiry" method="POST">
       <div class="form-group">
         <label>カテゴリ</label>
-        <select name="category" class="form-control" >
+        <select name="category" class="form-control form-element" >
             <option value="">カテゴリを選択してください</option>
             <option {{ old("category") == "質問"? "selected":"" }}>質問</option>
             <option {{ old("category") == "苦情"? "selected":"" }}>苦情</option>
