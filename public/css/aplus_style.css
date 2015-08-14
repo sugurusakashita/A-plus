@@ -96,11 +96,20 @@ text{
   display: block;
 }
 
-footer {
-  padding:20px 18px 70px;
-  background-color: #B2C9CE;
-}
+/* footer style */
 
+footer {
+  padding:20px 18px 0;
+  background-color: rgb(247, 185, 119);
+}
+footer .allrights {
+  font-weight: bold;
+  width: 100%;
+  padding-top: 40px;
+  padding-bottom: 25px;
+  text-align: center;
+  font-family: 'sans-serif';
+}
 .footer-sns-icons{
   font-size: 2.7em;
   color: #000;
