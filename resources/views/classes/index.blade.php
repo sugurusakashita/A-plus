@@ -148,6 +148,7 @@
 					 	</div>
 					</div>
 						<a href="{{ $data['actual_syllabus_url'] }}" target="_blank"><button class="btn btn-info">公式シラバスを見る</button></a>
+						<a href="https://twitter.com/share?text={{ $data['detail']->class_name }}の授業レビュー / " target="_blank"><button class="btn btn-info twitter_share">このレビューをつぶやく</button></a>
 					<div class="check-official-data warning-text">
 						<p>授業情報は常に変更がございます。特に履修時は、必ず公式シラバスや履修登録ページで確認してください。</p>
 					</div>
@@ -247,17 +248,17 @@
 														<option value="3">3年</option>
 														<option value="4">4年</option>
 														<option value="5">5年以上</option>
-													</select>	
+													</select>
 												</td>
 											</tr>
 									      	<tr>
 									      		<th>出席</th>
-									        	<td>	
+									        	<td>
 									        		<ul>
 										        		<li><input type="radio" name="attendance" {{ old('attendance') === '常に取る'? 'checked':'' }} value="常に取る">常に取る</li>
 										        		<li><input type="radio" name="attendance" {{ old('attendance') === 'たまに取る'? 'checked':'' }} value="たまに取る">たまに取る</li>
-										        		<li><input type="radio" name="attendance" {{ old('attendance') === '取らない'? 'checked':'' }} value="取らない">取らない</li>	
-									        		</ul>					        		
+										        		<li><input type="radio" name="attendance" {{ old('attendance') === '取らない'? 'checked':'' }} value="取らない">取らない</li>
+									        		</ul>
 									        	</td>
 									      	</tr>
 									      	@if($data['detail']->exam > 0)
@@ -268,8 +269,8 @@
 										        		<li><input type="radio" name="bring" {{ old('bring') === 'レジュメ・教科書共に可'? 'checked':'' }} value="レジュメ・教科書共に可">レジュメ・教科書共に可</li>
 										        		<li><input type="radio" name="bring" {{ old('bring') === 'レジュメのみ可'? 		'checked':'' }} value="レジュメのみ可">レジュメのみ可</li>
 										        		<li><input type="radio" name="bring" {{ old('bring') === '教科書のみ可'? 			'checked':'' }} value="教科書のみ可">教科書のみ可</li>
-										        		<li><input type="radio" name="bring" {{ old('bring') === '不可'? 				'checked':'' }} value="不可">不可</li>	
-									        		</ul>	
+										        		<li><input type="radio" name="bring" {{ old('bring') === '不可'? 				'checked':'' }} value="不可">不可</li>
+									        		</ul>
 									      		</td>
 									      	</tr>
 									      	@endif
@@ -281,7 +282,6 @@
 									<h4>出席</h4>
 								</div> -->
 							</div>
-							
 							<div class="form-group">
 								<label>授業の感想 <span class="warning-text">※必須</span></label>
 								<textarea placeholder="例) 大学生活において必要なスキルを学ぶための授業。レポートの正しい書き方、Macbookの使い方などを学ぶ。先生はおおらかな人なので遅刻は厳しくない。しかし、声が小さく、スライドも文字が小さいので理解しにくい。最終レポートは1000字だが、出せば単位は来る" name="review_comment" rows="7" class="form-control form-element">{{ old('review_comment') }}</textarea>
@@ -299,8 +299,6 @@
 			</div>
 			<a href="/search"><button class="btn btn-sm btn-default" style="margin-bottom: 20px;">検索結果に戻る</button></a>
 		</div>
-		
-
 @stop
 
 @section('js')
@@ -322,7 +320,7 @@
 				//初回読み込み
 			    w.render(evaluation_data);
 			    w.update();
-			    w.animate(evaluation_data); 				
+			    w.animate(evaluation_data);
 			<?php } ?>
 			if(bring_data !== null){
 				var b = new barClass('#bring_data',bring_data);
@@ -339,7 +337,6 @@
 
 			//   }
 			// });
-			
 	</script>
 	<script type="text/javascript" src="{{ asset('/js/classes.js') }}"></script>
 @stop

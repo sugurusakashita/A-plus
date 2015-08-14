@@ -120,6 +120,17 @@ text{
   color: #FF5B5B;
   font-size: 0.7em;
 }
+
+.twitter_share {
+    background-color: #55ACEE;
+    color: #fff;
+    font-family: 'sans-serif';
+}
+.twitter_share:hover {
+    background-color: #4C9AD6;
+}
+
+
 /* 以下タブ用のstyle */
 .tab-index ul {
   display: table;
