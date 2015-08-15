@@ -24,7 +24,6 @@
 			<form class="form-horizontal" role="form" method="POST" action="{{ url('/auth/register') }}" enctype='multipart/form-data'>
 				<input type="hidden" name="_token" value="{{ csrf_token() }}">
 				<input type="hidden" name="social_id" value="{{ old('social_id') }}">
-				
 
 				<div class="form-group">
 					<label for="file_input">プロフィール画像</label>
@@ -42,7 +41,6 @@
 								<button type="button" id="sns_button" class="btn btn-default">SNSからの画像を利用する</button>
 								<button type="button" id="photo_button" class="btn btn-default">写真をアップロードする</button>
 								<button type="button" id="reset_avatar_button" class="btn btn-default">デフォルト画像を利用する</button>
-								
 							</td>
 						</tr>
 					</table>
@@ -50,7 +48,7 @@
 
 				<div class="panel panel-danger" style="margin-bottom: 15px;">
 					<div class="panel-title">
-					画像の大きさは100×100px以内、画像ファイルはjpg,png,gifのみで、大きさは1.5MBまでです。<br>画像が大きい場合は縮小拡大されます。
+					画像の大きさは100×100px以内、画像ファイルはjpg,png,gifのみで、大きさは2MBまでです。<br>画像が大きい場合は縮小拡大されます。
 					</div>
 				</div>
 

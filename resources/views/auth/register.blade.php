@@ -53,7 +53,7 @@
 
 				<div class="panel panel-danger" style="margin-bottom: 15px;">
 					<div class="panel-title">
-					画像の大きさは100×100px、画像ファイルはjpg,png,gifのみで、大きさは1.5MBまでです。<br>
+					画像の大きさは100×100px、画像ファイルはjpg,png,gifのみで、大きさは2MBまでです。<br>
 					画像が大きい場合は縮小拡大されます。
 					</div>
 				</div>
