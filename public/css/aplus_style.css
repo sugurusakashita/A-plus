@@ -13,6 +13,10 @@ table{
   background-color: #DC6B5F;
 }
 
+.header-search-form{
+  margin:10px;
+  display:-webkit-flex;
+}
 .sidebar {
   font-size: 0.9em;
 }
