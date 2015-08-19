@@ -242,8 +242,12 @@ footer .allrights {
     height: auto;
     margin:12% auto;
   }
-  .img_container{
-    margin:32% 5%;
+  .top-content{
+    text-align: left;
+  }
+  .top-content-img{
+    display: block;
+    margin: 0 auto;
   }
   .search_header{
      width:90%;

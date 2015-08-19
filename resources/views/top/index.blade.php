@@ -26,85 +26,40 @@ A+plus
 <div class="left">
   <div class="container">
     <div class="row-fluid">
-        <div class="col9">
-          <div class="panel panel-info columns">
-           <div class="panel-title">
-            <h1><span class="icon-book icons"></span>News</h1>
+      <div class="top-content text-center">
+        <div class="top-block">
+          <h2>ABOUT A+plus</h2>
+          <hr>
+          <div>
+            <p class="lead">A+plusは、早稲田大学所沢キャンパスの授業レビューサービスを提供しております。</p>
+            <p>多くの人に「後悔しない履修登録」をしていただくため、当サービスは8月XX日より開始いたしました。</p>
+            <p>当サービスは<b>完全無料</b>です。まずは<b><a href="/auth/register">こちらから無料会員登録</a></b>してご利用ください！</p>
+            <p>また、履修済みの授業に関してはレビューしていただけませんでしょうか？次に履修する人が<b>あなたのレビューを待ってます。</b></p>
+            <p>更にA+plusについて詳しく知りたい方は<a href="/about">こちらから！</a></p>
           </div>
-           <div class="panel-body">
-            <div class="articles">
-              <a href="" class="col4">
-                <div class="article">
-                  <img class="article-img" src="{{ asset('image/top_back.jpg') }}" alt="article1" >
-                  <div class="article-summary">
-                    <label>2015/08/06</label>
-                    <label>ほげほげ</label>
-                  </div>
-                </div>
-              </a>
-              <a href="" class="col4">
-                <div class="article">
-                  <img class="article-img" src="{{ asset('image/bg_top_filtered.jpg') }}" alt="article1" >
-                  <div class="article-summary">
-                    <label>2015/08/06</label>
-                    <label>ほげほげ</label>
-                  </div>
-                </div>
-              </a>
-              <a href="" class="col4">
-                <div class="article">
-                  <img class="article-img" src="{{ asset('image/Aplus_logo_global@1x.png') }}" alt="article1" >
-                  <div class="article-summary">
-                    <label>2015/08/06</label>
-                    <label>ほげほげ</label>
-                  </div>
-                </div>
-              </a>
+        </div>
+        <div class="top-block">
+          <div>
+          <h2>SERVICE</h2>
+          <hr>
+          </div>
+          <div class="col12">
+            <div class="col6 text-left">
+              <p class="lead">早稲田大学所沢キャンパスの授業レビューを見たり、書いたりできます！</p>
+              <p>詳しい使い方は<a href="/help/manual">こちら</a>をご覧ください。</p>
+              <p>サイト上部、またはTOPページの検索ボックスから授業名、教師名、キーワードで検索！<br>検索は「曜日」「時限」「学期」から絞ることもできます。<br>授業ページではその授業の評価方法が円グラフで表示されます。</p>
             </div>
-            <div class="articles">
-              <a href="" class="col4">
-                <div class="article">
-                  <img class="article-img" src="{{ asset('image/top_back.jpg') }}" alt="article1" >
-                  <div class="article-summary">
-                    <label>2015/08/06</label>
-                    <label>ほげほげ</label>
-                  </div>
-                </div>
-              </a>
-              <a href="" class="col4">
-                <div class="article">
-                  <img class="article-img" src="{{ asset('image/bg_top_filtered.jpg') }}" alt="article1" >
-                  <div class="article-summary">
-                    <label>2015/08/06</label>
-                    <label>ほげほげ</label>
-                  </div>
-                </div>
-              </a>
-              <a href="" class="col4">
-                <div class="article">
-                  <img class="article-img" src="{{ asset('image/Aplus_logo_global@1x.png') }}" alt="article1" >
-                  <div class="article-summary">
-                    <label>2015/08/06</label>
-                    <label>ほげほげ</label>
-                  </div>
-                </div>
-              </a>
-            </div>  
+            <div class="col6">
+              <img class="top-content-img" src="/image/top/top-service1.png" alt="A+plus service1" height="250">
+            </div>
           </div>
         </div>
-      </div>
-      <div class="col3" class="side-content">
-        <div class="panel panel-primary columns">
-          <div class="panel-title">
-            <h1>sidebar</h1>
-          </div> 
-          <div class="panel-body">
-            <img class="article-img" src="{{ asset('image/Aplus_logo_global@1x.png') }}" alt="about_aplus" >
-            <ul>
-              <li><a href="/auth/facebook-oauth">facebookログイン/新規無料登録</a></li>
-            </ul>
-          </div> 
-        </div>
+        <div class="top-block">
+          <h2>ABOUT US</h2>
+          <hr>
+          <img class="top-content-img" src="/image/ei-logo1.png" alt="A+plus service1" height="250">
+          <p class="lead">当サービスは早稲田大学非公認アプリケーション開発サークル「A+plus」によって運営されています。</p>
+          <p>本サークルは2015年5月に発足いたしました。今後も様々なサービスやアプリケーションを発信していく予定です。<br>詳しくは<a href="/about">こちらから！</a>(入会希望者もこちらから)</p>
       </div>
     </div>
   </div>
