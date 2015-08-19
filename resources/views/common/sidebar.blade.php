@@ -5,7 +5,7 @@
     <?php
       $i = 1;
       //金、銀、銅
-      $rank_colors = ["#E0CB42","#B3B3B3","#D69828"];
+      $rank_colors = array("#E0CB42","#B3B3B3","#D69828");
       foreach ($data['access_ranking'] as $ranking) {
         echo "<a class='list-group-element' href=/classes/index/".$ranking->class_id.">";
         if($i < 4){
@@ -20,16 +20,20 @@
     </div>
   </div>
 
-  <div class="search_word_ranking">
+<!--   <div class="search_word_ranking">
     <div class="list-group">
       <a class="list-group-element active">人気検索ワードランキング</a>
+      -->
     <?php
+    /*
       $i = 1;
       foreach ($data['search_ranking'] as $ranking) {
         echo "<a class='list-group-element'><span class='badge success'>". $i ."</span>　".$ranking->word."</a>";
         $i++;
       }
+      */
     ?>
+<!--
     </div>
-  </div>
+  </div> -->
 </div>
