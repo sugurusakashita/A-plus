@@ -2,7 +2,7 @@
   <div class="container">
     <div class="row-fluid">
       <div class="brand">
-        <a href="/" style="padding:0;"><img src="{{ asset('image/Aplus_logo_global_trans@2x.png') }}" alt="a+plus_global_logo" width=120></a>
+        <a href="/" style="padding:0;"><img src="{{ asset('image/header-logo.png') }}" alt="a+plus_global_logo" height="45"></a>
           <form action="/search" method="get" class="left-float header-search-form">
             <input type="text" class="form-element-sm form-element" size="40" placeholder="授業名・教師名・キーワードで検索！" name="q" />
             <button class="icon-search search-icon"></button>

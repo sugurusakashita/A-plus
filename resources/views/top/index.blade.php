@@ -10,13 +10,11 @@ A+plus
 
 @section('main_content')
 <div class="header-field">
-  <div class="img_container">
-     <img class="bland_img" src="{{ asset('image/top-main.gif') }}" alt="a+plus_logo" width=510>
-  </div>
+     <img class="bland_img" src="{{ asset('image/top/top-main.gif') }}" alt="a+plus_logo">
   <div class="search_header">
     <form action="/search" method="get">
       <div class="form-element-group">
-        <input type="text" class="form-element" placeholder="授業や講師名で検索！" name="q"/>
+        <input type="text" class="form-element" placeholder="授業名・教師名・キーワードで検索！" name="q"/>
         <input type="hidden" name="_token" value="{{csrf_token()}}">
         <span class="form-group-btn">
           <button class="btn btn-default btn-primary" type="submit">検索</button>
@@ -121,11 +119,11 @@ A+plus
         var device = ($(window).width() < 1021)? "sp":"pc";
         $.sublime_slideshow({
           src:[
-          {url:"/image/top-"+device+"-img1.jpg",title:""},
-          {url:"/image/top-"+device+"-img2.jpg",title:""},
-          {url:"/image/top-"+device+"-img3.jpg",title:""},
-          {url:"/image/top-"+device+"-img4.jpg",title:""},
-          {url:"/image/top-"+device+"-img5.jpg",title:""},
+          {url:"/image/top/top-"+device+"-img1.jpg",title:""},
+          {url:"/image/top/top-"+device+"-img2.jpg",title:""},
+          {url:"/image/top/top-"+device+"-img3.jpg",title:""},
+          {url:"/image/top/top-"+device+"-img4.jpg",title:""},
+          {url:"/image/top/top-"+device+"-img5.jpg",title:""},
           ],
           duration:   7,
           fade:       1,
@@ -135,15 +133,15 @@ A+plus
         });
     });
     </script>
-    <script type="text/javascript"> 
+    <script type="text/javascript">
       //アラートメッセージ用
       <?php
       if($v = $data["message"]){
-          echo "alertify.success('".$v."');";        
-      } 
+          echo "alertify.success('".$v."');";
+      }
       if($v = $data["alert"]){
-          echo "alertify.error('".$v."');";        
-      } 
-      ?>    
+          echo "alertify.error('".$v."');";
+      }
+      ?>
     </script>
 @stop

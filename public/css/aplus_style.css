@@ -36,19 +36,24 @@ table{
     margin-top: -25px;
     height: 90%;
   }
-  .img_container{
-    margin:3% 30%;
-  }
   .bland_img{
     display: block;
-    margin: 0 auto;
-    background-color: rgba(255,255,255,0.85);
+    margin: 3% auto;
+    height:76%;
+    max-height:460px;
+    background-color: rgba(255,255,255,0.80);
   }
   .search_header{
     width:50%;
     margin: 0 auto 20%;
   }
-
+  .top-content{
+    margin:0 4%;
+  }
+  .top-block{
+    padding:2% 0;
+    display:inline-block;
+  }
   .left{
     background-color: #F7F7F7;
   }
@@ -233,7 +238,9 @@ footer .allrights {
 @media screen and (max-width: 47.9375rem) {
   /*top start*/
   .bland_img{
-    width: 100%;
+    width: 80%;
+    height: auto;
+    margin:12% auto;
   }
   .img_container{
     margin:32% 5%;
