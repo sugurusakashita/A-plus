@@ -11,7 +11,7 @@ A+plus
 @section('main_content')
 <div class="header-field">
   <div class="img_container">
-     <img class="bland_img" src="{{ asset('image/Aplus_logo_trans@1x.png') }}" alt="a+plus_logo" width=510>
+     <img class="bland_img" src="{{ asset('image/top-main.gif') }}" alt="a+plus_logo" width=510>
   </div>
   <div class="search_header">
     <form action="/search" method="get">

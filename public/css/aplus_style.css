@@ -10,7 +10,7 @@ table{
   padding: 5px 0;
   margin: 0 0 25px;
   /*background-color: #f7b977;*/
-  background-color: #DC6B5F;
+  background-color: #AB3124;
 }
 
 .header-search-form{
@@ -29,21 +29,20 @@ table{
 /*top start*/
   .header-field{
     /*background-color: #fff;*/
-    /*background-image: url("{{ asset('image/bg_top_filtered.jpg') }}");*/
     background-size: cover;
     background-attachment: fixed;
     background-position: center;
     display: inline-block;
     margin-top: -25px;
-    height: 84%;
+    height: 90%;
   }
   .img_container{
-    margin:12% 30%;
+    margin:3% 30%;
   }
   .bland_img{
     display: block;
     margin: 0 auto;
-    background-color: rgba(255,255,255,0.65);
+    background-color: rgba(255,255,255,0.85);
   }
   .search_header{
     width:50%;
