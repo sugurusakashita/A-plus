@@ -82,7 +82,7 @@ A+plus
           ],
           duration:   7,
           fade:       1,
-          scaling:    1.2,
+          scaling:    false,
           rotating:   false,
           overlay:    "image/pattern.png"
         });
