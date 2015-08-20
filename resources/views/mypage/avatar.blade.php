@@ -28,7 +28,7 @@
 				<div class="col-md-6">
 				<label>新しいプロフィール画像</label>
 					<img class="thumbnail_avatar" src='{{ asset("image/dummy.png") }}' width="100" height="100" alt="dummy_image">
-					<input id = "file_input" type="file" name="avatar">
+					<input id = "file_input" type="file" name="avatar" accept="image/*">
 					<button type="button" id="reset_avatar">画像をリセットする</button>
 					<p class="warning" style="color:red">画像の大きさは100×100px、画像ファイルはjpg,png,gifのみで、大きさは2MBまでです。<br>画像が大きい場合は縮小拡大されます。</p>
 				</div>

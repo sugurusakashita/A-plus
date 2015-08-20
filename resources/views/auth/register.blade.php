@@ -45,7 +45,7 @@
 						<tr><td rowspan="2" style="border: none !important;">
 							<img class="thumbnail_avatar" src="/image/dummy.png" width="100" height="100" alt="dummy_image">
 							</td>
-							<td style="border: none !important;"><input id="file_input" type="file" name="avatar" class="form-element"></td>
+							<td style="border: none !important;"><input id="file_input" type="file" name="avatar" class="form-element" accept="image/*"></td>
 						</tr>
 						<tr><td style="border: none !important;"><button type="button" id="reset_avatar" class="btn btn-default">画像をリセットする</button></td></tr>
 					</table>

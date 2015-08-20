@@ -33,7 +33,7 @@
 							</td>
 							<td class="upload_content"style="border: none !important;">
 								<input type="hidden" name="avatar_url" value="{{ old('avatar_url') }}">
-								<input id="file_input" type="file" name="avatar" class="form-element" style="display:none;">
+								<input id="file_input" type="file" name="avatar" class="form-element" style="display:none;" accept="image/*">
 							</td>
 						</tr>
 						<tr>
