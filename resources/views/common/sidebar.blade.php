@@ -1,4 +1,7 @@
 <div class="sidebar">
+  <div>
+    <a href="/campaign/index/1"><img class="sidebar-logo" src="/image/campaign/event1-sm.png"></a>
+  </div>
   <div class="access_ranking" style="margin-bottom: 15px;">
     <div class="list-group">
       <a class="list-group-element active">アクセスランキング</a>
@@ -20,20 +23,4 @@
     </div>
   </div>
 
-<!--   <div class="search_word_ranking">
-    <div class="list-group">
-      <a class="list-group-element active">人気検索ワードランキング</a>
-      -->
-    <?php
-    /*
-      $i = 1;
-      foreach ($data['search_ranking'] as $ranking) {
-        echo "<a class='list-group-element'><span class='badge success'>". $i ."</span>　".$ranking->word."</a>";
-        $i++;
-      }
-      */
-    ?>
-<!--
-    </div>
-  </div> -->
 </div>

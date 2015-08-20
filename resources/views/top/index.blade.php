@@ -50,7 +50,7 @@ A+plus
               <p>サイト上部、またはTOPページの検索ボックスから授業名、教師名、キーワードで検索！<br>検索は「曜日」「時限」「学期」から絞ることもできます。<br>授業ページではその授業の評価方法が円グラフで表示されます。</p>
             </div>
             <div class="col6">
-              <img class="top-content-img" src="/image/top/top-service1.png" alt="A+plus service1" height="250">
+              <img class="top-content-img" src="/image/top/top-service1.png" alt="A+plus service1" style="width:100%">
             </div>
           </div>
         </div>

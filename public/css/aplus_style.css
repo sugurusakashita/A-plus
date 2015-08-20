@@ -6,6 +6,13 @@ table{
   background-color: #fff;
 }
 
+.section-margin{
+  margin-top:3%;
+  margin-bottom:3%;
+}
+.campaign-detail{
+  font-size:12px;
+}
 .nav{
   padding: 5px 0;
   margin: 0 0 25px;
@@ -65,7 +72,7 @@ table{
     display: inline-block;
   }
   .article{
-    margin: 5%; 
+    margin: 5%;
     height: 217px;
   }
   .article-img{
@@ -77,6 +84,18 @@ table{
     background-color: #BDBDBD;
   }
 /*end top*/
+
+/*start sidebar*/
+.sidebar-logo{
+  margin: 2%;
+  width: 96%;
+}
+/*start campaign*/
+.header-campaign-image{
+  margin: 3%;
+  width: 94%;
+}
+/*end sidebar*/
 
 svg{
   display: block;
