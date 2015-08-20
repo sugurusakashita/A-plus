@@ -133,7 +133,7 @@ jQuery(function ($) {
                     //追加アニメーション
                     var tableObj;
                     if($('.no-review').length === 0){
-                    //レビューがある  
+                    //レビューがある
                         tableObj = '<tr><td><img src="'+data["avatar"]+'" width="70"height="70"><br />'+data["name"]+'</td><td>'+params['review_comment']+'</td></tr>';
                         $('#review-table  tbody').prepend(tableObj).trigger("create"); 
                     }else{

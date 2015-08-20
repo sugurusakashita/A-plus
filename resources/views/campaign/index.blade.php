@@ -30,15 +30,23 @@
 			<span class="icon-plus footer-header-icon"></span>キャンペーン参加方法
     	</div>
     	<div class="panel-body">
-    		<p>以下の条件をすべて満たすことで本キャンペーンのエントリーが完了いたします。</p><br>
+    		<p>以下の条件をすべて満たし、ページ下部のSNSで応募(タイムラインにシェア)完了で本キャンペーンのエントリーが完了いたします。</p><br>
 		    <ul>
 		    	<li><b>条件1: 無料会員登録をします</b></li>
 			    <li><b>条件2: 授業のレビューを５件以上登録</b></li>
-			    <li><b>条件3: ページ下部の応募ボタンをクリックしてSNSで友達シェアの完了</b></li>
 		    </ul>
 		    <p style="color:red">更に！新学期キャンペーンとして、秋学期の授業レビューなら３件以上のレビューで条件2をクリア！ </p>
 		    <p class="campaign-detail">※この場合、3件すべて秋学期でなくてはいけません。</p>
 		    <p class="campaign-detail">※ここでの秋学期とは、検索オプションの「学期」で「秋学期」に所属する授業群を指します。</p>
+		    <p class="campaign-detail">※シェアした後に条件を満たしてもエントリーとなります。</p>
+	    </div>
+    </div>
+    <div class="panel panel-warning section-margin">
+        <div class="panel-title">
+			<span class="icon-plus footer-header-icon"></span>キャンペーン期間
+    	</div>
+    	<div class="panel-body">
+    		<p>リリース日〜2015年9月17日 23:00迄</p>
 	    </div>
     </div>
     <div class="panel panel-warning">
@@ -54,7 +62,6 @@
 			    <p class="campaign-detail">※当キャンペーンの実施は大学当局およびAmazon.co.jp®とは一切関係ありません。</p>
 			    <p class="campaign-detail">※このキャンペーンのお問い合わせに関しては<a href="/help/inquiry">こちら</a>まで</p>
 		    </div>
-
 	    </div>
     </div>
     <div class="panel panel-warning section-margin">
@@ -73,12 +80,28 @@
 			<div class="panel-title">
 			  SNSで応募(タイムラインにシェア)
 			</div>
-			<div class="panel-body">
-				<div class="social_register">
-					<a href="" class="twitter"><span class="icon-twitter2 icons"></span>Twitter</a>
-					<a href="" class="facebook"><span class="icon-facebook2 icons"></span>Facebook</a>
+			<div class="panel-body" style="overflow:auto;">
+				@if(!Auth::check())
+				<p style="color:red;">シェアする前にA+plusのログインが必要です。ログインは<a href="/auth/login">こちら</a>から</p>
+				@endif
+				<div class="col12">
+					<div class="col6 text-center <?php if(!Auth::check()) echo 'is-disabled'; ?>" >
+						<a href="{{ $data['twitter_url'] }}" target="_blank" class="btn btn-primary" id="entry-via-twitter" style="background-color:#00C6F2;">
+							<span class="icon-twitter2 icons"></span>Twitterでシェアする
+						</a>
+					</div>
+					<div class="col6 text-center <?php if(!Auth::check()) echo 'is-disabled'; ?>" >
+						<a href="{{ $data['facebook_url'] }}" target="_blank" class="btn btn-primary" id="entry-via-facebook" style="background-color:#3B5998;">
+							<span class="icon-facebook2 icons"></span>Facebookでシェアする
+						</a>
+					</div>
 				</div>
+				<p class="campaign-detail">※シェアだけではエントリーになりません。詳しくは上部キャンペーン参加方法をご確認ください。</p>
 			</div>
 		</div>
     </div>
+@stop
+
+@section('js')
+	<script type="text/javascript" src="{{ asset('js/campaign.js') }}"></script>
 @stop
