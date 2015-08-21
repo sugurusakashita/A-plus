@@ -1,7 +1,7 @@
 @extends('full')
 
 @section('title')
-現在、サーバーに負荷がかかっています | A+plus
+存在しないページ | A+plus
 @stop
 
 
@@ -9,10 +9,10 @@
 <div id="content">
   <div class="panel panel-danger">
     <div class="panel-title">
-      503 Error! | Service Unavailable
+      404 Error! | 存在しないページ
     </div>
     <div class="panel-body">
-      <p>現在、サーバーに負荷がかかっているか、サーバーメンテナンス中です。<br>一時的にサービスをご利用できません。今しばらく待ってからアクセスをしてください。</p>
+      <p>このページは存在しないか、削除されたページです。</p>
     </div>
   </div>
   <div class="section-margin">
@@ -20,3 +20,4 @@
   </div>
 </div>
 @stop
+
