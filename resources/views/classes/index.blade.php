@@ -31,8 +31,8 @@
 			 	@if($data['tag']['list'])
 				 		@foreach($data['tag']['list'] as $t)
 				 		<span class="btn-label info">
-				 				<input class="delete-tag-button" type="submit" value="×" style="color: black;">
-				 				<a href="" style="color: white; font-size: 1.5em;">#{{ $t->tag_name }}</a>
+				 				<input class="delete-tag-button" type="submit" value="×" style="color: black; margin: auto 0;">
+				 				<span style="color: white; font-size: 1.5em;">#{{ $t->tag_name }}</span>
 			 			</span>
 				 		@endforeach
 			 	@endif
