@@ -7,7 +7,8 @@
             	<ul>
             		<li><a href="/about">A+plusについて</a></li>
             		<li><a href="/help/manual">使い方</a></li>
-                    <li><a href="/term">利用規約および個人情報の利用に関するポリシー</a></li>
+                    <li><a href="/term">利用規約</a></li>
+                    <li><a href="/term/privacy-policy">個人情報の利用に関するポリシー</li>
             	</ul>
             </div>
             <div class="col4">

@@ -42,7 +42,7 @@
 
 				<div class="form-group">
 					<button type="submit" class="btn btn-primary">Login</button>
-					<p>ログインボタンをクリックした場合、<a href="/term">利用規約および個人情報の利用に関するポリシー</a>に同意したこととみなします。</p>
+					<p>ログインボタンをクリックした場合、<a href="/term">利用規約</a>に同意したこととみなします。</p>
 					<a class="btn btn-link" href="{{ url('/password/email') }}">パスワードを忘れましたか？</a>
 				</div>
 				<div class="form-group">
