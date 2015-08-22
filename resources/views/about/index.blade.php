@@ -34,7 +34,7 @@ A+plusについて | A+plus
   </div>
   <div class="panel-body">
   <div class="text-center">
-    <img class="news-header-image" src="image/ei-logo1.png" alt="アプリ開発サークル「A+plus」について">
+    <img style="margin:3%;" src="image/ei-logo1.png" alt="アプリ開発サークル「A+plus」について" width="280">
   </div>
     A+plusは、2015年5月に設立された早稲田大学非公認アプリケーション開発サークルです。<br>
     <br>
