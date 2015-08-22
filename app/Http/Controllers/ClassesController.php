@@ -29,7 +29,7 @@ class ClassesController extends Controller {
 	protected $color = ["#16a085","#91C5E6","#e74c3c","#258cd1"];
 
 	const REVIEW_POST_SESSION = 'review_post_session';
-	
+
 	//const AUTH_LOGIN_REDIRECT_ID = 'auth_login_redirect_id';
 
 	public function __construct(Classes $classes,Review $review,Teacher $teacher,RankingController $ranking){
@@ -112,7 +112,7 @@ class ClassesController extends Controller {
 	 */
 
 	public function makeAvarageData($data,$type){
-		
+
 		$result = NULL;
 		for ($i=0; $i < $data->count(); $i++) {
 		 	$type_name = $data[$i]->$type;
@@ -151,13 +151,13 @@ class ClassesController extends Controller {
 			"other" => "その他");
 		$result = null;
 
-		for ($i=0; $i < count($col); $i++) { 
+		for ($i=0; $i < count($col); $i++) {
 
 			//exam,report,attitude,otherのいずれか
 			$value = array_keys($col)[$i];
 			//試験,レポート,,のいずれか
 			$legend = array_values($col)[$i];
-			
+
 			if(!$data->$value){
 				// 0%だった場合パス
 				continue;
@@ -195,91 +195,6 @@ class ClassesController extends Controller {
 	}
 
 	/**
-	 * 授業レビュー投稿
-	 *
-	 * @param int (URI segment)
-	 * @author shalman
-	 * @return view
-	 *
-	 */
-
-	public function getReview($id, Request $request){
-		//ログインチェック
-		// if (!Auth::check()){
-		// 	Session::put(self::AUTH_LOGIN_REDIRECT_ID, $id);
-		// 	return redirect()->to("/auth/login");
-		// }
-
-		// ログインしてリダイレクトしてきたら該当セッションを削除
-		// if(Session::get(self::AUTH_LOGIN_REDIRECT_ID)){
-		// 	Session::forget(self::AUTH_LOGIN_REDIRECT_ID);
-		// }
-
-		// もしレビュー済みの場合
-		if($this->review->wrote_review($id, $request->user()->user_id)){
-			return redirect()->to("classes/index/" . $id);
-		}
-
-		// 二重投稿確認用
-		Session::put(self::REVIEW_POST_SESSION, csrf_token());
-
-		$classes = $this->classes;
-		$data['detail'] =  $classes->find($id);
-		return view('classes/review')->with('data',$data);
-	}
-
-	/**
-	 * 授業レビュー投稿確認
-	 *
-	 * @param Request
-	 * @author shalman
-	 * @return view
-	 *
-	 */
-
-	public function postConfirm(Request $request){
-		// 二重投稿のチェック
-		if(!Session::get(self::REVIEW_POST_SESSION)){
-			return redirect()->back()->withInput();
-		}
-		//レビューバリデーション
-		$this->reviewValidation($request);
-		
-		$data = $request->all();
-		$data['detail'] = $this->classes->find($request->class_id);
-		return view('classes/confirm')->with('data',$data);
-
-	}
-
-	/**
-	 * 授業レビュー投稿完了
-	 *
-	 * @param Request
-	 * @author shalman
-	 * @return view
-	 *
-	 */
-
-	public function postComplete(Request $request){
-		// 投稿完了したら該当セッションを削除、リロードしたらTOPへリダイレクト
-		if(Session::get(self::REVIEW_POST_SESSION)){
-			Session::forget(self::REVIEW_POST_SESSION);
-		} else {
-			return redirect()->to('/');
-		}
-
-		$review = $this->review;
-		$data['id'] = $request->class_id;
-		$req = $request->all();
-		$req['user_id'] = $request->user()->user_id;
-		$review->fill($req);
-    	$review->save();
-
-
-		return view('classes/complete')->with('data',$data);
-	}
-
-	/**
 	 * 授業レビュー再編集
 	 *
 	 * @param Request
@@ -310,7 +225,7 @@ class ClassesController extends Controller {
 
 		//レビューバリデーション
 		$this->reviewValidation($request);
-		
+
 		return view('classes/editconfirm')->with('data',$data);
 
 	}
@@ -325,7 +240,7 @@ class ClassesController extends Controller {
 	 *
 	 */
 
-	public function postEditComplete(Request $request){				
+	public function postEditComplete(Request $request){
 		$id = $request->review_id;
 		$review = $this->review->find($id);
 
@@ -367,7 +282,7 @@ class ClassesController extends Controller {
 	 *
 	 */
 
-	public function postDeleteComplete(Request $request){				
+	public function postDeleteComplete(Request $request){
 		$review_id = $request->review_id;
 		$review = $this->review->find($review_id);
 
@@ -484,7 +399,7 @@ class ClassesController extends Controller {
 
 		//レビューバリデーション
 		$this->reviewValidation($request);
-		
+
 		$user = Auth::user();
 		$request["user_id"] = $user->user_id;
 
@@ -502,7 +417,7 @@ class ClassesController extends Controller {
 		$data["avatar"] = $user->avatar;
 
 		return json_encode($data);
-		
+
 	}
 
 	/**
@@ -524,4 +439,90 @@ class ClassesController extends Controller {
 			"review_comment" => "required|min:10|max:500"
 			]);
 	}
+
+
+	/**
+	 * 授業レビュー投稿
+	 *
+	 * @param int (URI segment)
+	 * @author shalman
+	 * @return view
+	 *
+	 */
+
+	// public function getReview($id, Request $request){
+	// 	//ログインチェック
+	// 	// if (!Auth::check()){
+	// 	// 	Session::put(self::AUTH_LOGIN_REDIRECT_ID, $id);
+	// 	// 	return redirect()->to("/auth/login");
+	// 	// }
+
+	// 	// ログインしてリダイレクトしてきたら該当セッションを削除
+	// 	// if(Session::get(self::AUTH_LOGIN_REDIRECT_ID)){
+	// 	// 	Session::forget(self::AUTH_LOGIN_REDIRECT_ID);
+	// 	// }
+
+	// 	// もしレビュー済みの場合
+	// 	if($this->review->wrote_review($id, $request->user()->user_id)){
+	// 		return redirect()->to("classes/index/" . $id);
+	// 	}
+
+	// 	// 二重投稿確認用
+	// 	Session::put(self::REVIEW_POST_SESSION, csrf_token());
+
+	// 	$classes = $this->classes;
+	// 	$data['detail'] =  $classes->find($id);
+	// 	return view('classes/review')->with('data',$data);
+	// }
+
+	/**
+	 * 授業レビュー投稿確認
+	 *
+	 * @param Request
+	 * @author shalman
+	 * @return view
+	 *
+	 */
+
+	// public function postConfirm(Request $request){
+	// 	// 二重投稿のチェック
+	// 	if(!Session::get(self::REVIEW_POST_SESSION)){
+	// 		return redirect()->back()->withInput();
+	// 	}
+	// 	//レビューバリデーション
+	// 	$this->reviewValidation($request);
+
+	// 	$data = $request->all();
+	// 	$data['detail'] = $this->classes->find($request->class_id);
+	// 	return view('classes/confirm')->with('data',$data);
+
+	// }
+
+	/**
+	 * 授業レビュー投稿完了
+	 *
+	 * @param Request
+	 * @author shalman
+	 * @return view
+	 *
+	 */
+
+	// public function postComplete(Request $request){
+	// 	// 投稿完了したら該当セッションを削除、リロードしたらTOPへリダイレクト
+	// 	if(Session::get(self::REVIEW_POST_SESSION)){
+	// 		Session::forget(self::REVIEW_POST_SESSION);
+	// 	} else {
+	// 		return redirect()->to('/');
+	// 	}
+
+	// 	$review = $this->review;
+	// 	$data['id'] = $request->class_id;
+	// 	$req = $request->all();
+	// 	$req['user_id'] = $request->user()->user_id;
+	// 	$review->fill($req);
+ //    	$review->save();
+
+
+	// 	return view('classes/complete')->with('data',$data);
+	// }
 }
