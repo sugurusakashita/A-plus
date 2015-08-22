@@ -98,30 +98,34 @@ class MyPageController extends Controller {
 		$data['user'] = $this->user;
 		$data['reviews'] = $this->review;
 		$message = "プロフィール画像の変更が完了しました。";
-		
+
 		//設定されていない場合、NULL
 		$avatar = $request->file('avatar');
+
+
 		if(is_null($avatar)) {
 			$data['user']->avatar = NULL;
 			$data['user']->save();
-			
+
 			return redirect()->to('mypage/index')->withInput(array("message" => $message));
 		}
 
+
 		//バリデーション
-		$validation["avatar"] = 'image|mimes:jpeg,jpg,gif,png|max:1500';	
+		$validation["avatar"] = 'image|mimes:jpeg,jpg,gif,png|max:1500';
 		$this->validate($request,$validation);
 
-		//ファイル保存
-		$name = htmlspecialchars($data['user']->name,ENT_QUOTES);
-		$file_name = $data['user']->name."_avt.".$avatar->guessClientExtension();
+		//念のためサニタイズとSHA-1でハッシュ化
+		$name = sha1(htmlspecialchars($data['user'],ENT_QUOTES));
+		$file_name = $name.".".$avatar->guessClientExtension();
 		$file = $avatar->move("avatar",$file_name);
 		$path = asset("avatar/".$file_name);
+
 		//ファイルパスをDBに保存
 		$data['user']->avatar = $path;
 		$this->user->save();
 
-		
+
 		return redirect()->to('mypage/index')->withInput(array("message" => $message));
 
 	}
