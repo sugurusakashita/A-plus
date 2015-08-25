@@ -6,8 +6,12 @@
 <script type="text/javascript" src="{{ asset('/raty_lib/jquery.raty.js') }}"></script>
 @stop
 
+@section('meta')
+<meta name="robots" content="noindex,nofollow">
+@endsection
+
 @section('title')
-レビュー編集 | {{ $data['detail']->classes()->first()->class_name }}
+レビュー編集 | {{ $data['detail']->classes()->first()->class_name }} | A+plus
 @stop
 
 @section('main_content')

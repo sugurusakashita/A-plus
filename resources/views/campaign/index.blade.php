@@ -4,6 +4,17 @@
 	@include('common.sidebar')
 @stop
 
+@section('meta')
+<meta name="description" itemprop="description" content="大学生活をさらにスマートに。さらに賢く。" />
+<meta name="keywords" itemprop="keywords" content="A+plus,キャンペーン,Amazonギフト券,レビュー,早稲田" />
+<meta name="twitter:card" content="summary" />
+<meta property="og:title" content="会員登録・レビューでAmazonギフト券1000円分キャンペーン | A+plus" />
+<meta property="og:url" content="{{ url() }}" />
+<meta property="og:image" content="{{ asset('image/campaign/event1-lg.png') }}" />
+<meta property="og:site_name" content="早稲田大学所沢キャンパス 授業レビューサイト A+plus" />
+<meta property="og:description" content="A+plusでは早稲田大学所沢キャンパスの授業レビューを提供しています。" />
+<meta itemprop="image" content="{{ asset('image/top/top-main.gif') }}" />
+@stop
 @section('title')
 	会員登録・レビューでAmazonギフト券1000円分キャンペーン | A+plus
 @stop
@@ -54,7 +65,7 @@
 			<span class="icon-plus footer-header-icon"></span>特典
     	</div>
     	<div class="panel-body">
-		    <p class="lead">抽選で30名様にAmazon.co.jp®で使えるAmazonギフト券1000円分プレゼント！</p>
+		    <p class="lead">抽選で25名様にAmazon.co.jp®で使えるAmazonギフト券1000円分プレゼント！</p>
 		    <p>まだまだユーザーが少ないので、<b>当たる確率は大きいかも！？！？</b></p>
 		    <p>サークル合宿や新学期で何かとお金の飛んで行くこの季節、ぜひゲットしてください！</p>
 		    <div>

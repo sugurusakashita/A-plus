@@ -4,6 +4,10 @@
 プロフィール画像変更 | A+plus
 @stop
 
+@section('meta')
+<meta name="robots" content="noindex,nofollow">
+@endsection
+
 @section('main_content')
 	@if (count($errors) > 0)
 		<div class="alert alert-danger">

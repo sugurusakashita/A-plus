@@ -4,6 +4,18 @@
 @include('common.sidebar')
 @stop
 
+@section('meta')
+<meta name="description" itemprop="description" content="{{ $data['detail']['class_name'] }}の授業情報とレビュー " />
+<meta name="keywords" itemprop="keywords" content="{{ $data['detail']['class_name'] }},A+plus,早稲田,所沢キャンパス,所キャン" />
+<meta name="twitter:card" content="summary" />
+<meta property="og:title" content="{{ $data['detail']['class_name'] }} | A+plus" />
+<meta property="og:url" content="{{ url() }}" />
+<meta property="og:image" content="{{ asset('image/top/top-main.gif') }}" />
+<meta property="og:site_name" content="早稲田大学所沢キャンパス 授業レビューサイト A+plus" />
+<meta property="og:description" content="{{ $data['detail']['class_name'] }}の授業情報とレビュー " />
+<meta itemprop="image" content="{{ asset('image/top/top-main.gif') }}" />
+@endsection
+
 @section('title')
 {{ $data['detail']['class_name'] }} | A+plus
 @stop

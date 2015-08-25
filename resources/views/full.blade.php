@@ -2,6 +2,18 @@
 <html lang="ja">
 <head>
     @include('common.meta')
+
+<meta name="description" itemprop="description" content="大学生活をさらにスマートに。さらに賢く。" />
+<meta name="keywords" itemprop="keywords" content="A+plus,早稲田,所沢キャンパス,所キャン,大学" />
+<meta name="twitter:card" content="summary" />
+<meta property="og:title" content="A+plus" />
+<meta property="og:url" content="{{ url() }}" />
+<meta property="og:image" content="{{ asset('image/top/top-main.gif') }}" />
+<meta property="og:site_name" content="早稲田大学所沢キャンパス 授業レビューサイト A+plus" />
+<meta property="og:description" content="A+plusでは早稲田大学所沢キャンパスの授業レビューを提供しています。" />
+<meta itemprop="image" content="{{ asset('image/top/top-main.gif') }}" />
+
+    @yield('meta')
     @yield('css')
     <title>
         @yield('title')

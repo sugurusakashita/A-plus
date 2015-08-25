@@ -4,6 +4,9 @@
 無料会員退会 | A+plus
 @stop
 
+@section('meta')
+<meta name="robots" content="noindex,nofollow">
+@endsection
 
 @section('main_content')
 <div id="content">

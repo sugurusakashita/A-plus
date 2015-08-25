@@ -4,8 +4,8 @@
 無料会員登録 | A+plus
 @stop
 
-@section('main_content')
 
+@section('main_content')
 <div>
 <div class="panel panel-info section-margin">
 	<div class="panel-title">

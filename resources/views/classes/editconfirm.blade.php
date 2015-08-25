@@ -1,8 +1,12 @@
 @extends('full')
 
 @section('title')
-レビュー編集 | {{ $review->classes()->first()->class_name }} |  確認
+レビュー編集 | {{ $review->classes()->first()->class_name }} |  確認 | A+plus
 @stop
+
+@section('meta')
+<meta name="robots" content="noindex,nofollow">
+@endsection
 
 @section('js')
 <link rel="stylesheet" href="/raty_lib/jquery.raty.css">

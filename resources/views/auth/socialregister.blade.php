@@ -4,6 +4,10 @@
 無料会員登録 | A+plus
 @stop
 
+@section('meta')
+<meta name="robots" content="noindex,nofollow">
+@endsection
+
 @section('main_content')
 
 <div class="col-md-8 col-md-offset-2">

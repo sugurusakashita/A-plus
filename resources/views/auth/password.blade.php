@@ -4,6 +4,10 @@
 パスワードのリセット | A+plus
 @stop
 
+@section('meta')
+<meta name="robots" content="noindex,nofollow">
+@endsection
+
 @section('main_content')
 <div class="panel panel-info">
 	<div class="panel-title">

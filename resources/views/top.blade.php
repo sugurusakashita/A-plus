@@ -2,6 +2,7 @@
 <html lang="ja">
 <head>
     @include('common.meta')
+    @yield('meta')
     @yield('css')
     <title>
         @yield('title')

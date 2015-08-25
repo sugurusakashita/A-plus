@@ -1,7 +1,7 @@
 @extends('full')
 
 @section('title')
-授業レビュー | レビュー削除確認
+授業レビュー | レビュー削除確認 | A+plus
 @stop
 
 @section('js')
@@ -9,6 +9,10 @@
 <script type="text/javascript" src="{{ asset('/js/review.js') }}"></script>
 <script type="text/javascript" src="{{ asset('/raty_lib/jquery.raty.js') }}"></script>
 @stop
+
+@section('meta')
+<meta name="robots" content="noindex,nofollow">
+@endsection
 
 @section('main_content')
 <div class="panel panel-primary">
