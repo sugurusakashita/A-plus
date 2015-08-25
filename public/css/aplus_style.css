@@ -19,6 +19,9 @@ table{
 .campaign-detail{
   font-size:12px;
 }
+.header-font{
+  font-size:1.4em;
+}
 .nav{
   padding: 5px 0;
   margin: 0 0 25px;
