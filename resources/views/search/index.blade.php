@@ -142,9 +142,12 @@
 		検索結果が存在しませんでした。再検索してください。
 	</div>
 @endif
-
-	<div class="pagination" style="margin: 20px auto; height: 40px;">
-		<?php echo $data['classes']->render(); ?>
+	<div class="row-fluid">
+		<div class="col12">
+			<div class="pagination text-center" style="0 auto;">
+				<?php echo $data['classes']->render(); ?>
+			</div>
+		</div>
 	</div>
 @stop
 

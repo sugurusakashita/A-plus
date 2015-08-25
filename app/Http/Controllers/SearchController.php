@@ -76,12 +76,12 @@ class SearchController extends Controller {
 									'_token' =>	$token);
 
 			Session::put("search_session",$search_session);
-			
+
 		//pagenationなどはセッションから取得
 		}else{
 			if(Session::has("search_session")){
 				$search_session = Session::get("search_session");
-				
+
 			}
 
 

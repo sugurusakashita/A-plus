@@ -40,6 +40,15 @@ table{
   font-size: 2em;
 }
 
+/*search start*/
+.pagination ul li{
+  width: 7%;
+}
+.pagination ul li a{
+  width: 100%;
+}
+/*search end*/
+
 /*top start*/
   .header-field{
     /*background-color: #fff;*/
