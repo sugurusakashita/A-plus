@@ -125,7 +125,7 @@ class AuthController extends Controller {
 			$this->auth->loginUsingId($user->user_id);
 			return redirect()->intended($this->redirectTo);
 		}
-		
+
 		$data['message'] = "facebookから情報を取得しました";
 		$data["name"] = $social->getName();
 		$data["email"] = $social->getEmail();
@@ -145,9 +145,9 @@ class AuthController extends Controller {
 		Session::reflash();
 		//例外処理
 		if(!old("social_id")){
-			$data["top_alert"] = "不正な手続きを検知しました。<br>お手数ですが、もう一度登録しなおしてください。";
+			$data["top_alert"] = "登録がタイムアウト、またはSNSサービス内のエラーです。<br>お手数ですが、もう一度登録しなおしてください。";
 			return redirect()->to($this->redirectTo)->withInput($data);
-		 }		
+		 }
 		$data['message'] = old("message");
 
 		return view("auth/socialregister")->with("data",$data);

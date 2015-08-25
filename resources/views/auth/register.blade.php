@@ -84,42 +84,40 @@
 				<!-- 追加 -->
 				<div class="form-group">
 					<label>入学年度</label>
-					<select name="entrance_year" class="form-element" value="{{ old('entrance_year') }}">
+					<select name="entrance_year" class="form-element">
 						<option value="">選択してください</option>
-						<option value="その他">2010年度以前</option>
-						<option value="2010">2010年度(修士:2年生/学部:6年生)</option>
-						<option value="2011">2011年度(修士:1年生/学部:5年生)</option>
-						<option value="2012">2012年度(学部:4年生)</option>
-						<option value="2013">2013年度(学部:3年生)</option>
-						<option value="2014">2014年度(学部:2年生)</option>
-						<option value="2015">2015年度(学部:1年生)</option>
+						<option value="その他" {{old('entrance_year') === "その他"? "selected":""}}>2011年度以前</option>
+						<option value="2012" {{old('entrance_year') === "2012"? "selected":""}}>2012年度(4年生)</option>
+						<option value="2013" {{old('entrance_year') === "2013"? "selected":""}}>2013年度(3年生)</option>
+						<option value="2014" {{old('entrance_year') === "2014"? "selected":""}}>2014年度(2年生)</option>
+						<option value="2015" {{old('entrance_year') === "2015"? "selected":""}}>2015年度(1年生)</option>
 					</select>
 				</div>
 				<div class="form-group">
 					<label>学部</label>
-					<select name="faculty" class="form-element" value="{{ old('faculty') }}">
+					<select name="faculty" class="form-element">
 						<option value="">選択してください</option>
 						<optgroup label="--------学部--------">
-							<option value="人間科学部">人間科学部</option>
-							<option value="スポーツ科学部">スポーツ科学部</option>
+							<option value="人間科学部" 	 {{ old('faculty') === "人間科学部"? "selected":"" }}>人間科学部</option>
+							<option value="スポーツ科学部" {{ old('faculty') === "スポーツ科学部"? "selected":"" }}>スポーツ科学部</option>
 						</optgroup>
-						<optgroup label="-------大学院-------">
+<!-- 						<optgroup label="-------大学院-------">
 							<option value="人間科学研究科">人間科学研究科</option>
 							<option value="スポーツ科学研究科">スポーツ科学研究科</option>
-						</optgroup>
+						</optgroup> -->
 					</select>
 				</div>　
 				<div class="form-group">
 					<label>性別</label>
 					<div class="radio-btn">
 						<label>
-						<input type="radio" name="sex" value="男性">
+						<input type="radio" name="sex" value="男性" {{ old('sex') === "男性"? "checked":"" }}>
 						男性
 						</label>
 					</div>
 					<div class="radio-btn">
 						<label>
-						<input type="radio" name="sex" value="女性">
+						<input type="radio" name="sex" value="女性" {{ old('sex') === "女性"? "checked":"" }}>
 						女性
 						</label>
 					</div>
@@ -140,9 +138,9 @@
 						</div>
 					</div>
 				</div>
-				<div class="form-group">
-					<button type="submit" class="btn btn-primary">
-						登録
+				<div class="form-group text-center">
+					<button type="submit" class="btn btn-lg btn-primary">
+						新規登録
 					</button>
 				</div>
 			</form>

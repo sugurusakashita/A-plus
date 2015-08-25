@@ -16,6 +16,7 @@
       <p class="section-margin">よくある例</p>
       <ul style="font-size:14px; color:red;">
         <li>アバター画像のアップロードは2MB以下ですか？</li>
+        <li>SNS連携等では更新ボタンを押さないでください</li>
       </ul>
       <p class="section-margin">再度、アクセスをしても解決しない場合は、<a href="/help/inquiry">こちら</a>に発生したエラー内容と、その時の状況を教えていただけませんか？</p>
     </div>
