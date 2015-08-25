@@ -101,6 +101,11 @@ table{
 }
 /*end sidebar*/
 
+/*mypage start*/
+.review-edit-delete{
+  display: inline
+}
+/*mypage end*/
 svg{
   display: block;
 }

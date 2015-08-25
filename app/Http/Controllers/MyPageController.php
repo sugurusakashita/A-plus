@@ -25,7 +25,7 @@ class MyPageController extends Controller {
 		$this->middleware('auth');	
 		if (!Auth::check()){
 			//ログインチェック
-			return redirect()->to("/auth/login");   
+			return redirect()->to("/auth/login");
 		}
 		$user_id = $request->user()->user_id;
 
@@ -41,7 +41,7 @@ class MyPageController extends Controller {
 	{
 		$data['user'] = $this->user;
 		$data['reviews'] = $this->review;
-		
+
 		//$data['message'] = $request->message;
 		return view('mypage/index')->with('data',$data);
 

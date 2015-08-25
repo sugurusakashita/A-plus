@@ -277,10 +277,6 @@
 										</tbody>
 									</table>
 								</div>
-			<!-- 					<div class="bar_graph">
-									<h3>平常点評価</h3><hr>
-									<h4>出席</h4>
-								</div> -->
 							</div>
 							<div class="form-group">
 								<label>授業の感想 <span class="warning-text">※必須</span></label>

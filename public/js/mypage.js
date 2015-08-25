@@ -1,4 +1,5 @@
 jQuery(function ($) {
+
     $(".edit-button").click(function(){
         var prof_span = $(this).siblings(".profile-value");
         var name = $(this).parent().attr("class");
