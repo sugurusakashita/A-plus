@@ -10,9 +10,9 @@
 
 @section('main_content')
 
-<div class="panel panel-info" style="margin-bottom: 15px;">
-	<div class="panel-body">
-		<p>{{ $data['get']['term'] == 2? "":$data['term'][$data['get']['term']] }}
+<div class="panel panel-warning" style="margin-bottom: 15px;">
+	<div class="panel-title">
+		{{ $data['get']['term'] == 2? "":$data['term'][$data['get']['term']] }}
 				@if($data['get']['day'])
 					{{ $data['get']['day']}}
 					@if($data['get']['day'] != "夏季")
@@ -23,7 +23,6 @@
 			{{ '「'.$data['get']['q'].'」の検索結果' }}
 
 		{{ $data['classes']->total()? $data['classes']->total()."件ヒットしました！":"" }}
-		</p>
 	</div>
 </div>
 <form class="search_form" action="/search" method="get">

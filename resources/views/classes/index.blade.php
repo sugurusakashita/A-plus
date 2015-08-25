@@ -106,19 +106,19 @@
 								<tbody>
 									<tr>
 										<th>総合</th>
-										<td><span class="raty_stars_average"></span>(5.0点)</td>
+										<td><span class="raty_stars_average"></span></td>
 									</tr>
 									<tr>
 										<th>単位の取りやすさ</th>
-										<td><span class="raty_credit_average"></span>(5.0点)</td>
+										<td><span class="raty_credit_average"></span></td>
 									</tr>
 									<tr>
 										<th>GP(成績)の取りやすさ</th>
-										<td><span class="raty_grade_average"></span>(5.0点)</td>
+										<td><span class="raty_grade_average"></span></td>
 									</tr>
 							      	<tr>
 							      		<th>内容の充実度</th>
-							        	<td><span class="raty_grade_average"></span>(5.0点)</td>
+							        	<td><span class="raty_grade_average"></span></td>
 							      	</tr>
 								</tbody>
 							</table>

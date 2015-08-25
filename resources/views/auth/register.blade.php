@@ -6,18 +6,33 @@
 
 @section('main_content')
 
-<div class="col-md-8 col-md-offset-2">
-	<div class="panel panel-default">
-		<div class="panel-title">
-		  SNSアカウントで登録
-		</div>
-		<div class="panel-body">
-			<div class="social_register">
-				<a href="/auth/twitter-oauth" class="twitter">Twitter</a>
-				<a href="/auth/facebook-oauth" class="facebook">Facebook</a>
+<div>
+<div class="panel panel-info section-margin">
+	<div class="panel-title">
+		SNSアカウントで新規登録
+	</div>
+	<div class="panel-body">
+		<div class="col12 section-margin">
+			<div class="col6 text-center">
+				<a href="/auth/twitter-oauth">
+					<button type="button" class="btn btn-lg btn-info twitter-regi-button">
+						<span class="icon-twitter2 icons"></span>Twitterで新規登録
+					</button>
+				</a>
+			</div>
+			<div class="col6 text-center">
+				<a href="/auth/facebook-oauth">
+					<button type="button" class="btn btn-lg btn-info facebook-regi-button">
+						<span class="icon-facebook2 icons"></span>Facebookで新規登録
+					</button>
+				</a>
 			</div>
 		</div>
+		<div class="text-center ">
+			<p style="color:red">※無断でSNSにシェアやツイートなど発信することは一切ございません。</p>
+		</div>
 	</div>
+</div>
 	<br />
 	<div class="panel panel-default">
 		<div class="panel-title">
