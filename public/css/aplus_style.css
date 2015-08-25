@@ -163,6 +163,12 @@ text{
     background-color: #4C9AD6;
 }
 
+/*help start*/
+.manual-img{
+  width:86%;
+  height:auto;
+  margin: 3% 7%;
+}
 
 /* 以下タブ用のstyle */
 .tab-index ul {
