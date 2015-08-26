@@ -271,6 +271,10 @@ footer .allrights {
   margin: 0 14px;
 }
 @media screen and (max-width: 47.9375rem) {
+
+  #header-search-box{
+    display: none;
+  }
   /*top start*/
   .bland_img{
     width: 80%;

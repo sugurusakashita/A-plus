@@ -135,6 +135,7 @@
 								</tbody>
 							</table>
 						</div>
+
 						@if($data['attendance_data'])
 						<div class="col6">
 							<h3><span class="icon-user-check icons" style="top:3px; position:relative;"></span>出席</h3><hr>

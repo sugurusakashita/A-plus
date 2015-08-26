@@ -22,7 +22,7 @@ class MyPageController extends Controller {
 	public function __construct(User $user,Request $request,Review $review){
 
 		//ミドルウェアでゲストユーザをフィルタ
-		$this->middleware('auth');	
+		$this->middleware('auth');
 		if (!Auth::check()){
 			//ログインチェック
 			return redirect()->to("/auth/login");
@@ -102,14 +102,12 @@ class MyPageController extends Controller {
 		//設定されていない場合、NULL
 		$avatar = $request->file('avatar');
 
-
 		if(is_null($avatar)) {
 			$data['user']->avatar = NULL;
 			$data['user']->save();
 
 			return redirect()->to('mypage/index')->withInput(array("message" => $message));
 		}
-
 
 		//バリデーション
 		$validation["avatar"] = 'image|mimes:jpeg,jpg,gif,png|max:1500';

@@ -27,12 +27,12 @@ class Review extends Model {
 
     public function attendance($id)
     {
-        return $this->select(DB::raw('attendance, count(attendance) as total'))->where('class_id','=',$id)->groupBy('attendance')->get();
+        return $this->select(DB::raw('attendance, count(attendance) as total'))->where('class_id','=',$id)->where("attendance",'>','0')->groupBy('attendance')->get();
     }
 
     public function bring($id)
     {
-        return $this->select(DB::raw('bring, count(bring) as total'))->where('class_id','=',$id)->groupBy('bring')->get();
+        return $this->select(DB::raw('bring, count(bring) as total'))->where('class_id','=',$id)->where("bring",'>','0')->groupBy('bring')->get();
     }
     public function final_evaluations($id)
     {

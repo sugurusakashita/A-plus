@@ -45,12 +45,6 @@ class AuthController extends Controller {
 		$this->auth = $auth;
 		$this->registrar = $registrar;
 
-		// ユーザーが授業をレビューしようと思ってログイン処理を要求されたとき、
-		// その授業レビューページへリダイレクトする
-		// if($id = Session::get(self::AUTH_LOGIN_REDIRECT_ID)){
-		// 	$this->redirectTo = '/classes/review/' . $id;
-		// }
-
 		$this->middleware('guest', ['except' => ['getLogout','getDeleteAccount','postDeleteAccount']]);
 		$this->middleware('auth', ['only' => ['getDeleteAccount','postDeleteAccount']]);
 	}
@@ -78,7 +72,7 @@ class AuthController extends Controller {
 		$data = array();
 		$user = $this->user;
 		$social =  Socialize::with('twitter')->user();
-		
+
 		$data["social_id"] = $social->getId();
 		//ログイン
 		if($user = $user->where("social_id",'=',$data["social_id"])->first()){
@@ -97,7 +91,7 @@ class AuthController extends Controller {
 
 	/**
 	 * Facebook API OAuth リダイレクト処理
-	 * 
+	 *
 	 * @author shalman
 	 * @return void
 	 */
@@ -180,7 +174,7 @@ class AuthController extends Controller {
 
 		// user_id取得
 		$id = Auth::user()->user_id;
-		
+
 		//削除
 		if($this->user->find($id)->delete()){
 			$data["top_message"] = "退会が完了いたしました。<br>ご利用ありがとうございました。";
