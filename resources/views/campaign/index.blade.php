@@ -7,10 +7,11 @@
 @section('meta')
 <meta name="description" itemprop="description" content="大学生活をさらにスマートに。さらに賢く。" />
 <meta name="keywords" itemprop="keywords" content="A+plus,キャンペーン,Amazonギフト券,レビュー,早稲田" />
-<meta name="twitter:card" content="summary" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:iamge" content="{{ asset('image/campaign/event1-lg.png') }}" />
 <meta property="og:title" content="会員登録・レビューでAmazonギフト券1000円分キャンペーン | A+plus" />
-<meta property="og:url" content="{{ url() }}" />
-<meta property="og:image" content="{{ asset('image/campaign/event1-lg.png') }}" />
+<meta property="og:url" content="{{ url('campaign/index',[1]) }}" />
+<meta property="og:image" content="{{ asset('image/meta/logo320.png') }}" />
 <meta property="og:site_name" content="早稲田大学所沢キャンパス 授業レビューサイト A+plus" />
 <meta property="og:description" content="A+plusでは早稲田大学所沢キャンパスの授業レビューを提供しています。" />
 <meta itemprop="image" content="{{ asset('image/top/top-main.gif') }}" />
