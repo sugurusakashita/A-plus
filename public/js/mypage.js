@@ -1,5 +1,12 @@
 jQuery(function ($) {
 
+    $(".raty_stars").raty({
+        score:function(){
+            return $(this).attr('data-star');
+        },
+        readOnly:true
+    });
+
     $(".edit-button").click(function(){
         var prof_span = $(this).siblings(".profile-value");
         var name = $(this).parent().attr("class");

@@ -121,7 +121,12 @@
 		</div>
 	</div>
 	<div class="panel panel-primary section-margin">
-		<div class="panel-title">レビュー履歴</div>
+		<div class="panel-title">
+			<div class="row-fluid">
+				<div class="col9">レビュー履歴</div>
+				<div class="col3">合計レビュー件数: <span style="color:#F35D5D;">{{ $data['reviews']->count() }}件</span></div>
+			</div>
+		</div>
 		<div class="panel-body">
 			@if(!$data['reviews']->count())
 				<p style='color:#FF0000;'>まだレビューされていません。</p>
@@ -152,20 +157,22 @@
 				<div class="panel-title">
 					<div class="row-fluid">
 						<div class="col3">
-						総合<p class="raty_stars_average">{{ $review->stars }}</p>
+						総合<span class="raty_stars" data-star="{{ $review->stars }}"></span>
 						</div>
 						<div class="col3">
-						単位の取りやすさ<p class="raty_stars_average">{{ $review->unit_stars }}</p>
+						単位の取りやすさ<span class="raty_stars" data-star="{{ $review->unit_stars }}"></span>
 						</div>
 						<div class="col3">
-						GP(成績)の取りやすさ<p class="raty_stars_average">{{ $review->grade_stars }}</p>
+						GP(成績)の取りやすさ<span class="raty_stars" data-star="{{ $review->grade_stars }}"></span>
 						</div>
 						<div class="col3">
-						内容の充実度<p class="raty_stars_average">{{ $review->fulfill_stars }}</p>
+						内容の充実度<span class="raty_stars" data-star="{{ $review->fulfill_stars }}"></span>
 						</div>
 					</div>
 				</div>
-				<div class="panel-body">{{ $review->review_comment }}</div>
+				<div class="panel-body">
+					{{ mb_strimwidth($review->review_comment,0,100,"...") }}
+				</div>
 			</div>
 			@endforeach
 			@endif
@@ -182,4 +189,5 @@
 
 	</script>
 	<script type="text/javascript" src="{{ asset('/js/mypage.js') }}"></script>
+	<script type="text/javascript" src="{{ asset('/raty_lib/jquery.raty.js') }}"></script>
 @stop

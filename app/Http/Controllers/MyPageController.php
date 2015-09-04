@@ -41,7 +41,6 @@ class MyPageController extends Controller {
 	{
 		$data['user'] = $this->user;
 		$data['reviews'] = $this->review;
-
 		//$data['message'] = $request->message;
 		return view('mypage/index')->with('data',$data);
 
