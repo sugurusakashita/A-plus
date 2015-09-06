@@ -14,7 +14,7 @@
             <div class="col4">
             	<h3><span class="icon-bubbles footer-header-icon"></span>SNS OFFICIAL SITE</h3><hr>
             	<a href="https://twitter.com/waseda_Aplus"><span class="icon-twitter2 footer-sns-icons"></span></a>
-            	<a href=""><span class="icon-facebook2 footer-sns-icons"></span></a>
+            	<a href="https://www.facebook.com/waseda.Aplus"><span class="icon-facebook2 footer-sns-icons"></span></a>
             </div>
             <div class="col4">
             	<h3><span class="icon-envelop footer-header-icon"></span>お問い合わせ</h3><hr>

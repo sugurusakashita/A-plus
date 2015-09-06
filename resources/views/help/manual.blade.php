@@ -88,7 +88,7 @@ A+plusの使い方 | A+plus
 			<span class="icon-plus footer-header-icon"></span>その他
     	</div>
     	<div class="panel-body">
-		    <p>その他、何かご不明な点などあれば、<a href=/help/inquiry>お問い合わせフォーム</a>よりお願いいたします。</p>
+		    <p>その他、何かご不明な点などあれば、<a href="/help/inquiry">お問い合わせフォーム</a>よりお願いいたします。</p>
     	</div>
     </div>
 </div>
