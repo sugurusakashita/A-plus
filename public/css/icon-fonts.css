@@ -23,18 +23,6 @@
 	-moz-osx-font-smoothing: grayscale;
 }
 
-.icon-cog:before {
-	content: "\e620";
-}
-.icon-chart:before {
-	content: "\e621";
-}
-.icon-book:before {
-	content: "\f007";
-}
-.icon-x:before {
-	content: "\f081";
-}
 .icon-pencil2:before {
 	content: "\e600";
 }
@@ -65,29 +53,14 @@
 .icon-bubbles3:before {
 	content: "\e609";
 }
-.icon-user:before {
+.icon-user2:before {
 	content: "\e60a";
-}
-.icon-user-check:before {
-	content: "\e625";
 }
 .icon-user-tie:before {
 	content: "\e60b";
 }
-.icon-search:before {
-	content: "\e624";
-}
 .icon-trophy:before {
 	content: "\e60c";
-}
-.icon-briefcase:before {
-	content: "\e626";
-}
-.icon-star-empty:before {
-	content: "\e622";
-}
-.icon-star-full:before {
-	content: "\e623";
 }
 .icon-warning:before {
 	content: "\e60d";
@@ -145,4 +118,37 @@
 }
 .icon-twitter2:before {
 	content: "\e61f";
+}
+.icon-cog:before {
+	content: "\e620";
+}
+.icon-chart:before {
+	content: "\e621";
+}
+.icon-star-empty:before {
+	content: "\e622";
+}
+.icon-star-full:before {
+	content: "\e623";
+}
+.icon-search:before {
+	content: "\e624";
+}
+.icon-user-check:before {
+	content: "\e625";
+}
+.icon-briefcase:before {
+	content: "\e626";
+}
+.icon-book:before {
+	content: "\f007";
+}
+.icon-x:before {
+	content: "\f081";
+}
+.icon-clock:before {
+	content: "\e627";
+}
+.icon-user:before {
+	content: "\e628";
 }

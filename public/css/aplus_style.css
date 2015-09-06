@@ -142,6 +142,14 @@ svg{
   font-size:14px;
   top: 1px;
 }
+/*classes start*/
+.reviewer-info{
+  display: inline-table;
+  margin-left:3%;
+}
+.review-panel-title{
+  padding: 0.8rem .875rem;
+}
 #eval_pie{
   margin: 0 auto;
 }
@@ -166,6 +174,7 @@ text{
 /*  margin: 16% 0;
   position: relative;*/
 }
+/*classes end*/
 
 .warning-text{
   color: #FF5B5B;
@@ -302,6 +311,7 @@ footer .allrights {
   /*classes start*/
   .class-name{
     font-size:1.1em;
-  /*classes end*/
   }
+  /*classes end*/
+
 }

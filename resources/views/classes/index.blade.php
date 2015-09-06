@@ -177,12 +177,32 @@
 					</div>
 				@else
 				<p style="font-size:15px;">レビューの書き直しは<a href="/mypage/index">マイページ</a>からできます</p>
-					<div id="review-table">
-						<table class="table table-bordered" style="margin: 20px auto;">
+					<div id="review-list">
+					@foreach($data['review'] as $r)
+					<div class="panel panel-primary section-margin">
+							<div class="panel-title review-panel-title">
+								<div class="row-fluid">
+									<div class="col9">
+										<img src="{{ isset($r->users()->first()->avatar)? $r->users()->first()->avatar:asset('/image/dummy.png') }}" width="70"height="70" alt="reviewer_avatar" style="vertical-align:top;">
+										<div class="reviewer-info">
+											<p style="margin-top:3%;">{{ isset($r->users()->first()->name)? $r->users()->first()->name:"不明なユーザ" }}</p>
+											<p>総合 <span class="reviewer-stars" data-star="{{ $r->stars }}"></span></p>
+										</div>
+									</div>
+									<div class="col3">
+										<span class="icon-clock"></span> {{ $r->updated_at}}
+									</div>
+								</div>
+							</div>
+						<div class="panel-body">
+							{{ $r->review_comment }}
+						</div>
+					</div>
+					@endforeach
+<!-- 						<table class="table table-bordered" style="margin: 20px auto;">
 							<thead>
 								<tr>
 								<th>投稿者</th>
-	<!-- 							<th>総合評価度</th> -->
 								<th>レビュー</th>
 								</tr>
 							</thead>
@@ -193,12 +213,11 @@
 				    			<img src="{{ isset($r->users()->first()->avatar)? $r->users()->first()->avatar:asset('/image/dummy.png') }}" width="70"height="70"><br />
 				    			{{ isset($r->users()->first()->name)? $r->users()->first()->name:"不明なユーザ" }}
 				    		</td>
-	<!-- 		         	<td>{{{ $r->stars }}}</td> -->
 			         	<td>{{{ $r->review_comment }}}</td>
 			 				</tr>
 				      @endforeach
 							</tbody>
-						</table>
+						</table> -->
 					</div>
 					@endif
 					@if(!Auth::check())

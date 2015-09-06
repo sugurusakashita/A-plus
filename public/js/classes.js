@@ -1,5 +1,13 @@
 jQuery(function ($) {
 
+    //レビューの総合星
+    $(".reviewer-stars").raty({
+        score:function(){
+            return $(this).attr('data-star');
+        },
+        readOnly:true
+    });
+
     // getAverageStar([APIのURL], [星を表示したいhtml上のid]);
     // 平均値を取得し、星を表示する
     getAverageStar('stars-average', '.raty_stars_average');
@@ -131,16 +139,23 @@ jQuery(function ($) {
                     }
 
                     //追加アニメーション
-                    var tableObj;
+                    var reviewObj;
                     if($('.no-review').length === 0){
                     //レビューがある
-                        tableObj = '<tr><td><img src="'+data["avatar"]+'" width="70"height="70"><br />'+data["name"]+'</td><td>'+params['review_comment']+'</td></tr>';
-                        $('#review-table  tbody').prepend(tableObj).trigger("create"); 
+                        //reviewObj = '<div class="panel panel-primary section-margin"><div class="panel-title review-panel-title"><div class="row-fluid"><div class="col8"><img src="'+data["avatar"]+'" width="70"height="70" alt="reviewer_avatar" style="vertical-align:top;"><div class="reviewer-info"><p style="margin-top:3%;">'+data["name"]+'</p><p>総合 <span class="reviewer-stars" data-star="'+params["stars"]+'"></span></p></div></div></div></div><div class="panel-body">'+params['review_comment']+'</div></div>';
+                        $('#review-list').load('./'+class_id +' #review-list',function(){
+                            $.getScript("/js/classes.js");
+                        });
+                        //$('#review-list').prepend(reviewObj).trigger("create");
                     }else{
                     //レビューがない
                         $('.no-review').fadeOut("fast",function(){
-                            tableObj = '<div><table class="table table-bordered" style="margin: 20px auto;"><tbody><tr><th>投稿者</th><th>レビュー</th></tr><tr><td><img src="'+data["avatar"]+'" width="70"height="70"><br />'+data["name"]+'</td><td>'+params['review_comment']+'</td></tr></tbody></table></div>';
-                            $('#tab2').prepend(tableObj).trigger("create");
+                            //reviewObj = '<div class="panel panel-primary section-margin"><div class="panel-title review-panel-title"><div class="row-fluid"><div class="col8"><img src="'+data["avatar"]+'" width="70"height="70" alt="reviewer_avatar" style="vertical-align:top;"><div class="reviewer-info"><p style="margin-top:3%;">'+data["name"]+'</p><p>総合 <span class="reviewer-stars" data-star="'+params["stars"]+'"></span></p></div></div></div></div><div class="panel-body">'+params['review_comment']+'</div></div>';
+                            $('#tab2').load('./'+class_id+' #review-list',function(){
+                                 $.getScript("/js/classes.js");
+                            });
+                            //location.reload(true);
+                            //$('#tab2').prepend(reviewObj).trigger("create");
                         });
                     }
                 });
