@@ -161,7 +161,10 @@
 					 	</div>
 					</div>
 						<a href="{{ $data['actual_syllabus_url'] }}" target="_blank"><button class="btn btn-info">公式シラバスを見る</button></a>
-						<a href="https://twitter.com/share?text={{ $data['detail']->class_name }}の授業レビュー / " target="_blank"><button class="btn btn-info twitter_share">このレビューをつぶやく</button></a>
+						<div class="class-share section-margin">
+							<a href="https://twitter.com/share" class="twitter-share-button" data-text="{{ $data['detail']->class_name }}の授業レビュー / 早稲田大学所沢キャンパス 授業レビューサイト A+plus" data-count="vertical"　data-via="waseda_Aplus" data-lang="ja" data-hashtags="エイプラ">ツイート</a>
+							<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+						</div>
 					<div class="check-official-data warning-text">
 						<p>授業情報は常に変更がございます。特に履修時は、必ず公式シラバスや履修登録ページで確認してください。</p>
 					</div>
@@ -253,7 +256,7 @@
 									<table class="table table-bordered">
 										<tbody>
 											<tr>
-												<th>受講した学年</th>
+												<th>受講した学年<span class="warning-text">※必須</span></th>
 												<td>
 													<select name="grade">
 														<option value="1">1年</option>

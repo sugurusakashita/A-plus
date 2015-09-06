@@ -10,7 +10,12 @@ A+plusの使い方 | A+plus
 
 @section('main_content')
 <div class="alert a-is-info" style="margin: 0 auto 5px;">
-	<p>A+plusの使い方<br><a href=#regi>会員登録</a>&nbsp;|&nbsp;<a href=#search>授業の検索</a>&nbsp;|&nbsp;<a href=#view>授業詳細ページ</a>&nbsp;|&nbsp;<a href=#mypage>マイページ</a>&nbsp;|&nbsp;<a href=#other>その他</a></p>
+	<p>A+plusの使い方<br>
+        <a href=#regi>会員登録</a>&nbsp;|&nbsp;<a href=#search>授業の検索</a>&nbsp;|&nbsp;
+        <a href=#view>授業詳細ページ</a>&nbsp;|&nbsp;<a href=#mypage>マイページ
+        </a>&nbsp;|&nbsp;<a href=#other>その他</a>
+    </p>
+    <p class="warning-text" style="color:red;">※画面は全て、製作中のものです。<br>※PCサイトを元に解説しています。</p>
 </div>
 <div id="regi">
     <div class="panel panel-warning section-margin">

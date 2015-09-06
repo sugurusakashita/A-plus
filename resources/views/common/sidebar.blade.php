@@ -22,5 +22,9 @@
     ?>
     </div>
   </div>
+  <div class="follow-us">
+    <a class="twitter-timeline" href="https://twitter.com/waseda_Aplus" data-widget-id="640404274493587456">@waseda_Aplusさんのツイート</a>
+    <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+  </div>
 
 </div>
