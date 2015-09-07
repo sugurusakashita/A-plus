@@ -27,6 +27,8 @@ class MyPageController extends Controller {
 			//ログインチェック
 			return redirect()->to("/auth/login");
 		}
+		//他人のレビューを改竄しようとしたユーザーをフィルタ
+		$this->middleware("validReviewer",["only" => ["getEdit","postEditConfirm","postEditComplete","postDeleteConfirm","postDeleteComplete"]]);
 		$user_id = $request->user()->user_id;
 
 		$this->user = $user->find($user_id);
@@ -41,7 +43,7 @@ class MyPageController extends Controller {
 	{
 		$data['user'] = $this->user;
 		$data['reviews'] = $this->review;
-		//$data['message'] = $request->message;
+
 		return view('mypage/index')->with('data',$data);
 
 	}
@@ -125,5 +127,127 @@ class MyPageController extends Controller {
 
 		return redirect()->to('mypage/index')->withInput(array("message" => $message));
 
+	}
+
+	/**
+	 * 授業レビュー再編集
+	 *
+	 * @param Request
+	 * @author shalman
+	 * @return view
+	 *
+	 */
+
+	public function getEdit(Request $request){
+
+		$data['detail'] = $this->review->find($request->review_id);
+		return view('mypage/edit')->with('data',$data);
+	}
+
+
+	/**
+	 * 授業レビュー再編集確認
+	 *
+	 * @param Request
+	 * @author shalman
+	 * @return view
+	 *
+	 */
+
+	public function postEditConfirm(Request $request){
+		$review = $this->review->find($request->review_id);
+		$data = $request->all();
+
+		//レビューバリデーション
+		$this->reviewValidation($request);
+
+		return view('mypage/editconfirm')->with('data',$data)->with('review',$review);
+
+	}
+
+
+	/**
+	 * 授業レビュー再編集完了
+	 *
+	 * @param Request
+	 * @author shalman
+	 * @return view
+	 *
+	 */
+
+	public function postEditComplete(Request $request){
+
+		if(!is_null($request->_return)){
+			return redirect()->to("/mypage/edit?review_id=".$request->review_id."&_token=".$request->_token)->withInput();
+		}
+		$id = $request->review_id;
+		$review = $this->review->find($id);
+
+		$req = $request->all();
+
+		$review->fill($req);
+    	$review->save();
+
+    	$data["message"] = "レビューの編集が完了いたしました。";
+		return redirect()->to("/mypage/index")->withInput($data);
+	}
+
+
+	/**
+	 * 授業レビュー削除
+	 *
+	 * @param Request
+	 * @author shalman
+	 * @return view
+	 *
+	 */
+
+	public function postDeleteConfirm(Request $request){
+		$data = $request->all();
+		$id = $data['review_id'];
+		$data['detail'] = $this->review->find($id);
+
+		return view('mypage/deleteconfirm')->with('data',$data);
+
+	}
+
+	/**
+	 * 授業レビュー削除完了
+	 *
+	 * @param Request
+	 * @author shalman
+	 * @return view
+	 *
+	 */
+
+	public function postDeleteComplete(Request $request){
+		$review_id = $request->review_id;
+		$review = $this->review->find($review_id);
+
+		$review->delete();
+
+    	$data["message"] = "レビューの削除が完了いたしました。";
+		return redirect()->to("/mypage/index")->withInput($data);
+
+	}
+
+	/**
+	 * レビューバリデーション
+	 *
+	 * @param request
+	 * @author shalman
+	 * @return mixed
+	 *
+	 */
+
+	public function reviewValidation($request){
+		return $this->validate($request,[
+			// "grade" => "required",
+			"stars" => "required",
+			"unit_stars" => "required",
+			"grade_stars" => "required",
+			"fulfill_stars" => "required",
+			"review_comment" => "required|min:10|max:500"
+			]);
 	}
 }

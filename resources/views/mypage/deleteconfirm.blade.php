@@ -18,7 +18,7 @@
 <div class="panel panel-primary">
   <div class="panel-title header-font">レビュー削除 | {{ $data['detail']->classes()->first()->class_name }} | 確認 </div>
   <div class="panel-body">
-		<form action="/classes/delete-complete" method="POST">
+		<form action="/mypage/delete-complete" method="POST">
 				<div class="row-fluid">
 				        <div class="col6">
 				          <table class="table table-bordered" >

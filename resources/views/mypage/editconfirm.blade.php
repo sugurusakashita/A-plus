@@ -18,7 +18,7 @@
 <div class="panel panel-primary">
   <div class="panel-title header-font">レビュー編集 | {{ $review->classes()->first()->class_name }} |  確認 </div>
   <div class="panel-body">
-	<form action="/classes/edit-complete" method="POST">
+	<form action="/mypage/edit-complete" method="POST">
 		<div class="row-fluid">
 		        <div class="col6">
 		          <table class="table table-bordered" >
@@ -87,7 +87,7 @@
 		@endif
 		<input type="hidden" name="_token" value="{{csrf_token()}}">
 		<button type="submit" class="btn btn-primary">レビューを更新する</button>
-		<!-- <a href="{{ $_SERVER['HTTP_REFERER'] }}"><button type="button" class="btn btn-default">書き直す</button></a> -->
+		<button type="submit" class="btn btn-default" name="_return" value="1">書き直す</button>
 	</form>
 
 	</div>

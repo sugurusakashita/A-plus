@@ -94,14 +94,6 @@ jQuery(function ($) {
     //ajax投稿
     $(".review-submit-button").on("click",function(){
 
-        //レビュー情報
-            // stars = $('input[name=stars]').val(),
-            // grade_stars = $('input[name=grade_stars]').val(),
-            // unit_stars = $('input[name=unit_stars]').val(),
-            // attendance = $('input[name=attendance]').val(),
-            // bring = $('input[name=bring]').val(),
-            // review_comment = $('input[name=review_comment]').val();
-
         var params = {
                 "stars"         : $('input[name=stars]').val(),
                 "grade_stars"   : $('input[name=grade_stars]').val(),

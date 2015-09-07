@@ -30,7 +30,7 @@
 <div class="panel panel-primary">
   <div class="panel-title header-font">レビュー編集 | {{ $data['detail']->classes()->first()->class_name }}</div>
   <div class="panel-body">
-    <form action="/classes/edit-confirm" method="POST">
+    <form action="/mypage/edit-confirm" method="POST">
       <div class="row-fluid">
                 <div class="col6">
                   <table class="table table-bordered" >
@@ -59,7 +59,7 @@
                   <table class="table table-bordered">
                     <tbody>
                       <tr>
-                        <th>受講した学年</th>
+                        <th>受講した学年 <span class="warning-text">※必須</span></th>
                         <td>
                           <select name="grade">
                             <option value="1" {{ $data['detail']['grade'] === "1"? "selected":"" }}>1年</option>

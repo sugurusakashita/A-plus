@@ -39,9 +39,7 @@ class ClassesController extends Controller {
 		$this->teacher = $teacher;
 
 		//Authフィルタのホワイトリスト
-		$this->middleware("auth",["only" => ["getReview","postConfirm","postComplete","getEdit","postEditConfirm","postEditComplete","postDeleteConfirm","postDeleteComplete",'postAjaxReview']]);
-		//他人のレビューを改竄しようとしたユーザーをフィルタ
-		$this->middleware("validReviewer",["only" => ["getEdit","postEditConfirm","postEditComplete","postDeleteConfirm","postDeleteComplete"]]);
+		$this->middleware("auth",["only" => ['postAjaxReview']]);
 	}
 
 	/**
@@ -195,104 +193,6 @@ class ClassesController extends Controller {
 	}
 
 	/**
-	 * 授業レビュー再編集
-	 *
-	 * @param Request
-	 * @author shalman
-	 * @return view
-	 *
-	 */
-
-	public function getEdit(Request $request){
-		$data['detail'] = $this->review->find($request->review_id);
-		return view('classes/edit')->with('data',$data);
-	}
-
-
-	/**
-	 * 授業レビュー再編集確認
-	 *
-	 * @param Request
-	 * @author shalman
-	 * @return view
-	 *
-	 */
-
-	public function postEditConfirm(Request $request){
-		$review = $this->review->find($request->review_id);
-		$data = $request->all();
-
-		//レビューバリデーション
-		$this->reviewValidation($request);
-
-		return view('classes/editconfirm')->with('data',$data)->with('review',$review);
-
-	}
-
-
-	/**
-	 * 授業レビュー再編集完了
-	 *
-	 * @param Request
-	 * @author shalman
-	 * @return view
-	 *
-	 */
-
-	public function postEditComplete(Request $request){
-
-		$id = $request->review_id;
-		$review = $this->review->find($id);
-
-		$req = $request->all();
-
-		$review->fill($req);
-    	$review->save();
-
-    	$data["message"] = "レビューの編集が完了いたしました。";
-		return redirect()->to("/mypage/index")->withInput($data);
-	}
-
-
-	/**
-	 * 授業レビュー削除
-	 *
-	 * @param Request
-	 * @author shalman
-	 * @return view
-	 *
-	 */
-
-	public function postDeleteConfirm(Request $request){
-		$data = $request->all();
-		$id = $data['review_id'];
-		$data['detail'] = $this->review->find($id);
-
-		return view('classes/deleteconfirm')->with('data',$data);
-
-	}
-
-	/**
-	 * 授業レビュー削除完了
-	 *
-	 * @param Request
-	 * @author shalman
-	 * @return view
-	 *
-	 */
-
-	public function postDeleteComplete(Request $request){
-		$review_id = $request->review_id;
-		$review = $this->review->find($review_id);
-
-		$review->delete();
-
-    	$data["message"] = "レビューの削除が完了いたしました。";
-		return redirect()->to("/mypage/index")->withInput($data);
-
-	}
-
-	/**
 	 * ユニークアカウントをカウント
 	 *
 	 * @param pv, id
@@ -391,14 +291,14 @@ class ClassesController extends Controller {
 	 *
 	 */
 
-	public function postAjaxReview(Request $request){
+	public function postAjaxReview(Request $request,MyPageController $mypage){
 		//ajax以外のアクセスを禁止
 		if(!$request->ajax()){
  			return null;
 		}
 
 		//レビューバリデーション
-		$this->reviewValidation($request);
+		$mypage->reviewValidation($request);
 
 		$user = Auth::user();
 		$request["user_id"] = $user->user_id;
@@ -418,26 +318,6 @@ class ClassesController extends Controller {
 
 		return json_encode($data);
 
-	}
-
-	/**
-	 * レビューバリデーション
-	 *
-	 * @param request
-	 * @author shalman
-	 * @return mixed
-	 *
-	 */
-
-	public function reviewValidation($request){
-		return $this->validate($request,[
-			// "grade" => "required",
-			"stars" => "required",
-			"unit_stars" => "required",
-			"grade_stars" => "required",
-			"fulfill_stars" => "required",
-			"review_comment" => "required|min:10|max:500"
-			]);
 	}
 
 }

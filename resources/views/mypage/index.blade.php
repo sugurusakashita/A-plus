@@ -137,12 +137,12 @@
 					<div class="row-fluid">
 						<div class="col9" style='font-size:1.3em'>
 							<a href="/classes/index/{{ $review->classes()->first()->class_id }}">{{ $review->classes()->first()->class_name }}</a>
-							<form action="/classes/edit" method="get" class="review-edit-delete">
+							<form action="/mypage/edit" method="get" class="review-edit-delete">
 									<input type="hidden" value="{{{ $review->review_id }}}" name="review_id">
 									<input type="hidden" name="_token" value="{{csrf_token()}}" />
 									<button type="submit" class="btn btn-success btn-sm" >編集</button>
 						        </form>
-						        <form action="/classes/delete-confirm" method="POST" class="review-edit-delete">
+						        <form action="/mypage/delete-confirm" method="POST" class="review-edit-delete">
 						          	<input type="hidden" value="{{{ $review->review_id }}}" name="review_id">
 						          	<input type="hidden" name="_token" value="{{csrf_token()}}" />
 						          	<button type="submit" class="btn btn-danger btn-sm">削除</button>
