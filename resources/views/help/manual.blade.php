@@ -15,7 +15,7 @@ A+plusの使い方 | A+plus
         <a href=#view>授業詳細ページ</a>&nbsp;|&nbsp;<a href=#mypage>マイページ
         </a>&nbsp;|&nbsp;<a href=#other>その他</a>
     </p>
-    <p class="warning-text" style="color:red;">※画面は全て、製作中のものです。<br>※PCサイトを元に解説しています。</p>
+    <p class="warning-text" style="color:red;">※画面は全て、製作中のものです。現在のバージョンと異なることがございます。<br>※PCサイトを元に解説しています。</p>
 </div>
 <div id="regi">
     <div class="panel panel-warning section-margin">
@@ -43,7 +43,7 @@ A+plusの使い方 | A+plus
             <p>トップページ中央または各ページ左上の検索窓にキーワードを入力することで、授業を検索することができます。</p>
             <img class="manual-img" src="/image/help/exsearchtop.png" alt="トップ検索">
             <img class="manual-img" src="/image/help/exsearchheader.png" alt="ヘッダー検索">
-		    <p>検索窓を空欄のまま検索すると、より細かい検索項目を設定できます。</p>
+		    <p>検索ページではより細かい検索項目を設定できます。</p>
             <img class="manual-img" src="/image/help/exsearch.png" alt="検索オプション">
             <p>検索結果では、授業の曜日・時限・レビューの件数・科目名・タグ・担当講師・授業の概要が表示されます。</p>
             <img class="manual-img" src="/image/help/exsearchresult.png" alt="検索結果">

@@ -42,16 +42,20 @@ class SearchController extends Controller {
 	public function getIndex(Request $request){
 
 		$search_queries = array();
-		$search_session = ["day" =>"0","period" => "0","term" => "2","q" =>""];
-
+		$search_session = array();
 		//検索からinputしたら
 		if($token = $request->_token){
 			//検索オプション定義、サニタイズ
-			$day	 	= htmlspecialchars($request->day ?:"0",ENT_QUOTES);
-			$period 	= htmlspecialchars($request->period ?:"0",ENT_QUOTES);
-			$term 		= htmlspecialchars($request->term ?:"2",ENT_QUOTES);
-			$query 		= htmlspecialchars(Input::get('q') ?:"",ENT_QUOTES);
+			$day	 	= htmlspecialchars($request->day,ENT_QUOTES);
+			$period 	= htmlspecialchars($request->period,ENT_QUOTES);
+			$term 		= htmlspecialchars($request->term,ENT_QUOTES);
+			$query 		= htmlspecialchars(Input::get('q'),ENT_QUOTES);
+			$faculty 	= htmlspecialchars($request->faculty,ENT_QUOTES);
 
+			//夏期集中orオンデマ
+			if($day == '無その他' || $day == '無フルOD'){
+				$period = '';
+			}
 			$search_queries = $this->query2array($query);
 
 			//検索の値をDBに
@@ -64,7 +68,7 @@ class SearchController extends Controller {
 								$queries->save();
 						}else{
 							$target_word->increment("count");
-						}	
+						}
 					}
 				}
 			}
@@ -73,6 +77,7 @@ class SearchController extends Controller {
 									'day' 	=> $day,
 									'period'=> $period,
 									'term' 	=> $term,
+									'faculty'	=>	$faculty,
 									'_token' =>	$token);
 
 			Session::put("search_session",$search_session);
@@ -81,35 +86,27 @@ class SearchController extends Controller {
 		}else{
 			if(Session::has("search_session")){
 				$search_session = Session::get("search_session");
-
 			}
 
-
-			$day = $search_session['day'] ?:"0";
-			$period = $search_session['period'] ?:"0";
-			$term = $search_session['term'] ?:"2";
-			$query = $search_session['q'] ?:"";
-
-			$search_queries = $this->query2array($query);
+			$search_queries = $this->query2array($search_session['q']);
 		}
 		//配列要素は5つまで
 		while(count($search_queries) > 5){
 			array_pop($search_queries);
 		}
+
 		//ページネーション用変数
 		$page = Input::get("page");
 		$limit = 10;
 		$page_num = is_null($page)? 1:$page;
 		$offset = ($limit * $page_num) - $limit;
-		$data['classes'] = $this->classes_list($day,$period,$term,$search_queries);
+		$data['classes'] = $this->classes_list($search_session);
 		$total = $data['classes']->count();
-
 		//ページネーター作成
 		$data['classes'] = new LengthAwarePaginator($data['classes']->skip($offset)->take($limit)->get(),$total,$limit,$page,array("path"=>"search"));
 
-		$data['term'] = ["春学期 ","秋学期 "];
+		$data['res_string'] = $this->genSearchTitle($search_session);
 		$data['get'] = $search_session;
-
 		$data['review'] = $this->review;
 		$data['tag'] = $this->tag;
 
@@ -141,6 +138,41 @@ class SearchController extends Controller {
 		return $search_queries;
 
 	}
+
+	/**
+	 * 検索結果の表示テキストを生成。
+	 *
+	 * @param array
+	 * @author shalman
+	 * @return string
+	 *
+	 */
+
+	function genSearchTitle($data){
+		$res = "";
+
+		if(!empty($data["faculty"])){
+			$res .= $data["faculty"]." ";
+		}
+		if($data["term"] !== ""){
+			$res .= $data["term"] === "0"? "春学期":"秋学期";
+			$res .= " ";
+		}
+		if(!empty($data["day"])){
+			$res .= $data["day"];
+			if($data["day"] !== "無その他" && $data["day"] !== "無フルOD"){
+				$res .= "曜日";
+			}
+			$res .= " ";
+		}
+		if(!empty($data["period"])){
+			$res .= $data["period"]."限 ";
+		}
+
+		$res .= "「".$data["q"]."」の検索結果 ";
+
+		return $res;
+	 }
 	/**
 	 * 検索メソッド
 	 *
@@ -150,19 +182,21 @@ class SearchController extends Controller {
 	 *
 	 */
 
-	function classes_list($day,$period,$term,$search_queries){
+	function classes_list($session){
 
+		$day = $session['day'];
+		$period = $session['period'];
+		$term = $session['term'];
+		$faculty = $session['faculty'];
+		$query = $session['q'];
 		$data = $this->classes;
 
-		//夏期集中
-		if($day == '夏季'){
-			$period = '00';
-		}
-		$data = empty($search_queries)?  $data:$this->getQueryEngine($search_queries);
+		$data = empty($search_queries[0])?  $data:$this->getQueryEngine($search_queries);
 		//$data = $search_queries == ""?  $data:$data->where("class_name","like","%".$search_queries[0]."%");
-		$data = $day == '0'?	$data:$data->where('class_week',$day);
-		$data = $period === '0'?$data:$data->where('class_period',$period);
-		$data = $term == '2'?	$data:$data->where('term',$term);
+		$data = empty($day)?	$data:$data->where('class_week',$day);
+		$data = empty($period)? $data:$data->where('class_period',$period);
+		$data = $term === ""?	$data:$data->where('term',$term);
+		$data = empty($faculty)?$data:$data->where('faculty',$faculty);
 		//$data = $query == '0'?  $data:$data->where('class_name','like','%'.$query.'%');
 
 
