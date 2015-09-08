@@ -9,11 +9,11 @@
 <meta name="keywords" itemprop="keywords" content="{{ $data['detail']['class_name'] }},A+plus,早稲田,所沢キャンパス,所キャン" />
 <meta name="twitter:card" content="summary" />
 <meta property="og:title" content="{{ $data['detail']['class_name'] }} | A+plus" />
-<meta property="og:url" content="{{ url() }}" />
-<meta property="og:image" content="{{ asset('image/top/top-main.gif') }}" />
+<meta property="og:url" content="{{ Request::url() }}" />
+<meta property="og:image" content="{{ url('image/top/top-main.gif') }}" />
 <meta property="og:site_name" content="早稲田大学所沢キャンパス 授業レビューサイト A+plus" />
 <meta property="og:description" content="{{ $data['detail']['class_name'] }}の授業情報とレビュー " />
-<meta itemprop="image" content="{{ asset('image/top/top-main.gif') }}" />
+<meta itemprop="image" content="{{ url('image/top/top-main.gif') }}" />
 @endsection
 
 @section('title')
@@ -90,7 +90,7 @@
 				        <td>
 				        	@if($data['teacher'])
 				        		@foreach($data['teacher'] as $teacher)
-				        			<a href="/search?q={{ urldecode($teacher->teacher_name) }}&day=0&period=0&term=2&_token={{csrf_token()}}">{{ $teacher->teacher_name }}</a>
+				        			<a href="/search?q={{ urldecode($teacher->teacher_name) }}&_token={{csrf_token()}}">{{ $teacher->teacher_name }}</a>
 				        		@endforeach
 				        	@endif
 				        </td>
@@ -164,6 +164,7 @@
 						<div class="class-share section-margin">
 							<a href="https://twitter.com/share" class="twitter-share-button" data-text="{{ $data['detail']->class_name }}の授業レビュー / 早稲田大学所沢キャンパス 授業レビューサイト A+plus" data-count="vertical"　data-via="waseda_Aplus" data-lang="ja" data-hashtags="エイプラ">ツイート</a>
 							<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+							<div class="fb-share-button" data-href="{{ Request::url() }}" data-layout="box_count"></div>
 						</div>
 					<div class="check-official-data warning-text">
 						<p>授業情報は常に変更がございます。特に履修時は、必ず公式シラバスや履修登録ページで確認してください。</p>
@@ -361,13 +362,6 @@
 				var a = new barClass('#attendance_data',attendance_data);
 				a.barGraph();
 			}
-			// 初期化
-			//タブ変更してからレンダー
-			// $('.tab-index a').click(function(){
-			//   if($(this).attr("href") == "#tab2"){
-
-			//   }
-			// });
 	</script>
 	<script type="text/javascript" src="{{ asset('/js/classes.js') }}"></script>
 @stop

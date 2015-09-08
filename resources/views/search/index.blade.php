@@ -117,7 +117,7 @@
 			  @if($class_data->teachers()->get()->count())
 			  <li class="list-group-element">
 			  	@foreach($class_data->teachers()->get() as $teacher)
-			 		<a href="/search?q={{ urldecode($teacher->teacher_name) }}&day=0&period=0&term=2&_token={{csrf_token()}}">{{ $teacher->teacher_name }}</a>
+			 		<a href="/search?q={{ urldecode($teacher->teacher_name) }}&_token={{csrf_token()}}">{{ $teacher->teacher_name }}</a>
 			 	@endforeach
 			  </li>
 			  @endif

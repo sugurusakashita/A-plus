@@ -100,7 +100,7 @@ class SearchController extends Controller {
 		$limit = 10;
 		$page_num = is_null($page)? 1:$page;
 		$offset = ($limit * $page_num) - $limit;
-		$data['classes'] = $this->classes_list($search_session);
+		$data['classes'] = $this->classes_list($search_session,$search_queries);
 		$total = $data['classes']->count();
 		//ページネーター作成
 		$data['classes'] = new LengthAwarePaginator($data['classes']->skip($offset)->take($limit)->get(),$total,$limit,$page,array("path"=>"search"));
@@ -182,22 +182,19 @@ class SearchController extends Controller {
 	 *
 	 */
 
-	function classes_list($session){
+	function classes_list($session,$queries){
 
 		$day = $session['day'];
 		$period = $session['period'];
 		$term = $session['term'];
 		$faculty = $session['faculty'];
-		$query = $session['q'];
 		$data = $this->classes;
 
-		$data = empty($search_queries[0])?  $data:$this->getQueryEngine($search_queries);
-		//$data = $search_queries == ""?  $data:$data->where("class_name","like","%".$search_queries[0]."%");
+		$data = empty($queries[0])?  $data:$this->getQueryEngine($queries);
 		$data = empty($day)?	$data:$data->where('class_week',$day);
 		$data = empty($period)? $data:$data->where('class_period',$period);
 		$data = $term === ""?	$data:$data->where('term',$term);
 		$data = empty($faculty)?$data:$data->where('faculty',$faculty);
-		//$data = $query == '0'?  $data:$data->where('class_name','like','%'.$query.'%');
 
 
 		//return $data->orderBy('class_period','asc')->orderBy('class_week','desc');

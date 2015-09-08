@@ -12,10 +12,10 @@
 <meta name="twitter:iamge" content="{{ asset('image/top/top-main.gif') }}" />
 <meta property="og:title" content="A+plus トップページ" />
 <meta property="og:url" content="{{ url() }}" />
-<meta property="og:image" content="{{ asset('image/top/top-main.gif') }}" />
+<meta property="og:image" content="{{ asset('image/meta/logo550.gif') }}" />
 <meta property="og:site_name" content="早稲田大学所沢キャンパス授業レビューサイト A+plus" />
 <meta property="og:description" content="A+plusでは早稲田大学所沢キャンパスの授業レビューを提供しています。" />
-<meta itemprop="image" content="{{ asset('image/top/top-main.gif') }}" />
+<meta itemprop="image" content="{{ asset('image/meta/logo550.gif') }}" />
 @stop
 
 @section('css')
