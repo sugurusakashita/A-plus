@@ -69,7 +69,7 @@
 					授業の感想
 				 </div>
 				 <div class="panel-body">
-				  {{ $data['detail']['review_comment'] }}
+				  <?php echo nl2br($data['detail']['review_comment']); ?>
 				 </div>
 				</div>
 			<input type="hidden" name="class_id" value="{{ $data['detail']['class_id'] }}">

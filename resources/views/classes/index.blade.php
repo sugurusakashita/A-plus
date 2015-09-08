@@ -111,7 +111,7 @@
 							<img src="" alt="no-image">
 							@endif
 
-						</div>		
+						</div>
 						<div class="col6">
 							<h3><span class="icon-star-full icons"></span>みんなの評価</h3><hr>
 							<table class="table table-bordered evaluation-display">
@@ -179,46 +179,27 @@
 				@else
 				<p style="font-size:15px;">レビューの書き直しは<a href="/mypage/index">マイページ</a>からできます</p>
 					<div id="review-list">
-					@foreach($data['review'] as $r)
-					<div class="panel panel-primary section-margin">
-							<div class="panel-title review-panel-title">
-								<div class="row-fluid">
-									<div class="col9">
-										<img src="{{ isset($r->users()->first()->avatar)? $r->users()->first()->avatar:asset('/image/dummy.png') }}" width="70"height="70" alt="reviewer_avatar" style="vertical-align:top;">
-										<div class="reviewer-info">
-											<p style="margin-top:3%;">{{ isset($r->users()->first()->name)? $r->users()->first()->name:"不明なユーザ" }}</p>
-											<p>総合 <span class="reviewer-stars" data-star="{{ $r->stars }}"></span></p>
+						@foreach($data['review'] as $r)
+						<div class="panel panel-primary section-margin">
+								<div class="panel-title review-panel-title">
+									<div class="row-fluid">
+										<div class="col9">
+											<img src="{{ isset($r->users()->first()->avatar)? $r->users()->first()->avatar:asset('/image/dummy.png') }}" width="70"height="70" alt="reviewer_avatar" style="vertical-align:top;">
+											<div class="reviewer-info">
+												<p style="margin-top:3%;">{{ isset($r->users()->first()->name)? $r->users()->first()->name:"不明なユーザ" }}</p>
+												<p>総合 <span class="reviewer-stars" data-star="{{ $r->stars }}"></span></p>
+											</div>
+										</div>
+										<div class="col3">
+											<span class="icon-clock"></span> {{ $r->updated_at}}
 										</div>
 									</div>
-									<div class="col3">
-										<span class="icon-clock"></span> {{ $r->updated_at}}
-									</div>
 								</div>
+							<div class="panel-body">
+								<?php echo nl2br($r->review_comment); ?>
 							</div>
-						<div class="panel-body">
-							{{ $r->review_comment }}
 						</div>
-					</div>
-					@endforeach
-<!-- 						<table class="table table-bordered" style="margin: 20px auto;">
-							<thead>
-								<tr>
-								<th>投稿者</th>
-								<th>レビュー</th>
-								</tr>
-							</thead>
-							<tbody>
-				      @foreach($data['review'] as $r)
-				    	<tr>
-				    		<td>
-				    			<img src="{{ isset($r->users()->first()->avatar)? $r->users()->first()->avatar:asset('/image/dummy.png') }}" width="70"height="70"><br />
-				    			{{ isset($r->users()->first()->name)? $r->users()->first()->name:"不明なユーザ" }}
-				    		</td>
-			         	<td>{{{ $r->review_comment }}}</td>
-			 				</tr>
-				      @endforeach
-							</tbody>
-						</table> -->
+						@endforeach
 					</div>
 					@endif
 					@if(!Auth::check())
