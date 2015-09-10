@@ -51,4 +51,13 @@
 @stop
 @section('js')
 	<script type="text/javascript" src="{{ asset('js/avatar.js') }}"></script>
+	   <script type="text/javascript">
+      //アラートメッセージ用
+      <?php
+
+      if(old("alert")){
+          echo "alertify.error('".old("alert")."');";
+      }
+      ?>
+    </script>
 @stop

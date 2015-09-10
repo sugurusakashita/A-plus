@@ -96,32 +96,38 @@ class MyPageController extends Controller {
 	}
 	public function postAvatarComplete(Request $request){
 
-		$data['user'] = $this->user;
-		$data['reviews'] = $this->review;
 		$message = "プロフィール画像の変更が完了しました。";
-
 		//設定されていない場合、NULL
 		$avatar = $request->file('avatar');
 
 		if(is_null($avatar)) {
-			$data['user']->avatar = NULL;
-			$data['user']->save();
+			$this->user->avatar = NULL;
+			$this->user->save();
 
 			return redirect()->to('mypage/index')->withInput(array("message" => $message));
 		}
 
+		//例外処理
+		if($avatar->getError() > 0){
+			// $alert = $avatar->getErrorMessage();
+			$alert = "画像が不正か、サイズが大きすぎる場合があります。";
+			return redirect()->to('mypage/avatar')->withInput(array("alert" => $alert));
+		}
+
 		//バリデーション
-		$validation["avatar"] = 'image|mimes:jpeg,jpg,gif,png|max:1500';
+		$validation["avatar"] = 'image|mimes:jpeg,jpg,gif,png|max:2000';
 		$this->validate($request,$validation);
 
-		//念のためサニタイズとSHA-1でハッシュ化
-		$name = sha1(htmlspecialchars($data['user'],ENT_QUOTES));
+
+		//ユニークID付与
+		$name = uniqid(rand());
+
 		$file_name = $name.".".$avatar->guessClientExtension();
 		$file = $avatar->move("avatar",$file_name);
 		$path = asset("avatar/".$file_name);
 
 		//ファイルパスをDBに保存
-		$data['user']->avatar = $path;
+		$this->user->avatar = $path;
 		$this->user->save();
 
 

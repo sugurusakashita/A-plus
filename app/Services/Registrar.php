@@ -46,16 +46,18 @@ class Registrar implements RegistrarContract {
 			$path = $data["avatar_url"];
 		}
 
+
 		//アバターの保存
 		if(isset($data["avatar"])) {
 			if($data["avatar"]){
-				//念のためサニタイズとSHA-1でハッシュ化
-				$name = sha1(htmlspecialchars($data['name'],ENT_QUOTES));
+				//ユニークID付与
+				$name = uniqid(rand());
 				$file_name = $name.".".$data["avatar"]->guessClientExtension();
 				$file = $data["avatar"]->move("avatar",$file_name);
 				$path = asset("avatar/".$file_name);
 			}
 		}
+
 		//通常ログイン用
 		if(!isset($data['social_id'])){
 			$data['social_id'] = NULL;

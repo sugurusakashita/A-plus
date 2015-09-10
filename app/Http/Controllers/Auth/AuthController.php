@@ -72,18 +72,18 @@ class AuthController extends Controller {
 		$data = array();
 		$user = $this->user;
 		$social =  Socialize::with('twitter')->user();
-
 		$data["social_id"] = $social->getId();
 		//ログイン
 		if($user = $user->where("social_id",'=',$data["social_id"])->first()){
 			$this->auth->loginUsingId($user->user_id);
 			return redirect()->intended($this->redirectTo);
 		}
+
 		$data['message'] = "Twitterから情報を取得しました";
 		$data["name"] = $social->getName();
 		//TwitterAPIではEmail情報が取れないらしい。
 		$data["email"] = $social->getEmail();
-		$data["avatar_url"] = $social->getAvatar();
+		$data["avatar_url"] = $social->avatar_original;
 		//return view("auth/socialregister")->with("data",$data);
 		return redirect()->to('/auth/social-register')->withInput($data);
 		//return redirect()->to('/auth/register')->withInput($data);
@@ -119,7 +119,6 @@ class AuthController extends Controller {
 			$this->auth->loginUsingId($user->user_id);
 			return redirect()->intended($this->redirectTo);
 		}
-
 		$data['message'] = "facebookから情報を取得しました";
 		$data["name"] = $social->getName();
 		$data["email"] = $social->getEmail();
