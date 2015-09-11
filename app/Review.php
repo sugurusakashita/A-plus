@@ -22,7 +22,7 @@ class Review extends Model {
     // その授業のレビュー全てを取得する
     public function reviews($id)
     {
-        return $this->where('class_id','=',$id)->get();
+        return $this->where('class_id','=',$id)->orderBy('updated_at','desc')->get();
     }
 
     public function attendance($id)
