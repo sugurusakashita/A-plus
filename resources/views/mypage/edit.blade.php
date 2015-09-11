@@ -74,6 +74,7 @@
                             <th>出席</th>
                             <td>
                               <ul>
+                                <li><input type="radio" name="attendance" checked value="">わからない</li>
                                 <li><input type="radio" name="attendance" {{ $data['detail']['attendance'] === '常に取る'? 'checked':'' }} value="常に取る">常に取る</li>
                                 <li><input type="radio" name="attendance" {{ $data['detail']['attendance'] === 'たまに取る'? 'checked':'' }} value="たまに取る">たまに取る</li>
                                 <li><input type="radio" name="attendance" {{ $data['detail']['attendance'] === '取らない'? 'checked':'' }} value="取らない">取らない</li>
@@ -85,6 +86,7 @@
                             <th>試験の持ち込み</th>
                             <td>
                               <ul>
+                                <li><input type="radio" name="bring" checked value="">わからない</li>
                                 <li><input type="radio" name="bring" {{ $data['detail']['bring'] === 'レジュメ・教科書共に可'? 'checked':'' }} value="レジュメ・教科書共に可">レジュメ・教科書共に可</li>
                                 <li><input type="radio" name="bring" {{ $data['detail']['bring'] === 'レジュメのみ可'?     'checked':'' }} value="レジュメのみ可">レジュメのみ可</li>
                                 <li><input type="radio" name="bring" {{ $data['detail']['bring'] === '教科書のみ可'?      'checked':'' }} value="教科書のみ可">教科書のみ可</li>

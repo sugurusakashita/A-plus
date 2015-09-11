@@ -304,7 +304,17 @@ class ClassesController extends Controller {
 		$request["user_id"] = $user->user_id;
 
 		$review = $this->review;
-		$review->fill($request->all());
+
+		$req = $request->all();
+
+		if(empty($req['attendance'])){
+			$req['attendance'] = NULL;
+		}
+		if(empty($req['bring'])){
+			$req['bring'] = NULL;
+		}
+
+		$review->fill($req);
 		if($review->save()){
 			$data["success"] = true;
 			$data["message"] = "レビューが完了しました！<br>ありがとうございます！";

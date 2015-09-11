@@ -234,19 +234,19 @@
 									<table class="table table-bordered" >
 										<tbody>
 										    <tr>
-										      	<th>総合 <span class="warning-text">※必須</span></th>
+										      	<th>総合</th>
 										      	<td class="raty_stars" data-number="{{ old('stars') }}"></td>
 										    </tr>
 										    <tr>
-										    	<th>単位の取りやすさ <span class="warning-text">※必須</span></th>
+										    	<th>単位の取りやすさ</th>
 										    	<td class="raty_unit_stars" data-number="{{ old('unit_stars') }}"></td>
 										    </tr>
 									      	<tr>
-									      		<th>GP(成績)の取りやすさ <span class="warning-text">※必須</span></th>
+									      		<th>GP(成績)の取りやすさ</th>
 									        	<td class="raty_grade_stars" data-number="{{ old('grade_stars') }}"></td>
 									      	</tr>
 									      	<tr>
-									      		<th>内容の充実度 <span class="warning-text">※必須</span></th>
+									      		<th>内容の充実度</th>
 									        	<td class="raty_fulfill_stars" data-number="{{ old('fulfill_stars') }}"></td>
 									      	</tr>
 								   		</tbody>
@@ -257,7 +257,7 @@
 									<table class="table table-bordered">
 										<tbody>
 											<tr>
-												<th>受講した学年<span class="warning-text">※必須</span></th>
+												<th>受講した学年</th>
 												<td>
 													<select name="grade">
 														<option value="1">1年</option>
@@ -272,6 +272,7 @@
 									      		<th>出席</th>
 									        	<td>
 									        		<ul>
+										        		<li><input type="radio" name="attendance" checked value="">わからない</li>
 										        		<li><input type="radio" name="attendance" {{ old('attendance') === '常に取る'? 'checked':'' }} value="常に取る">常に取る</li>
 										        		<li><input type="radio" name="attendance" {{ old('attendance') === 'たまに取る'? 'checked':'' }} value="たまに取る">たまに取る</li>
 										        		<li><input type="radio" name="attendance" {{ old('attendance') === '取らない'? 'checked':'' }} value="取らない">取らない</li>
@@ -283,6 +284,7 @@
 									      		<th>試験の持ち込み</th>
 									      		<td>
 									        		<ul>
+										        		<li><input type="radio" name="bring" checked value="">わからない</li>
 										        		<li><input type="radio" name="bring" {{ old('bring') === 'レジュメ・教科書共に可'? 'checked':'' }} value="レジュメ・教科書共に可">レジュメ・教科書共に可</li>
 										        		<li><input type="radio" name="bring" {{ old('bring') === 'レジュメのみ可'? 		'checked':'' }} value="レジュメのみ可">レジュメのみ可</li>
 										        		<li><input type="radio" name="bring" {{ old('bring') === '教科書のみ可'? 			'checked':'' }} value="教科書のみ可">教科書のみ可</li>

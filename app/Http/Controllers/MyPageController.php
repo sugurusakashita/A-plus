@@ -164,6 +164,7 @@ class MyPageController extends Controller {
 		$review = $this->review->find($request->review_id);
 		$data = $request->all();
 
+
 		//レビューバリデーション
 		$this->reviewValidation($request);
 
@@ -183,13 +184,20 @@ class MyPageController extends Controller {
 
 	public function postEditComplete(Request $request){
 
+		//戻る
 		if(!is_null($request->_return)){
 			return redirect()->to("/mypage/edit?review_id=".$request->review_id."&_token=".$request->_token)->withInput();
 		}
 		$id = $request->review_id;
 		$review = $this->review->find($id);
-
 		$req = $request->all();
+
+		if(empty($req['attendance'])){
+			$req['attendance'] = NULL;
+		}
+		if(empty($req['bring'])){
+			$req['bring'] = NULL;
+		}
 
 		$review->fill($req);
     	$review->save();
