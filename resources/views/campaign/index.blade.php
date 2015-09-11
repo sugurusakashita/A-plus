@@ -57,7 +57,7 @@
 			<span class="icon-plus footer-header-icon"></span>キャンペーン期間
     	</div>
     	<div class="panel-body">
-    		<p>リリース日〜2015年9月17日 23:00迄</p>
+    		<p>リリース日〜2015年9月17日 23:59迄</p>
 	    </div>
     </div>
     <div class="panel panel-warning">
@@ -65,7 +65,7 @@
 			<span class="icon-plus footer-header-icon"></span>特典
     	</div>
     	<div class="panel-body">
-		    <p class="lead">抽選で25名様にAmazon.co.jp®で使えるAmazonギフト券1000円分プレゼント！</p>
+		    <p class="lead">抽選で25名様にAmazon.co.jp®で使える<span style="color:#FC9A18">Amazonギフト券</span>1000円分プレゼント！</p>
 		    <p>まだまだユーザーが少ないので、<b>当たる確率は大きいかも！？！？</b></p>
 		    <p>サークル合宿や新学期で何かとお金の飛んで行くこの季節、ぜひゲットしてください！</p>
 		    <div>

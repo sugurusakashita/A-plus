@@ -45,7 +45,7 @@ A+plusの使い方 | A+plus
             <img class="manual-img" src="/image/help/exsearchheader.png" alt="ヘッダー検索">
 		    <p>検索ページではより細かい検索項目を設定できます。</p>
             <img class="manual-img" src="/image/help/exsearch.png" alt="検索オプション">
-            <p>検索結果では、授業の曜日・時限・レビューの件数・科目名・タグ・担当講師・授業の概要が表示されます。</p>
+            <p>検索結果では、学部・授業の曜日・時限・レビューの件数・科目名・タグ(あれば)・担当講師・授業の概要が表示されます。</p>
             <img class="manual-img" src="/image/help/exsearchresult.png" alt="検索結果">
             <p>科目名をクリックすると授業の詳細ページを、講師名をクリックするとその講師が担当する授業一覧を表示することができます。</p>
 	    </div>
