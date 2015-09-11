@@ -94,7 +94,7 @@
 				        		@endforeach
 				        	@endif
 				        </td>
-				        <td><?php echo $data['detail']->term == 0? '春学期':'秋学期'?></td>
+				        <td><?php echo $data['detail']->term?></td>
 				        <td><?php echo $data['detail']->class_week?></td>
 				        <td><?php echo $data['detail']->class_period?>限</td>
 				        <td>{{ $data['detail']->room_name }}</td>
@@ -105,12 +105,7 @@
 					<div style="overflow:auto;">
 						<div class="col6" >
 							<h3><span class="icon-chart icons"></span>成績評価方法</h3><hr>
-							@if(!is_null($data['evaluation']))
 							<svg id="eval_pie"></svg>
-							@else
-							<img src="" alt="no-image">
-							@endif
-
 						</div>
 						<div class="col6">
 							<h3><span class="icon-star-full icons"></span>みんなの評価</h3><hr>
@@ -134,6 +129,9 @@
 							      	</tr>
 								</tbody>
 							</table>
+							@if($data['detail']->faculty === "スポーツ科学部")
+							<p style="color:red">※スポーツ科学部における一部授業の成績評価法、教師データに関しては10月中に対応予定です。</p>
+							@endif
 						</div>
 
 						@if($data['attendance_data'])
@@ -312,7 +310,7 @@
 					@endif
 				</div>
 			</div>
-			<a href="/search"><button class="btn btn-sm btn-default" style="margin-bottom: 20px;">検索結果に戻る</button></a>
+			<!-- <a href="/search"><button class="btn btn-sm btn-default" style="margin-bottom: 20px;">検索結果に戻る</button></a> -->
 		</div>
 @stop
 
@@ -324,19 +322,17 @@
 	<script type="text/javascript">
 		var class_id = <?php echo $data['detail']->class_id; ?>;
 		//グラフデータ
-			var attendance_data = <?php echo $data['attendance_data'] ?: "null;"; ?>;
-			var bring_data = 	  <?php echo $data['bring_data'] 	  ?: "null;"; ?>;
-			//評価JSONあれば
-			<?php if(!is_null($data['evaluation'])) {?>
-				// 円グラフ用JS
-				evaluation_data = <?php echo $data['evaluation']; ?>;
-				//テスト用
-				var w = new pieClass("#eval_pie");
-				//初回読み込み
-			    w.render(evaluation_data);
-			    w.update();
-			    w.animate(evaluation_data);
-			<?php } ?>
+			var attendance_data = <?php echo $data['attendance_data'] ?: "null"; ?>;
+			var bring_data = 	  <?php echo $data['bring_data'] 	  ?: "null"; ?>;
+			// 円グラフ用JS
+			evaluation_data = <?php echo $data['evaluation'] ?: '[{"legend":"データがありません","value":100,"color":"#e74c3c"}]'  ?>;
+
+			//テスト用
+			var w = new pieClass("#eval_pie");
+			//初回読み込み
+		    w.render(evaluation_data);
+		    w.update();
+		    w.animate(evaluation_data);
 			if(bring_data !== null){
 				var b = new barClass('#bring_data',bring_data);
 				b.barGraph();

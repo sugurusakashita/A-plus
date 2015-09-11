@@ -23,7 +23,10 @@ class ClassesController extends Controller {
 
 	// 公式シラバスURL用
 	protected static $url_year = "2015";
-	protected static $dep_name = "19";
+	protected static $dep_name = array(
+			"人間科学部"	=> "19",
+			"スポーツ科学部"	=> "20",
+		);
 	protected static $w_syllabus_url = "https://www.wsl.waseda.jp/syllabus/JAA104.php?pKey=";
 
 	protected $color = ["#16a085","#91C5E6","#e74c3c","#258cd1"];
@@ -96,7 +99,7 @@ class ClassesController extends Controller {
 
 	public function makeActualSyllabusUrl($data){
 
-		return self::$w_syllabus_url . $data['class_code'] . $data['class_no'] . self::$url_year . $data['class_code'] . self::$dep_name . "&pLng=jp";
+		return self::$w_syllabus_url . $data['class_code'] . $data['class_no'] . self::$url_year . $data['class_code'] . self::$dep_name[$data["faculty"]] . "&pLng=jp";
 
 	}
 

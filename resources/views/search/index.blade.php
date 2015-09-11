@@ -75,8 +75,9 @@
 		<td>
 			<select name="term">
 				<option value="" >指定なし</option>
-				<option value="0"  {{{ $data['get']['term'] === '0'? " selected":"" }}}>春学期</option>
-				<option value="1"  {{{ $data['get']['term'] === '1'? " selected":"" }}}>秋学期</option>
+				<option value="春学期"  {{{ $data['get']['term'] === '春学期'? " selected":"" }}}>春学期</option>
+				<option value="秋学期"  {{{ $data['get']['term'] === '秋学期'? " selected":"" }}}>秋学期</option>
+				<option value="通年"  {{{ $data['get']['term'] === '通年'? " selected":"" }}}>通年</option>
 			</select>
 		</td>
 	</tr>
@@ -93,45 +94,41 @@
 	?>
 
 	<div style="margin-bottom: 15px;">
-			<ul class="list-group">
-			  <li class="list-group-element">
-			  	<span class="badge info">{{ $class_data->class_week }}</span>
-			  	　<span class="badge warning"><?php echo $class_data->class_period === "00"? "その他":$class_data->class_period."限"; ?></span>
-			  	@if($review_count)
-			  		<span class="badge danger right-float">レビュー件数:  {{ $review_count }}件</span>
-		  		@endif
-			  </li>
-			  <li class="list-group-element">
-			  	<a href="/classes/index/{{ $class_data->class_id }}">{{ $class_data->class_name }}</a>
-			  </li>
-	  		@if(!(count($tags) == 0))
-			  <li class="list-group-element">
-	  			@foreach($tags as $tag)
-			  		<span class="btn-label info">
-			  			{{ $tag->tag_name }}
-			  		</span>
-	  			@endforeach
-			  </li>
-	  		@endif
-
-			  @if($class_data->teachers()->get()->count())
-			  <li class="list-group-element">
-			  	@foreach($class_data->teachers()->get() as $teacher)
-			 		<a href="/search?q={{ urldecode($teacher->teacher_name) }}&_token={{csrf_token()}}">{{ $teacher->teacher_name }}</a>
-			 	@endforeach
-			  </li>
-			  @endif
-
-			  @if($class_data->summary)
-			  <?php
-			  	//要約作成
-			  	$summary = mb_strimwidth($class_data->summary,0,150,"...");
-			  ?>
-			  <li class="list-group-element">
-			  	<p>{{ $summary }}</p>
-			  </li>
-			  @endif
-			</ul>
+		<ul class="list-group">
+		  	<li class="list-group-element">
+		  		<span class="badge primary">{{ $class_data->faculty }}</span>
+		  	<!-- 　	<span class="badge success">{{ $class_data->term }}</span> -->
+		 <span class="badge info">{{ $class_data->class_week }}</span>
+		 <span class="badge warning"><?php echo $class_data->class_period === "00"? "その他":$class_data->class_period."限"; ?></span>
+		  		@if($review_count)
+		  		<span class="badge danger right-float">レビュー件数:  {{ $review_count }}件</span>
+	  			@endif
+		 	</li>
+		  	<li class="list-group-element">
+		  		<a href="/classes/index/{{ $class_data->class_id }}">{{ $class_data->class_name }}</a>
+		  	</li>
+		  	@if($class_data->teachers()->get()->count())
+		  	<li class="list-group-element">
+		  	@foreach($class_data->teachers()->get() as $teacher)
+		 		<a href="/search?q={{ urldecode($teacher->teacher_name) }}&_token={{csrf_token()}}">{{ $teacher->teacher_name }}</a>
+		 	@endforeach
+		  	</li>
+			@if(!(count($tags) == 0))
+		  	<li class="list-group-element">
+				@foreach($tags as $tag)
+		  		<span class="btn-label info">
+		  			{{ $tag->tag_name }}
+		  		</span>
+				@endforeach
+		  	</li>
+			@endif
+		  	@endif
+		  	@if($class_data->summary)
+		  	<li class="list-group-element">
+		  		<p>{{ mb_strimwidth($class_data->summary,0,150,"...") }}</p>
+		  	</li>
+		  	@endif
+		</ul>
 	</div>
 
 	@endforeach

@@ -155,8 +155,7 @@ class SearchController extends Controller {
 			$res .= $data["faculty"]." ";
 		}
 		if($data["term"] !== ""){
-			$res .= $data["term"] === "0"? "春学期":"秋学期";
-			$res .= " ";
+			$res .= $data["term"]." ";
 		}
 		if(!empty($data["day"])){
 			$res .= $data["day"];
@@ -193,7 +192,7 @@ class SearchController extends Controller {
 		$data = empty($queries[0])?  $data:$this->getQueryEngine($queries);
 		$data = empty($day)?	$data:$data->where('class_week',$day);
 		$data = empty($period)? $data:$data->where('class_period',$period);
-		$data = $term === ""?	$data:$data->where('term',$term);
+		$data = empty($term)?	$data:$data->where('term',$term);
 		$data = empty($faculty)?$data:$data->where('faculty',$faculty);
 
 
