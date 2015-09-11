@@ -52,7 +52,7 @@
 
 				<div class="panel panel-danger" style="margin-bottom: 15px;">
 					<div class="panel-title">
-					画像の大きさは100×100px以内、画像ファイルはjpg,png,gifのみで、大きさは2MBまでです。<br>画像が大きい場合は縮小拡大されます。
+					画像の大きさは100×100px以内、画像ファイルはjpg,png,gifのみで、ファイルサイズは2MBまでです。<br>画像が大きい場合は縮小拡大されます。
 					</div>
 				</div>
 
@@ -136,6 +136,13 @@
 <script type="text/javascript">
 	var message = <?php echo "'".old("message")."'"; ?>;
 	var avatar_url = <?php echo "'".old("avatar_url")."'"; ?>;
+
+	//アラートメッセージ用
+	<?php
+	if(old("alert")){
+	  echo "alertify.error('".old("alert")."');";
+	}
+	?>
 </script>
 <script type="text/javascript" src="{{ asset('js/socialregister.js') }}"></script>
 @endsection

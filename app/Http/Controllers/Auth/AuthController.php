@@ -184,6 +184,37 @@ class AuthController extends Controller {
 		return redirect()->To($this->redirectTo)->withInput($data);
 
 	}
+
+	/**
+	 * Handle a registration request for the application.
+	 * オーバーライド
+	 *
+	 * @param  \Illuminate\Http\Request  $request
+	 * @return \Illuminate\Http\Response
+	 */
+	public function postRegister(Request $request)
+	{
+		$avatar = $request->file('avatar');
+		if(!is_null($avatar) && $avatar->getError() > 0){
+			$result = $request->all();
+			$result["alert"] = "プロフィール画像のサイズが大きすぎる場合があります。";
+			return redirect()->back()->withInput($result);
+		}
+
+		$validator = $this->registrar->validator($request->all());
+
+		if ($validator->fails())
+		{
+			$this->throwValidationException(
+				$request, $validator
+			);
+		}
+
+		$this->auth->login($this->registrar->create($request->all()));
+
+		return redirect($this->redirectPath());
+	}
+
 	/**
 	 * ソーシャル連携登録処理
 	 *

@@ -16,6 +16,14 @@ class Registrar implements RegistrarContract {
 	public function validator(array $data)
 	{
 
+		//例外処理
+		// if(array_key_exists('avatar',$data)){
+		// 	if($data['avatar']->getError() > 0){
+		// 		var_dump($data['avatar']->getError());
+		// 		return Validator::make($data,['avatar_url' => 'exceed']);
+		// 	}
+		// }
+
 		return Validator::make($data,[
 			'avatar' => 'max:2000|image|mimes:jpeg,jpg,gif,png',
 			'avatar_url' => 'string|url',
