@@ -30,6 +30,7 @@
 		</div>
 		<div class="text-center ">
 			<p style="color:red">※無断でSNSにシェアやツイートなど発信することは一切ございません。</p>
+			<p>新規登録がすでにお済みでしたらログインします。</p>
 		</div>
 	</div>
 </div>
