@@ -66,12 +66,12 @@ table{
     background-position: center;
     display: inline-block;
     margin-top: -25px;
-    height: 95%;
+    height: 98%;
   }
   .bland_img{
     display: block;
     margin: 3% auto;
-    height:76%;
+    height:65%;
     max-height:460px;
     background-color: rgba(255,255,255,0.80);
   }
@@ -299,9 +299,9 @@ footer .allrights {
     margin-right:0%;
   }
   .bland_img{
-    width: 80%;
+    width: 75%;
     height: auto;
-    margin:20% auto;
+    margin:15% auto;
   }
   .top-content{
     text-align: left;
