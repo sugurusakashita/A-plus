@@ -27,13 +27,20 @@
      <img class="bland_img" src="{{ asset('image/top/top-main.gif') }}" alt="a+plus_logo">
   <div class="search_header">
     <form action="/search" method="get">
+      <div class="form-element-group top-faculty-form">
+          <span class="form-element-extra">学部</span>
+          <select class="form-element" name="faculty">
+            <option>人間科学部</option>
+            <option>スポーツ科学部</option>
+          </select>
+      </div>
       <div class="form-element-group">
         <input type="text" class="form-element" placeholder="授業名・教師名・キーワードで検索！" name="q"/>
-        <input type="hidden" name="_token" value="{{csrf_token()}}">
         <span class="form-group-btn">
           <button class="btn btn-default btn-primary" type="submit">検索</button>
         </span>
       </div>
+        <input type="hidden" name="_token" value="{{csrf_token()}}">
     </form>
   </div>
 </div>
@@ -69,12 +76,28 @@
           </div>
         </div>
         <div class="top-block">
+          <div>
+          <h2>CAMPAIGN</h2>
+          <hr>
+          </div>
+          <div class="col12 text-left">
+            <div class="col6 ">
+              <a href="/campaign/index/1"><img class="top-content-img" src="/image/campaign/event1-lg.png" alt="A+plus campaign" style="width:100%"></a>
+            </div>
+            <div class="col6">
+              <p class="lead">現在、リリースキャンペーン実施中！抽選で<span style="color:#FC9A18">Amazonギフト券</span>1000円分プレゼント</p>
+              <p>キャンペーンの概要、エントリー条件などは<a href="/campaign/index/1">こちら</a>をご覧ください。</p>
+              <p>締め切りが近いのでお早めに！誰よりも早くA+plusをチェックしてくれた人限定です！</p>
+            </div>
+          </div>
+        </div>
+        <div class="top-block">
           <h2>ABOUT US</h2>
           <hr>
           <img class="top-content-img" src="/image/ei-logo1.png" alt="A+plus service1" height="250">
           <p class="lead">当サービスは早稲田大学非公認アプリケーション開発サークル「A+plus」によって運営されています。</p>
           <p>本サークルは2015年5月に発足いたしました。今後も様々なサービスやアプリケーションを発信していく予定です。<br>詳しくは<a href="/about">こちらから！</a>(入会希望者もこちらから)</p>
-      </div>
+        </div>
     </div>
   </div>
 </div>

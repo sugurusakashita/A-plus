@@ -101,7 +101,7 @@
 		 <span class="badge info">{{ $class_data->class_week }}</span>
 		 <span class="badge warning"><?php echo $class_data->class_period === "00"? "その他":$class_data->class_period."限"; ?></span>
 		  		@if($review_count)
-		  		<span class="badge danger right-float">レビュー件数:  {{ $review_count }}件</span>
+		  		<span class="badge danger">レビュー件数:  {{ $review_count }}件</span>
 	  			@endif
 		 	</li>
 		  	<li class="list-group-element">
