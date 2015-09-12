@@ -97,6 +97,6 @@ class CampaignController extends Controller {
 		$base_url = "https://www.facebook.com/sharer/sharer.php?";
 		$shared_uri = urlencode(URL::current());
 
-		return $base_url.$shared_uri;
+		return $base_url."href=".$shared_uri."&action=recommend";
 	}
 }
