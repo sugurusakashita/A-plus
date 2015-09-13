@@ -22,11 +22,13 @@ class MyPageController extends Controller {
 	public function __construct(User $user,Request $request,Review $review){
 
 		//ミドルウェアでゲストユーザをフィルタ
-		$this->middleware('auth');	
+		$this->middleware('auth');
 		if (!Auth::check()){
 			//ログインチェック
-			return redirect()->to("/auth/login");   
+			return redirect()->to("/auth/login");
 		}
+		//他人のレビューを改竄しようとしたユーザーをフィルタ
+		$this->middleware("validReviewer",["only" => ["getEdit","postEditConfirm","postEditComplete","postDeleteConfirm","postDeleteComplete"]]);
 		$user_id = $request->user()->user_id;
 
 		$this->user = $user->find($user_id);
@@ -41,8 +43,7 @@ class MyPageController extends Controller {
 	{
 		$data['user'] = $this->user;
 		$data['reviews'] = $this->review;
-		
-		//$data['message'] = $request->message;
+
 		return view('mypage/index')->with('data',$data);
 
 	}
@@ -95,34 +96,172 @@ class MyPageController extends Controller {
 	}
 	public function postAvatarComplete(Request $request){
 
-		$data['user'] = $this->user;
-		$data['reviews'] = $this->review;
 		$message = "プロフィール画像の変更が完了しました。";
-		
 		//設定されていない場合、NULL
 		$avatar = $request->file('avatar');
+
 		if(is_null($avatar)) {
-			$data['user']->avatar = NULL;
-			$data['user']->save();
-			
+			$this->user->avatar = NULL;
+			$this->user->save();
+
 			return redirect()->to('mypage/index')->withInput(array("message" => $message));
 		}
 
+		//例外処理
+		if($avatar->getError() > 0){
+			// $alert = $avatar->getErrorMessage();
+			$alert = "画像が不正か、サイズが大きすぎる場合があります。";
+			return redirect()->to('mypage/avatar')->withInput(array("alert" => $alert));
+		}
+
 		//バリデーション
-		$validation["avatar"] = 'image|mimes:jpeg,jpg,gif,png|max:1500';	
+		$validation["avatar"] = 'image|mimes:jpeg,jpg,gif,png|max:2000';
 		$this->validate($request,$validation);
 
-		//ファイル保存
-		$name = htmlspecialchars($data['user']->name,ENT_QUOTES);
-		$file_name = $data['user']->name."_avt.".$avatar->guessClientExtension();
+
+		//ユニークID付与
+		$name = uniqid(rand());
+
+		$file_name = $name.".".$avatar->guessClientExtension();
 		$file = $avatar->move("avatar",$file_name);
 		$path = asset("avatar/".$file_name);
+
 		//ファイルパスをDBに保存
-		$data['user']->avatar = $path;
+		$this->user->avatar = $path;
 		$this->user->save();
 
-		
+
 		return redirect()->to('mypage/index')->withInput(array("message" => $message));
 
+	}
+
+	/**
+	 * 授業レビュー再編集
+	 *
+	 * @param Request
+	 * @author shalman
+	 * @return view
+	 *
+	 */
+
+	public function getEdit(Request $request){
+
+		$data['detail'] = $this->review->find($request->review_id);
+		return view('mypage/edit')->with('data',$data);
+	}
+
+
+	/**
+	 * 授業レビュー再編集確認
+	 *
+	 * @param Request
+	 * @author shalman
+	 * @return view
+	 *
+	 */
+
+	public function postEditConfirm(Request $request){
+		$review = $this->review->find($request->review_id);
+		$data = $request->all();
+
+
+		//レビューバリデーション
+		$this->reviewValidation($request);
+
+		return view('mypage/editconfirm')->with('data',$data)->with('review',$review);
+
+	}
+
+
+	/**
+	 * 授業レビュー再編集完了
+	 *
+	 * @param Request
+	 * @author shalman
+	 * @return view
+	 *
+	 */
+
+	public function postEditComplete(Request $request){
+
+		//戻る
+		if(!is_null($request->_return)){
+			return redirect()->to("/mypage/edit?review_id=".$request->review_id."&_token=".$request->_token)->withInput();
+		}
+		$id = $request->review_id;
+		$review = $this->review->find($id);
+		$req = $request->all();
+
+		if(empty($req['attendance'])){
+			$req['attendance'] = NULL;
+		}
+		if(empty($req['bring'])){
+			$req['bring'] = NULL;
+		}
+
+		$review->fill($req);
+    	$review->save();
+
+    	$data["message"] = "レビューの編集が完了いたしました。";
+		return redirect()->to("/mypage/index")->withInput($data);
+	}
+
+
+	/**
+	 * 授業レビュー削除
+	 *
+	 * @param Request
+	 * @author shalman
+	 * @return view
+	 *
+	 */
+
+	public function postDeleteConfirm(Request $request){
+		$data = $request->all();
+		$id = $data['review_id'];
+		$data['detail'] = $this->review->find($id);
+
+		return view('mypage/deleteconfirm')->with('data',$data);
+
+	}
+
+	/**
+	 * 授業レビュー削除完了
+	 *
+	 * @param Request
+	 * @author shalman
+	 * @return view
+	 *
+	 */
+
+	public function postDeleteComplete(Request $request){
+		$review_id = $request->review_id;
+		$review = $this->review->find($review_id);
+
+		$review->delete();
+
+    	$data["message"] = "レビューの削除が完了いたしました。";
+		return redirect()->to("/mypage/index")->withInput($data);
+
+	}
+
+	/**
+	 * レビューバリデーション
+	 *
+	 * @param request
+	 * @author shalman
+	 * @return mixed
+	 *
+	 */
+
+	public function reviewValidation($request){
+		return $this->validate($request,[
+			// "grade" => "required",
+			"stars" => "required",
+			"unit_stars" => "required",
+			"grade_stars" => "required",
+			"fulfill_stars" => "required",
+			"review_comment" => "required|min:10|max:500"
+			]);
 	}
 }

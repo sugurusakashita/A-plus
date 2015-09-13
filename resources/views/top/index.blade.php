@@ -1,185 +1,139 @@
 @extends('top')
 
 @section('title')
-A+plus
+早稲田大学所沢キャンパス 授業レビューサイト A+plus
+@stop
+
+@section('meta')
+<meta name="description" itemprop="description" content="大学生活をさらにスマートに。さらに賢く。" />
+<meta name="keywords" itemprop="keywords" content="A+plus,早稲田,所沢キャンパス,所キャン,大学" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="早稲田大学所沢キャンパス授業レビューサイト A+plus" />
+<meta name="twitter:iamge" content="{{ asset('image/top/top-main.gif') }}" />
+<meta property="og:title" content="A+plus トップページ" />
+<meta property="og:url" content="{{ url() }}" />
+<meta property="og:image" content="{{ asset('image/meta/logo550.gif') }}" />
+<meta property="og:site_name" content="早稲田大学所沢キャンパス授業レビューサイト A+plus" />
+<meta property="og:description" content="A+plusでは早稲田大学所沢キャンパスの授業レビューを提供しています。" />
+<meta itemprop="image" content="{{ asset('image/meta/logo550.gif') }}" />
 @stop
 
 @section('css')
-<style type="text/css">
-  .header-field{
-    background-color: #fff;
-    background-image: url("{{ asset('image/bg_top_filtered.jpg') }}");
-    background-size: cover;
-    background-attachment: fixed;
-    background-position: center;
-    display: inline-block;
-    margin-top: -25px;
-  }
-  .img_container{
-    background-color: rgba(255,255,255,0.85);
-    margin:12% 10%;
-  }
-  .bland_img{
-    display: block;
-    margin: 0 auto;
-  }
-  .search_header{
-    width:50%;
-    margin: 0 auto 20%;
-  }
-
-  .left{
-    background-color: #F7F7F7;
-  }
-
-  .columns{
-    margin: 20px 10px;
-  }
-  .articles{
-    display: inline-block;
-  }
-  .article{
-    margin: 5%; 
-    height: 217px;
-  }
-  .article-img{
-    width: 100%;
-    margin: 0 auto;
-    border:solid 1px #AFAFAF;
-  }
-  .article-summary{
-    background-color: #BDBDBD;
-  }
-  @media screen and (max-width: 47.9375rem) {
-    .bland_img{
-      width: 80%;
-    }
-    .search_header{
-       width:90%;
-    }
-    .article{
-      margin: 15%;
-    }
-  }
-</style>
+<link rel="stylesheet" type="text/css" href="/css/sublimeSlideshow.css">
 @stop
 
 @section('main_content')
-
-  <div class="header-field">
-    <div class="img_container">
-       <img class="bland_img" src="{{ asset('image/Aplus_logo_trans@1x.png') }}" alt="a+plus_logo" width=510>
-    </div>
-    <div class="search_header">
-      <form action="/search" method="get">
-        <div class="form-element-group">
-          <input type="text" class="form-element" placeholder="授業や講師名で検索！" name="q"/>
-          <input type="hidden" name="_token" value="{{csrf_token()}}">
-          <span class="form-group-btn">
-            <button class="btn btn-default btn-primary" type="submit">検索</button>
-          </span>
-        </div>
-      </form>
-    </div>
+<div class="header-field">
+     <img class="bland_img" src="{{ asset('image/top/top-main.gif') }}" alt="a+plus_logo">
+  <div class="search_header">
+    <form action="/search" method="get">
+      <div class="form-element-group top-faculty-form">
+          <span class="form-element-extra">学部</span>
+          <select class="form-element" name="faculty">
+            <option>人間科学部</option>
+            <option>スポーツ科学部</option>
+          </select>
+      </div>
+      <div class="form-element-group">
+        <input type="text" class="form-element" placeholder="授業名・教師名・キーワードで検索！" name="q"/>
+        <span class="form-group-btn">
+          <button class="btn btn-default btn-primary" type="submit">検索</button>
+        </span>
+      </div>
+        <input type="hidden" name="_token" value="{{csrf_token()}}">
+    </form>
   </div>
-  <div class="container left">
-  <div class="row-fluid">
-      <div class="col9">
-        <div class="panel panel-info columns">
-         <div class="panel-title">
-          <h1>News</h1>
-        </div>
-         <div class="panel-body">
-          <div class="articles">
-            <a href="" class="col4">
-              <div class="article">
-                <img class="article-img" src="{{ asset('image/top_back.jpg') }}" alt="article1" >
-                <div class="article-summary">
-                  <label>2015/08/06</label>
-                  <label>ほげほげ</label>
-                </div>
-              </div>
-            </a>
-            <a href="" class="col4">
-              <div class="article">
-                <img class="article-img" src="{{ asset('image/bg_top_filtered.jpg') }}" alt="article1" >
-                <div class="article-summary">
-                  <label>2015/08/06</label>
-                  <label>ほげほげ</label>
-                </div>
-              </div>
-            </a>
-            <a href="" class="col4">
-              <div class="article">
-                <img class="article-img" src="{{ asset('image/Aplus_logo_global@1x.png') }}" alt="article1" >
-                <div class="article-summary">
-                  <label>2015/08/06</label>
-                  <label>ほげほげ</label>
-                </div>
-              </div>
-            </a>
+</div>
+<div class="left">
+  <div class="container">
+    <div class="row-fluid">
+      <div class="top-content text-center">
+        <div class="top-block">
+          <h2>ABOUT A+plus</h2>
+          <hr>
+          <div>
+            <p class="lead">A+plusは、早稲田大学所沢キャンパスの授業レビューサービスを提供しております。</p>
+            <p>多くの人に「後悔しない履修登録」をしていただくため、当サービスは2015年9月12日より開始いたしました。</p>
+            <p>当サービスは<b>完全無料</b>です。まずは<b><a href="/auth/register">こちらから無料会員登録</a></b>してご利用ください！</p>
+            <p>また、履修済みの授業に関してはレビューしていただけませんでしょうか？次に履修する人が<b>あなたのレビューを待ってます。</b></p>
+            <p>更にA+plusについて詳しく知りたい方は<a href="/about">こちらから！</a></p>
           </div>
-          <div class="articles">
-            <a href="" class="col4">
-              <div class="article">
-                <img class="article-img" src="{{ asset('image/top_back.jpg') }}" alt="article1" >
-                <div class="article-summary">
-                  <label>2015/08/06</label>
-                  <label>ほげほげ</label>
-                </div>
-              </div>
-            </a>
-            <a href="" class="col4">
-              <div class="article">
-                <img class="article-img" src="{{ asset('image/bg_top_filtered.jpg') }}" alt="article1" >
-                <div class="article-summary">
-                  <label>2015/08/06</label>
-                  <label>ほげほげ</label>
-                </div>
-              </div>
-            </a>
-            <a href="" class="col4">
-              <div class="article">
-                <img class="article-img" src="{{ asset('image/Aplus_logo_global@1x.png') }}" alt="article1" >
-                <div class="article-summary">
-                  <label>2015/08/06</label>
-                  <label>ほげほげ</label>
-                </div>
-              </div>
-            </a>
-          </div>  
         </div>
-      </div>
-    </div>
-      <div class="col3" class="side-content">
-        <div class="panel panel-primary columns">
-         <div class="panel-title">
-          <h1>sidebar</h1>
-        </div> 
-        <div class="panel-body">
-          <img class="article-img" src="{{ asset('image/Aplus_logo_global@1x.png') }}" alt="about_aplus" >
-          <ul>
-            <li><a href="/auth/facebook-oauth">facebookログイン/新規無料登録</a></li>
-          </ul>
-        </div> 
-      </div>
+        <div class="top-block">
+          <div>
+          <h2>SERVICE</h2>
+          <hr>
+          </div>
+          <div class="col12">
+            <div class="col6 text-left">
+              <p class="lead">早稲田大学所沢キャンパスの授業レビューを見たり、書いたりできます！</p>
+              <p>詳しい使い方は<a href="/help/manual">こちら</a>をご覧ください。</p>
+              <p>サイト上部、またはTOPページの検索ボックスから授業名、教師名、キーワードで検索！<br>検索は「曜日」「時限」「学期」から絞ることもできます。<br>授業ページではその授業の評価方法が円グラフで表示されます。</p>
+            </div>
+            <div class="col6">
+              <img class="top-content-img" src="/image/top/top-service1.png" alt="A+plus service1" style="width:100%">
+            </div>
+          </div>
+        </div>
+        <div class="top-block">
+          <div>
+          <h2>CAMPAIGN</h2>
+          <hr>
+          </div>
+          <div class="col12 text-left">
+            <div class="col6 ">
+              <a href="/campaign/index/1"><img class="top-content-img" src="/image/campaign/event1-lg.png" alt="A+plus campaign" style="width:100%"></a>
+            </div>
+            <div class="col6">
+              <p class="lead">現在、リリースキャンペーン実施中！抽選で<span style="color:#FC9A18">Amazonギフト券</span>1000円分プレゼント</p>
+              <p>キャンペーンの概要、エントリー条件などは<a href="/campaign/index/1">こちら</a>をご覧ください。</p>
+              <p>締め切りが近いのでお早めに！誰よりも早くA+plusをチェックしてくれた人限定です！</p>
+            </div>
+          </div>
+        </div>
+        <div class="top-block">
+          <h2>ABOUT US</h2>
+          <hr>
+          <img class="top-content-img" src="/image/ei-logo1.png" alt="A+plus service1" height="250">
+          <p class="lead">当サービスは早稲田大学非公認アプリケーション開発サークル「A+plus」によって運営されています。</p>
+          <p>本サークルは2015年5月に発足いたしました。今後も様々なサービスやアプリケーションを発信していく予定です。<br>詳しくは<a href="/about">こちらから！</a>(入会希望者もこちらから)</p>
+        </div>
     </div>
   </div>
-  </div>
+</div>
 @stop
 
 @section('js')
-  
-    <script type="text/javascript"> 
+    <script type="text/javascript" src="/js/jquery.sublimeSlideshow.js"></script>
+    <script type="text/javascript">
+    //スライドショー用
+    $(function(){
+        var device = ($(window).width() < 1021)? "sp":"pc";
+        $.sublime_slideshow({
+          src:[
+          {url:"/image/top/top-"+device+"-img1.jpg",title:""},
+          {url:"/image/top/top-"+device+"-img2.jpg",title:""},
+          {url:"/image/top/top-"+device+"-img3.jpg",title:""},
+          {url:"/image/top/top-"+device+"-img4.jpg",title:""},
+          {url:"/image/top/top-"+device+"-img5.jpg",title:""},
+          ],
+          duration:   7,
+          fade:       1,
+          scaling:    false,
+          rotating:   false,
+          overlay:    "image/pattern.png"
+        });
+    });
+    </script>
+    <script type="text/javascript">
       //アラートメッセージ用
-
       <?php
       if($v = $data["message"]){
-          echo "alertify.success('".$v."');";        
-      } 
+          echo "alertify.success('".$v."');";
+      }
       if($v = $data["alert"]){
-          echo "alertify.error('".$v."');";        
-      } 
-      ?>    
+          echo "alertify.error('".$v."');";
+      }
+      ?>
     </script>
 @stop

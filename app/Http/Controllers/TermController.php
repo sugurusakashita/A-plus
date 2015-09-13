@@ -17,6 +17,10 @@ class TermController extends Controller {
 		return view("term/index");
 	}
 
+	public function getPrivacyPolicy(){
+		return view("term/privacypolicy");
+	}
+
 
 
 }

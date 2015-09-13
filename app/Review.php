@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 class Review extends Model {
 
 	protected $table = 'reviews';
-	protected $fillable = ['class_id','user_id','grade','year','review_comment','stars','unit_stars','grade_stars','final_evaluation','attendance','bring','diff_teacher'];
+	protected $fillable = ['class_id','user_id','grade','year','review_comment','stars','unit_stars','grade_stars','fulfill_stars','final_evaluation','attendance','bring'];
 	protected $primaryKey = 'review_id';
 
 	public function users()
@@ -22,14 +22,18 @@ class Review extends Model {
     // その授業のレビュー全てを取得する
     public function reviews($id)
     {
-        return $this->where('class_id','=',$id)->get();
+        return $this->where('class_id','=',$id)->orderBy('updated_at','desc')->get();
     }
 
     public function attendance($id)
     {
-        return $this->select(DB::raw('attendance, count(attendance) as total'))->where('class_id','=',$id)->groupBy('attendance')->get();
+        return $this->select(DB::raw('attendance, count(attendance) as total'))->where('class_id','=',$id)->where("attendance",'>','0')->groupBy('attendance')->get();
     }
 
+    public function bring($id)
+    {
+        return $this->select(DB::raw('bring, count(bring) as total'))->where('class_id','=',$id)->where("bring",'>','0')->groupBy('bring')->get();
+    }
     public function final_evaluations($id)
     {
         return $this->select(DB::raw('final_evaluation, count(final_evaluation) as total'))->where('class_id','=',$id)->groupBy('final_evaluation')->get();

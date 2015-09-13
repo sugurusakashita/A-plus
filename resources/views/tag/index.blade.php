@@ -18,7 +18,7 @@
 @stop
 
 @section('title')
-	タグ追加 | {{ $data['detail']->class_name }}
+	タグ追加 | {{ $data['detail']->class_name }} | A+plus
 @stop
 
 @section('main_content')

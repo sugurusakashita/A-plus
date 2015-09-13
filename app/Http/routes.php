@@ -14,7 +14,8 @@ Route::controllers([
 	'term'		=>	'TermController',
 	'help'		=>	'HelpController',
 	'about'		=>	'AboutController',
-	
+	'campaign'	=>	'CampaignController',
+
 ]);
 
 

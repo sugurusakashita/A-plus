@@ -26,5 +26,37 @@ jQuery(function ($) {
 			return false;
 		}
 	});
+    //投票
+  // 評価を星で表しています
+  $(".raty_stars").raty('set', {
+    scoreName: 'stars',
+    score : function(){
+      return $(this).attr('data-number');
+    }
+  });
+  $(".raty_unit_stars").raty('set', { 
+    scoreName: 'unit_stars',
+    score : function(){
+      return $(this).attr('data-number');
+    } 
+  });
+  $(".raty_grade_stars").raty('set', { 
+    scoreName: 'grade_stars',
+    score : function(){
+      return $(this).attr('data-number');
+    } 
+  }); 
+  $(".raty_fulfill_stars").raty('set', { 
+    scoreName: 'fulfill_stars',
+    score : function(){
+      return $(this).attr('data-number');
+    }  
+  });
 
+  $(".raty-readonly").raty({
+      readOnly: true,
+      score : function(){
+        return $(this).attr('data-number');
+      }
+  })
 });

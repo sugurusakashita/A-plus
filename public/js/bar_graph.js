@@ -1,11 +1,5 @@
 //擬似クラス化
 var barClass = (function(){
-  //総和
-
-  var sum = 0,
-      max_id = 0,
-      max_percent = 0;
-
   var barClass = function(selector,data){
     this.selector = selector;
     this.data = data;
@@ -15,6 +9,11 @@ var barClass = (function(){
   var p = barClass.prototype;
 
   p.barGraph = function barGraph(){
+      //総和
+    var sum = 0,
+        max_id = 0,
+        max_percent = 0;
+
     data = this.data;
 
       for(var i = 0;i < data.length;i++){
@@ -26,8 +25,9 @@ var barClass = (function(){
             max_id = i;
           }
       }
+
       //shema.css/col7 だとrectの最大width 280px
-      data[max_id]["pix"] = 280;
+      data[max_id]["pix"] = 200;
 
       //valueにパーセントの値を入れる
       for(var j = 0; j < data.length; j++){
@@ -58,7 +58,7 @@ var barClass = (function(){
 
       //パーセントの表示
       svg.selectAll("p").data(data).enter().append("text")
-    .attr("x", function(d, i){ return d["pix"] / 2 + 85; })
+    .attr("x", function(d, i){ return d["pix"] / 2 + 80; })
     .attr("y", function(d, i) { return i * barHeight + barHeight / 2 - 1; })
     .text(function(d) { return d["percent"] + '%'; });
 

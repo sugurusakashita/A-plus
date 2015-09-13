@@ -16,11 +16,17 @@ class Registrar implements RegistrarContract {
 	public function validator(array $data)
 	{
 
-		return Validator::make($data, [
-			//2MBを超えるアップロードだと、バリデーションが効かない？
-			//サーバー側が500エラーで保存はされない。要検証。
-			'avatar' => 'max:1500|image|mimes:jpeg,jpg,gif,png',
-			'avatar_url' => 'string|url', 
+		//例外処理
+		// if(array_key_exists('avatar',$data)){
+		// 	if($data['avatar']->getError() > 0){
+		// 		var_dump($data['avatar']->getError());
+		// 		return Validator::make($data,['avatar_url' => 'exceed']);
+		// 	}
+		// }
+
+		return Validator::make($data,[
+			'avatar' => 'max:2000|image|mimes:jpeg,jpg,gif,png',
+			'avatar_url' => 'string|url',
 			'name' => 'required|max:20|unique:users',
 			'entrance_year' => 'required',
 			'faculty' => 'required',
@@ -37,7 +43,7 @@ class Registrar implements RegistrarContract {
 	 * @return User
 	 */
 	public function create(array $data)
-	{	
+	{
 		//保存PATH
 		$path ="";
 
@@ -48,16 +54,18 @@ class Registrar implements RegistrarContract {
 			$path = $data["avatar_url"];
 		}
 
+
 		//アバターの保存
 		if(isset($data["avatar"])) {
 			if($data["avatar"]){
-				//念のためサニタイズ
-				$name = htmlspecialchars($data['name'],ENT_QUOTES);
-				$file_name = $name."_avt.".$data["avatar"]->guessClientExtension();
-				$file = $data["avatar"]->move("avatar",$file_name);	
+				//ユニークID付与
+				$name = uniqid(rand());
+				$file_name = $name.".".$data["avatar"]->guessClientExtension();
+				$file = $data["avatar"]->move("avatar",$file_name);
 				$path = asset("avatar/".$file_name);
 			}
 		}
+
 		//通常ログイン用
 		if(!isset($data['social_id'])){
 			$data['social_id'] = NULL;

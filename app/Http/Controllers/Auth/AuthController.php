@@ -45,12 +45,6 @@ class AuthController extends Controller {
 		$this->auth = $auth;
 		$this->registrar = $registrar;
 
-		// ユーザーが授業をレビューしようと思ってログイン処理を要求されたとき、
-		// その授業レビューページへリダイレクトする
-		// if($id = Session::get(self::AUTH_LOGIN_REDIRECT_ID)){
-		// 	$this->redirectTo = '/classes/review/' . $id;
-		// }
-
 		$this->middleware('guest', ['except' => ['getLogout','getDeleteAccount','postDeleteAccount']]);
 		$this->middleware('auth', ['only' => ['getDeleteAccount','postDeleteAccount']]);
 	}
@@ -78,18 +72,18 @@ class AuthController extends Controller {
 		$data = array();
 		$user = $this->user;
 		$social =  Socialize::with('twitter')->user();
-		
 		$data["social_id"] = $social->getId();
 		//ログイン
 		if($user = $user->where("social_id",'=',$data["social_id"])->first()){
 			$this->auth->loginUsingId($user->user_id);
 			return redirect()->intended($this->redirectTo);
 		}
+
 		$data['message'] = "Twitterから情報を取得しました";
 		$data["name"] = $social->getName();
 		//TwitterAPIではEmail情報が取れないらしい。
 		$data["email"] = $social->getEmail();
-		$data["avatar_url"] = $social->getAvatar();
+		$data["avatar_url"] = $social->avatar_original;
 		//return view("auth/socialregister")->with("data",$data);
 		return redirect()->to('/auth/social-register')->withInput($data);
 		//return redirect()->to('/auth/register')->withInput($data);
@@ -97,7 +91,7 @@ class AuthController extends Controller {
 
 	/**
 	 * Facebook API OAuth リダイレクト処理
-	 * 
+	 *
 	 * @author shalman
 	 * @return void
 	 */
@@ -125,7 +119,6 @@ class AuthController extends Controller {
 			$this->auth->loginUsingId($user->user_id);
 			return redirect()->intended($this->redirectTo);
 		}
-		
 		$data['message'] = "facebookから情報を取得しました";
 		$data["name"] = $social->getName();
 		$data["email"] = $social->getEmail();
@@ -145,9 +138,9 @@ class AuthController extends Controller {
 		Session::reflash();
 		//例外処理
 		if(!old("social_id")){
-			$data["top_alert"] = "不正な手続きを検知しました。<br>お手数ですが、もう一度登録しなおしてください。";
+			$data["top_alert"] = "登録がタイムアウト、またはSNSサービス内のエラーです。<br>お手数ですが、もう一度登録しなおしてください。";
 			return redirect()->to($this->redirectTo)->withInput($data);
-		 }		
+		 }
 		$data['message'] = old("message");
 
 		return view("auth/socialregister")->with("data",$data);
@@ -180,7 +173,7 @@ class AuthController extends Controller {
 
 		// user_id取得
 		$id = Auth::user()->user_id;
-		
+
 		//削除
 		if($this->user->find($id)->delete()){
 			$data["top_message"] = "退会が完了いたしました。<br>ご利用ありがとうございました。";
@@ -191,6 +184,37 @@ class AuthController extends Controller {
 		return redirect()->To($this->redirectTo)->withInput($data);
 
 	}
+
+	/**
+	 * Handle a registration request for the application.
+	 * オーバーライド
+	 *
+	 * @param  \Illuminate\Http\Request  $request
+	 * @return \Illuminate\Http\Response
+	 */
+	public function postRegister(Request $request)
+	{
+		$avatar = $request->file('avatar');
+		if(!is_null($avatar) && $avatar->getError() > 0){
+			$result = $request->all();
+			$result["alert"] = "プロフィール画像のサイズが大きすぎる場合があります。";
+			return redirect()->back()->withInput($result);
+		}
+
+		$validator = $this->registrar->validator($request->all());
+
+		if ($validator->fails())
+		{
+			$this->throwValidationException(
+				$request, $validator
+			);
+		}
+
+		$this->auth->login($this->registrar->create($request->all()));
+
+		return redirect($this->redirectPath());
+	}
+
 	/**
 	 * ソーシャル連携登録処理
 	 *

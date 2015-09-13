@@ -23,13 +23,16 @@ class ClassesController extends Controller {
 
 	// 公式シラバスURL用
 	protected static $url_year = "2015";
-	protected static $dep_name = "19";
+	protected static $dep_name = array(
+			"人間科学部"	=> "19",
+			"スポーツ科学部"	=> "20",
+		);
 	protected static $w_syllabus_url = "https://www.wsl.waseda.jp/syllabus/JAA104.php?pKey=";
 
 	protected $color = ["#16a085","#91C5E6","#e74c3c","#258cd1"];
 
 	const REVIEW_POST_SESSION = 'review_post_session';
-	
+
 	//const AUTH_LOGIN_REDIRECT_ID = 'auth_login_redirect_id';
 
 	public function __construct(Classes $classes,Review $review,Teacher $teacher,RankingController $ranking){
@@ -39,9 +42,7 @@ class ClassesController extends Controller {
 		$this->teacher = $teacher;
 
 		//Authフィルタのホワイトリスト
-		$this->middleware("auth",["only" => ["getReview","postConfirm","postComplete","getEdit","postEditConfirm","postEditComplete","postDeleteConfirm","postDeleteComplete"]]);
-		//他人のレビューを改竄しようとしたユーザーをフィルタ
-		$this->middleware("validReviewer",["only" => ["getEdit","postEditConfirm","postEditComplete","postDeleteConfirm","postDeleteComplete"]]);
+		$this->middleware("auth",["only" => ['postAjaxReview']]);
 	}
 
 	/**
@@ -75,9 +76,10 @@ class ClassesController extends Controller {
 		} else {
 			$data['wrote_review'] = false;
 		}
-		$data['evaluation'] = $this->makeEvaluationData($data['detail']);
-		$data['attendance_pie'] 			= $this->makeJsonForPie($this->review->attendance($id),"attendance");
-		$data['final_evaluation_pie'] = $this->makeJsonForPie($this->review->final_evaluations($id),"final_evaluation");
+		$data['evaluation'] = $this->makeEvaluationData($data['detail']); 
+		$data['attendance_data'] 	  = $this->makeAvarageData($this->review->attendance($id),"attendance");
+		$data['bring_data'] 	  = $this->makeAvarageData($this->review->bring($id),"bring");
+		//$data['final_evaluation_pie'] = $this->makeAvarageData($this->review->final_evaluations($id),"final_evaluation");
 		$data['actual_syllabus_url']  = $this->makeActualSyllabusUrl($data['detail']);
 
 		// ユニークPVカウント
@@ -97,12 +99,12 @@ class ClassesController extends Controller {
 
 	public function makeActualSyllabusUrl($data){
 
-		return self::$w_syllabus_url . $data['class_code'] . $data['class_no'] . self::$url_year . $data['class_code'] . self::$dep_name . "&pLng=jp";
+		return self::$w_syllabus_url . $data['class_code'] . $data['class_no'] . self::$url_year . $data['class_code'] . self::$dep_name[$data["faculty"]] . "&pLng=jp";
 
 	}
 
 	/**
-	 * レビューデータからd3グラフ用jsonに変換
+	 * レビューデータから平均値を含むJSONを作成
 	 *
 	 * @param array, string
 	 * @author shalman
@@ -110,9 +112,7 @@ class ClassesController extends Controller {
 	 *
 	 */
 
-	public function makeJsonForPie($data,$type){
-		
-		
+	public function makeAvarageData($data,$type){
 
 		$result = NULL;
 		for ($i=0; $i < $data->count(); $i++) {
@@ -124,7 +124,7 @@ class ClassesController extends Controller {
 		 	$result[$i]["color"] = $this->color[$i];
 		}
 
-		 if(is_null($result)){
+		 if(is_null($result[0]["legend"])){
 		 	return null;
 		 }
 		 $result = json_encode($result, JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT | JSON_UNESCAPED_UNICODE );
@@ -144,7 +144,7 @@ class ClassesController extends Controller {
 	 */
 
 	public function makeEvaluationData($data){
-		//評価法全て
+		//公式の総合評価法全て
 		$col = array(
 			"exam" => "試験",
 			"report" => "レポート",
@@ -152,13 +152,13 @@ class ClassesController extends Controller {
 			"other" => "その他");
 		$result = null;
 
-		for ($i=0; $i < count($col); $i++) { 
+		for ($i=0; $i < count($col); $i++) {
 
 			//exam,report,attitude,otherのいずれか
 			$value = array_keys($col)[$i];
 			//試験,レポート,,のいずれか
 			$legend = array_values($col)[$i];
-			
+
 			if(!$data->$value){
 				// 0%だった場合パス
 				continue;
@@ -166,6 +166,10 @@ class ClassesController extends Controller {
 			$result[$i]["legend"]	=	$legend;
 			$result[$i]["value"]	= 	$data->$value; 
 			$result[$i]["color"] 	=	$this->color[$i];
+		}
+
+		if(is_null($result)){
+			return null;
 		}
 		//配列リセット
 		$result = array_values($result);
@@ -189,189 +193,6 @@ class ClassesController extends Controller {
 		}
 
 		return redirect()->to("/classes/index/".$id.$get_str);
-	}
-
-	/**
-	 * 授業レビュー投稿
-	 *
-	 * @param int (URI segment)
-	 * @author shalman
-	 * @return view
-	 *
-	 */
-
-	public function getReview($id, Request $request){
-		//ログインチェック
-		// if (!Auth::check()){
-		// 	Session::put(self::AUTH_LOGIN_REDIRECT_ID, $id);
-		// 	return redirect()->to("/auth/login");
-		// }
-
-		// ログインしてリダイレクトしてきたら該当セッションを削除
-		// if(Session::get(self::AUTH_LOGIN_REDIRECT_ID)){
-		// 	Session::forget(self::AUTH_LOGIN_REDIRECT_ID);
-		// }
-
-		// もしレビュー済みの場合
-		if($this->review->wrote_review($id, $request->user()->user_id)){
-			return redirect()->to("classes/index/" . $id);
-		}
-
-		// 二重投稿確認用
-		Session::put(self::REVIEW_POST_SESSION, csrf_token());
-
-		$classes = $this->classes;
-		$data['detail'] =  $classes->find($id);
-		return view('classes/review')->with('data',$data);
-	}
-
-	/**
-	 * 授業レビュー投稿確認
-	 *
-	 * @param Request
-	 * @author shalman
-	 * @return view
-	 *
-	 */
-
-	public function postConfirm(Request $request){
-		// 二重投稿のチェック
-		if(!Session::get(self::REVIEW_POST_SESSION)){
-			return redirect()->back()->withInput();
-		}
-		//レビューバリデーション
-		$this->reviewValidation($request);
-		
-		$data = $request->all();
-		$data['detail'] = $this->classes->find($request->class_id);
-		return view('classes/confirm')->with('data',$data);
-
-	}
-
-	/**
-	 * 授業レビュー投稿完了
-	 *
-	 * @param Request
-	 * @author shalman
-	 * @return view
-	 *
-	 */
-
-	public function postComplete(Request $request){
-		// 投稿完了したら該当セッションを削除、リロードしたらTOPへリダイレクト
-		if(Session::get(self::REVIEW_POST_SESSION)){
-			Session::forget(self::REVIEW_POST_SESSION);
-		} else {
-			return redirect()->to('/');
-		}
-
-		$review = $this->review;
-		$data['id'] = $request->class_id;
-		$req = $request->all();
-		$req['user_id'] = $request->user()->user_id;
-		$review->fill($req);
-    	$review->save();
-
-
-		return view('classes/complete')->with('data',$data);
-	}
-
-	/**
-	 * 授業レビュー再編集
-	 *
-	 * @param Request
-	 * @author shalman
-	 * @return view
-	 *
-	 */
-
-	public function getEdit(Request $request){
-		$data['all'] = $request->all();
-		$id = $data['all']['review_id'];
-		$data['detail'] = $this->review->find($id);
-		return view('classes/edit')->with('data',$data);
-	}
-
-
-	/**
-	 * 授業レビュー再編集確認
-	 *
-	 * @param Request
-	 * @author shalman
-	 * @return view
-	 *
-	 */
-
-	public function postEditConfirm(Request $request){
-		$data = $request->all();
-
-		//レビューバリデーション
-		$this->reviewValidation($request);
-		
-		return view('classes/editconfirm')->with('data',$data);
-
-	}
-
-
-	/**
-	 * 授業レビュー再編集完了
-	 *
-	 * @param Request
-	 * @author shalman
-	 * @return view
-	 *
-	 */
-
-	public function postEditComplete(Request $request){				
-		$id = $request->review_id;
-		$review = $this->review->find($id);
-
-		$req = $request->all();
-
-		$review->fill($req);
-    	$review->save();
-
-    	$data['id'] = $request->class_id;
-
-		return view('classes/editcomplete')->with('data',$data);
-	}
-
-
-	/**
-	 * 授業レビュー削除
-	 *
-	 * @param Request
-	 * @author shalman
-	 * @return view
-	 *
-	 */
-
-	public function postDeleteConfirm(Request $request){
-		$data = $request->all();
-		$id = $data['review_id'];
-		$data['detail'] = $this->review->find($id);
-
-		return view('classes/deleteconfirm')->with('data',$data);
-
-	}
-
-	/**
-	 * 授業レビュー削除完了
-	 *
-	 * @param Request
-	 * @author shalman
-	 * @return view
-	 *
-	 */
-
-	public function postDeleteComplete(Request $request){				
-		$review_id = $request->review_id;
-		$review = $this->review->find($review_id);
-
-		$review->delete();
-
-		$data['id'] = $request->class_id;
-		return view('classes/deletecomplete')->with('data',$data);
 	}
 
 	/**
@@ -465,21 +286,51 @@ class ClassesController extends Controller {
 	}
 
 	/**
-	 * レビューバリデーション
+	 * 授業レビュー投稿完了
 	 *
-	 * @param request
+	 * @param Request
 	 * @author shalman
-	 * @return mixed
+	 * @return JSON or null
 	 *
 	 */
 
-	public function reviewValidation($request){
-		return $this->validate($request,[
-			"grade" => "required",
-			"stars" => "required",
-			"unit_stars" => "required",
-			"grade_stars" => "required",
-			"review_comment" => "required|min:10|max:500"
-			]);
+	public function postAjaxReview(Request $request,MyPageController $mypage){
+		//ajax以外のアクセスを禁止
+		if(!$request->ajax()){
+ 			return null;
+		}
+
+		//レビューバリデーション
+		$mypage->reviewValidation($request);
+
+		$user = Auth::user();
+		$request["user_id"] = $user->user_id;
+
+		$review = $this->review;
+
+		$req = $request->all();
+
+		if(empty($req['attendance'])){
+			$req['attendance'] = NULL;
+		}
+		if(empty($req['bring'])){
+			$req['bring'] = NULL;
+		}
+
+		$review->fill($req);
+		if($review->save()){
+			$data["success"] = true;
+			$data["message"] = "レビューが完了しました！<br>ありがとうございます！";
+		}else{
+			$data["success"] = false;
+			$data["message"] = "レビューの登録に失敗しました。";
+		}
+
+		$data["name"] = $user->name;
+		$data["avatar"] = $user->avatar;
+
+		return json_encode($data);
+
 	}
+
 }
