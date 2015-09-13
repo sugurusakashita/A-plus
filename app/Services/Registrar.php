@@ -45,7 +45,7 @@ class Registrar implements RegistrarContract {
 	public function create(array $data)
 	{
 		//保存PATH
-		$path ="";
+		$path = "";
 
 		//GreetingMessage
 		$message = "初めまして！".$data['name']."さん！<br>A+plusを使って賢く大学生活を過ごしましょう！";
@@ -64,6 +64,8 @@ class Registrar implements RegistrarContract {
 				$file = $data["avatar"]->move("avatar",$file_name);
 				$path = asset("avatar/".$file_name);
 			}
+		}else{
+			$path = NULL;
 		}
 
 		//通常ログイン用
