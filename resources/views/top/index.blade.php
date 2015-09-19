@@ -76,22 +76,6 @@
           </div>
         </div>
         <div class="top-block">
-          <div>
-          <h2>CAMPAIGN</h2>
-          <hr>
-          </div>
-          <div class="col12 text-left">
-            <div class="col6 ">
-              <a href="/campaign/index/1"><img class="top-content-img" src="/image/campaign/event1-lg.png" alt="A+plus campaign" style="width:100%"></a>
-            </div>
-            <div class="col6">
-              <p class="lead">現在、リリースキャンペーン実施中！抽選で<span style="color:#FC9A18">Amazonギフト券</span>1000円分プレゼント</p>
-              <p>キャンペーンの概要、エントリー条件などは<a href="/campaign/index/1">こちら</a>をご覧ください。</p>
-              <p>締め切りが近いのでお早めに！誰よりも早くA+plusをチェックしてくれた人限定です！</p>
-            </div>
-          </div>
-        </div>
-        <div class="top-block">
           <h2>ABOUT US</h2>
           <hr>
           <img class="top-content-img" src="/image/ei-logo1.png" alt="A+plus service1" height="250">

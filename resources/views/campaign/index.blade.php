@@ -16,12 +16,13 @@
 <meta itemprop="image" content="{{ asset('image/top/top-main.gif') }}" />
 @stop
 @section('title')
-	会員登録・レビューでAmazonギフト券1000円分キャンペーン | A+plus
+	会員登録・レビューでAmazonギフト券1000円分キャンペーン(終了) | A+plus
 @stop
 
 @section('main_content')
 	<div class="alert a-is-info" style="margin: 0 auto 5px;">
 		<p>会員登録・レビューでAmazonギフト券1000円分プレゼントキャンペーン</p>
+		<p style="color:red;">本キャンペーンは終了しました。</p>
 	</div>
 	<div>
 		<img class="header-campaign-image"src="/image/campaign/event1-lg.png" alt="会員登録・レビューでAmazonギフト券1000円分プレゼントキャンペーン">
@@ -57,7 +58,7 @@
 			<span class="icon-plus footer-header-icon"></span>キャンペーン期間
     	</div>
     	<div class="panel-body">
-    		<p>リリース日〜2015年9月17日 23:59迄</p>
+    		<s>リリース日〜2015年9月17日 23:59迄</s>
 	    </div>
     </div>
     <div class="panel panel-warning">
@@ -86,31 +87,7 @@
 		    <p>Team A+plus</p>
     	</div>
     </div>
-    <div class="campaign-submit-form">
-		<div class="panel panel-warning">
-			<div class="panel-title">
-			  SNSで応募(タイムラインにシェア)
-			</div>
-			<div class="panel-body" style="overflow:auto;">
-				@if(!Auth::check())
-				<p style="color:red;">シェアする前にA+plusのログインが必要です。ログインは<a href="/auth/login">こちら</a>から</p>
-				@endif
-				<div class="col12">
-					<div class="col6 text-center <?php if(!Auth::check()) echo 'is-disabled'; ?>" >
-						<a href="{{ $data['twitter_url'] }}" target="_blank" class="btn btn-primary" id="entry-via-twitter" style="background-color:#00C6F2;">
-							<span class="icon-twitter2 icons"></span>Twitterでシェアする
-						</a>
-					</div>
-					<div class="col6 text-center <?php if(!Auth::check()) echo 'is-disabled'; ?>" >
-						<a href="{{ $data['facebook_url'] }}" target="_blank" class="btn btn-primary" id="entry-via-facebook" style="background-color:#3B5998;">
-							<span class="icon-facebook2 icons"></span>Facebookでシェアする
-						</a>
-					</div>
-				</div>
-				<p class="campaign-detail">※シェアだけではエントリーになりません。詳しくは上部キャンペーン参加方法をご確認ください。</p>
-			</div>
-		</div>
-    </div>
+
 @stop
 
 @section('js')

@@ -1,7 +1,4 @@
 <div class="sidebar">
-  <div>
-    <a href="/campaign/index/1"><img class="sidebar-logo" src="/image/campaign/event1-sm.png"></a>
-  </div>
   <div class="access_ranking" style="margin-bottom: 15px;">
     <div class="list-group">
       <a class="list-group-element active">アクセスランキング</a>
