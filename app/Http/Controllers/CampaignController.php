@@ -102,7 +102,7 @@ class CampaignController extends Controller {
 		$base_url = "https://twitter.com/share?";
 		$option = array(
 			"via" => urlencode("waseda_Aplus"),
-			"text" => urlencode("早稲田所キャンレビューサイトA+plus 会員登録・レビューでAmazonギフト券1000円分プレゼントキャンペーン!!"),
+			"text" => urlencode("早稲田所キャンレビューサイトA+plus 第２弾 会員登録・レビューでAmazonギフト券1000円分プレゼントキャンペーン!!"),
 			// "related" => urlencode("waseda_Aplus"),
 			"lang" => urlencode("ja"),
 			"hashtags" => urlencode("エイプラ"),

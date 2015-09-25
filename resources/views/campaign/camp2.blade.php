@@ -8,15 +8,15 @@
 <meta name="description" itemprop="description" content="大学生活をさらにスマートに。さらに賢く。" />
 <meta name="keywords" itemprop="keywords" content="A+plus,キャンペーン,Amazonギフト券,レビュー,早稲田" />
 <meta name="twitter:card" content="summary_large_image" />
-<meta property="og:title" content="会員登録・レビューでAmazonギフト券1000円分キャンペーン | A+plus" />
-<meta property="og:url" content="{{ url('campaign/index',[1]) }}" />
-<meta property="og:image" content="{{ asset('image/campaign/event1-lg.png') }}" />
+<meta property="og:title" content="会員登録・レビューでAmazonギフト券1000円分キャンペーン 第２弾| A+plus" />
+<meta property="og:url" content="{{ url('campaign/index',[2]) }}" />
+<meta property="og:image" content="{{ asset('image/campaign/event2-lg.png') }}" />
 <meta property="og:site_name" content="早稲田大学所沢キャンパス 授業レビューサイト A+plus" />
 <meta property="og:description" content="A+plusでは早稲田大学所沢キャンパスの授業レビューを提供しています。" />
 <meta itemprop="image" content="{{ asset('image/top/top-main.gif') }}" />
 @stop
 @section('title')
-  会員登録・レビューでAmazonギフト券1000円分キャンペーン(終了) | A+plus
+  会員登録・レビューでAmazonギフト券1000円分キャンペーン　第２弾 | A+plus
 @stop
 
 @section('main_content')
@@ -68,7 +68,8 @@
           <li><b>STEP3: 以下の「SNSで応募」からTwitterかFacebookのどちらかをタップしてシェア！</b></li>
   	    </ul>
         </div>
-  	    <p class="campaign-detail">※シェアした後にレビュー件数を満たしても(STEP2)エントリーとなります。</p>
+        <p><b>しかも！！今回は第一弾と違い、学期関係なくレビューは<span style="color:red;">3件以上</span>でSTEP2がクリア！！</b></p>
+  	    <p class="campaign-detail">※シェアした後にレビュー件数を満たしてもエントリーとなります。</p>
         <p class="campaign-detail">※STEP2におけるレビュー件数は、<b>今までにレビューされたものも含まれます！</b></p>
       </div>
   <div class="campaign-submit-form section-margin">
@@ -92,7 +93,7 @@
            </a>
          </div>
        </div>
-       <p class="campaign-detail">※シェアだけではエントリーになりません。詳しくは上部キャンペーン参加方法をご確認ください。</p>
+       <p class="campaign-detail">※シェアだけではエントリーになりません。詳しくは上部条件をご確認ください。</p>
      </div>
     </div>
   </div>
