@@ -31,14 +31,9 @@ table{
   float: right;
   position: relative;
   top: -21px;
-/*  right:30px;
-  font-size:14px;
-  top: 1px;*/
 }
 .nav{
-  padding: 5px 0;
   margin: 0 0 25px;
-  /*background-color: #f7b977;*/
   background-color: #AB3124;
 }
 
