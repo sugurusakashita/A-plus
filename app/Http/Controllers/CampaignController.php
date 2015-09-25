@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 
 class CampaignController extends Controller {
 
+	const CAMP_TYPE = 2;
 
 	protected $ranking;
 	protected $campaign;
@@ -38,11 +39,37 @@ class CampaignController extends Controller {
 		$data['access_ranking'] = $this->ranking->returnAccessRankingList();
 		$data["twitter_url"] = $this->makeTwitterUrl();
 		$data["facebook_url"] = $this->makeFacebookUrl();
-		if($id == 1){
-			return view("campaign/index")->with("data",$data);
-		}else{
-			return redirect()->to("/");
+
+		if(Auth::check()){
+			$user = Auth::user();
+			//キャンペーン2
+			$reviewCount = $user->reviews()->count();
+
+			$step2 = false;
+			$data['diffReview'] = 0;
+			if($reviewCount >= 3){
+				$step2 = true;
+			}else{
+				$data['diffReview'] = 3 - $reviewCount;
+			}
+
+			$step3 = false;
+			foreach ($user->campaigns()->get() as $camp) {
+				if($camp->camp_type == 2){
+					$step3 = true;
+					break;
+				}
+			}
+
+			$isEntry = ($step2 && $step3)? true:false;
+			$data['camp2'] = array(
+				'isEntry'	=>	$isEntry,
+				'step2'	=>	$step2,
+				'step3'	=>	$step3
+			);
 		}
+
+		return view('campaign/camp'.$id)->with("data",$data);
 	}
 
 	/**
@@ -57,7 +84,7 @@ class CampaignController extends Controller {
 
 		$user = Auth::user();
 		$res["user_id"] = $user->user_id;
-		$res["camp_type"] = 1;
+		$res["camp_type"] = self::CAMP_TYPE;
 
 		$camp->fill($res);
 		$camp->save();
