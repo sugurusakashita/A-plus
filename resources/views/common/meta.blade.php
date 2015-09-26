@@ -16,6 +16,20 @@
 
 <link href='//fonts.googleapis.com/css?family=Roboto:400,300' rel='stylesheet' type='text/css'>
 <script type="text/javascript" src="https://code.jquery.com/jquery-1.11.3.js"></script>
+<script type="text/javascript">
+  $(window).load(function() {
+  function changeWidget() {
+    var twFrame = $('iframe.twitter-timeline');
+    if (twFrame.length > 0) {
+      twFrame.contents()
+      .find('head').append('<link href="/css/tw.css" rel="stylesheet" type="text/css" media="all" />');
+      } else {
+        setTimeout(changeWidget, 1500);
+        }
+      }
+      changeWidget();
+   });
+</script>
 <meta property="og:type" content="website" />
 <meta property="og:locale" content="ja_JP" />
 <!--[if lt IE 9]>

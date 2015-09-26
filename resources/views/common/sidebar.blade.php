@@ -24,7 +24,7 @@
   </div>
   <div class="follow-us">
     <div class="fb-page" data-href="https://www.facebook.com/waseda.Aplus" data-small-header="false" data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="true" data-show-posts="false"><div class="fb-xfbml-parse-ignore"><blockquote cite="https://www.facebook.com/waseda.Aplus"><a href="https://www.facebook.com/waseda.Aplus">早稲田大学アプリ開発サークル A+plus</a></blockquote></div></div>
-    <a class="twitter-timeline" href="https://twitter.com/waseda_Aplus" data-widget-id="640404274493587456">@waseda_Aplusさんのツイート</a>
+    <a class="twitter-timeline" href="https://twitter.com/waseda_Aplus" data-widget-id="640404274493587456" width="100%">@waseda_Aplusさんのツイート</a>
     <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
   </div>
 
