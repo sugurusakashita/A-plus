@@ -110,7 +110,11 @@
 		  	@if($class_data->teachers()->get()->count())
 		  	<li class="list-group-element">
 		  	@foreach($class_data->teachers()->get() as $teacher)
-		 		<a href="/search?q={{ urldecode($teacher->teacher_name) }}&_token={{csrf_token()}}">{{ $teacher->teacher_name }}</a>
+		  		<form action="/search/" method="get" style="display:inline;">
+            		<input type="hidden" name="_token" value="{{csrf_token()}}">
+            		<input type="hidden" name="q" value="{{ $teacher->teacher_name }}">
+            		<button class="btn btn-danger-outline btn-sm">{{ $teacher->teacher_name }}</button>
+		  		</form>
 		 	@endforeach
 		  	</li>
 			@if(!(count($tags) == 0))

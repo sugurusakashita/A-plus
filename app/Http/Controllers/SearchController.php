@@ -102,8 +102,13 @@ class SearchController extends Controller {
 		$offset = ($limit * $page_num) - $limit;
 		$data['classes'] = $this->classes_list($search_session,$search_queries);
 		$total = $data['classes']->count();
+
+		$options = array(
+			'path'=>'search',
+			'query'	=>	$search_session
+		);
 		//ページネーター作成
-		$data['classes'] = new LengthAwarePaginator($data['classes']->skip($offset)->take($limit)->get(),$total,$limit,$page,array("path"=>"search"));
+		$data['classes'] = new LengthAwarePaginator($data['classes']->skip($offset)->take($limit)->get(),$total,$limit,$page,$options);
 
 		$data['res_string'] = $this->genSearchTitle($search_session);
 		$data['get'] = $search_session;
