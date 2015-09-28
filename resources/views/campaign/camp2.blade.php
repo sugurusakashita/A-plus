@@ -131,7 +131,8 @@
   	</div>
   	<div class="panel-body">
   		<p>2015年10月2日 23:59迄</p>
-      <p class="campaign-detail">※STEP2の対象レビューも上記日時までのものとします。</p>
+      <p class="campaign-detail">※STEP3の対象レビューも上記日時までのものとします。</p>
+      <p class="campaign-detail">※予告なしに、延長される場合がございます。</p>
     </div>
   </div>
   <div class="panel panel-warning section-margin">
