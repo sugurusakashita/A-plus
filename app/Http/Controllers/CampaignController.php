@@ -45,20 +45,23 @@ class CampaignController extends Controller {
 			//キャンペーン2
 			$reviewCount = $user->reviews()->count();
 
+			//STEP2
+			//キャンペーンをシェアしているか
 			$step2 = false;
-			$data['diffReview'] = 0;
-			if($reviewCount >= 3){
-				$step2 = true;
-			}else{
-				$data['diffReview'] = 3 - $reviewCount;
-			}
-
-			$step3 = false;
 			foreach ($user->campaigns()->get() as $camp) {
 				if($camp->camp_type == 2){
-					$step3 = true;
+					$step2 = true;
 					break;
 				}
+			}
+			//STEP3
+			//レビューは3件以上か
+			$step3 = false;
+			$data['diffReview'] = 0;
+			if($reviewCount >= 3){
+				$step3 = true;
+			}else{
+				$data['diffReview'] = 3 - $reviewCount;
 			}
 
 			$isEntry = ($step2 && $step3)? true:false;
@@ -69,6 +72,7 @@ class CampaignController extends Controller {
 			);
 		}
 
+		$data['count'] = $this->campaign->totalEntry(self::CAMP_TYPE);
 		return view('campaign/camp'.$id)->with("data",$data);
 	}
 

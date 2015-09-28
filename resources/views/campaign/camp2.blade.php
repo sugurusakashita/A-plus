@@ -64,56 +64,64 @@
         <div class="panel panel-danger panel-body">
   	    <ul>
   	    	<li><b>STEP1: <a href="/auth/register">こちら</a>から無料会員登録をします</b></li>
-  		    <li><b>STEP2: 授業のレビューを<span style="color:red;">3件以上</span>登録！</b></li>
-          <li><b>STEP3: 以下の「SNSで応募」からTwitterかFacebookのどちらかをタップしてシェア！</b></li>
+          <li><b>STEP2: 以下の「SNSで応募」からTwitterかFacebookのどちらかをタップしてシェア！</b></li>
+  		    <li><b>STEP3: 授業のレビューを<span style="color:red;">3件以上</span>登録！</b></li>
   	    </ul>
         </div>
-        <p><b>しかも！！今回は第一弾と違い、学期関係なくレビューは<span style="color:red;">3件以上</span>でSTEP2がクリア！！</b></p>
+        <p><b>しかも！！今回は第一弾と違い、学期関係なくレビューは<span style="color:red;">3件以上</span>でSTEP3がクリア！！</b></p>
   	    <p class="campaign-detail">※シェアした後にレビュー件数を満たしてもエントリーとなります。</p>
-        <p class="campaign-detail">※STEP2におけるレビュー件数は、<b>今までにレビューされたものも含まれます！</b></p>
+        <p class="campaign-detail">※STEP3におけるレビュー件数は、<b>今までにレビューされたものも含まれます！</b></p>
       </div>
-  <div class="campaign-submit-form section-margin">
-    <div class="panel panel-warning">
-      <div class="panel-title">
-       <span class="icon-plus footer-header-icon"></span>SNSで応募(タイムラインにシェア)
+      <div class="campaign-submit-form section-margin">
+        <div class="panel panel-warning">
+          <div class="panel-title">
+            SNSで応募(タイムラインにシェア)
+          </div>
+          <div class="panel-body" style="overflow:auto;">
+            @if(!Auth::check())
+            <p style="color:red;">シェアする前にA+plusのログインが必要です。ログインは<a href="/auth/login">こちら</a>から</p>
+            @endif
+           <div class="col12">
+             <div class="col6 text-center <?php if(!Auth::check()) echo 'is-disabled'; ?>" >
+               <a href="{{ $data['twitter_url'] }}" target="_blank" class="btn btn-primary" id="entry-via-twitter" style="background-color:#00C6F2;">
+                 <span class="icon-twitter2 icons"></span>Twitterでシェアする
+               </a>
+             </div>
+             <div class="col6 text-center <?php if(!Auth::check()) echo 'is-disabled'; ?>" >
+               <a href="{{ $data['facebook_url'] }}" target="_blank" class="btn btn-primary" id="entry-via-facebook" style="background-color:#3B5998;">
+                 <span class="icon-facebook2 icons"></span>Facebookでシェアする
+               </a>
+             </div>
+           </div>
+           <p class="campaign-detail">※シェアだけではエントリーになりません。詳しくは上部条件をご確認ください。</p>
+         </div>
+        </div>
       </div>
-      <div class="panel-body" style="overflow:auto;">
-        @if(!Auth::check())
-        <p style="color:red;">シェアする前にA+plusのログインが必要です。ログインは<a href="/auth/login">こちら</a>から</p>
-        @endif
-       <div class="col12">
-         <div class="col6 text-center <?php if(!Auth::check()) echo 'is-disabled'; ?>" >
-           <a href="{{ $data['twitter_url'] }}" target="_blank" class="btn btn-primary" id="entry-via-twitter" style="background-color:#00C6F2;">
-             <span class="icon-twitter2 icons"></span>Twitterでシェアする
-           </a>
-         </div>
-         <div class="col6 text-center <?php if(!Auth::check()) echo 'is-disabled'; ?>" >
-           <a href="{{ $data['facebook_url'] }}" target="_blank" class="btn btn-primary" id="entry-via-facebook" style="background-color:#3B5998;">
-             <span class="icon-facebook2 icons"></span>Facebookでシェアする
-           </a>
-         </div>
-       </div>
-       <p class="campaign-detail">※シェアだけではエントリーになりません。詳しくは上部条件をご確認ください。</p>
-     </div>
-    </div>
-  </div>
-  <div class="panel panel-primary section-margin">
-    <div class="panel-title">
-      <span class="icon-plus footer-header-icon"></span>あなたのキャンペーン参加状況
-    </div>
-    <div class="panel-body">
-      @if(Auth::check())
-      <p>{{ Auth::user()->name }}さんのキャンペーン参加状況:<b>{{ $data['camp2']['isEntry']? "エントリー済み！":"条件未達成" }}</b></p><br>
-      <ul>
-        <li><b>STEP1: <span style="color:red;">OK!!</span></b></li>
-        <li><b>STEP2: <span style="color:red;">{{  $data['camp2']['step2']? 'OK!!': 'NG...(あと'.$data['diffReview'].'件のレビューでクリア！)' }}</span></b></li>
-        <li><b>STEP3: <span style="color:red;">{{  $data['camp2']['step3']? 'OK!!': 'NG...' }}</span></b></li>
-      </ul>
-      @else
-      <p style="color:red;">参加状況を確認するにはログイン、または新規登録が必要です。ログインは<a href="/auth/login">こちら</a>から</p>
-      @endif
-    </div>
-  </div>
+      <div class="panel panel-primary section-margin">
+        <div class="panel-title">
+          あなたのキャンペーン参加状況
+        </div>
+        <div class="panel-body">
+          @if(Auth::check())
+          <p>{{ Auth::user()->name }}さんのキャンペーン参加状況:<b>{{ $data['camp2']['isEntry']? "エントリー済み！":"条件未達成" }}</b></p><br>
+          <ul>
+            <li><b>STEP1: <span style="color:red;">OK!!</span></b></li>
+            <li><b>STEP2: <span style="color:red;">{{  $data['camp2']['step2']? 'OK!!': 'NG...' }}</span></b></li>
+            <li><b>STEP3: <span style="color:red;">{{  $data['camp2']['step3']? 'OK!!': 'NG...(あと'.$data['diffReview'].'件のレビューでクリア！)' }}</span></b></li>
+          </ul>
+          @else
+          <p style="color:red;">参加状況を確認するにはログイン、または新規登録が必要です。ログインは<a href="/auth/login">こちら</a>から</p>
+          @endif
+        </div>
+      </div>
+      <div class="panel panel-success section-margin">
+        <div class="panel-title">
+          みんなのキャンペーン参加状況
+        </div>
+        <div class="panel-body">
+        　エントリー数:　<span style="font-size:24px;">{{ $data['count'] }}人</span>
+        </div>
+      </div>
     </div>
   </div>
 
