@@ -102,6 +102,7 @@
           あなたのキャンペーン参加状況
         </div>
         <div class="panel-body">
+          <p><a href="/mypage/index#campaign2">マイページ</a>からでも確認できます！</p>
           @if(Auth::check())
           <p>{{ Auth::user()->name }}さんのキャンペーン参加状況:<b>{{ $data['camp2']['isEntry']? "エントリー済み！":"条件未達成" }}</b></p><br>
           <ul>

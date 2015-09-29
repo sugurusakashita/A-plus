@@ -120,6 +120,27 @@
 			</div>
 		</div>
 	</div>
+	<!-- campaign start -->
+      <div class="panel panel-danger section-margin" id="campaign2">
+        <div class="panel-title">
+          会員登録・レビューでAmazonギフト券1000円分キャンペーン　第２弾 参加状況
+        </div>
+        <div class="panel-body">
+        	<div class="row-fluid">
+        		<div class="col7">
+			          <p>{{ Auth::user()->name }}さんのキャンペーン参加状況:<b>{{ $data['camp2']['isEntry']? "エントリー済み！":"条件未達成" }}</b></p><br>
+			          <ul>
+			            <li><b>STEP1: <span style="color:red;">OK!!</span></b></li>
+			            <li><b>STEP2: <span style="color:red;">{{  $data['camp2']['step2']? 'OK!!': 'NG...' }}</span></b></li>
+			            <li><b>STEP3: <span style="color:red;">{{  $data['camp2']['step3']? 'OK!!': 'NG...(あと'.$data['diffReview'].'件のレビューでクリア！)' }}</span></b></li>
+			          </ul>
+        		</div>
+        		<div class="col5"><img src="/image/campaign/event2-lg.png" alt="第二弾キャンペーン" style="width:86%;"></div>
+        	</div>
+
+        </div>
+      </div>
+	<!-- campaign end -->
 	<div class="panel panel-primary section-margin">
 		<div class="panel-title">
 			<div class="row-fluid">

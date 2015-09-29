@@ -3,6 +3,7 @@
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\User;
+use App\Campaign;
 use App\Review;
 
 use Illuminate\Contracts\Auth\Guard;
@@ -18,6 +19,7 @@ class MyPageController extends Controller {
 	protected $user;
 	protected $review;
 
+	const CAMP_TYPE = 2;
 
 	public function __construct(User $user,Request $request,Review $review){
 
@@ -39,10 +41,44 @@ class MyPageController extends Controller {
 	 *
 	 * @return Response
 	 */
-	public function getIndex()
+	public function getIndex(Campaign $campaign)
 	{
 		$data['user'] = $this->user;
 		$data['reviews'] = $this->review;
+
+		// キャンペーン表示用
+		$user = Auth::user();
+		//キャンペーン2
+		$reviewCount = $user->reviews()->count();
+
+		//STEP2
+		//キャンペーンをシェアしているか
+		$step2 = false;
+		foreach ($user->campaigns()->get() as $camp) {
+			if($camp->camp_type == 2){
+				$step2 = true;
+				break;
+			}
+		}
+		//STEP3
+		//レビューは3件以上か
+		$step3 = false;
+		$data['diffReview'] = 0;
+		if($reviewCount >= 3){
+			$step3 = true;
+		}else{
+			$data['diffReview'] = 3 - $reviewCount;
+		}
+
+		$isEntry = ($step2 && $step3)? true:false;
+		$data['camp2'] = array(
+			'isEntry'	=>	$isEntry,
+			'step2'	=>	$step2,
+			'step3'	=>	$step3
+		);
+
+
+		$data['count'] = $campaign->totalEntry(self::CAMP_TYPE);
 
 		return view('mypage/index')->with('data',$data);
 
