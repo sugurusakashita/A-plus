@@ -135,7 +135,7 @@
 			            <li><b>STEP3: <span style="color:red;">{{  $data['camp2']['step3']? 'OK!!': 'NG...(あと'.$data['diffReview'].'件のレビューでクリア！)' }}</span></b></li>
 			          </ul>
         		</div>
-        		<div class="col5"><img src="/image/campaign/event2-lg.png" alt="第二弾キャンペーン" style="width:86%;"></div>
+        		<div class="col5"><a href="/campaign/index/2"><img src="/image/campaign/event2-lg.png" alt="第二弾キャンペーン" style="width:86%;"></a></div>
         	</div>
 
         </div>
