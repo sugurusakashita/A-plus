@@ -27,6 +27,7 @@
               <a href="{{ url('/auth/login') }}" class="btn btn-primary"><span class="icon-unlock-stroke"></span> ログイン</a>
               <a href="{{ url('/auth/register') }}" class="btn  btn-success">新規登録</a>
             @else
+              <a href="/mypage/index" class="btn btn-info" ><span class="icon-user"></span> {{  Auth::user()->name}}<span class="caret"></span></a>
               <a href="{{ url('/auth/logout') }}" class="btn btn-danger"><span class="icon-lock-fill"></span> ログアウト</a>
             @endif
           </span>

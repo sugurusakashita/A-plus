@@ -153,10 +153,10 @@
             view.toggleOpen();
           }
         });
-        $('#drawer-menu').click(function() {　event.stopPropagation();　});
+        $('#drawer-menu').on('click.bigSlide touchstart.bigSlide',function() {　event.stopPropagation();　});
         // this makes my eyes bleed, but adding it back in as it's a highly requested feature
         if (settings.easyClose) {
-          $(document).on('click.bigSlide', function(e) {
+          $(document).on('click.bigSlide touchstart.bigSlide', function(e) {
            if (!$(e.target).parents().andSelf().is(menuLink) && !$(e.target).closest(this.$menu).length &&  controller.getState() === 'open')  {
              view.toggleClose();
            }
