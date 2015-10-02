@@ -105,6 +105,7 @@ class CampaignController extends Controller {
 	public function makeTwitterUrl(){
 		$base_url = "https://twitter.com/share?";
 		$option = array(
+			"url" => urlencode(URL::current()),
 			"via" => urlencode("waseda_Aplus"),
 			"text" => urlencode("早稲田所キャンレビューサイトA+plus 第２弾 会員登録・レビューでAmazonギフト券1000円分プレゼントキャンペーン!!"),
 			// "related" => urlencode("waseda_Aplus"),
