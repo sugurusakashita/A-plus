@@ -1,9 +1,6 @@
 <div class="sidebar">
   <div class="access_ranking" style="margin-bottom: 15px;">
     <div class="list-group">
-    <div>
-      <a href="/campaign/index/2"><img class="sidebar-logo" src="/image/campaign/event2-lg.png"></a>
-    </div>
       <a class="list-group-element active">アクセスランキング</a>
     <?php
       $i = 1;

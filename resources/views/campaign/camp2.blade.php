@@ -16,12 +16,12 @@
 <meta itemprop="image" content="{{ asset('image/top/top-main.gif') }}" />
 @stop
 @section('title')
-  会員登録・レビューでAmazonギフト券1000円分キャンペーン　第２弾 | A+plus
+  (終了しました)会員登録・レビューでAmazonギフト券1000円分キャンペーン　第２弾 | A+plus
 @stop
 
 @section('main_content')
   <div class="alert a-is-info" style="margin: 0 auto 5px;">
-    <p>会員登録・レビューでAmazonギフト券1000円分プレゼントキャンペーン　第２弾</p>
+    <p>(終了しました)会員登録・レビューでAmazonギフト券1000円分プレゼントキャンペーン　第２弾</p>
   </div>
   <div>
     <img class="header-campaign-image"src="/image/campaign/event2-lg.png" alt="会員登録・レビューでAmazonギフト券1000円分プレゼントキャンペーン">
@@ -72,31 +72,6 @@
   	    <p class="campaign-detail">※シェアした後にレビュー件数を満たしてもエントリーとなります。</p>
         <p class="campaign-detail">※STEP3におけるレビュー件数は、<b>今までにレビューされたものも含まれます！</b></p>
       </div>
-      <div class="campaign-submit-form section-margin">
-        <div class="panel panel-warning">
-          <div class="panel-title">
-            SNSで応募(タイムラインにシェア)
-          </div>
-          <div class="panel-body" style="overflow:auto;">
-            @if(!Auth::check())
-            <p style="color:red;">シェアする前にA+plusのログインが必要です。ログインは<a href="/auth/login">こちら</a>から</p>
-            @endif
-           <div class="col12">
-             <div class="col6 text-center <?php if(!Auth::check()) echo 'is-disabled'; ?>" >
-               <a href="{{ $data['twitter_url'] }}" target="_blank" class="btn btn-primary" id="entry-via-twitter" style="background-color:#00C6F2;">
-                 <span class="icon-twitter2 icons"></span>Twitterでシェアする
-               </a>
-             </div>
-             <div class="col6 text-center <?php if(!Auth::check()) echo 'is-disabled'; ?>" >
-               <a href="{{ $data['facebook_url'] }}" target="_blank" class="btn btn-primary" id="entry-via-facebook" style="background-color:#3B5998;">
-                 <span class="icon-facebook2 icons"></span>Facebookでシェアする
-               </a>
-             </div>
-           </div>
-           <p class="campaign-detail">※シェアだけではエントリーになりません。詳しくは上部条件をご確認ください。</p>
-         </div>
-        </div>
-      </div>
       <div class="panel panel-primary section-margin">
         <div class="panel-title">
           あなたのキャンペーン参加状況
@@ -132,6 +107,7 @@
   	</div>
   	<div class="panel-body">
   		<p>2015年10月2日 23:59迄</p>
+      <p style="color:red">終了しました</p>
       <p class="campaign-detail">※STEP3の対象レビューも上記日時までのものとします。</p>
       <p class="campaign-detail">※予告なしに、延長される場合がございます。</p>
     </div>
