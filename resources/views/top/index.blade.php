@@ -48,23 +48,6 @@
   <div class="container">
     <div class="row-fluid">
       <div class="top-content text-center">
-        <div class="top-block">
-          <div>
-          <h2>CAMPAIGN</h2>
-          <hr>
-          </div>
-          <div class="col12 text-left">
-            <div class="col6 ">
-              <a href="/campaign/index/2"><img class="top-content-img" src="/image/campaign/event2-lg.png" alt="A+plus campaign2" style="width:100%"></a>
-            </div>
-            <div class="col6">
-              <p class="lead">現在、キャンペーン第二弾実施中！抽選で<span style="color:#FC9A18">Amazonギフト券</span>1000円分プレゼント</p>
-              <p>キャンペーンの概要、エントリー条件などは<a href="/campaign/index/2">こちら</a>をご覧ください。</p>
-              <p>締め切りが近いのでお早めに！誰よりも早くA+plusをチェックしてくれた人限定です！</p>
-              <p>締め切り:10月2日 23:59迄</p>
-            </div>
-          </div>
-        </div>
          <div class="top-block">
           <h2>ABOUT A+plus</h2>
           <hr>
