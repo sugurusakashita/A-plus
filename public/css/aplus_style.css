@@ -328,6 +328,16 @@ footer .allrights {
 }
 @media screen and (max-width: 47.9375rem) {
 
+  .nav{
+    position: fixed;
+    width: 100%;
+    height: 60px;
+    z-index: 999;
+  }
+
+  #main-content{
+    margin-top: 60px;
+  }
   .pc-menu{
     display: none;
   }

@@ -21,7 +21,7 @@
 </head>
 <body>
     @include('common.header')
-  <div class="container">
+  <div id="main-content" class="container">
       <div class="row-fluid">
           @yield('main_content')
       </div>
