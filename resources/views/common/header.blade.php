@@ -22,11 +22,10 @@
       </div>
       <nav class="right-float right-nav" style="padding:0.8rem">
 <!--         <a href="{{ url('/search/')}}" class="btn-pill">検索</a> -->
-          <span class="pc-menu">
-            @if (Auth::guest())
               <a href="{{ url('/auth/login') }}" class="btn btn-primary"><span class="icon-unlock-stroke"></span> ログイン</a>
               <a href="{{ url('/auth/register') }}" class="btn  btn-success">新規登録</a>
-            @else
+          <span class="pc-menu">
+            @if (!Auth::guest())
               <a href="/mypage/index" class="btn btn-info" ><span class="icon-user"></span> {{  Auth::user()->name}}<span class="caret"></span></a>
               <a href="{{ url('/auth/logout') }}" class="btn btn-danger"><span class="icon-lock-fill"></span> ログアウト</a>
             @endif
@@ -39,7 +38,7 @@
                 <li>
                   <form action="/search" method="get" style="margin:7% 0;">
                     <div class="form-element-group">
-                      <input type="text" class="form-element" placeholder="授業名で検索！" name="q"/>
+                      <input type="text" class="form-element" placeholder="授業検索！" name="q"/>
                       <span class="form-group-btn">
                         <button class="btn btn-default btn-primary" type="submit">検索</button>
                       </span>
@@ -68,6 +67,8 @@
               @endif
               <li><a href="/" class="drawer-content"><span class="icon-home"></span> Home</a></li>
               <li><a href="/mypage/index" class="drawer-content" ><span class="icon-user"></span> MyPage<span class="caret"></span></a></li>
+              <li><a href="/about" class="drawer-content"><span class="icon-plus"></span> About A+plus</a></li>
+              <li><a href="/help/inquiry" class="drawer-content"><span class="icon-mail4"></span> Contact us</a></li>
               @if(!Auth::guest())
                 <li><a href="{{ url('/auth/logout') }}" class="btn btn-danger drawer-content"><span class="icon-lock-fill"></span> ログアウト</a></li>
               @endif
