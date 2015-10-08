@@ -22,16 +22,17 @@
       </div>
       <nav class="right-float right-nav" style="padding:0.8rem">
 <!--         <a href="{{ url('/search/')}}" class="btn-pill">検索</a> -->
+          @if (Auth::guest())
           <span class="common-right-header">
               <a href="{{ url('/auth/login') }}" class="btn btn-primary"><span class="icon-unlock-stroke"></span> ログイン</a>
               <a href="{{ url('/auth/register') }}" class="btn  btn-success">新規登録</a>
           </span>
+          @else
           <span class="pc-menu">
-            @if (!Auth::guest())
               <a href="/mypage/index" class="btn btn-info" ><span class="icon-user"></span> {{  Auth::user()->name}}<span class="caret"></span></a>
               <a href="{{ url('/auth/logout') }}" class="btn btn-danger"><span class="icon-lock-fill"></span> ログアウト</a>
-            @endif
           </span>
+          @endif
         <div class="sp-menu" style="display:none">
           <a href="#drawer-menu" class="menu-link">&#9776;</a>
           <div id="drawer-menu" class="panel" role="navigation" style="z-index:1;">
@@ -53,9 +54,9 @@
                 </li>
               @else
                 <li style="margin-bottom:6%;">
-                  <img src="{{ Auth::user()->avatar ?:'image/dummy.png' }}" width="100" style="display:block; margin:6% auto;" >
+                  <img src="{{ Auth::user()->avatar ?:'/image/dummy.png' }}" width="100" style="display:block; margin:6% auto;" >
                   <span>{{ Auth::user()->name }}</span>
-                  <form action="/search" method="get" style="margin:10% 0;">
+                  <form action="/search" method="get" class="drawer-form">
                     <div class="form-element-group">
                       <input type="text" class="form-element" placeholder="授業名で検索！" name="q"/>
                       <span class="form-group-btn">

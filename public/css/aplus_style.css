@@ -59,6 +59,9 @@ table{
 .menu-link{
   font-size: 1.6em;
 }
+.drawer-form{
+  margin:5% 0;
+}
 .wrap {
     position: relative;
 }
@@ -220,6 +223,11 @@ text{
 }
 /*classes end*/
 
+/*tag start*/
+.add-tag-form{
+  display: inline-block;
+}
+/*tag end*/
 .warning-text{
   color: #FF5B5B;
   font-size: 0.7em;
