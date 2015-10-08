@@ -22,8 +22,10 @@
       </div>
       <nav class="right-float right-nav" style="padding:0.8rem">
 <!--         <a href="{{ url('/search/')}}" class="btn-pill">検索</a> -->
+          <span class="common-right-header">
               <a href="{{ url('/auth/login') }}" class="btn btn-primary"><span class="icon-unlock-stroke"></span> ログイン</a>
               <a href="{{ url('/auth/register') }}" class="btn  btn-success">新規登録</a>
+          </span>
           <span class="pc-menu">
             @if (!Auth::guest())
               <a href="/mypage/index" class="btn btn-info" ><span class="icon-user"></span> {{  Auth::user()->name}}<span class="caret"></span></a>

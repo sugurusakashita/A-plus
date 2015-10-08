@@ -382,3 +382,9 @@ footer .allrights {
   /*classes end*/
 
 }
+
+@media screen and (max-width: 315px) {
+  .common-right-header{
+    display: none;
+  }
+}
