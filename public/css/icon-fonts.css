@@ -146,9 +146,19 @@
 .icon-x:before {
 	content: "\f081";
 }
+.icon-lock-fill:before {
+	content: "\e629";
+}
+.icon-unlock-stroke:before {
+	content: "\e62a";
+}
+.icon-home:before {
+	content: "\e62b";
+}
 .icon-clock:before {
 	content: "\e627";
 }
 .icon-user:before {
 	content: "\e628";
 }
+

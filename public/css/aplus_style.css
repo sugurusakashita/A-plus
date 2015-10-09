@@ -27,19 +27,64 @@ table{
 }
 .search-icon{
   background-color:transparent;
-  position:relative;
-  float: right;
   position: relative;
-  top: -21px;
+  right: 8%;
 }
 .nav{
   margin: 0 0 25px;
   background-color: #AB3124;
 }
 
+/*drawer start*/
+#drawer-menu {
+    position: fixed;
+    right: -15.625em; /*left or right and the width of your navigation panel*/
+    width: 15.625em; /*should match the above value*/
+}
+
+#drawer-menu ul {
+  zoom: 1;
+  overflow: hidden;
+}
+#drawer-menu li {
+  margin-top: -1px;
+  padding: 0 5px;
+  border-top:1px solid #CCC;
+  font-size: 1.2em;
+}
+
+#drawer-menu a {
+  margin-bottom: 3%;
+}
+.menu-link{
+  font-size: 1.6em;
+}
+.drawer-form{
+  margin:5% 0;
+}
+.wrap {
+    position: relative;
+}
+.drawer-content{
+  width: 94%;
+  margin:3%;
+}
+
+
+/*drawer end*/
+
 .header-search-form{
-  margin:10px;
+  margin-top: 21px;
+  margin-left: 10px;
   /*display:-webkit-flex;*/
+    display:-webkit-box;/*--- Androidブラウザ用 ---*/
+    display:-ms-flexbox;/*--- IE10 ---*/
+    display: -webkit-flex;/*--- safari（PC）用 ---*/
+    display:flex;
+    -webkit-box-pack:justify;/*--- Androidブラウザ用 ---*/
+    -ms-flex-pack:justify;/*--- IE10 ---*/
+    -webkit-justify-content:space-between;/*--- safari（PC）用 ---*/
+    justify-content:space-between;
 }
 .sidebar {
   font-size: 0.9em;
@@ -178,6 +223,11 @@ text{
 }
 /*classes end*/
 
+/*tag start*/
+.add-tag-form{
+  display: inline-block;
+}
+/*tag end*/
 .warning-text{
   color: #FF5B5B;
   font-size: 0.7em;
@@ -286,8 +336,27 @@ footer .allrights {
 }
 @media screen and (max-width: 47.9375rem) {
 
+  .nav{
+    position: fixed;
+    width: 100%;
+    height: 60px;
+    z-index: 999;
+  }
+
+  #main-content{
+    margin-top: 120px;
+  }
+  .pc-menu{
+    display: none;
+  }
+  .sp-menu{
+    display: inline-block !important;
+  }
   #header-search-box{
     display: none;
+  }
+  .right-nav{
+    padding:0.2rem !important;
   }
   /*top start*/
   .top-faculty-form{
@@ -320,4 +389,10 @@ footer .allrights {
   }
   /*classes end*/
 
+}
+
+@media screen and (max-width: 315px) {
+  .common-right-header{
+    display: none;
+  }
 }

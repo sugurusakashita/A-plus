@@ -10,7 +10,7 @@
 </head>
 <body>
     @include('common.header')
-  <div class="container">
+  <div id="main-content" class="container">
       <div class="row-fluid">
         <div class="col9">
           @yield('main_content')
