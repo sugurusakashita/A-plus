@@ -4,6 +4,7 @@ use App\Classes;
 use App\Review;
 use App\Pv;
 use App\Teacher;
+use App\Classes_detail;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
@@ -35,11 +36,12 @@ class ClassesController extends Controller {
 
 	//const AUTH_LOGIN_REDIRECT_ID = 'auth_login_redirect_id';
 
-	public function __construct(Classes $classes,Review $review,Teacher $teacher,RankingController $ranking){
+	public function __construct(Classes $classes,Review $review,Teacher $teacher,RankingController $ranking,Classes_detail $classes_detail){
 		$this->classes = $classes;
 		$this->review = $review;
 		$this->ranking = $ranking;
 		$this->teacher = $teacher;
+		$this->classes_detail = $classes_detail;
 
 		//Authフィルタのホワイトリスト
 		$this->middleware("auth",["only" => ['postAjaxReview']]);
@@ -59,6 +61,7 @@ class ClassesController extends Controller {
 		$data = array(
 			'review'  => $this->review->reviews($id),
 			'detail'  => $this->classes->find($id),
+			'detail_wpr' => $this->classes_detail->find($id),
 			'teacher' => $this->classes->find($id)->teachers,
 			'tag' 	  => array(
 					'list' 			 => $tag->returnTagNamesByClassId($id),

@@ -95,9 +95,9 @@
 				        	@endif
 				        </td>
 				        <td><?php echo $data['detail']->term?></td>
-				        <td><?php echo $data['detail']->class_week?></td>
-				        <td><?php echo $data['detail']->class_period?>限</td>
-				        <td>{{ $data['detail']->room_name }}</td>
+				        <td><?php echo $data['detail_wpr']->class_week?></td>
+				        <td><?php echo $data['detail_wpr']->class_period?>限</td>
+				        <td>{{ $data['detail_wpr']->room_name }}</td>
 				      </tr>
 				    </tbody>
 					</table>
