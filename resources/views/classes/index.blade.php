@@ -5,28 +5,28 @@
 @stop
 
 @section('meta')
-<meta name="description" itemprop="description" content="{{ $data['detail']['class_name'] }}の授業情報とレビュー " />
-<meta name="keywords" itemprop="keywords" content="{{ $data['detail']['class_name'] }},A+plus,早稲田,所沢キャンパス,所キャン" />
+<meta name="description" itemprop="description" content="{{ $detail['class_name'] }}の授業情報とレビュー " />
+<meta name="keywords" itemprop="keywords" content="{{ $detail['class_name'] }},A+plus,早稲田,所沢キャンパス,所キャン" />
 <meta name="twitter:card" content="summary" />
-<meta property="og:title" content="{{ $data['detail']['class_name'] }} | A+plus" />
+<meta property="og:title" content="{{ $detail['class_name'] }} | A+plus" />
 <meta property="og:url" content="{{ Request::url() }}" />
 <meta property="og:image" content="{{ url('image/top/top-main.gif') }}" />
 <meta property="og:site_name" content="早稲田大学所沢キャンパス 授業レビューサイト A+plus" />
-<meta property="og:description" content="{{ $data['detail']['class_name'] }}の授業情報とレビュー " />
+<meta property="og:description" content="{{ $detail['class_name'] }}の授業情報とレビュー " />
 <meta itemprop="image" content="{{ url('image/top/top-main.gif') }}" />
 @endsection
 
 @section('title')
-{{ $data['detail']['class_name'] }} | A+plus
+{{ $detail['class_name'] }} | A+plus
 @stop
 
 @section('main_content')
 
 			<div class="col-md-12">
-			 @if($data['tag']['add_result']->added_tag)
+			 @if($tag['add_result']->added_tag)
 			 	<p style="color:red;">タグが追加されました。</p>
 			 @endif
-			 @if($data['tag']['add_result']->deleted_tag)
+			 @if($tag['add_result']->deleted_tag)
 			 	<p style="color:red;">タグが削除されました。</p>
 			 @endif
 
@@ -34,14 +34,14 @@
 
 				<!-- タイトル -->
 				<div class="alert a-is-info" style="margin: 0 auto 5px;">
-				 <h2 class="class-name">{{ $data['detail']->class_name }}</h2>
+				 <h2 class="class-name">{{ $detail->class_name }}</h2>
 				 <span class="raty_stars_average"></span>
 				</div>
 
 				<!-- タグ作ってる -->
 				<div id="tag-list" style="padding: 10px;">
-			 	@if($data['tag']['list'])
-				 		@foreach($data['tag']['list'] as $t)
+			 	@if($tag['list'])
+				 		@foreach($tag['list'] as $t)
 				 		<span class="btn-label info">
 				 				<input class="delete-tag-button" type="submit" value="×" style="color: black; margin: auto 0;">
 				 				<span style="color: white; font-size: 1.5em;">#{{ $t->tag_name }}</span>
@@ -53,7 +53,7 @@
 			 	<!-- タグの追加 -->
 			 	<div class="add_tag">
 			 				<span class="col6 tag-full-btn">
-					 			<a href="/tag/add/{{ $data['detail']->class_id }}" style="color: white;">
+					 			<a href="/tag/add/{{ $detail->class_id }}" style="color: white;">
 					 				<button class="btn btn-pill btn-warning-outline btn-full">リストからタグを追加</button>
 					 			</a>
 					 		</span>
@@ -88,16 +88,16 @@
 				    <tbody>
 				      <tr>
 				        <td>
-				        	@if($data['teacher'])
-				        		@foreach($data['teacher'] as $teacher)
+				        	@if($teacher)
+				        		@foreach($teacher as $teacher)
 				        			<a href="/search?q={{ urldecode($teacher->teacher_name) }}&_token={{csrf_token()}}">{{ $teacher->teacher_name }}</a>
 				        		@endforeach
 				        	@endif
 				        </td>
-				        <td><?php echo $data['detail']->term?></td>
-				        <td><?php echo $data['detail_wpr']->class_week?></td>
-				        <td><?php echo $data['detail_wpr']->class_period?>限</td>
-				        <td>{{ $data['detail_wpr']->room_name }}</td>
+				        <td><?php echo $detail->term?></td>
+				        <td><?php echo $detail_wpr->class_week?></td>
+				        <td><?php echo $detail_wpr->class_period?>限</td>
+				        <td>{{ $detail_wpr->room_name }}</td>
 				      </tr>
 				    </tbody>
 					</table>
@@ -129,18 +129,18 @@
 							      	</tr>
 								</tbody>
 							</table>
-							@if($data['detail']->faculty === "スポーツ科学部")
+							@if($detail->faculty === "スポーツ科学部")
 							<p style="color:red">※スポーツ科学部における一部授業の成績評価法、教師データに関しては10月中に対応予定です。</p>
 							@endif
 						</div>
 
-						@if($data['attendance_data'])
+						@if($attendance_data)
 						<div class="col6">
 							<h3><span class="icon-user-check icons" style="top:3px; position:relative;"></span>出席</h3><hr>
 							<div id="attendance_data"></div>
 						</div>
 						@endif
-						@if($data['bring_data'])
+						@if($bring_data)
 						<div class="col6">
 							<h3><span class="icon-briefcase icons"></span>テストの持ち込み</h3><hr>
 							<div id="bring_data"></div>
@@ -149,18 +149,18 @@
 					</div>
 
 				 	<!-- 授業要旨 -->
-					@if($data['detail']->summary)
+					@if($detail->summary)
 					<div class="panel panel-info" style="margin: 20px auto;">
 					 	<div class="panel-title">
 					   		授業要旨
 					 	</div>
 					 	<div class="panel-body">
-					 		{{ $data['detail']->summary }}
+					 		{{ $detail->summary }}
 					 	</div>
 					</div>
-						<a href="{{ $data['actual_syllabus_url'] }}" target="_blank"><button class="btn btn-info">公式シラバスを見る</button></a>
+						<a href="{{ $actual_syllabus_url }}" target="_blank"><button class="btn btn-info">公式シラバスを見る</button></a>
 						<div class="class-share section-margin">
-							<a href="https://twitter.com/share" class="twitter-share-button" data-text="{{ $data['detail']->class_name }}の授業レビュー / 早稲田大学所沢キャンパス 授業レビューサイト A+plus" data-count="vertical"　data-via="waseda_Aplus" data-lang="ja" data-hashtags="エイプラ">ツイート</a>
+							<a href="https://twitter.com/share" class="twitter-share-button" data-text="{{ $detail->class_name }}の授業レビュー / 早稲田大学所沢キャンパス 授業レビューサイト A+plus" data-count="vertical"　data-via="waseda_Aplus" data-lang="ja" data-hashtags="エイプラ">ツイート</a>
 							<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
 							<div class="fb-share-button" data-href="{{ Request::url() }}" data-layout="box_count"></div>
 						</div>
@@ -170,14 +170,14 @@
 					@endif
 			 	</div>
 			 	<div id="tab2" class="tab-contents">
-				@if(!$data['review']->count())
+				@if(!$review->count())
 					<div class="alert a-is-danger alert-removed fade in no-review" style="margin: 20px auto;">
 						この授業はまだレビューされていません。
 					</div>
 				@else
 				<p style="font-size:15px;">レビューの書き直しは<a href="/mypage/index">マイページ</a>からできます</p>
 					<div id="review-list">
-						@foreach($data['review'] as $r)
+						@foreach($review as $r)
 						<div class="panel panel-primary section-margin">
 								<div class="panel-title review-panel-title">
 									<div class="row-fluid">
@@ -211,7 +211,7 @@
 							<img src="/image/guest_review.png" alt="レビューはログイン後にできます" width="100%">
 						</a>
 					</div>
-					@elseif(!$data['wrote_review'])
+					@elseif(!$wrote_review)
 					<!-- レビュー書いたことないユーザのみ -->
 					<div id="review-form">
 					<!-- レビューフォーム -->
@@ -277,7 +277,7 @@
 									        		</ul>
 									        	</td>
 									      	</tr>
-									      	@if($data['detail']->exam > 0)
+									      	@if($detail->exam > 0)
 									      	<tr>
 									      		<th>試験の持ち込み</th>
 									      		<td>
@@ -303,7 +303,7 @@
 								</div>
 							</div>
 							<button type="button" class="btn btn-primary review-submit-button">レビューする！</button>
-							<input type="hidden" name="class_id" value="{{ $data['detail']->class_id }}">
+							<input type="hidden" name="class_id" value="{{ $detail->class_id }}">
 							<input type="hidden" name="_token" value="{{csrf_token()}}">
 						</form>
 					</div>
@@ -320,12 +320,12 @@
 	<script type="text/javascript" src="{{ asset('/js/bar_graph.js') }}"></script>
 	<script type="text/javascript" src="{{ asset('/raty_lib/jquery.raty.js') }}"></script>
 	<script type="text/javascript">
-		var class_id = <?php echo $data['detail']->class_id; ?>;
+		var class_id = <?php echo $detail->class_id; ?>;
 		//グラフデータ
-			var attendance_data = <?php echo $data['attendance_data'] ?: "null"; ?>;
-			var bring_data = 	  <?php echo $data['bring_data'] 	  ?: "null"; ?>;
+			var attendance_data = <?php echo $attendance_data ?: "null"; ?>;
+			var bring_data = 	  <?php echo $bring_data 	  ?: "null"; ?>;
 			// 円グラフ用JS
-			evaluation_data = <?php echo $data['evaluation'] ?: '[{"legend":"データがありません","value":100,"color":"#e74c3c"}]'  ?>;
+			evaluation_data = <?php echo $evaluation ?: '[{"legend":"データがありません","value":100,"color":"#e74c3c"}]'  ?>;
 
 			//テスト用
 			var w = new pieClass("#eval_pie");

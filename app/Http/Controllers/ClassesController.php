@@ -88,7 +88,7 @@ class ClassesController extends Controller {
 		// ユニークPVカウント
 		$this->countUniqueAccount($pv,$id);
 
-		return view('classes/index')->with('data',$data);
+		return view('classes/index',$data);
 	}
 
 	/**

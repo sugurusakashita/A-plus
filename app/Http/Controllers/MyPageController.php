@@ -80,7 +80,7 @@ class MyPageController extends Controller {
 
 		$data['count'] = $campaign->totalEntry(self::CAMP_TYPE);
 
-		return view('mypage/index')->with('data',$data);
+		return view('mypage/index',$data);
 
 	}
 	public function postIndex(Request $request)
@@ -120,7 +120,7 @@ class MyPageController extends Controller {
 		$this->user->fill($request->all());
 		$this->user->save();
 
-		return view('mypage/index')->with('data',$data);
+		return view('mypage/index',$data);
 
 	}
 
@@ -128,7 +128,7 @@ class MyPageController extends Controller {
 
 		$data['user'] = $this->user;
 
-		return view('mypage/avatar')->with('data',$data);
+		return view('mypage/avatar',$data);
 	}
 	public function postAvatarComplete(Request $request){
 
@@ -183,7 +183,7 @@ class MyPageController extends Controller {
 	public function getEdit(Request $request){
 
 		$data['detail'] = $this->review->find($request->review_id);
-		return view('mypage/edit')->with('data',$data);
+		return view('mypage/edit',$data);
 	}
 
 
@@ -204,7 +204,7 @@ class MyPageController extends Controller {
 		//レビューバリデーション
 		$this->reviewValidation($request);
 
-		return view('mypage/editconfirm')->with('data',$data)->with('review',$review);
+		return view('mypage/editconfirm',$data)->with('review',$review);
 
 	}
 
@@ -257,7 +257,7 @@ class MyPageController extends Controller {
 		$id = $data['review_id'];
 		$data['detail'] = $this->review->find($id);
 
-		return view('mypage/deleteconfirm')->with('data',$data);
+		return view('mypage/deleteconfirm',$data);
 
 	}
 

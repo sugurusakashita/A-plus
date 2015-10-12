@@ -114,10 +114,10 @@
     <script type="text/javascript">
       //アラートメッセージ用
       <?php
-      if($v = $data["message"]){
+      if($v = $message){
           echo "alertify.success('".$v."');";
       }
-      if($v = $data["alert"]){
+      if($v = $alert){
           echo "alertify.error('".$v."');";
       }
       ?>

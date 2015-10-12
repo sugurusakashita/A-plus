@@ -27,7 +27,7 @@
 			<div class="form-group">
 				<div class="control-label col-md-4">
 					<label>現在のプロフィール画像</label>
-					<img src="{{ $data['user']->avatar? $data['user']->avatar:asset('image/dummy.png') }}" width="100" height="100" alt="user_image">
+					<img src="{{ $user->avatar? $user->avatar:asset('image/dummy.png') }}" width="100" height="100" alt="user_image">
 				</div>
 				<div class="col-md-6">
 				<label>新しいプロフィール画像</label>

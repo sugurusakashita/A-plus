@@ -24,7 +24,7 @@ class HelpController extends Controller {
 	{
 		$data['search_ranking'] = $this->ranking->returnSearchRankingList();
 		$data['access_ranking'] = $this->ranking->returnAccessRankingList();
-		return view('help/index')->with("data",$data);
+		return view('help/index',$data);
 	}
 
 	/**
@@ -37,8 +37,8 @@ class HelpController extends Controller {
 
 		$data['search_ranking'] = $this->ranking->returnSearchRankingList();
 		$data['access_ranking'] = $this->ranking->returnAccessRankingList();
-		return view("help/inquiry")->with("data",$data);
-	}	
+		return view("help/inquiry",$data);
+	}
 
 	/**
 	 * 問い合わせ処理
@@ -77,7 +77,7 @@ class HelpController extends Controller {
 
 		$data['search_ranking'] = $this->ranking->returnSearchRankingList();
 		$data['access_ranking'] = $this->ranking->returnAccessRankingList();
-		return view("help/manual")->with("data",$data);
+		return view("help/manual",$data);
 	}
 
 	/**

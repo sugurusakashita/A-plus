@@ -79,11 +79,11 @@
         <div class="panel-body">
           <p><a href="/mypage/index#campaign2">マイページ</a>からでも確認できます！</p>
           @if(Auth::check())
-          <p>{{ Auth::user()->name }}さんのキャンペーン参加状況:<b>{{ $data['camp2']['isEntry']? "エントリー済み！":"条件未達成" }}</b></p><br>
+          <p>{{ Auth::user()->name }}さんのキャンペーン参加状況:<b>{{ $camp2['isEntry']? "エントリー済み！":"条件未達成" }}</b></p><br>
           <ul>
             <li><b>STEP1: <span style="color:red;">OK!!</span></b></li>
-            <li><b>STEP2: <span style="color:red;">{{  $data['camp2']['step2']? 'OK!!': 'NG...' }}</span></b></li>
-            <li><b>STEP3: <span style="color:red;">{{  $data['camp2']['step3']? 'OK!!': 'NG...(あと'.$data['diffReview'].'件のレビューでクリア！)' }}</span></b></li>
+            <li><b>STEP2: <span style="color:red;">{{  $camp2['step2']? 'OK!!': 'NG...' }}</span></b></li>
+            <li><b>STEP3: <span style="color:red;">{{  $camp2['step3']? 'OK!!': 'NG...(あと'.$diffReview.'件のレビューでクリア！)' }}</span></b></li>
           </ul>
           @else
           <p style="color:red;">参加状況を確認するにはログイン、または新規登録が必要です。ログインは<a href="/auth/login">こちら</a>から</p>
@@ -95,7 +95,7 @@
           みんなのキャンペーン参加状況
         </div>
         <div class="panel-body">
-        　エントリー数:　<span style="font-size:24px;">{{ $data['count'] }}人</span>
+        　エントリー数:　<span style="font-size:24px;">{{ $count }}人</span>
         </div>
       </div>
     </div>

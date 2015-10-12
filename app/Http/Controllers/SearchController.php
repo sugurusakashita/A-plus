@@ -119,7 +119,7 @@ class SearchController extends Controller {
 		$data['search_ranking'] = $this->ranking->returnSearchRankingList();
 		$data{'access_ranking'} = $this->ranking->returnAccessRankingList();
 
-		return view('search/index')->with('data',$data);
+		return view('search/index',$data);
 	}
 
 	/**

@@ -20,8 +20,7 @@ class TopController extends Controller {
  		//不正アクセスアラートを受け取る
   		$data["alert"] = old("top_alert");
 
-		return view('top/index')->with("data",$data);
-
+		return view('top/index',$data);
 	}
 
 
