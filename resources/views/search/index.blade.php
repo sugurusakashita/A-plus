@@ -88,20 +88,22 @@
 	@foreach ($data['classes'] as $class_data)
 	<?php
 		// 各授業のreview数とタグを取得
-		$class_id = $class_data->class_id;
-		$review_count = $data['review']->where("class_id","=",$class_id)->get()->count();
-		$tags = $data['tag']->where("class_id","=",$class_id)->get();
+		$reviewCount = $data['review']->reviewCountByClassId($class_data->class_id);
+		$tags = $data['tag']->tagsByClassId($class_data->class_id);
+
 	?>
 
 	<div style="margin-bottom: 15px;">
 		<ul class="list-group">
 		  	<li class="list-group-element">
 		  		<span class="badge primary">{{ $class_data->faculty }}</span>
-		  	<!-- 　	<span class="badge success">{{ $class_data->term }}</span> -->
-		 <span class="badge info">{{ $class_data->class_week }}</span>
-		 <span class="badge warning"><?php echo $class_data->class_period === "00"? "その他":$class_data->class_period."限"; ?></span>
-		  		@if($review_count)
-		  		<span class="badge danger">レビュー件数:  {{ $review_count }}件</span>
+		  	　	<span class="badge success">{{ $class_data->term }}</span>
+		  		@foreach($class_data->classes_detail()->get() as $classDetail)
+				<span class="badge info">{{ $classDetail->class_week }}</span>
+		 		<span class="badge warning"><?php echo $classDetail->class_period === "00"? "その他":$classDetail->class_period."限"; ?></span>
+		  		@endforeach
+		  		@if($reviewCount)
+		  		<span class="badge danger">レビュー件数:  {{ $reviewCount }}件</span>
 	  			@endif
 		 	</li>
 		  	<li class="list-group-element">
@@ -117,7 +119,7 @@
 		  		</form>
 		 	@endforeach
 		  	</li>
-			@if(!(count($tags) == 0))
+			@if(count($tags) != 0)
 		  	<li class="list-group-element">
 				@foreach($tags as $tag)
 		  		<span class="btn-label info">

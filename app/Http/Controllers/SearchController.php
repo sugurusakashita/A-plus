@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Teacher;
 use App\Review;
 use App\Tag;
+use App\Classes_detail;
 
 use Illuminate\Http\Request;
 use Input;
@@ -284,12 +285,6 @@ class SearchController extends Controller {
 		$placeholders = implode(',',array_fill(0, count($ids), '?')); // string for the query
 
 		return $data->whereIn("class_id",$ids)->orderByRaw("field(class_id,{$placeholders})", $ids);
-
-		/*
-		SELECT t.teacher_name,c.class_name from classes as c,teachers as t,tr_classes_teachers as tr 
-		where t.teacher_id = tr.teacher_id and c.class_id = tr.class_id and 
-		(teacher_name like "%田%" or class_name like "%データ%" );
-		*/
 
 	}
 

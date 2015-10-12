@@ -13,7 +13,7 @@ class Classes extends Model {
 	}
 	
 	public function classes_detail(){
-		return $this->hasMany('App/Classes_detail','class_id');
+		return $this->hasMany('App\Classes_detail','class_id');
 	}
 
 }
