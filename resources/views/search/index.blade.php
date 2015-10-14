@@ -75,8 +75,8 @@
 		<td>
 			<select name="term">
 				<option value="" >指定なし</option>
-				<option value="春学期"  {{{ $data['get']['term'] === '春学期'? " selected":"" }}}>春学期</option>
-				<option value="秋学期"  {{{ $data['get']['term'] === '秋学期'? " selected":"" }}}>秋学期</option>
+				<option value="春学期"  {{{ $data['get']['term'] === '春学期'? " selected":"" }}}>春学期・夏季集中</option>
+				<option value="秋学期"  {{{ $data['get']['term'] === '秋学期'? " selected":"" }}}>秋学期・冬季集中</option>
 				<option value="通年"  {{{ $data['get']['term'] === '通年'? " selected":"" }}}>通年</option>
 			</select>
 		</td>
