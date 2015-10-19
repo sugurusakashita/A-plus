@@ -155,7 +155,6 @@ class AuthController extends Controller {
 	public function getDeleteAccount(){
 		//誤動作で削除しないように、(authからのリダイレクトなど)セッションで確認。
 		Session::flash("delete_flg",1);
-
 		return view("/auth/deleteaccount");
 	}
 
@@ -166,6 +165,7 @@ class AuthController extends Controller {
 	 * @return void
 	 */
 	public function postDeleteAccount(){
+		Session::reflash();
 		if(!session("delete_flg")){
 			$data["top_alert"] = "不正な手続きを検知しました。<br>退会処理は完了していませんので、もう一度お手続きをしてください。";
 			return redirect()->To($this->redirectTo)->withInput($data);
@@ -210,7 +210,9 @@ class AuthController extends Controller {
 			);
 		}
 
-		$this->auth->login($this->registrar->create($request->all()));
+		$data = $this->registrar->saveAvatar($request->all());
+
+		$this->auth->login($this->registrar->create($data));
 
 		return redirect($this->redirectPath());
 	}
