@@ -10,6 +10,7 @@ use Illuminate\Contracts\Auth\Guard;
 use Illuminate\Foundation\Auth\ResetsPasswords;
 
 use Illuminate\Http\Request;
+use App\Services\Registrar;
 use Auth;
 use Hash;
 use Session;
@@ -130,42 +131,37 @@ class MyPageController extends Controller {
 
 		return view('mypage/avatar',$data);
 	}
-	public function postAvatarComplete(Request $request){
+	public function postAvatar(Request $request){
 
 		$message = "プロフィール画像の変更が完了しました。";
-		//設定されていない場合、NULL
 		$avatar = $request->file('avatar');
 
-		if(is_null($avatar)) {
-			$this->user->avatar = NULL;
-			$this->user->save();
-
-			return redirect()->to('mypage/index')->withInput(array("message" => $message));
-		}
-
 		//例外処理
-		if($avatar->getError() > 0){
+		if(!is_null($avatar) && $avatar->getError() > 0){
 			// $alert = $avatar->getErrorMessage();
 			$alert = "画像が不正か、サイズが大きすぎる場合があります。";
 			return redirect()->to('mypage/avatar')->withInput(array("alert" => $alert));
 		}
 
 		//バリデーション
-		$validation["avatar"] = 'image|mimes:jpeg,jpg,gif,png|max:2000';
+		$validation = array(
+			'avatar'	=>	'image|mimes:jpeg,jpg,gif,png|max:2000',
+			'radioAvatarType'	=>	'required'
+		);
+
 		$this->validate($request,$validation);
+		$register = new Registrar();
+		$returnArray = $register->saveAvatar($request->all());
 
-
-		//ユニークID付与
-		$name = uniqid(rand());
-
-		$file_name = $name.".".$avatar->guessClientExtension();
-		$file = $avatar->move("avatar",$file_name);
-		$path = asset("avatar/".$file_name);
-
-		//ファイルパスをDBに保存
-		$this->user->avatar = $path;
+		$oldPath = $this->user->avatar;
+		if(preg_match("/^\/avatar/",$oldPath) && is_file(public_path($oldPath))){
+			//avatarPathが/avatar/からのパスなら既存のファイルを削除
+			if(!unlink(public_path($oldPath))){
+				return redirect()->to('mypage/index')->withInput(['message' => '既存のファイルの削除に失敗しました。お問い合わせフォームにてご連絡ください。']);
+			}
+		}
+		$this->user->avatar = $returnArray['path'];
 		$this->user->save();
-
 
 		return redirect()->to('mypage/index')->withInput(array("message" => $message));
 

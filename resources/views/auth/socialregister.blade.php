@@ -135,7 +135,7 @@
 					</div>
 				</div>
 				<div class="form-group text-center">
-					<button type="submit" class="btn btn-lg btn-primary">
+					<button type="submit" class="btn btn-lg btn-primary register-button">
 						新規登録
 					</button>
 				</div>

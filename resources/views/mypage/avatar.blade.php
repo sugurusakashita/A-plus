@@ -30,7 +30,7 @@
 			プロフィール画像編集
 		</div>
 		<div class="panel-body">
-		    <form class="form-horizontal" id="entry-form" role="form" method="POST" action="{{ url('/mypage/avatar-complete') }}" enctype='multipart/form-data'>
+		    <form class="form-horizontal" id="entry-form" role="form" method="POST" action="{{ url('/mypage/avatar') }}" enctype='multipart/form-data'>
 				<input type="hidden" name="_token" value="{{ csrf_token() }}">
 				<div class="form-group">
 					<label for="file_input">プロフィール画像</label>
@@ -66,7 +66,7 @@
 				</div>
 				<div class="form-group text-center">
 					<button type="submit" class="btn btn-md btn-primary register-button">
-						編集完了
+						更新する
 					</button>
 				</div>
 			</form>

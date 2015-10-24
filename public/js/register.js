@@ -52,6 +52,7 @@ $(function(){
     });
     //クロップ情報
     $('#entry-form').submit(function(){
+      $('.register-button').prop('disabled',true);
       var data = $image.cropper('getData');
       data = JSON.stringify(data);
       $('input[name=croppedAvatar]').val(data);
