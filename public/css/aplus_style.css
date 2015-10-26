@@ -377,6 +377,8 @@ footer .allrights {
     width: 65%;
     height: auto;
     margin:15% auto;
+    position: relative;
+    top: 35px;
   }
   .top-content{
     text-align: left;
