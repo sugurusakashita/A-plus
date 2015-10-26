@@ -24,7 +24,7 @@
   <ins class="adsbygoogle"
        style="display:block"
        data-ad-client="ca-pub-6701768269365502"
-       data-ad-slot="1444343877"
+       data-ad-slot="8025490672"
        data-ad-format="auto"></ins>
   <script>
   (adsbygoogle = window.adsbygoogle || []).push({});
