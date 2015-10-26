@@ -32,7 +32,7 @@
 					<div class="panel panel-info">
 						<div class="panel-title">プロフィール画像</div>
 						<div class="panel-body">
-							<img class="profile-value" width="100" height="100" src="{{ $data['user']->avatar? $data['user']->avatar:asset('image/dummy.png') }}">
+							<img class="profile-value" width="100" height="100" src="{{ $user->avatar? $user->avatar:asset('image/dummy.png') }}">
 							<input type="hidden" name="_token" value="{{ csrf_token() }}">
 							<a class="btn btn-sm btn-success btn-xs right-float" href="/mypage/avatar">編集</a>
 						</div>
@@ -43,7 +43,7 @@
 						<div class="panel-title">ユーザー名</div>
 						<div class="panel-body">
 							<form class="name" action='#' method='POST'>
-								<span class="profile-value">{{ $data['user']->name }}</span>
+								<span class="profile-value">{{ $user->name }}</span>
 								<input type="hidden" name="_token" value="{{ csrf_token() }}">
 								<button class="btn btn-sm btn-success btn-xs edit-button right-float">編集</button>
 							</form>
@@ -57,7 +57,7 @@
 						<div class="panel-title">登録メールアドレス</div>
 						<div class="panel-body">
 							<form class="email" action='#' method='POST'>
-							<span class="profile-value">{{ $data['user']->email }}</span>
+							<span class="profile-value">{{ $user->email }}</span>
 							<input type="hidden" name="_token" value="{{ csrf_token() }}">
 							<button class="btn btn-sm btn-success btn-xs edit-button right-float">編集</button>
 							</form>
@@ -79,7 +79,7 @@
 						<div class="panel-title">性別</div>
 						<div class="panel-body">
 							<form class="sex" action='#' method='POST'>
-							<span class="profile-value">{{ $data['user']->sex }}</span>
+							<span class="profile-value">{{ $user->sex }}</span>
 							<input type="hidden" name="_token" value="{{ csrf_token() }}">
 							<button class="btn btn-sm btn-success btn-xs edit-button right-float">編集</button>
 							</form>
@@ -91,7 +91,7 @@
 						<div class="panel-title">入学年度</div>
 						<div class="panel-body">
 							<form class="entrance_year" action='#' method='POST'>
-							<span class="profile-value">{{ $data['user']->entrance_year }}{{ $data['user']->entrance_year == "その他"? "":"年度"  }}</span>
+							<span class="profile-value">{{ $user->entrance_year }}{{ $user->entrance_year == "その他"? "":"年度"  }}</span>
 							<input type="hidden" name="_token" value="{{ csrf_token() }}">
 							<button class="btn btn-sm btn-success btn-xs edit-button right-float">編集</button>
 							</form>
@@ -103,7 +103,7 @@
 						<div class="panel-title">学部</div>
 						<div class="panel-body">
 							<form class="faculty" action='#' method='POST'>
-							<span class="profile-value">{{ $data['user']->faculty }}</span>
+							<span class="profile-value">{{ $user->faculty }}</span>
 							<input type="hidden" name="_token" value="{{ csrf_token() }}">
 							<button class="btn btn-sm btn-success btn-xs edit-button right-float">編集</button>
 							</form>
@@ -124,14 +124,14 @@
 		<div class="panel-title">
 			<div class="row-fluid">
 				<div class="col9">レビュー履歴</div>
-				<div class="col3">合計レビュー件数: <span style="color:#F35D5D;">{{ $data['reviews']->count() }}件</span></div>
+				<div class="col3">合計レビュー件数: <span style="color:#F35D5D;">{{ $reviews->count() }}件</span></div>
 			</div>
 		</div>
 		<div class="panel-body">
-			@if(!$data['reviews']->count())
+			@if(!$reviews->count())
 				<p style='color:#FF0000;'>まだレビューされていません。</p>
 			@else
-			@foreach($data['reviews'] as $review)
+			@foreach($reviews as $review)
 			<div class="panel panel-default">
 				<div class="panel-title">
 					<div class="row-fluid">

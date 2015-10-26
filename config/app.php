@@ -148,6 +148,9 @@ return [
 
 		// social auth
 		'Laravel\Socialite\SocialiteServiceProvider',
+
+		// intervention/image
+		'Intervention\Image\ImageServiceProvider',
 	],
 
 	/*
@@ -179,6 +182,7 @@ return [
 		'Form' => 'Illuminate\Html\FormFacade',
    		'HTML' => 'Illuminate\Html\HtmlFacade',
 		'Hash'      => 'Illuminate\Support\Facades\Hash',
+		'Image'		=> 'Intervention\Image\Facades\Image',
 		'Input'     => 'Illuminate\Support\Facades\Input',
 		'Inspiring' => 'Illuminate\Foundation\Inspiring',
 		'Lang'      => 'Illuminate\Support\Facades\Lang',

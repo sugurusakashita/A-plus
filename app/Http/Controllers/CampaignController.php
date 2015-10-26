@@ -73,7 +73,7 @@ class CampaignController extends Controller {
 		}
 
 		$data['count'] = $this->campaign->totalEntry(self::CAMP_TYPE);
-		return view('campaign/camp'.$id)->with("data",$data);
+		return view('campaign/camp'.$id,$data);
 	}
 
 	/**

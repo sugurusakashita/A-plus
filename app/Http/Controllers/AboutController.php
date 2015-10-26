@@ -22,6 +22,6 @@ class AboutController extends Controller {
 	{
 		$data['search_ranking'] = $this->ranking->returnSearchRankingList();
 		$data['access_ranking'] = $this->ranking->returnAccessRankingList();
-		return view('about/index')->with("data",$data);
+		return view('about/index',$data);
 	}
 }

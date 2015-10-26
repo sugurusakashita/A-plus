@@ -1,42 +1,88 @@
 $(function(){
+  var $image = $('.thumbnail_avatar');
+    // Import image
+    var $inputImage = $('#fileInput');
+    var $radioType = $('input[name=radioAvatarType]');
+    var URL = window.URL || window.webkitURL;
+    var blobURL;
 
-  //画像アップしたらサムネ表示
-  $("#file_input").change(function(){
-    var file = this.files[0];
-    if(file != null){
-      var fr = new FileReader();
-        fr.onload = function() {
-            $('.thumbnail_avatar').attr('src', fr.result ).css('display','inline');
+    $image.cropper({
+      autoCropArea:1.0,
+      aspectRatio: 1 / 1,
+      checkImageOrigin:false,
+      highlight: false,
+      dragCrop: false,
+      movable: false,
+      zoomable: false,
+      preview:".preview-avatar",
+    });
+
+    if (URL) {
+      $inputImage.on('change',function () {
+        var files = this.files;
+        var file;
+
+        if (!$image.data('cropper')) {
+          return;
         }
-        fr.readAsDataURL(file);
-        alertify.success("サムネイルを確認してください。<br>大きさは大丈夫そうですか？");
+
+        if (files && files.length) {
+          file = files[0];
+
+          if (/^image\/\w+$/.test(file.type)) {
+            blobURL = URL.createObjectURL(file);
+            $image.one('built.cropper', function () {
+              URL.revokeObjectURL(blobURL); // Revoke when load complete
+            }).cropper('reset').cropper('replace', blobURL);
+            // $inputImage.val('');
+          } else {
+            alertify.success("アップロードエラー");
+          }
+        }
+      });
+    } else {
+      $inputImage.prop('disabled', true).parent().addClass('disabled');
     }
-  });
-  //デフォルト画像
-  $("#reset_avatar_button").on("click",function(){
-    $("input[name='avatar']").val("").css("display","none");
-    //$("input[name='avatar_url']").val("");
-    $(".thumbnail_avatar").attr("src","/image/dummy.png");
-  });
-
-  //写真をアップロードする
-  $("#photo_button").on("click",function(){
-    //$("input[name='avatar_url']").val("");
-    $("input[name='avatar']").css("display","block");
-    $(".thumbnail_avatar").attr("src","/image/dummy.png");
 
 
-  });
+    //回転ボタン
+    $('button[data-method="rotate"]').on('click',function(){
+      var degree = $(this).data('option');
+      $image.cropper('rotate',degree);
+    });
+    //クロップ情報
+    $('#entry-form').submit(function(){
+      $('.register-button').prop('disabled',true);
+      var data = $image.cropper('getData');
+      data = JSON.stringify(data);
+      $('input[name=croppedAvatar]').val(data);
+    });
 
-  //SNSの画像を使う
-  $("#sns_button").on("click",function(){
-    //$("input[name='avatar_url']").attr("value",avatar_url);
-    $("input[name='avatar']").val("").css("display","none");
+    $('input[name=radioAvatarType]').on('change',function(e){
+      switch($(this).val()){
+        case "0":
+          $image.cropper('reset').cropper('replace','/image/meta/logo320.png').cropper('disable');
+          $inputImage.val('');
+          break;
+        case "1":
+          $image.cropper('enable');
+          $radioType.eq(1).prop('checked',false);
+          $inputImage.val('').click();
+          break;
+        case "2":
+          $image.cropper('enable');
+          var avatar_url = $('input[name=avatar_url]').val();
+          $image.cropper('reset').cropper('replace',avatar_url);
+          $inputImage.val('');
+          break;
+      }
+    });
+    //ファイル変更リスナー
+    $inputImage.change(function(){
+      $radioType.eq(1).prop('checked',true);
+    });
 
-    $(".thumbnail_avatar").attr("src",avatar_url);
-   });
-
-  if(message !== undefined && message){
-    alertify.success(message);
-  }
+    if(message !== undefined && message){
+      alertify.success(message);
+    }
 });

@@ -13,6 +13,13 @@ table{
   margin-top:3%;
   margin-bottom:3%;
 }
+.half{
+  width:50%;
+}
+
+.block-center{
+  margin:0 auto;
+}
 
 .news-header-image{
   margin: 3%;
@@ -298,6 +305,9 @@ text{
   background-color:#3B5998;
 }
 
+.thumbnail_avatar{
+  height: 300px;
+}
 /*register end*/
 /*auth end*/
 

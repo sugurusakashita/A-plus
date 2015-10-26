@@ -39,7 +39,7 @@ class TagController extends Controller {
 		$data['search_ranking'] = $this->ranking->returnSearchRankingList();
 		$data['access_ranking'] = $this->ranking->returnAccessRankingList();
 
-		return view('tag/index')->with('data',$data);
+		return view('tag/index',$data);
 	}
 
 	public function returnTagNamesByClassId($class_id){

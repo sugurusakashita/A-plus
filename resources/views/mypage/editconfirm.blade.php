@@ -48,16 +48,16 @@
 		            <tbody>
 		              <tr>
 		                <th>受講した学年</th>
-		                <td>{{ $data['grade'] }}年{{ $data['grade'] == 5? "生以上":""}}</td>
+		                <td>{{ $grade }}年{{ $grade == 5? "生以上":""}}</td>
 		              </tr>
 	                  <tr>
 	                    <th>出席</th>
-	                    <td>{{ $data['attendance'] }}</td>
+	                    <td>{{ $attendance }}</td>
 	                  </tr>
 	                  @if($review->classes()->first()->exam > 0)
 	                  <tr>
 	                    <th>試験の持ち込み</th>
-	                    <td>{{$data['bring']}}</td>
+	                    <td>{{ $bring }}</td>
 	                  </tr>
 	                  @endif
 		            </tbody>
@@ -69,21 +69,21 @@
 			授業の感想
 		 </div>
 		 <div class="panel-body">
-		  {{ $data['review_comment'] }}
+		  {{ $review_comment }}
 		 </div>
 		</div>
 
-		<input type="hidden" name="class_id" value="{{ $data['class_id'] }}">
-		<input type="hidden" name="grade" value="{{$data['grade']}}">
-		<input type="hidden" name="review_comment" value="{{$data['review_comment']}}">
-		<input type="hidden" name="stars" value="{{$data['stars']}}">
-		<input type="hidden" name="unit_stars" value="{{$data['unit_stars']}}">
-		<input type="hidden" name="grade_stars" value="{{$data['grade_stars']}}">
-		<input type="hidden" name="fulfill_stars" value="{{$data['fulfill_stars']}}">
-		<input type="hidden" name="review_id" value="{{ $data['review_id'] }}">
-		<input type="hidden" name="attendance" value="{{ $data['attendance'] }}">
+		<input type="hidden" name="class_id" value="{{  $class_id }}">
+		<input type="hidden" name="grade" value="{{ $grade}}">
+		<input type="hidden" name="review_comment" value="{{ $review_comment}}">
+		<input type="hidden" name="stars" value="{{ $stars}}">
+		<input type="hidden" name="unit_stars" value="{{ $unit_stars}}">
+		<input type="hidden" name="grade_stars" value="{{ $grade_stars}}">
+		<input type="hidden" name="fulfill_stars" value="{{ $fulfill_stars}}">
+		<input type="hidden" name="review_id" value="{{  $review_id }}">
+		<input type="hidden" name="attendance" value="{{  $attendance }}">
 		@if($review->classes()->first()->exam > 0)
-		<input type="hidden" name="bring" value="{{ $data['bring'] }}">
+		<input type="hidden" name="bring" value="{{ $bring }}">
 		@endif
 		<input type="hidden" name="_token" value="{{csrf_token()}}">
 		<button type="submit" class="btn btn-primary">レビューを更新する</button>

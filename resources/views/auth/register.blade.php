@@ -4,6 +4,9 @@
 無料会員登録 | A+plus
 @stop
 
+@section('css')
+<link  href="https://cdn.rawgit.com/fengyuanchen/cropper/v1.0.0/dist/cropper.min.css" rel="stylesheet">
+@endsection
 
 @section('main_content')
 <div>
@@ -51,26 +54,38 @@
 					</ul>
 				</div>
 			@endif
-
-			<form class="form-horizontal" role="form" method="POST" action="{{ url('/auth/register') }}" enctype='multipart/form-data'>
+			<form class="form-horizontal" id="entry-form" role="form" method="POST" action="{{ url('/auth/register') }}" enctype='multipart/form-data'>
 				<input type="hidden" name="_token" value="{{ csrf_token() }}">
-
 				<div class="form-group">
 					<label for="file_input">プロフィール画像</label>
-					<table class="table table-bordered" style="border: none !important;">
-						<tr><td rowspan="2" style="border: none !important;">
-							<img class="thumbnail_avatar" src="/image/dummy.png" width="100" height="100" alt="dummy_image">
-							</td>
-							<td style="border: none !important;"><input id="file_input" type="file" name="avatar" class="form-element" accept="image/*"></td>
-						</tr>
-						<tr><td style="border: none !important;"><button type="button" id="reset_avatar" class="btn btn-default">画像をリセットする</button></td></tr>
-					</table>
+					<div class="row-fluid">
+						<div class="col6">
+							<img class="thumbnail_avatar" src="/image/meta/logo320.png" alt="dummy_image">
+						</div>
+						<div class="col6 section-margin">
+							<input id="fileInput" type="file" name="avatar" class="form-element" accept="image/*" style="display:none;">
+							<input type="hidden" name="croppedAvatar" value="">
+							<div>
+								<button type="button" class="btn btn-success" data-method="rotate" data-option="-90"><span class="icon-undo2 icons"></span></button>
+								<button type="button" class="btn btn-success" data-method="rotate" data-option="90"><span class="icon-redo2 icons"></span></button>
+							</div>
+							<div class="section-margin">
+								<label>プレビュー</label>
+								<div class="half left-float">
+								<div class="preview-avatar block-center" style="width:100px; height:100px; overflow:hidden; border:solid 1px;"></div>
+								</div>
+								<div class="half left-float">
+									<div><input type="radio" name="radioAvatarType" value="0" checked>デフォルト画像を利用する</div>
+									<div><input type="radio" name="radioAvatarType" value="1" >画像をアップロードして利用する</div>
+								</div>
+							</div>
+						</div>
+					</div>
 				</div>
 
 				<div class="panel panel-danger" style="margin-bottom: 15px;">
 					<div class="panel-title">
-					画像の大きさは100×100px、画像ファイルはjpg,png,gifのみで、ファイルサイズは2MBまでです。<br>
-					画像が大きい場合は縮小拡大されます。
+					画像ファイルはjpg,png,gifのみで、ファイルサイズは2MBまでです。<br>
 					</div>
 				</div>
 
@@ -140,7 +155,7 @@
 					</div>
 				</div>
 				<div class="form-group text-center">
-					<button type="submit" class="btn btn-lg btn-primary">
+					<button type="submit" class="btn btn-lg btn-primary register-button">
 						新規登録
 					</button>
 				</div>
@@ -159,5 +174,6 @@
           echo "alertify.error('".old("alert")."');";
       }
       ?>
-    </script>
+</script>
+<script src="https://cdn.rawgit.com/fengyuanchen/cropper/v1.0.0/dist/cropper.min.js"></script>
 @endsection

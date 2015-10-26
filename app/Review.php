@@ -25,6 +25,21 @@ class Review extends Model {
         return $this->where('class_id','=',$id)->orderBy('updated_at','desc')->get();
     }
 
+    /**
+    *
+    * 授業IDからそのレビュー数を返す
+    *
+    * @author shalman
+    * @param int
+    * @return int
+    *
+    **/
+
+    public function reviewCountByClassId($id)
+    {
+        return $this->where("class_id","=",$id)->get()->count();
+    }
+
     public function attendance($id)
     {
         return $this->select(DB::raw('attendance, count(attendance) as total'))->where('class_id','=',$id)->where("attendance",'>','0')->groupBy('attendance')->get();
