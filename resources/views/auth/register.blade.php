@@ -85,6 +85,7 @@
 
 				<div class="panel panel-danger" style="margin-bottom: 15px;">
 					<div class="panel-title">
+					青い枠をドラッグして拡大縮小、枠内をドラッグで使用する領域を選択できます！(デフォルト画像以外)<br>
 					画像ファイルはjpg,png,gifのみで、ファイルサイズは2MBまでです。<br>
 					</div>
 				</div>

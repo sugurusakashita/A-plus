@@ -49,7 +49,6 @@
 							</div>
 							<div class="section-margin">
 								<label>プレビュー</label>
-
 								<div class="half left-float">
 								<div class="preview-avatar block-center" style="width:100px; height:100px; overflow:hidden; border:solid 1px;"></div>
 								</div>
@@ -65,6 +64,7 @@
 
 				<div class="panel panel-danger" style="margin-bottom: 15px;">
 					<div class="panel-title">
+					青い枠をドラッグして拡大縮小、枠内をドラッグで使用する領域を選択できます！(デフォルト画像以外)<br>
 					画像ファイルはjpg,png,gifのみで、ファイルサイズは2MBまでです。
 					</div>
 				</div>
