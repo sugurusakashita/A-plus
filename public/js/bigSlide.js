@@ -146,7 +146,7 @@
 
         // register a click listener for desktop & touchstart for mobile
         menuLink.on('click.bigSlide touchstart.bigSlide', function(e) {
-          e.stopPropagation();
+          e.preventDefault();
           if (controller.getState() === 'open') {
             view.toggleClose();
           } else {
