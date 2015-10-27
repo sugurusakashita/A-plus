@@ -146,7 +146,7 @@
 
         // register a click listener for desktop & touchstart for mobile
         menuLink.on('click.bigSlide touchstart.bigSlide', function(e) {
-          e.preventDefault();
+          e.stopPropagation();
           if (controller.getState() === 'open') {
             view.toggleClose();
           } else {
@@ -154,6 +154,8 @@
           }
         });
         $('#drawer-menu').on('click.bigSlide touchend.bigSlide',function() {　event.stopPropagation();　});
+        $('#drawer-menu').on('click.bigSlide touchmove.bigSlide',function() { event.preventDefault(); });
+
         // this makes my eyes bleed, but adding it back in as it's a highly requested feature
         if (settings.easyClose) {
           $(document).on('click.bigSlide touchend.bigSlide', function(e) {
