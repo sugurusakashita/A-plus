@@ -31,7 +31,7 @@
 * /storageと/vendorディレクトリにサーバーの書き込み権限を与えます
 * 例) project rootにて  chmod -R 777 storage/ 
 * /public 以下にアクセスで表示。バーチャルホストなどで、ルートにアクセスしたら/publicにアクセスするように変更しましょう
-
+* わからない場合はSlackに投げてください
 
 
 
