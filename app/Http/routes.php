@@ -15,6 +15,7 @@ Route::controllers([
 	'help'		=>	'HelpController',
 	'about'		=>	'AboutController',
 	'campaign'	=>	'CampaignController',
+	'register'  =>  'ClassRegisteredController',
 
 ]);
 

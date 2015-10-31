@@ -27,6 +27,13 @@ class ClassesController extends Controller {
 	protected static $dep_name = array(
 			"人間科学部"	=> "19",
 			"スポーツ科学部"	=> "20",
+			"政治経済学部" => "11",
+			"教育学部" => "15",
+			"商学部" => "16",
+			"社会科学部" => "18",
+			"法学部" => "12",
+			// "文学部" => "24",
+			// "文化構想学部" =>
 		);
 	protected static $w_syllabus_url = "https://www.wsl.waseda.jp/syllabus/JAA104.php?pKey=";
 

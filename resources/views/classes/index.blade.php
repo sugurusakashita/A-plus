@@ -159,6 +159,9 @@
 					 	</div>
 					</div>
 						<a href="{{ $actual_syllabus_url }}" target="_blank"><button class="btn btn-info">公式シラバスを見る</button></a>
+						@if(Auth::check())
+							<button class="btn btn-primary" style="height:39px;" type="submit" id="add_register">履修済登録</button>
+						@endif
 						<div class="class-share section-margin">
 							<a href="https://twitter.com/share" class="twitter-share-button" data-text="{{ $detail->class_name }}の授業レビュー / 早稲田大学所沢キャンパス 授業レビューサイト A+plus" data-count="vertical"　data-via="waseda_Aplus" data-lang="ja" data-hashtags="エイプラ">ツイート</a>
 							<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
@@ -321,6 +324,7 @@
 	<script type="text/javascript" src="{{ asset('/raty_lib/jquery.raty.js') }}"></script>
 	<script type="text/javascript">
 		var class_id = <?php echo $detail->class_id; ?>;
+		var user_id = <?php echo Auth::user()->user_id; ?>;
 		//グラフデータ
 			var attendance_data = <?php echo $attendance_data ?: "null"; ?>;
 			var bring_data = 	  <?php echo $bring_data 	  ?: "null"; ?>;

@@ -27,18 +27,75 @@ jQuery(function ($) {
         }
 
         if(name == "sex"){
-            edit_form = '<select name="sex" class="form-control" ><option value="男性">男性</option><option value="女性">女性</option></select>';
+            edit_form = '<select name="sex" class="form-control" ><option value="">選択してください</option><option value="男性">男性</option><option value="女性">女性</option></select>';
         }
 
 
 
         prof_span.replaceWith(edit_form);
         $(this).replaceWith(after_button);
-
     });
 
     $(".profile-list").on("click",".complete-button",function(){
         console.log($(this).siblings(".edit-prof-field").val());
+    });
+
+    $("#year").change(function(){
+        var year = $("#year").val();
+        var term = $("#term").val();
+        console.log(year,term);
+        var params = {
+            "year": year,
+            "term": term,
+            "_token":$('meta[name="csrf-token"]').attr('content')
+        };
+        $.ajax({
+            type: "GET",
+            url: "../../mypage/class-t-t",
+            dataType: "Json",
+            data: params,
+            crossDomain: false,
+            success: function(data, dataType){
+                console.log(data)
+            },
+            error: function()
+            {
+                
+            }
+        });
+        // $.get(
+        //     "index",
+        //     params
+        // );
+    });
+
+    $("#term").change(function(){
+        var year = $("#year").val();
+        var term = $("#term").val();
+        console.log(year,term);
+        var params = {
+            "year": year,
+            "term": term,
+            "_token":$('meta[name="csrf-token"]').attr('content')
+        };
+        $.ajax({
+            type: "GET",
+            url: "../../mypage/class-t-t",
+            dataType: "Json",
+            data: params,
+            crossDomain: false,
+            success: function(){
+
+            },
+            error: function()
+            {
+                
+            }
+        });
+        // $.get(
+        //     "index",
+        //     params
+        // );
     });
 
     if(message){

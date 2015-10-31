@@ -120,11 +120,116 @@
 			</div>
 		</div>
 	</div>
+	<div class="panel panel-warning section-margin">
+		<div class="panel-title">
+			<div class="row-fluid">
+				<div class="col1">
+					My時間割
+				</div>
+				<!-- <div class="col1">
+					<select id="year" name="year">
+						<option value="2015">2015年度</option>
+						<option value="2014">2014年度</option>
+						<option value="2013">2013年度</option>
+						<option value="2012">2012年度</option>
+						<option value="2011">2011年度</option>
+						<option value="2010">2010年度</option>
+						<option value="2009">2009年度</option>
+						<option value="2008">2008年度</option>
+						<option value="2007">2007年度</option>
+					</select>
+				</div>
+				<div class="col10">
+					<select id="term" name="term">
+						<option value="0">春学期・夏期集中</option>
+						<option value="1">秋学期・冬期集中</option>
+					</select>
+				</div> -->
+			</div>
+		</div>
+		<div class="panel-body">
+			<table class="table table-bordered">
+				<thead>
+					<th></th>
+					<th>月</th>
+					<th>火</th>
+					<th>水</th>
+					<th>木</th>
+					<th>金</th>
+					<th>土</th> <!-- 土はあるかないかで表示非表示 -->
+				</thead>
+				<tr>
+					<td>1</td>
+					<td>{{ $time_table["月"]["１"]['class_registered']->class_name or "" }}<br>{{ $time_table["月"]["１"]['class_registered_detail']->room_name or "" }}</td>
+					<td>{{ $time_table["火"]["１"]['class_registered']->class_name or "" }}<br>{{ $time_table["火"]["１"]['class_registered_detail']->room_name or "" }}</td>
+					<td>{{ $time_table["水"]["１"]['class_registered']->class_name or "" }}<br>{{ $time_table["水"]["１"]['class_registered_detail']->room_name or "" }}</td>
+					<td>{{ $time_table["木"]["１"]['class_registered']->class_name or "" }}<br>{{ $time_table["木"]["１"]['class_registered_detail']->room_name or "" }}</td>
+					<td>{{ $time_table["金"]["１"]['class_registered']->class_name or "" }}<br>{{ $time_table["金"]["１"]['class_registered_detail']->room_name or "" }}</td>
+					<td>{{ $time_table["土"]["１"]['class_registered']->class_name or "" }}<br>{{ $time_table["土"]["１"]['class_registered_detail']->room_name or "" }}</td>
+				</tr>
+				<tr>
+					<td>2</td>
+					<td>{{ $time_table["月"]["２"]['class_registered']->class_name or "" }}<br>{{ $time_table["月"]["２"]['class_registered_detail']->room_name or "" }}</td>
+					<td>{{ $time_table["火"]["２"]['class_registered']->class_name or "" }}<br>{{ $time_table["火"]["２"]['class_registered_detail']->room_name or "" }}</td>
+					<td>{{ $time_table["水"]["２"]['class_registered']->class_name or "" }}<br>{{ $time_table["水"]["２"]['class_registered_detail']->room_name or "" }}</td>
+					<td>{{ $time_table["木"]["２"]['class_registered']->class_name or "" }}<br>{{ $time_table["木"]["２"]['class_registered_detail']->room_name or "" }}</td>
+					<td>{{ $time_table["金"]["２"]['class_registered']->class_name or "" }}<br>{{ $time_table["金"]["２"]['class_registered_detail']->room_name or "" }}</td>
+					<td>{{ $time_table["土"]["２"]['class_registered']->class_name or "" }}<br>{{ $time_table["土"]["２"]['class_registered_detail']->room_name or "" }}</td>
+				</tr>
+				<tr>
+					<td>3</td>
+					<td>{{ $time_table["月"]["３"]['class_registered']->class_name or "" }}<br>{{ $time_table["月"]["３"]['class_registered_detail']->room_name or "" }}</td>
+					<td>{{ $time_table["火"]["３"]['class_registered']->class_name or "" }}<br>{{ $time_table["火"]["３"]['class_registered_detail']->room_name or "" }}</td>
+					<td>{{ $time_table["水"]["３"]['class_registered']->class_name or "" }}<br>{{ $time_table["水"]["３"]['class_registered_detail']->room_name or "" }}</td>
+					<td>{{ $time_table["木"]["３"]['class_registered']->class_name or "" }}<br>{{ $time_table["木"]["３"]['class_registered_detail']->room_name or "" }}</td>
+					<td>{{ $time_table["金"]["３"]['class_registered']->class_name or "" }}<br>{{ $time_table["金"]["３"]['class_registered_detail']->room_name or "" }}</td>
+					<td>{{ $time_table["土"]["３"]['class_registered']->class_name or "" }}<br>{{ $time_table["土"]["３"]['class_registered_detail']->room_name or "" }}</td>
+				</tr>
+				<tr>
+					<td>4</td>
+					<td>{{ $time_table["月"]["４"]['class_registered']->class_name or "" }}<br>{{ $time_table["月"]["４"]['class_registered_detail']->room_name or "" }}</td>
+					<td>{{ $time_table["火"]["４"]['class_registered']->class_name or "" }}<br>{{ $time_table["火"]["４"]['class_registered_detail']->room_name or "" }}</td>
+					<td>{{ $time_table["水"]["４"]['class_registered']->class_name or "" }}<br>{{ $time_table["水"]["４"]['class_registered_detail']->room_name or "" }}</td>
+					<td>{{ $time_table["木"]["４"]['class_registered']->class_name or "" }}<br>{{ $time_table["木"]["４"]['class_registered_detail']->room_name or "" }}</td>
+					<td>{{ $time_table["金"]["４"]['class_registered']->class_name or "" }}<br>{{ $time_table["金"]["４"]['class_registered_detail']->room_name or "" }}</td>
+					<td>{{ $time_table["土"]["４"]['class_registered']->class_name or "" }}<br>{{ $time_table["土"]["４"]['class_registered_detail']->room_name or "" }}</td>
+				</tr>
+				<tr>
+					<td>5</td>
+					<td>{{ $time_table["月"]["５"]['class_registered']->class_name or "" }}<br>{{ $time_table["月"]["５"]['class_registered_detail']->room_name or "" }}</td>
+					<td>{{ $time_table["火"]["５"]['class_registered']->class_name or "" }}<br>{{ $time_table["火"]["５"]['class_registered_detail']->room_name or "" }}</td>
+					<td>{{ $time_table["水"]["５"]['class_registered']->class_name or "" }}<br>{{ $time_table["水"]["５"]['class_registered_detail']->room_name or "" }}</td>
+					<td>{{ $time_table["木"]["５"]['class_registered']->class_name or "" }}<br>{{ $time_table["木"]["５"]['class_registered_detail']->room_name or "" }}</td>
+					<td>{{ $time_table["金"]["５"]['class_registered']->class_name or "" }}<br>{{ $time_table["金"]["５"]['class_registered_detail']->room_name or "" }}</td>
+					<td>{{ $time_table["土"]["５"]['class_registered']->class_name or "" }}<br>{{ $time_table["土"]["５"]['class_registered_detail']->room_name or "" }}</td>
+				</tr>
+				<tr>
+					<td>6</td>
+					<td>{{ $time_table["月"]["６"]['class_registered']->class_name or "" }}<br>{{ $time_table["月"]["６"]['class_registered_detail']->room_name or "" }}</td>
+					<td>{{ $time_table["火"]["６"]['class_registered']->class_name or "" }}<br>{{ $time_table["火"]["６"]['class_registered_detail']->room_name or "" }}</td>
+					<td>{{ $time_table["水"]["６"]['class_registered']->class_name or "" }}<br>{{ $time_table["水"]["６"]['class_registered_detail']->room_name or "" }}</td>
+					<td>{{ $time_table["木"]["６"]['class_registered']->class_name or "" }}<br>{{ $time_table["木"]["６"]['class_registered_detail']->room_name or "" }}</td>
+					<td>{{ $time_table["金"]["６"]['class_registered']->class_name or "" }}<br>{{ $time_table["金"]["６"]['class_registered_detail']->room_name or "" }}</td>
+					<td>{{ $time_table["土"]["６"]['class_registered']->class_name or "" }}<br>{{ $time_table["土"]["６"]['class_registered_detail']->room_name or "" }}</td>
+				</tr>
+				<!-- <tr>
+					<td>7</td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+				</tr> -->
+				
+			</table>
+		</div>
+	</div>
 	<div class="panel panel-primary section-margin">
 		<div class="panel-title">
 			<div class="row-fluid">
-				<div class="col9">レビュー履歴</div>
-				<div class="col3">合計レビュー件数: <span style="color:#F35D5D;">{{ $reviews->count() }}件</span></div>
+				<div class="col4">レビュー履歴</div>
+				<div class="col8">合計レビュー件数: <span style="color:#F35D5D;">{{ $reviews->count() }}件</span></div>
 			</div>
 		</div>
 		<div class="panel-body">
