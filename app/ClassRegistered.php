@@ -17,4 +17,8 @@ class ClassRegistered extends Model {
 		return $this->hasMany('App\ClassRegisteredDetail', 'class_registered_id');
 	}
 
+	public function classes(){
+		return $this->belongsTo('App\Classes', 'class_name');
+	}	
+
 }

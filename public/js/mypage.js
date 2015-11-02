@@ -43,7 +43,7 @@ jQuery(function ($) {
     $("#year").change(function(){
         var year = $("#year").val();
         var term = $("#term").val();
-        console.log(year,term);
+        // console.log(year,term);
         var params = {
             "year": year,
             "term": term,
@@ -56,23 +56,45 @@ jQuery(function ($) {
             data: params,
             crossDomain: false,
             success: function(data, dataType){
-                console.log(data)
-            },
-            error: function()
-            {
+
+                if (data['success']) {
+                    var period = [1,2,3,4,5,6];
+                    var week = ["月","火","水","木","金","土"];
+                    console.log($('td[data-week="木"][data-period=1]'))
+
+                    for (var i = 0; i < week.length ; i++) {
+                        for (var j = 0 ; j < period.length ; j++) {
+
+                            var replace_tag = '<td data-week="'+ week[i] +'" data-period='+ period[j] +'><br></td>';
+                            $('td[data-week="' + week[i] + '"][data-period=' + period[j] + ']').replaceWith(replace_tag);
+
+                        };    
+                    };
+
+                    for (var i = 0 ; i < data["time_table"].length ; i++) {
+                        var week = data['time_table'][i]['class_week'];
+                        var period = data['time_table'][i]['class_period'];
+                        var class_name = data['time_table'][i]['class_name'];
+                        var room_name = data['time_table'][i]['room_name'];
+
+                        $('td[data-week="' + week + '"][data-period=' + period + ']').replaceWith('<td data-week="'+ week +'" data-period='+ period +'>'+ class_name +'<br>'+ room_name +'</td>');
+                    };
+                }else{
+                    alertify.error(data['message']);
+                };
                 
+            },
+            error: function(XMLHttpRequest, textStatus, errorThrown)
+            {
+                console.log(errorThrown.status);
             }
         });
-        // $.get(
-        //     "index",
-        //     params
-        // );
     });
 
     $("#term").change(function(){
         var year = $("#year").val();
         var term = $("#term").val();
-        console.log(year,term);
+        // console.log(year,term);
         var params = {
             "year": year,
             "term": term,
@@ -84,18 +106,34 @@ jQuery(function ($) {
             dataType: "Json",
             data: params,
             crossDomain: false,
-            success: function(){
+            success: function(data, dataType){
+                var period = [1,2,3,4,5,6];
+                var week = ["月","火","水","木","金","土"];
+                console.log($('td[data-week="木"][data-period=1]'))
 
+                for (var i = 0; i < week.length ; i++) {
+                    for (var j = 0 ; j < period.length ; j++) {
+
+                        var replace_tag = '<td data-week="'+ week[i] +'" data-period='+ period[j] +'><br></td>';
+                        $('td[data-week="' + week[i] + '"][data-period=' + period[j] + ']').replaceWith(replace_tag);
+
+                    };                    
+                };
+
+                for (var i = 0 ; i < data["time_table"].length ; i++) {
+                    var week = data['time_table'][i]['class_week'];
+                    var period = data['time_table'][i]['class_period'];
+                    var class_name = data['time_table'][i]['class_name'];
+                    var room_name = data['time_table'][i]['room_name'];
+                    
+                    $('td[data-week="' + week + '"][data-period=' + period + ']').replaceWith('<td data-week="'+ week +'" data-period='+ period +'>'+ class_name +'<br>'+ room_name +'</td>');
+                };
             },
-            error: function()
+            error: function(XMLHttpRequest, textStatus, errorThrown)
             {
-                
+                console.log(errorThrown.status)  
             }
         });
-        // $.get(
-        //     "index",
-        //     params
-        // );
     });
 
     if(message){

@@ -49,11 +49,6 @@ class MyPageController extends Controller {
 	 */
 	public function getIndex(Campaign $campaign,Request $request)
 	{
-
-		 \Blade::extend(function($value) {
-  		return preg_replace('/(\s*)@break(\s*)/', '$1<?php break; ?>$2', $value);
-		 });
-
 		$data['user'] = $this->user;
 		$data['reviews'] = $this->review;
 
@@ -111,17 +106,59 @@ class MyPageController extends Controller {
 				);
 		}
 
+		// 年度プルダウン用
+		$data['years'] = $this->class_registered->where("user_id","=",$this->user->user_id)->orderBy('year','desc')->distinct()->select('year')->get();
+
+		// 学期プルダウン用
+		$data['terms'] = $this->class_registered->where("user_id","=",$this->user->user_id)->orderBy('term','asc')->distinct()->select('term')->get();
+
 		$data['count'] = $campaign->totalEntry(self::CAMP_TYPE);
 
 		return view('mypage/index',$data);
 
 	}
-	// public function getClassTT(){
- //        $data = ['success' => true, 'message' => 'ajaxテスト', 'get' => $_GET];
-        
- //        return json_encode($data);
+	public function getClassTT(){
+		
+		// ajax以外だったらexit
+		$request = isset($_SERVER['HTTP_X_REQUESTED_WITH']) ? strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) : '';
+		if($request !== 'xmlhttprequest') exit;
 
- //    }
+		$year = $_GET['year'];
+		$term = $_GET['term'];
+
+		$class_registered = $this->class_registered->where("user_id","=",$this->user->user_id)->where("year","=",$year)->where("term","=",$term)->get();
+
+		
+		if (count($class_registered) > 0) {
+
+			// 当該year,termでの授業登録があった場合
+			foreach ($class_registered as $class){
+
+				$class_registered_detail = $this->class_registered_detail->where("class_registered_id","=",$class->class_registered_id)->first();
+				$data['time_table'][] = array(
+					"class_name" => $class->class_name,
+					"class_week" => $class_registered_detail->class_week,
+					"class_period" => $class_registered_detail->class_period,
+					"room_name" => $class_registered_detail->room_name,
+					);
+			}
+
+	        $data['success'] = true;
+	        $data['message'] = "ajaxテスト";
+	        $data['get'] = $_GET;
+	        
+	        return json_encode($data);	
+		}else{
+
+			// 当該year,termでの授業登録がなかった場合
+			$data['success'] = false;
+			$data['message'] = "ajaxerrorテスト";
+
+			return json_encode($data);
+
+		}
+
+    }
 	public function postIndex(Request $request)
 	{
 		//バリデーション
