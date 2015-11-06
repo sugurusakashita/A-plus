@@ -51,6 +51,34 @@ jQuery(function ($) {
                 }
             });
 	});
+    // 履修済登録する!
+    $('#add_register').click(function(){
+        var params = {
+            "class_id": class_id,
+            "user_id": user_id,
+            "_token":$('meta[name="csrf-token"]').attr('content')
+        };
+        $.ajax({
+            type: "POST",
+            url: "../../register/new",
+            dataType: "Json",
+            data: params,
+            crossDomain: false,
+            success: function(data, dataType)
+            {
+                if(data["success"] === false){
+                    alertify.error(data["message"]);
+                    return null;
+                }
+                alertify.success(data["message"]);
+            },
+            error: function(XMLHttpRequest, textStatus, errorThrown)
+            {
+                alertify.error('Error : ' + errorThrown.message);
+            }
+        });
+
+    });
 
 	//タグ削除
 	$("#tag-list").on("click",".delete-tag-button",function(){

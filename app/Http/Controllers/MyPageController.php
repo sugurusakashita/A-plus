@@ -5,6 +5,8 @@ use App\Http\Controllers\Controller;
 use App\User;
 use App\Campaign;
 use App\Review;
+use App\ClassRegistered;
+use App\ClassRegisteredDetail;
 
 use Illuminate\Contracts\Auth\Guard;
 use Illuminate\Foundation\Auth\ResetsPasswords;
@@ -19,10 +21,12 @@ class MyPageController extends Controller {
 
 	protected $user;
 	protected $review;
+	protected $class_registered;
+	protected $class_registered_detail;
 
 	const CAMP_TYPE = 2;
 
-	public function __construct(User $user,Request $request,Review $review){
+	public function __construct(User $user,Request $request,Review $review,ClassRegistered $class_registered,ClassRegisteredDetail $class_registered_detail){
 
 		//ミドルウェアでゲストユーザをフィルタ
 		$this->middleware('auth');
@@ -36,13 +40,15 @@ class MyPageController extends Controller {
 
 		$this->user = $user->find($user_id);
 		$this->review = $review->where('user_id','=',$user_id)->get();
+		$this->class_registered = $class_registered;
+		$this->class_registered_detail = $class_registered_detail;
 	}
 	/**
 	 * Display a listing of the resource.
 	 *
 	 * @return Response
 	 */
-	public function getIndex(Campaign $campaign)
+	public function getIndex(Campaign $campaign,Request $request)
 	{
 		$data['user'] = $this->user;
 		$data['reviews'] = $this->review;
@@ -78,12 +84,82 @@ class MyPageController extends Controller {
 			'step3'	=>	$step3
 		);
 
+		// 時間割用データ作成
+
+		//ajaxかどうかで分岐
+		
+		if(count($_GET)>0){
+			$year = $request->input('year');
+			$term = $request->input('term');
+		}else{
+			$year = 2015;
+			$term = 0;
+		}
+
+		$class_registered = $this->class_registered->where("user_id","=",$this->user->user_id)->where("year","=",$year)->where("term","=",$term)->get();
+
+		foreach ($class_registered as $class)
+		{
+			$class_registered_detail = $this->class_registered_detail->where("class_registered_id","=",$class->class_registered_id)->first();
+			$data['time_table'][$class_registered_detail->class_week][$class_registered_detail->class_period] = array(
+				'class_registered' => $class,
+				'class_registered_detail' => $class_registered_detail,
+				);
+		}
+
+		// 年度プルダウン用
+		$data['years'] = $this->class_registered->where("user_id","=",$this->user->user_id)->orderBy('year','desc')->distinct()->select('year')->get();
+
+		// 学期プルダウン用
+		$data['terms'] = $this->class_registered->where("user_id","=",$this->user->user_id)->orderBy('term','asc')->distinct()->select('term')->get();
 
 		$data['count'] = $campaign->totalEntry(self::CAMP_TYPE);
 
 		return view('mypage/index',$data);
 
 	}
+	public function getClassTT(){
+		
+		// ajax以外だったらexit
+		$request = isset($_SERVER['HTTP_X_REQUESTED_WITH']) ? strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) : '';
+		if($request !== 'xmlhttprequest') exit;
+
+		$year = $_GET['year'];
+		$term = $_GET['term'];
+
+		$class_registered = $this->class_registered->where("user_id","=",$this->user->user_id)->where("year","=",$year)->where("term","=",$term)->get();
+
+		
+		if (count($class_registered) > 0) {
+
+			// 当該year,termでの授業登録があった場合
+			foreach ($class_registered as $class){
+
+				$class_registered_detail = $this->class_registered_detail->where("class_registered_id","=",$class->class_registered_id)->first();
+				$data['time_table'][] = array(
+					"class_name" => $class->class_name,
+					"class_week" => $class_registered_detail->class_week,
+					"class_period" => $class_registered_detail->class_period,
+					"room_name" => $class_registered_detail->room_name,
+					);
+			}
+
+	        $data['success'] = true;
+	        $data['message'] = "ajaxテスト";
+	        $data['get'] = $_GET;
+	        
+	        return json_encode($data);	
+		}else{
+
+			// 当該year,termでの授業登録がなかった場合
+			$data['success'] = false;
+			$data['message'] = "ajaxerrorテスト";
+
+			return json_encode($data);
+
+		}
+
+    }
 	public function postIndex(Request $request)
 	{
 		//バリデーション

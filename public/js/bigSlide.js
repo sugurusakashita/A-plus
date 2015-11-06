@@ -154,7 +154,7 @@
           }
         });
         $('#drawer-menu').on('click.bigSlide touchend.bigSlide',function() {　event.stopPropagation();　});
-        $('#drawer-menu').on('click.bigSlide touchmove.bigSlide',function() { event.preventDefault(); });
+        $('#drawer-menu').on('touchmove.bigSlide',function() { event.preventDefault(); });
 
         // this makes my eyes bleed, but adding it back in as it's a highly requested feature
         if (settings.easyClose) {
