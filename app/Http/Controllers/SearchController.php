@@ -23,6 +23,7 @@ class SearchController extends Controller {
 	protected $tag;
 
 
+
 	public function __construct(Classes $classes,Query $queries,Review $review,Tag $tag,RankingController $ranking){
 		$this->classes = $classes;
 		$this->queries = $queries;
@@ -43,7 +44,14 @@ class SearchController extends Controller {
 	public function getIndex(Request $request){
 
 		$search_queries = array();
-		$search_session = array();
+		$search_session = array(
+			'q'		=>	'',
+			'day' 	=> '',
+			'period'=> '',
+			'term' 	=> '',
+			'faculty'	=>	'',
+			'_token' =>	'');
+
 		//検索からinputしたら
 		if($token = $request->_token){
 			//検索オプション定義、サニタイズ
@@ -84,16 +92,8 @@ class SearchController extends Controller {
 			Session::put("search_session",$search_session);
 
 		//pagenationなどはセッションから取得
-		}else{
-			if(Session::has("search_session")){
-				$search_session = Session::get("search_session");
-			}
-
-			$search_queries = $this->query2array($search_session['q']);
-		}
-		//配列要素は5つまで
-		while(count($search_queries) > 5){
-			array_pop($search_queries);
+		}else if(Session::has("search_session")){
+			$search_session = Session::get("search_session");
 		}
 
 		//ページネーション用変数
@@ -101,7 +101,8 @@ class SearchController extends Controller {
 		$limit = 10;
 		$page_num = is_null($page)? 1:$page;
 		$offset = ($limit * $page_num) - $limit;
-		$data['classes'] = $this->classes_list($search_session,$search_queries);
+		$data['classes'] = $this->classes->search($search_session);
+
 		$total = $data['classes']->count();
 
 		$options = array(
@@ -178,114 +179,5 @@ class SearchController extends Controller {
 
 		return $res;
 	 }
-	/**
-	 * 検索メソッド
-	 *
-	 * @param String,int,int,String
-	 * @author shalman
-	 * @return obj
-	 *
-	 */
-
-	function classes_list($session,$queries){
-
-		$day = $session['day'];
-		$period = $session['period'];
-		$term = $session['term'];
-		$faculty = $session['faculty'];
-		$data = $this->classes;
-
-		$data = empty($queries[0])?  $data:$this->getQueryEngine($queries);
-		$data = empty($day)?	$data:$data->where('class_week',$day);
-		$data = empty($period)? $data:$data->where('class_period',$period);
-		$data = empty($term)?	$data:$data->where('term',$term);
-		$data = empty($faculty)?$data:$data->where('faculty',$faculty);
-
-
-		//return $data->orderBy('class_period','asc')->orderBy('class_week','desc');
-		return $data;
-	}
-
-	/**
-	 * クエリーエンジン
-	 * AND検索
-	 *
-	 * @param array
-	 * @author shalman
-	 * @return obj
-	 *
-	 */
-	function getQueryEngine($search_queries){
-		//マスターデータ
-		$data = $this->classes;
-		//テスト配列
-		//$search_queries = array("データ");
-
-		if(empty($search_queries[0])){
-			return $data;
-		}
-		
-		$weight = array();
-		//クエリが教師名、授業名、要旨に含まれているものを和集合で取り出す。
-		foreach ($search_queries as $query) {
-			//クエリに教師名が含まれていれば重みづけ
-			if(!is_null($data->teachers()->orWhere('teacher_name','like','%'.$query.'%')->first())) {
-				$search_obj = $data->teachers()->orWhere('teacher_name','like','%'.$query.'%')->get();
-				//重み処理
-				//教師は重み2倍
-				foreach ($search_obj as $v) {
-					$id = $v["original"]["pivot_class_id"];
-					if(!array_key_exists($id,$weight)){
-						$weight[$id] = 2;
-					}else{
-					//2回以降
-						$weight[$id] = $weight[$id] + 2;
-					}
-				}
-			}
-			else if(!is_null($data->orWhere('class_name','like','%'.$query.'%')->first())){
-				$search_obj = $data->orWhere('class_name','like','%'.$query.'%')->get();
-				//重み処理
-				foreach($search_obj as $v){
-					$id = $v->class_id;
-					//初めてある授業をカウント
-					if(!array_key_exists($id,$weight)){
-						$weight[$id] = 1;
-					}else{
-					//2回以降
-						$weight[$id]++;
-					}
-				}
-			}	
-			else if(!is_null($data->orWhere('summary','like','%'.$query.'%')->first())) {
-				$search_obj = $data->orWhere('summary','like','%'.$query.'%')->get();
-				//重み処理
-				foreach($search_obj as $v){
-					$id = $v->class_id;
-					//初めてある授業をカウント
-					if(!array_key_exists($id,$weight)){
-						$weight[$id] = 1;
-					}else{
-					//2回以降
-						$weight[$id]++;
-					}
-				}
-			}
-			
-		}
-		//$weightはkeyにclass_id,valueに重み(検索した単語の教師名、授業名、要旨におけるヒット回数)の連想配列
-		if(empty($weight)){
-			return $data->where("class_id","");
-		}
-		//重みが強いものを先頭に
-		arsort($weight);
-		//重みを捨ててclass_idだけの配列
-		$ids = array_keys($weight);
-		//配列の順序通りにDBから引っ張る
-		$placeholders = implode(',',array_fill(0, count($ids), '?')); // string for the query
-
-		return $data->whereIn("class_id",$ids)->orderByRaw("field(class_id,{$placeholders})", $ids);
-
-	}
 
 }

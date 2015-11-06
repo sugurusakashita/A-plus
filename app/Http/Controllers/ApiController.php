@@ -83,8 +83,16 @@ class ApiController extends Controller {
 	 * @author shalman
 	 * @return Response
 	 */
-	public function getSearch($word = null,$faculty = "人間科学部",$day = null,$period = null,$term = null){
+	public function getSearch(Request $req){
 
+		//テスト変数
+		// $word = "玉城 java";
+		// $faculty = "人間科学部";
+		// $day = null;
+		// $period = null;
+		// $term = null;
+
+		dd($this->classes->search($word,$faculty)->get());
 	}
 // // 簡易検索
 // Route::get('/api/search/{word}', function($word){
