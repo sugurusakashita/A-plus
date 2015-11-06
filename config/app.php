@@ -26,7 +26,7 @@ return [
 	|
 	*/
 
-	'url' => 'http://localhost',
+	'url' => 'https://ei-plus.com',
 
 	/*
 	|--------------------------------------------------------------------------
@@ -65,7 +65,7 @@ return [
 	|
 	*/
 
-	'fallback_locale' => 'en',
+	'fallback_locale' => 'ja',
 
 	/*
 	|--------------------------------------------------------------------------
@@ -78,7 +78,7 @@ return [
 	|
 	*/
 
-	'key' => env("0HHhkZ7hkoJteaf5MsOTnPVUsBH5e0wH"),
+	'key' => env('APP_KEY',"0HHhkZ7hkoJteaf5MsOTnPVUsBH5e0wH"),
 
 	'cipher' => MCRYPT_RIJNDAEL_128,
 
@@ -136,6 +136,7 @@ return [
 		'Illuminate\Validation\ValidationServiceProvider',
 		'Illuminate\View\ViewServiceProvider',
 
+
 		/*
 		 * Application Service Providers...
 		 */
@@ -145,6 +146,11 @@ return [
 		'App\Providers\EventServiceProvider',
 		'App\Providers\RouteServiceProvider',
 
+		// social auth
+		'Laravel\Socialite\SocialiteServiceProvider',
+
+		// intervention/image
+		'Intervention\Image\ImageServiceProvider',
 	],
 
 	/*
@@ -173,7 +179,10 @@ return [
 		'Eloquent'  => 'Illuminate\Database\Eloquent\Model',
 		'Event'     => 'Illuminate\Support\Facades\Event',
 		'File'      => 'Illuminate\Support\Facades\File',
+		'Form' => 'Illuminate\Html\FormFacade',
+   		'HTML' => 'Illuminate\Html\HtmlFacade',
 		'Hash'      => 'Illuminate\Support\Facades\Hash',
+		'Image'		=> 'Intervention\Image\Facades\Image',
 		'Input'     => 'Illuminate\Support\Facades\Input',
 		'Inspiring' => 'Illuminate\Foundation\Inspiring',
 		'Lang'      => 'Illuminate\Support\Facades\Lang',
@@ -188,6 +197,7 @@ return [
 		'Route'     => 'Illuminate\Support\Facades\Route',
 		'Schema'    => 'Illuminate\Support\Facades\Schema',
 		'Session'   => 'Illuminate\Support\Facades\Session',
+		'Socialize' => 'Laravel\Socialite\Facades\Socialite',
 		'Storage'   => 'Illuminate\Support\Facades\Storage',
 		'URL'       => 'Illuminate\Support\Facades\URL',
 		'Validator' => 'Illuminate\Support\Facades\Validator',

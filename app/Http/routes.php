@@ -10,6 +10,12 @@ Route::controllers([
 	'classes'	=>	'ClassesController',
 	'ranking'	=>	'RankingController',
 	'tag'		=>	'TagController',
+	'mypage'	=>	'MyPageController',
+	'term'		=>	'TermController',
+	'help'		=>	'HelpController',
+	'about'		=>	'AboutController',
+	'campaign'	=>	'CampaignController',
+
 ]);
 
 
