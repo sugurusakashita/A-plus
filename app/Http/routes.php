@@ -8,7 +8,6 @@ Route::controllers([
 	'password' => 'Auth\PasswordController',
 	'search'	=>	'SearchController',
 	'classes'	=>	'ClassesController',
-	'ranking'	=>	'RankingController',
 	'tag'		=>	'TagController',
 	'mypage'	=>	'MyPageController',
 	'term'		=>	'TermController',

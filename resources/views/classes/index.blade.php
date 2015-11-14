@@ -324,7 +324,6 @@
 	<script type="text/javascript" src="{{ asset('/raty_lib/jquery.raty.js') }}"></script>
 	<script type="text/javascript">
 		var class_id = <?php echo $detail->class_id; ?>;
-		var user_id = <?php echo Auth::user()->user_id; ?>;
 		//グラフデータ
 			var attendance_data = <?php echo $attendance_data ?: "null"; ?>;
 			var bring_data = 	  <?php echo $bring_data 	  ?: "null"; ?>;

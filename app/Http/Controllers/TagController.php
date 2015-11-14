@@ -4,6 +4,7 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\Tag;
 use App\Classes;
+use App\Pv;
 
 use Illuminate\Http\Request;
 
@@ -11,14 +12,14 @@ class TagController extends Controller {
 
 	protected $tag;
 	protected $classes;
-	protected $ranking;
+	protected $pv;
 
 
 
-	public function __construct(Tag $tag,Classes $classes,RankingController $ranking){
+	public function __construct(Tag $tag,Classes $classes,Pv $pv){
 		$this->tag = $tag;
 		$this->classes = $classes;
-		$this->ranking = $ranking;
+		$this->pv = $pv;
 
 	}
 
@@ -36,8 +37,7 @@ class TagController extends Controller {
 
 		$data['tag_names'] = $this->returnTagNames();
 		$data['detail'] = $this->classes->find($id);
-		$data['search_ranking'] = $this->ranking->returnSearchRankingList();
-		$data['access_ranking'] = $this->ranking->returnAccessRankingList();
+		$data['access_ranking'] = $this->pv->classPvRanking();
 
 		return view('tag/index',$data);
 	}

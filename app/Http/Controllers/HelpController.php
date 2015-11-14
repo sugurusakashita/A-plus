@@ -3,6 +3,7 @@
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\Inquiry;
+use App\Pv;
 use Illuminate\Http\Request;
 
 class HelpController extends Controller {
@@ -10,8 +11,8 @@ class HelpController extends Controller {
 	protected $ranking;
 	protected $inquiry;
 
-	public function __construct(RankingController $ranking,Inquiry $inquiry){
-		$this->ranking = $ranking;
+	public function __construct(Pv $pv,Inquiry $inquiry){
+		$this->pv = $pv;
 		$this->inquiry = $inquiry;
 	}
 
@@ -22,8 +23,7 @@ class HelpController extends Controller {
 	 */
 	public function getIndex()
 	{
-		$data['search_ranking'] = $this->ranking->returnSearchRankingList();
-		$data['access_ranking'] = $this->ranking->returnAccessRankingList();
+		$data['access_ranking'] = $this->pv->classPvRanking();
 		return view('help/index',$data);
 	}
 
@@ -35,8 +35,7 @@ class HelpController extends Controller {
 	 */
 	public function getInquiry(){
 
-		$data['search_ranking'] = $this->ranking->returnSearchRankingList();
-		$data['access_ranking'] = $this->ranking->returnAccessRankingList();
+		$data['access_ranking'] = $this->pv->classPvRanking();
 		return view("help/inquiry",$data);
 	}
 
@@ -75,8 +74,7 @@ class HelpController extends Controller {
 	 */
 	public function getManual(){
 
-		$data['search_ranking'] = $this->ranking->returnSearchRankingList();
-		$data['access_ranking'] = $this->ranking->returnAccessRankingList();
+		$data['access_ranking'] = $this->pv->classPvRanking();
 		return view("help/manual",$data);
 	}
 
