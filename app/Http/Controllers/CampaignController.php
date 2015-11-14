@@ -3,6 +3,7 @@
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\Campaign;
+use App\Pv;
 use Auth;
 use URL;
 
@@ -12,7 +13,7 @@ class CampaignController extends Controller {
 
 	const CAMP_TYPE = 2;
 
-	protected $ranking;
+	protected $pv;
 	protected $campaign;
 
 	/**
@@ -21,8 +22,8 @@ class CampaignController extends Controller {
 	 * @author shalman
 	 * @return mixed
 	 */
-	public function __construct(RankingController $ranking,Campaign $campaign){
-		$this->ranking = $ranking;
+	public function __construct(Pv $pv,Campaign $campaign){
+		$this->pv = $pv;
 		$this->campaign = $campaign;
 		//$this->middleware("auth",["only" => ["postEntry"]]);
 	}
@@ -35,8 +36,7 @@ class CampaignController extends Controller {
 	 */
 	public function getIndex($id){
 
-		$data['search_ranking'] = $this->ranking->returnSearchRankingList();
-		$data['access_ranking'] = $this->ranking->returnAccessRankingList();
+		$data['access_ranking'] = $this->pv->classPvRanking();
 		$data["twitter_url"] = $this->makeTwitterUrl();
 		$data["facebook_url"] = $this->makeFacebookUrl();
 

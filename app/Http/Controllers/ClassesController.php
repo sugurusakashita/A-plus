@@ -19,8 +19,8 @@ class ClassesController extends Controller {
 
 	protected $classes;
 	protected $review;
-	protected $ranking;
 	protected $teacher;
+	protected $pv;
 
 	// 公式シラバスURL用
 	protected static $url_year = "2015";
@@ -43,11 +43,11 @@ class ClassesController extends Controller {
 
 	//const AUTH_LOGIN_REDIRECT_ID = 'auth_login_redirect_id';
 
-	public function __construct(Classes $classes,Review $review,Teacher $teacher,RankingController $ranking,Classes_detail $classes_detail){
+	public function __construct(Classes $classes,Review $review,Teacher $teacher,Pv $pv,Classes_detail $classes_detail){
 		$this->classes = $classes;
 		$this->review = $review;
-		$this->ranking = $ranking;
 		$this->teacher = $teacher;
+		$this->pv = $pv;
 		$this->classes_detail = $classes_detail;
 
 		//Authフィルタのホワイトリスト
@@ -63,7 +63,7 @@ class ClassesController extends Controller {
 	 *
 	 */
 
-	public function getIndex($id,Pv $pv,TagController $tag,Request $request){
+	public function getIndex($id,TagController $tag,Request $request){
 
 		$data = array(
 			'review'  => $this->review->reviews($id),
@@ -74,8 +74,7 @@ class ClassesController extends Controller {
 					'list' 			 => $tag->returnTagNamesByClassId($id),
 					'add_result' => $request
 				),
-			'search_ranking' => $this->ranking->returnSearchRankingList(),
-			'access_ranking' => $this->ranking->returnAccessRankingList()
+			'access_ranking' => $this->pv->classPvRanking()
 		);
 
 
@@ -93,7 +92,7 @@ class ClassesController extends Controller {
 		$data['actual_syllabus_url']  = $this->makeActualSyllabusUrl($data['detail']);
 
 		// ユニークPVカウント
-		$this->countUniqueAccount($pv,$id);
+		$this->countUniqueAccount($this->pv,$id);
 
 		return view('classes/index',$data);
 	}

@@ -2,6 +2,7 @@
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
+use App\Pv;
 
 use Illuminate\Http\Request;
 
@@ -13,15 +14,14 @@ class AboutController extends Controller {
 	 * @return Response
 	 */
 
-	protected $ranking;
+	protected $pv;
 
-	public function __construct(RankingController $ranking){
-		$this->ranking = $ranking;
+	public function __construct(Pv $pv){
+		$this->pv = $pv;
 	}
 	public function getIndex()
 	{
-		$data['search_ranking'] = $this->ranking->returnSearchRankingList();
-		$data['access_ranking'] = $this->ranking->returnAccessRankingList();
+		$data['access_ranking'] = $this->pv->classPvRanking();
 		return view('about/index',$data);
 	}
 }

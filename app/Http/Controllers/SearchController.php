@@ -8,6 +8,7 @@ use App\Teacher;
 use App\Review;
 use App\Tag;
 use App\Classes_detail;
+use App\Pv;
 
 use Illuminate\Http\Request;
 use Input;
@@ -18,16 +19,15 @@ class SearchController extends Controller {
 
 	protected $classes;
 	protected $queries;
-	protected $ranking;
 	protected $review;
 	protected $tag;
 
 
 
-	public function __construct(Classes $classes,Query $queries,Review $review,Tag $tag,RankingController $ranking){
+	public function __construct(Classes $classes,Query $queries,Review $review,Tag $tag,Pv $pv){
 		$this->classes = $classes;
 		$this->queries = $queries;
-		$this->ranking = $ranking;
+		$this->pv = $pv;
 		$this->review = $review;
 		$this->tag = $tag;
 	}
@@ -117,8 +117,7 @@ class SearchController extends Controller {
 		$data['review'] = $this->review;
 		$data['tag'] = $this->tag;
 
-		$data['search_ranking'] = $this->ranking->returnSearchRankingList();
-		$data{'access_ranking'} = $this->ranking->returnAccessRankingList();
+		$data{'access_ranking'} = $this->pv->classPvRanking();
 
 		return view('search/index',$data);
 	}
