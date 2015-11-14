@@ -68,7 +68,7 @@ class ClassesController extends Controller {
 		$data = array(
 			'review'  => $this->review->reviews($id),
 			'detail'  => $this->classes->find($id),
-			'detail_wpr' => $this->classes_detail->find($id),
+			'detail_wpr' => $this->classes_detail->where('class_id','=',$id)->first(),
 			'teacher' => $this->classes->find($id)->teachers,
 			'tag' 	  => array(
 					'list' 			 => $tag->returnTagNamesByClassId($id),
