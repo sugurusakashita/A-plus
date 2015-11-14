@@ -2,6 +2,7 @@
 
 use Illuminate\Database\Eloquent\Model;
 use App\Classes_detail;
+use App\Teacher;
 
 class Classes extends Model {
 
@@ -57,7 +58,7 @@ class Classes extends Model {
 
 	/**
 	 * クエリーエンジン
-	 * OR検索
+	 * AND検索
 	 *
 	 * @param array
 	 * @author shalman
@@ -67,73 +68,103 @@ class Classes extends Model {
 	function queryEngine($search_queries = null){
 		//マスターデータ
 		$data = $this;
-		//テスト配列
-		//$search_queries = array("データ");
-
+		$teacher = new Teacher();
+		$class_ids = [];
+		//空なら全部返す
 		if(empty($search_queries[0])){
 			return $data;
 		}
 
-		$weight = array();
-		//クエリが教師名、授業名、要旨に含まれているものを和集合で取り出す。
+		//AND検索
 		foreach ($search_queries as $query) {
-			//クエリに教師名が含まれていれば重みづけ
-			if(!is_null($data->teachers()->orWhere('teacher_name','like','%'.$query.'%')->first())) {
-				$search_obj = $data->teachers()->orWhere('teacher_name','like','%'.$query.'%')->get();
-				//重み処理
-				//教師は重み2倍
-				foreach ($search_obj as $v) {
-					$id = $v["original"]["pivot_class_id"];
-					if(!array_key_exists($id,$weight)){
-						$weight[$id] = 2;
-					}else{
-					//2回以降
-						$weight[$id] = $weight[$id] + 2;
+			if(!is_null($teacher->where('teacher_name','like','%'.$query.'%')->first())){
+				$hitTeachers = $teacher->where('teacher_name','like','%'.$query.'%')->get();
+				//教師名にヒットしたら配列にclass_idを控える
+				foreach ($hitTeachers as $hitTeacher) {
+					foreach ($hitTeacher->classes()->get() as $class){
+						$class_ids[] = $class->class_id;
 					}
 				}
+			}else if(!is_null($data->where('class_name','like','%'.$query.'%')->first())) {
+				//授業名にヒット
+				$data = $data->where('class_name','like','%'.$query.'%');
+			}else if(!is_null($data->where('summary','like','%'.$query.'%')->first())){
+				//授業概要にヒット
+				$data = $data->where('summary','like','%'.$query.'%');
+			}else{
+				//検索結果0件
+				return $data->where('class_id','=','0');
 			}
-			else if(!is_null($data->orWhere('class_name','like','%'.$query.'%')->first())){
-				$search_obj = $data->orWhere('class_name','like','%'.$query.'%')->get();
-				//重み処理
-				foreach($search_obj as $v){
-					$id = $v->class_id;
-					//初めてある授業をカウント
-					if(!array_key_exists($id,$weight)){
-						$weight[$id] = 1;
-					}else{
-					//2回以降
-						$weight[$id]++;
-					}
-				}
-			}
-			else if(!is_null($data->orWhere('summary','like','%'.$query.'%')->first())) {
-				$search_obj = $data->orWhere('summary','like','%'.$query.'%')->get();
-				//重み処理
-				foreach($search_obj as $v){
-					$id = $v->class_id;
-					//初めてある授業をカウント
-					if(!array_key_exists($id,$weight)){
-						$weight[$id] = 1;
-					}else{
-					//2回以降
-						$weight[$id]++;
-					}
-				}
-			}
-		}
-		//$weightはkeyにclass_id,valueに重み(検索した単語の教師名、授業名、要旨におけるヒット回数)の連想配列
-		if(empty($weight)){
-			return $data->where("class_id","");
-		}
-		//重みが強いものを先頭に
-		arsort($weight);
-		//重みを捨ててclass_idだけの配列
-		$ids = array_keys($weight);
-		//配列の順序通りにDBから引っ張る
-		$placeholders = implode(',',array_fill(0, count($ids), '?')); // string for the query
 
-		return $data->whereIn("class_id",$ids)->orderByRaw("field(class_id,{$placeholders})", $ids);
+		}
+		if(!empty($class_ids)){
+			//配列の重複を削除
+			$class_ids = array_unique($class_ids);
+			$data = $data->whereIn('class_id',$class_ids);
+		}
 
+		return $data;
+
+		// OR検索と重み付け処理(deprecated)
+		//
+		// $weight = array();
+		// //クエリが教師名、授業名、要旨に含まれているものを和集合で取り出す。
+		// foreach ($search_queries as $query) {
+		// 	//クエリに教師名が含まれていれば重みづけ
+		// 	if(!is_null($data->teachers()->orWhere('teacher_name','like','%'.$query.'%')->first())) {
+		// 		$search_obj = $data->teachers()->orWhere('teacher_name','like','%'.$query.'%')->get();
+		// 		//重み処理
+		// 		//教師は重み2倍
+		// 		foreach ($search_obj as $v) {
+		// 			$id = $v["original"]["pivot_class_id"];
+		// 			if(!array_key_exists($id,$weight)){
+		// 				$weight[$id] = 2;
+		// 			}else{
+		// 			//2回以降
+		// 				$weight[$id] = $weight[$id] + 2;
+		// 			}
+		// 		}
+		// 	}
+		// 	else if(!is_null($data->orWhere('class_name','like','%'.$query.'%')->first())){
+		// 		$search_obj = $data->orWhere('class_name','like','%'.$query.'%')->get();
+		// 		//重み処理
+		// 		foreach($search_obj as $v){
+		// 			$id = $v->class_id;
+		// 			//初めてある授業をカウント
+		// 			if(!array_key_exists($id,$weight)){
+		// 				$weight[$id] = 1;
+		// 			}else{
+		// 			//2回以降
+		// 				$weight[$id]++;
+		// 			}
+		// 		}
+		// 	}
+		// 	else if(!is_null($data->orWhere('summary','like','%'.$query.'%')->first())) {
+		// 		$search_obj = $data->orWhere('summary','like','%'.$query.'%')->get();
+		// 		//重み処理
+		// 		foreach($search_obj as $v){
+		// 			$id = $v->class_id;
+		// 			//初めてある授業をカウント
+		// 			if(!array_key_exists($id,$weight)){
+		// 				$weight[$id] = 1;
+		// 			}else{
+		// 			//2回以降
+		// 				$weight[$id]++;
+		// 			}
+		// 		}
+		// 	}
+		// }
+		// //$weightはkeyにclass_id,valueに重み(検索した単語の教師名、授業名、要旨におけるヒット回数)の連想配列
+		// if(empty($weight)){
+		// 	return $data->where("class_id","");
+		// }
+		// //重みが強いものを先頭に
+		// arsort($weight);
+		// //重みを捨ててclass_idだけの配列
+		// $ids = array_keys($weight);
+		// //配列の順序通りにDBから引っ張る
+		// $placeholders = implode(',',array_fill(0, count($ids), '?')); // string for the query
+		// return $data->whereIn("class_id",$ids)->orderByRaw("field(class_id,{$placeholders})", $ids);
 	}
 
 	/**

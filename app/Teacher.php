@@ -8,7 +8,7 @@ class Teacher extends Model {
 	protected $primaryKey = "teacher_id";
 	//
 	public function classes(){
-		return $this->belongsToMany('App\Classes','tr_classes_teachers','class_id','teacher_id');
+		return $this->belongsToMany('App\Classes','tr_classes_teachers','teacher_id','class_id');
 	}
 
 }
