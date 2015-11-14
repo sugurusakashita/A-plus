@@ -86,19 +86,25 @@
 					    </tr>
 					  </thead>
 				    <tbody>
-				      <tr>
-				        <td>
-				        	@if($teacher)
-				        		@foreach($teacher as $teacher)
-				        			<a href="/search?q={{ urldecode($teacher->teacher_name) }}&_token={{csrf_token()}}">{{ $teacher->teacher_name }}</a>
-				        		@endforeach
-				        	@endif
-				        </td>
-				        <td><?php echo $detail->term?></td>
-				        <td><?php echo $detail_wpr->class_week?></td>
-				        <td><?php echo $detail_wpr->class_period?>限</td>
-				        <td>{{ $detail_wpr->room_name }}</td>
+				    <?php $i = 0; ?>
+				    @foreach($detail->classes_detail()->get() as $class_detail)
+				     	<tr>
+				     		@if(!$i)
+					        <td rowspan="2">
+					        	@if($teachers)
+					        		@foreach($teachers as $teacher)
+					        			<a href="/search?q={{ urldecode($teacher->teacher_name) }}&_token={{csrf_token()}}">{{ $teacher->teacher_name }}</a>
+					        		@endforeach
+					        	@endif
+					        </td>
+							@endif
+				        <td>{{ $detail->term }}</td>
+				        <td>{{ $class_detail->class_week }}</td>
+				        <td>{{ $class_detail->class_period }}限</td>
+				        <td>{{ $class_detail->room_name}}</td>
 				      </tr>
+				      <?php $i++?>
+				    @endforeach
 				    </tbody>
 					</table>
 					<!-- 成績評価方法 -->
