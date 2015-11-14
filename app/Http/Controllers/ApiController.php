@@ -75,31 +75,34 @@ class ApiController extends Controller {
 	/**
 	 * 検索
 	 *
-	 * @param  String
-	 * @param  String
-	 * @param  String
-	 * @param  String
-	 * @param  String
+	 * @param  Request
 	 * @author shalman
 	 * @return Response
 	 */
 	public function getSearch(Request $req){
 
+		$data['q'] = $req->word;
+		$data['faculty'] = $req->faculty;
+		$data['day'] = $req->day;
+		$data['period'] = $req->period;
+		$data['term'] = $req->term;
+
+		$page = $req->page;
+		$limit = $req->limit;
+
 		//テスト変数
-		// $word = "玉城 java";
-		// $faculty = "人間科学部";
-		// $day = null;
-		// $period = null;
-		// $term = null;
+		if($res = $this->classes->search($data)){
+			if($page){
+				$res = $res->skip($page * $limit);
+			}
+			if($limit){
+				$res = $res->take($limit);
+			}
+			return json_encode($res->get());
+		}
 
-		dd($this->classes->search($word,$faculty)->get());
+		return json_encode(['error' => 'errors are thrown']);
+
 	}
-// // 簡易検索
-// Route::get('/api/search/{word}', function($word){
-// 		$classes = DB::table('classes')
-// 			->where('class_name', 'LIKE', '%'.$word.'%')->get();
-// 		return Response::json($classes);
-// });
-
 
 }

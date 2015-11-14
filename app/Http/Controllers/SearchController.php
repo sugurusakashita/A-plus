@@ -129,7 +129,7 @@ class SearchController extends Controller {
 	 *
 	 * @param String
 	 * @author shalman
-	 * @return array	 
+	 * @return array
 	 *
 	 */
 
@@ -147,7 +147,7 @@ class SearchController extends Controller {
 	}
 
 	/**
-	 * 検索結果の表示テキストを生成。
+	 * 検索結果の表示テキストを生成
 	 *
 	 * @param array
 	 * @author shalman

@@ -36,6 +36,7 @@ class Classes extends Model {
 
 		$data = $this;
 		$data = empty($searchArray[0])?  $data:$this->queryEngine($searchArray);
+
 		//詳細テーブルから検索
 		$detail = new Classes_detail();
 
@@ -56,7 +57,7 @@ class Classes extends Model {
 
 	/**
 	 * クエリーエンジン
-	 * AND検索
+	 * OR検索
 	 *
 	 * @param array
 	 * @author shalman
