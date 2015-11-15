@@ -7,7 +7,7 @@ class Pv extends Model {
 	protected $primaryKey = "pv_id";
 
 	public function classes(){
-		return $this->belongsTo('App\classes','class_id');
+		return $this->belongsTo('App\Classes','class_id');
 	}
 
 	/**
