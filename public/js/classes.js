@@ -61,7 +61,7 @@ jQuery(function ($) {
             "_token": $('meta[name="csrf-token"]').attr('content')
         };
         $.ajax({
-            type: "GET",
+            type: "POST",
             url: "../../register/new",
             dataType: "Json",
             data: params,

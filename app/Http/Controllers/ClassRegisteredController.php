@@ -52,16 +52,16 @@ class ClassRegisteredController extends Controller {
 	 *
 	 * @return Response
 	 */
-	public function getNew()
+	public function postNew()
 	{
 		//ajax以外のアクセスを禁止
-		// $request = isset($_SERVER['HTTP_X_REQUESTED_WITH']) ? strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) : '';
-		// if($request !== 'xmlhttprequest') exit;
+		$request = isset($_SERVER['HTTP_X_REQUESTED_WITH']) ? strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) : '';
+		if($request !== 'xmlhttprequest') exit;
 
 		//ajaxからのリクエスト取得
-		$class_id = 15072;//$_POST["class_id"];
-		$user_id  = 25;//$_POST["user_id"];
-		$year     = 2015;//$_POST["year"];
+		$class_id = $_POST["class_id"];
+		$user_id  = $_POST["user_id"];
+		$year     = $_POST["year"];
 
 		// $data['success'] = false;
 		// $data['message'] = array($class_id, $user_id, $year);
