@@ -24,8 +24,365 @@
 			</ul>
 		</div>
 	@endif
+	<!-- <div class="alert a-is-info">
+		My Page
+	</div> -->
+	<div class="panel panel-warning section-margin">
+		<div class="panel-title">
+			<div class="row-fluid">
+				<div class="col1">
+					My時間割
+				</div>
+				<div class="col1">
+					<select id="year" name="year">
+						@foreach ($years as $year)
+							<option value="{{ $year->year }}">{{ $year->year }}年度</option>
+						@endforeach
+					</select>
+				</div>
+				<div class="col10">
+					<select id="term" name="term">
+						@foreach ($terms as $term)
+							@if ($term->term != "通年")
+								<option value="{{ $term->term }}"><?php echo $term->term == "春学期" || $term->term == "夏期集中" || $term->term == "集中講義（春学期）" || $term->term == "春季集中" || $term->term == "夏季集中"? "春学期・夏期集中":"秋学期・冬期集中"; ?></option>
+							@endif
+						@endforeach
+					</select>
+				</div>
+			</div>
+		</div>
+		<div class="panel-body">
+			<table class="table table-bordered">
+				<thead>
+					<th></th>
+					<th>月</th>
+					<th>火</th>
+					<th>水</th>
+					<th>木</th>
+					<th>金</th>
+					<th>土</th> <!-- 土はあるかないかで表示非表示 -->
+				</thead>
+				<tr>
+					<td>1</td>
+					<td data-week="月" data-period=1>
+						{{ $time_table["月"][1]->class_name or "" }}<br>
+						{{ $time_table["月"][1]->room_name or "" }}
+					</td>
+					<td data-week="火" data-period=1>
+						{{ $time_table["火"][1]->class_name or "" }}<br>
+						{{ $time_table["火"][1]->room_name or "" }}
+					</td>
+					<td data-week="水" data-period=1>
+						{{ $time_table["水"][1]->class_name or "" }}<br>
+						{{ $time_table["水"][1]->room_name or "" }}
+					</td>
+					<td data-week="木" data-period=1>
+						{{ $time_table["木"][1]->class_name or "" }}<br>
+						{{ $time_table["木"][1]->room_name or "" }}
+					</td>
+					<td data-week="金" data-period=1>
+						{{ $time_table["金"][1]->class_name or "" }}<br>
+						{{ $time_table["金"][1]->room_name or "" }}
+					</td>
+					<td data-week="土" data-period=1>
+						{{ $time_table["土"][1]->class_name or "" }}<br>
+						{{ $time_table["土"][1]->room_name or "" }}
+					</td>
+				</tr>
+				<tr>
+					<td>2</td>
+					<td data-week="月" data-period=2>
+						{{ $time_table["月"][2]->class_name or "" }}<br>
+						{{ $time_table["月"][2]->room_name or "" }}
+					</td>
+					<td data-week="火" data-period=2>
+						{{ $time_table["火"][2]->class_name or "" }}<br>
+						{{ $time_table["火"][2]->room_name or "" }}
+					</td>
+					<td data-week="水" data-period=2>
+						{{ $time_table["水"][2]->class_name or "" }}<br>
+						{{ $time_table["水"][2]->room_name or "" }}
+					</td>
+					<td data-week="木" data-period=2>
+						{{ $time_table["木"][2]->class_name or "" }}<br>
+						{{ $time_table["木"][2]->room_name or "" }}
+					</td>
+					<td data-week="金" data-period=2>
+						{{ $time_table["金"][2]->class_name or "" }}<br>
+						{{ $time_table["金"][2]->room_name or "" }}
+					</td>
+					<td data-week="土" data-period=2>
+						{{ $time_table["土"][2]->class_name or "" }}<br>
+						{{ $time_table["土"][2]->room_name or "" }}
+					</td>
+				</tr>
+				<tr>
+					<td>3</td>
+					<td data-week="月" data-period=3>
+						{{ $time_table["月"][3]->class_name or "" }}<br>
+						{{ $time_table["月"][3]->room_name or "" }}
+					</td>
+					<td data-week="火" data-period=3>
+						{{ $time_table["火"][3]->class_name or "" }}<br>
+						{{ $time_table["火"][3]->room_name or "" }}
+					</td>
+					<td data-week="水" data-period=3>
+						{{ $time_table["水"][3]->class_name or "" }}<br>
+						{{ $time_table["水"][3]->room_name or "" }}
+					</td>
+					<td data-week="木" data-period=3>
+						{{ $time_table["木"][3]->class_name or "" }}<br>
+						{{ $time_table["木"][3]->room_name or "" }}
+					</td>
+					<td data-week="金" data-period=3>
+						{{ $time_table["金"][3]->class_name or "" }}<br>
+						{{ $time_table["金"][3]->room_name or "" }}
+					</td>
+					<td data-week="土" data-period=3>
+						{{ $time_table["土"][3]->class_name or "" }}<br>
+						{{ $time_table["土"][3]->room_name or "" }}
+					</td>
+				</tr>
+				<tr>
+					<td>4</td>
+					<td data-week="月" data-period=4>
+						{{ $time_table["月"][4]->class_name or "" }}<br>
+						{{ $time_table["月"][4]->room_name or "" }}
+					</td>
+					<td data-week="火" data-period=4>
+						{{ $time_table["火"][4]->class_name or "" }}<br>
+						{{ $time_table["火"][4]->room_name or "" }}
+					</td>
+					<td data-week="水" data-period=4>
+						{{ $time_table["水"][4]->class_name or "" }}<br>
+						{{ $time_table["水"][4]->room_name or "" }}
+					</td>
+					<td data-week="木" data-period=4>
+						{{ $time_table["木"][4]->class_name or "" }}<br>
+						{{ $time_table["木"][4]->room_name or "" }}
+					</td>
+					<td data-week="金" data-period=4>
+						{{ $time_table["金"][4]->class_name or "" }}<br>
+						{{ $time_table["金"][4]->room_name or "" }}
+					</td>
+					<td data-week="土" data-period=4>
+						{{ $time_table["土"][4]->class_name or "" }}<br>
+						{{ $time_table["土"][4]->room_name or "" }}
+					</td>
+				</tr>
+				<tr>
+					<td>5</td>
+					<td data-week="月" data-period=5>
+						{{ $time_table["月"][5]->class_name or "" }}<br>
+						{{ $time_table["月"][5]->room_name or "" }}
+					</td>
+					<td data-week="火" data-period=5>
+						{{ $time_table["火"][5]->class_name or "" }}<br>
+						{{ $time_table["火"][5]->room_name or "" }}
+					</td>
+					<td data-week="水" data-period=5>
+						{{ $time_table["水"][5]->class_name or "" }}<br>
+						{{ $time_table["水"][5]->room_name or "" }}
+					</td>
+					<td data-week="木" data-period=5>
+						{{ $time_table["木"][5]->class_name or "" }}<br>
+						{{ $time_table["木"][5]->room_name or "" }}
+					</td>
+					<td data-week="金" data-period=5>
+						{{ $time_table["金"][5]->class_name or "" }}<br>
+						{{ $time_table["金"][5]->room_name or "" }}
+					</td>
+					<td data-week="土" data-period=5>
+						{{ $time_table["土"][5]->class_name or "" }}<br>
+						{{ $time_table["土"][5]->room_name or "" }}
+					</td>
+				</tr>
+				<tr>
+					<td>6</td>
+					<td data-week="月" data-period=6>
+						{{ $time_table["月"][6]->class_name or "" }}<br>
+						{{ $time_table["月"][6]->room_name or "" }}
+					</td>
+					<td data-week="火" data-period=6>
+						{{ $time_table["火"][6]->class_name or "" }}<br>
+						{{ $time_table["火"][6]->room_name or "" }}
+					</td>
+					<td data-week="水" data-period=6>
+						{{ $time_table["水"][6]->class_name or "" }}<br>
+						{{ $time_table["水"][6]->room_name or "" }}
+					</td>
+					<td data-week="木" data-period=6>
+						{{ $time_table["木"][6]->class_name or "" }}<br>
+						{{ $time_table["木"][6]->room_name or "" }}
+					</td>
+					<td data-week="金" data-period=6>
+						{{ $time_table["金"][6]->class_name or "" }}<br>
+						{{ $time_table["金"][6]->room_name or "" }}
+					</td>
+					<td data-week="土" data-period=6>
+						{{ $time_table["土"][6]->class_name or "" }}<br>
+						{{ $time_table["土"][6]->room_name or "" }}
+					</td>
+				</tr>
+				<!-- <tr>
+					<td>7</td>
+					<td data-week="月" data-period=7>
+					</td>
+					<td data-week="火" data-period=7>
+					</td>
+					<td data-week="水" data-period=7>
+					</td>
+					<td data-week="木" data-period=7>
+					</td>
+					<td data-week="金" data-period=7>
+					</td>
+					<td data-week="土" data-period=7>
+					</td>
+				</tr> -->
+			</table>
+			<p>※履修済授業リストに追加されている授業のデータを基に時間割を作成しています。</p>
+		</div>
+	</div>
+	<div class="panel panel-success section-margin">
+		<div class="panel-title">履修済授業リスト</div>
+		<div class="panel-body" style="over-flow-x:auto;">
+			@if($class_list)
+				<table class="table table-bordered">
+					<thead>
+						<!-- <th></th> -->
+						<th>学部</th>
+						<th style="width:100px;">受講年度</th>
+						<th>授業名</th>
+						<th>曜日</th>
+						<th>限</th>
+						<th>教室</th>
+						<th>カテゴリ</th>
+					</thead>
+					<tbody>
+						@foreach($class_list as $class)
+							<tr>
+								<!-- <td style="width:10px;"><input type="radio" name="test" value="test"></td> -->
+								<td style="width:100px;">{{ $class['class_registered']->faculty }}</td>
+								<td style="width:60px;">{{ $class['class_registered']->year }}</td>
+								<td style="width:450px;">{{ $class['class_registered']->class_name }}</td>
+								<td>
+									@if(count($class['class_registered_detail']) > 1)
+										@for($i = 0; $i < count($class['class_registered_detail']); $i++)
+											@if($i < count($class['class_registered_detail'])-1 )
+												{{ $class['class_registered_detail'][$i]->class_week }}/
+											@else
+												{{ $class['class_registered_detail'][$i]->class_week }}
+											@endif
+										@endfor
+									@else
+										@foreach($class['class_registered_detail'] as $detail)
+											{{ $detail->class_week }}
+										@endforeach
+									@endif
+								</td>
+								<td>
+									@if(count($class['class_registered_detail']) > 1)
+										@for($i = 0; $i < count($class['class_registered_detail']); $i++)
+											@if($i < count($class['class_registered_detail'])-1 )
+												{{ $class['class_registered_detail'][$i]->class_period }}/
+											@else
+												{{ $class['class_registered_detail'][$i]->class_period }}
+											@endif
+										@endfor
+									@else
+										@foreach($class['class_registered_detail'] as $detail)
+											{{ $detail->class_period }}
+										@endforeach
+									@endif
+								</td>
+								<td style="width:120px;">
+									@if(count($class['class_registered_detail']) > 1)
+										@for($i = 0; $i < count($class['class_registered_detail']); $i++)
+											@if($i < count($class['class_registered_detail'])-1 )
+												{{ $class['class_registered_detail'][$i]->room_name }}/
+											@else
+												{{ $class['class_registered_detail'][$i]->room_name }}
+											@endif
+										@endfor
+									@else
+										@foreach($class['class_registered_detail'] as $detail)
+											{{ $detail->room_name }}
+										@endforeach
+									@endif
+								</td>
+								<td style="width:120px;">{{ $class['class_registered']->category }}</td>
+							</tr>
+						@endforeach
+			@else
+				<p>登録されている授業がありません。履修した授業を検索して履修済登録しましょう！</p>
+			@endif
+				</tbody>
+			</table>
+			<p>※曜日、時限、教室が空白の場合、時間割にはその授業の内容は反映されません。</p>
+		</div>
+	</div>
+
+	<div class="panel panel-primary section-margin">
+		<div class="panel-title">
+			<div class="row-fluid">
+				<div class="col4">レビュー履歴</div>
+				<div class="col8">合計レビュー件数: <span style="color:#F35D5D;">{{ $reviews->count() }}件</span></div>
+			</div>
+		</div>
+		<div class="panel-body">
+			@if(!$reviews->count())
+				<p style="color:#FF0000;">まだレビューされていません。</p>
+			@else
+			@foreach($reviews as $review)
+			<div class="panel panel-default">
+				<div class="panel-title">
+					<div class="row-fluid">
+						<div class="col9" style="font-size:1.3em">
+							<a href="/classes/index/{{ $review->classes()->first()->class_id }}">{{ $review->classes()->first()->class_name }}</a>
+							<form action="/mypage/edit" method="get" class="review-edit-delete">
+									<input type="hidden" value="{{{ $review->review_id }}}" name="review_id">
+									<input type="hidden" name="_token" value="{{csrf_token()}}" />
+									<button type="submit" class="btn btn-success btn-sm" >編集</button>
+						        </form>
+						        <form action="/mypage/delete-confirm" method="POST" class="review-edit-delete">
+						          	<input type="hidden" value="{{{ $review->review_id }}}" name="review_id">
+						          	<input type="hidden" name="_token" value="{{csrf_token()}}" />
+						          	<button type="submit" class="btn btn-danger btn-sm">削除</button>
+						         </form>
+						</div>
+						<div class="col3">
+							更新日時:{{ $review->updated_at }}
+
+						</div>
+					</div>
+				</div>
+				<div class="panel-title">
+					<div class="row-fluid">
+						<div class="col3">
+						総合<span class="raty_stars" data-star="{{ $review->stars }}"></span>
+						</div>
+						<div class="col3">
+						単位の取りやすさ<span class="raty_stars" data-star="{{ $review->unit_stars }}"></span>
+						</div>
+						<div class="col3">
+						GP(成績)の取りやすさ<span class="raty_stars" data-star="{{ $review->grade_stars }}"></span>
+						</div>
+						<div class="col3">
+						内容の充実度<span class="raty_stars" data-star="{{ $review->fulfill_stars }}"></span>
+						</div>
+					</div>
+				</div>
+				<div class="panel-body">
+					{{ mb_strimwidth($review->review_comment,0,100,"...") }}
+				</div>
+			</div>
+			@endforeach
+			@endif
+		</div>
+	</div>
+
 	<div class="panel panel-success">
-		<div class="panel-title">マイページ</div>
+		<div class="panel-title">登録情報</div>
 		<div class="panel-body">プロフィールを変更するには「編集」ボタンをクリックしてください。
 			<div class="section-margin row-fluid">
 				<div class="col3">
@@ -118,164 +475,6 @@
 					<a href="/password/email">こちらから登録されているアドレスにメールを送信して再設定してください。</a>
 				</div>
 			</div>
-		</div>
-	</div>
-	<div class="panel panel-warning section-margin">
-		<div class="panel-title">
-			<div class="row-fluid">
-				<div class="col1">
-					My時間割
-				</div>
-				<div class="col1">
-					<select id="year" name="year">
-						@foreach ($years as $year)
-							<option value="{{ $year->year }}">{{ $year->year }}年度</option>
-						@endforeach
-					</select>
-				</div>
-				<div class="col10">
-					<select id="term" name="term">
-						@foreach ($terms as $term)
-						<option value="{{ $term->term }}"><?php echo $term->term == 0? "春学期・夏期集中":"秋学期・冬期集中";?></option>
-						@endforeach
-					</select>
-				</div>
-			</div>
-		</div>
-		<div class="panel-body">
-			<table class="table table-bordered">
-				<thead>
-					<th></th>
-					<th>月</th>
-					<th>火</th>
-					<th>水</th>
-					<th>木</th>
-					<th>金</th>
-					<th>土</th> <!-- 土はあるかないかで表示非表示 -->
-				</thead>
-				<tr>
-					<td>1</td>
-					<td data-week="月" data-period=1>{{ $time_table["月"][1]["class_registered"]->class_name or "" }}<br>{{ $time_table["月"][1]["class_registered_detail"]->room_name or "" }}</td>
-					<td data-week="火" data-period=1>{{ $time_table["火"][1]["class_registered"]->class_name or "" }}<br>{{ $time_table["火"][1]["class_registered_detail"]->room_name or "" }}</td>
-					<td data-week="水" data-period=1>{{ $time_table["水"][1]["class_registered"]->class_name or "" }}<br>{{ $time_table["水"][1]["class_registered_detail"]->room_name or "" }}</td>
-					<td data-week="木" data-period=1>{{ $time_table["木"][1]["class_registered"]->class_name or "" }}<br>{{ $time_table["木"][1]["class_registered_detail"]->room_name or "" }}</td>
-					<td data-week="金" data-period=1>{{ $time_table["金"][1]["class_registered"]->class_name or "" }}<br>{{ $time_table["金"][1]["class_registered_detail"]->room_name or "" }}</td>
-					<td data-week="土" data-period=1>{{ $time_table["土"][1]["class_registered"]->class_name or "" }}<br>{{ $time_table["土"][1]["class_registered_detail"]->room_name or "" }}</td>
-				</tr>
-				<tr>
-					<td>2</td>
-					<td data-week="月" data-period=2>{{ $time_table["月"][2]["class_registered"]->class_name or "" }}<br>{{ $time_table["月"][2]["class_registered_detail"]->room_name or "" }}</td>
-					<td data-week="火" data-period=2>{{ $time_table["火"][2]["class_registered"]->class_name or "" }}<br>{{ $time_table["火"][2]["class_registered_detail"]->room_name or "" }}</td>
-					<td data-week="水" data-period=2>{{ $time_table["水"][2]["class_registered"]->class_name or "" }}<br>{{ $time_table["水"][2]["class_registered_detail"]->room_name or "" }}</td>
-					<td data-week="木" data-period=2>{{ $time_table["木"][2]["class_registered"]->class_name or "" }}<br>{{ $time_table["木"][2]["class_registered_detail"]->room_name or "" }}</td>
-					<td data-week="金" data-period=2>{{ $time_table["金"][2]["class_registered"]->class_name or "" }}<br>{{ $time_table["金"][2]["class_registered_detail"]->room_name or "" }}</td>
-					<td data-week="土" data-period=2>{{ $time_table["土"][2]["class_registered"]->class_name or "" }}<br>{{ $time_table["土"][2]["class_registered_detail"]->room_name or "" }}</td>
-				</tr>
-				<tr>
-					<td>3</td>
-					<td data-week="月" data-period=3>{{ $time_table["月"][3]["class_registered"]->class_name or "" }}<br>{{ $time_table["月"][3]["class_registered_detail"]->room_name or "" }}</td>
-					<td data-week="火" data-period=3>{{ $time_table["火"][3]["class_registered"]->class_name or "" }}<br>{{ $time_table["火"][3]["class_registered_detail"]->room_name or "" }}</td>
-					<td data-week="水" data-period=3>{{ $time_table["水"][3]["class_registered"]->class_name or "" }}<br>{{ $time_table["水"][3]["class_registered_detail"]->room_name or "" }}</td>
-					<td data-week="木" data-period=3>{{ $time_table["木"][3]["class_registered"]->class_name or "" }}<br>{{ $time_table["木"][3]["class_registered_detail"]->room_name or "" }}</td>
-					<td data-week="金" data-period=3>{{ $time_table["金"][3]["class_registered"]->class_name or "" }}<br>{{ $time_table["金"][3]["class_registered_detail"]->room_name or "" }}</td>
-					<td data-week="土" data-period=3>{{ $time_table["土"][3]["class_registered"]->class_name or "" }}<br>{{ $time_table["土"][3]["class_registered_detail"]->room_name or "" }}</td>
-				</tr>
-				<tr>
-					<td>4</td>
-					<td data-week="月" data-period=4>{{ $time_table["月"][4]["class_registered"]->class_name or "" }}<br>{{ $time_table["月"][4]["class_registered_detail"]->room_name or "" }}</td>
-					<td data-week="火" data-period=4>{{ $time_table["火"][4]["class_registered"]->class_name or "" }}<br>{{ $time_table["火"][4]["class_registered_detail"]->room_name or "" }}</td>
-					<td data-week="水" data-period=4>{{ $time_table["水"][4]["class_registered"]->class_name or "" }}<br>{{ $time_table["水"][4]["class_registered_detail"]->room_name or "" }}</td>
-					<td data-week="木" data-period=4>{{ $time_table["木"][4]["class_registered"]->class_name or "" }}<br>{{ $time_table["木"][4]["class_registered_detail"]->room_name or "" }}</td>
-					<td data-week="金" data-period=4>{{ $time_table["金"][4]["class_registered"]->class_name or "" }}<br>{{ $time_table["金"][4]["class_registered_detail"]->room_name or "" }}</td>
-					<td data-week="土" data-period=4>{{ $time_table["土"][4]["class_registered"]->class_name or "" }}<br>{{ $time_table["土"][4]["class_registered_detail"]->room_name or "" }}</td>
-				</tr>
-				<tr>
-					<td>5</td>
-					<td data-week="月" data-period=5>{{ $time_table["月"][5]["class_registered"]->class_name or "" }}<br>{{ $time_table["月"][5]["class_registered_detail"]->room_name or "" }}</td>
-					<td data-week="火" data-period=5>{{ $time_table["火"][5]["class_registered"]->class_name or "" }}<br>{{ $time_table["火"][5]["class_registered_detail"]->room_name or "" }}</td>
-					<td data-week="水" data-period=5>{{ $time_table["水"][5]["class_registered"]->class_name or "" }}<br>{{ $time_table["水"][5]["class_registered_detail"]->room_name or "" }}</td>
-					<td data-week="木" data-period=5>{{ $time_table["木"][5]["class_registered"]->class_name or "" }}<br>{{ $time_table["木"][5]["class_registered_detail"]->room_name or "" }}</td>
-					<td data-week="金" data-period=5>{{ $time_table["金"][5]["class_registered"]->class_name or "" }}<br>{{ $time_table["金"][5]["class_registered_detail"]->room_name or "" }}</td>
-					<td data-week="土" data-period=5>{{ $time_table["土"][5]["class_registered"]->class_name or "" }}<br>{{ $time_table["土"][5]["class_registered_detail"]->room_name or "" }}</td>
-				</tr>
-				<tr>
-					<td>6</td>
-					<td data-week="月" data-period=6>{{ $time_table["月"][6]["class_registered"]->class_name or "" }}<br>{{ $time_table["月"][6]["class_registered_detail"]->room_name or "" }}</td>
-					<td data-week="火" data-period=6>{{ $time_table["火"][6]["class_registered"]->class_name or "" }}<br>{{ $time_table["火"][6]["class_registered_detail"]->room_name or "" }}</td>
-					<td data-week="水" data-period=6>{{ $time_table["水"][6]["class_registered"]->class_name or "" }}<br>{{ $time_table["水"][6]["class_registered_detail"]->room_name or "" }}</td>
-					<td data-week="木" data-period=6>{{ $time_table["木"][6]["class_registered"]->class_name or "" }}<br>{{ $time_table["木"][6]["class_registered_detail"]->room_name or "" }}</td>
-					<td data-week="金" data-period=6>{{ $time_table["金"][6]["class_registered"]->class_name or "" }}<br>{{ $time_table["金"][6]["class_registered_detail"]->room_name or "" }}</td>
-					<td data-week="土" data-period=6>{{ $time_table["土"][6]["class_registered"]->class_name or "" }}<br>{{ $time_table["土"][6]["class_registered_detail"]->room_name or "" }}</td>
-				</tr>
-				<!-- <tr>
-					<td data-week="月" data-period=1>7</td>
-					<td data-week="月" data-period=1></td>
-					<td data-week="月" data-period=1></td>
-					<td data-week="月" data-period=1></td>
-					<td data-week="月" data-period=1></td>
-					<td data-week="月" data-period=1></td>
-					<td data-week="月" data-period=1></td>
-				</tr> -->
-				
-			</table>
-		</div>
-	</div>
-	<div class="panel panel-primary section-margin">
-		<div class="panel-title">
-			<div class="row-fluid">
-				<div class="col4">レビュー履歴</div>
-				<div class="col8">合計レビュー件数: <span style="color:#F35D5D;">{{ $reviews->count() }}件</span></div>
-			</div>
-		</div>
-		<div class="panel-body">
-			@if(!$reviews->count())
-				<p style="color:#FF0000;">まだレビューされていません。</p>
-			@else
-			@foreach($reviews as $review)
-			<div class="panel panel-default">
-				<div class="panel-title">
-					<div class="row-fluid">
-						<div class="col9" style="font-size:1.3em">
-							<a href="/classes/index/{{ $review->classes()->first()->class_id }}">{{ $review->classes()->first()->class_name }}</a>
-							<form action="/mypage/edit" method="get" class="review-edit-delete">
-									<input type="hidden" value="{{{ $review->review_id }}}" name="review_id">
-									<input type="hidden" name="_token" value="{{csrf_token()}}" />
-									<button type="submit" class="btn btn-success btn-sm" >編集</button>
-						        </form>
-						        <form action="/mypage/delete-confirm" method="POST" class="review-edit-delete">
-						          	<input type="hidden" value="{{{ $review->review_id }}}" name="review_id">
-						          	<input type="hidden" name="_token" value="{{csrf_token()}}" />
-						          	<button type="submit" class="btn btn-danger btn-sm">削除</button>
-						         </form>
-						</div>
-						<div class="col3">
-							更新日時:{{ $review->updated_at }}
-
-						</div>
-					</div>
-				</div>
-				<div class="panel-title">
-					<div class="row-fluid">
-						<div class="col3">
-						総合<span class="raty_stars" data-star="{{ $review->stars }}"></span>
-						</div>
-						<div class="col3">
-						単位の取りやすさ<span class="raty_stars" data-star="{{ $review->unit_stars }}"></span>
-						</div>
-						<div class="col3">
-						GP(成績)の取りやすさ<span class="raty_stars" data-star="{{ $review->grade_stars }}"></span>
-						</div>
-						<div class="col3">
-						内容の充実度<span class="raty_stars" data-star="{{ $review->fulfill_stars }}"></span>
-						</div>
-					</div>
-				</div>
-				<div class="panel-body">
-					{{ mb_strimwidth($review->review_comment,0,100,"...") }}
-				</div>
-			</div>
-			@endforeach
-			@endif
 		</div>
 	</div>
 @stop
