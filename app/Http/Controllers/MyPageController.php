@@ -221,7 +221,7 @@ class MyPageController extends Controller {
 
 		//バリデーション
 		$validation = array(
-			'avatar'	=>	'image|mimes:jpeg,jpg,gif,png|max:2000',
+			'avatar'	=>	'image|mimes:jpeg,jpg,gif,png|max:4000',
 			'radioAvatarType'	=>	'required'
 		);
 

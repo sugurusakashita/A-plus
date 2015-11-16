@@ -68,7 +68,7 @@ class Registrar implements RegistrarContract {
 		$height = (int)round($cropData->height);
 		$rotate = round($cropData->rotate);
 		//IntervensionImageでのrotateは反時計回りが正。
-		$rotate = (float)"-".$rotate;
+		$rotate = (float)($rotate * -1);
 
 		$fileName = $name.'.'.$extension;
 		$dirPath = public_path('avatar/'.$fileName);
@@ -92,7 +92,7 @@ class Registrar implements RegistrarContract {
 	{
 
 		return Validator::make($data,[
-			'avatar' => 'max:2000|image|mimes:jpeg,jpg,gif,png',
+			'avatar' => 'max:4000|image|mimes:jpeg,jpg,gif,png',
 			'avatar_url' => 'string|url',
 			'radioAvatarType'	=>	'required',
 			'name' => 'required|max:20|unique:users',
