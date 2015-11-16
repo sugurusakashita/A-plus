@@ -35,7 +35,7 @@ class Registrar implements RegistrarContract {
 				//アバターの保存
 				if(isset($data["avatar"])) {
 					if($file = $data["avatar"]){
-						$extension = $data["avatar"]->getClientOriginalExtension();
+						$extension = $data["avatar"]->getClientOriginalExtension()?: 'png';
 					}
 				}
 				break;
