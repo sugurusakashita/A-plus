@@ -22,6 +22,34 @@
 
 @section('main_content')
 
+			<div id="modal-content">
+				<div class="panel panel-primary">
+					<div class="panel-title">履修済登録</div>
+					<div class="panel-body">
+						<p style="margin-bottom:10px;">この授業の受講年度を選んでください。</p>
+						<div>
+							<select id="year" style="margin-bottom:20px;">
+								<option value="2015">2015年度</option>
+								<option value="2014">2014年度</option>
+								<option value="2013">2013年度</option>
+								<option value="2012">2012年度</option>
+								<option value="2011">2011年度</option>
+								<option value="2010">2010年度</option>
+								<option value="2009">2009年度</option>
+								<option value="2008">2008年度</option>
+							</select>
+						</div>
+						@if(Auth::user()->faculty != $detail->faculty)
+							<div style="color:red;">あなたの所属する学部と、登録しようとしている授業の設置学部が異なります。</div>
+							<div>それでも登録する場合は「登録」ボタンを押してください。</div>
+							<br>
+						@endif
+						<button class="btn btn-primary" type="submit" id="add_register">登録</button>
+						<button class="btn btn-warning" type="submit" id="modal-close">キャンセル</button>
+					</div>
+				</div>
+			</div>
+
 			<div class="col-md-12">
 			 @if($tag['add_result']->added_tag)
 			 	<p style="color:red;">タグが追加されました。</p>
@@ -34,8 +62,13 @@
 
 				<!-- タイトル -->
 				<div class="alert a-is-info" style="margin: 0 auto 5px;">
-				 <h2 class="class-name">{{ $detail->class_name }}</h2>
-				 <span class="raty_stars_average"></span>
+					<div class="row-fluid">
+						<h2 class="col10 class-name">{{ $detail->class_name }}</h2>
+						@if(Auth::check())
+							<!-- <button class="col2 btn btn-primary" style="height:39px;" type="submit" id="add_register">履修済登録</button> -->
+						@endif
+					</div>
+				<span class="raty_stars_average"></span>
 				</div>
 
 				<!-- タグ作ってる -->
@@ -160,7 +193,7 @@
 					</div>
 						<a href="{{ $actual_syllabus_url }}" target="_blank"><button class="btn btn-info">公式シラバスを見る</button></a>
 						@if(Auth::check())
-							<button class="btn btn-primary" style="height:39px;" type="submit" id="add_register">履修済登録</button>
+							<button class="btn btn-primary" style="height:39px;" type="submit" id="add_register_modal">履修済登録</button>
 						@endif
 						<div class="class-share section-margin">
 							<a href="https://twitter.com/share" class="twitter-share-button" data-text="{{ $detail->class_name }}の授業レビュー / 早稲田大学所沢キャンパス 授業レビューサイト A+plus" data-count="vertical"　data-via="waseda_Aplus" data-lang="ja" data-hashtags="エイプラ">ツイート</a>

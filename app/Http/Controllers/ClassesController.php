@@ -32,8 +32,9 @@ class ClassesController extends Controller {
 			"商学部" => "16",
 			"社会科学部" => "18",
 			"法学部" => "12",
-			// "文学部" => "24",
-			// "文化構想学部" =>
+			"基幹理工学部" => "26",
+			"文学部" => "24",
+			"文化構想学部" => "23"
 		);
 	protected static $w_syllabus_url = "https://www.wsl.waseda.jp/syllabus/JAA104.php?pKey=";
 
@@ -77,6 +78,8 @@ class ClassesController extends Controller {
 			'search_ranking' => $this->ranking->returnSearchRankingList(),
 			'access_ranking' => $this->ranking->returnAccessRankingList()
 		);
+
+		// dd($data['review']);
 
 
 

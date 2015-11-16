@@ -51,15 +51,17 @@ jQuery(function ($) {
                 }
             });
 	});
+
     // 履修済登録する!
     $('#add_register').click(function(){
         var params = {
             "class_id": class_id,
             "user_id": user_id,
-            "_token":$('meta[name="csrf-token"]').attr('content')
+            "year": $("#year").val(),
+            "_token": $('meta[name="csrf-token"]').attr('content')
         };
         $.ajax({
-            type: "POST",
+            type: "GET",
             url: "../../register/new",
             dataType: "Json",
             data: params,
@@ -74,10 +76,58 @@ jQuery(function ($) {
             },
             error: function(XMLHttpRequest, textStatus, errorThrown)
             {
-                alertify.error('Error : ' + errorThrown.message);
+                alertify.error('Error : ' + errorThrown);
             }
         });
 
+    });
+
+    // modalのセンタリング関数
+    function centeringModalSyncer(){
+
+        $("#modal-content").css({"display": "block"});
+
+        //画面(ウィンドウ)の幅を取得し、変数[w]に格納
+        var w = $(window).width();
+
+        //画面(ウィンドウ)の高さを取得し、変数[h]に格納
+        var h = $(window).height();
+
+        //コンテンツ(#modal-content)の幅を取得し、変数[cw]に格納
+        var cw = $("#modal-content").outerWidth();
+
+        //コンテンツ(#modal-content)の高さを取得し、変数[ch]に格納
+        var ch = $("#modal-content").outerHeight();
+
+        $("#modal-content").css({"display": "none"});
+
+        //コンテンツ(#modal-content)を真ん中に配置するのに、左端から何ピクセル離せばいいか？を計算して、変数[pxleft]に格納
+        var pxleft = ((w - cw)/2);
+
+        //コンテンツ(#modal-content)を真ん中に配置するのに、上部から何ピクセル離せばいいか？を計算して、変数[pxtop]に格納
+        var pxtop = ((h - ch)/2);
+
+        //[#modal-content]のCSSに[left]の値(pxleft)を設定
+        $("#modal-content").css({'left': pxleft});
+    }
+
+    // modal表示
+    $('#add_register_modal').click(function(){
+        $(this).blur();
+        centeringModalSyncer();
+        if($("#modal-overlay")[0]) return false; // 既にmodalが表示されていたら何も返さない
+        $("body").append('<div id="modal-overlay"></div>'); // modalを追加する
+
+        $("#modal-overlay").fadeIn("slow"); // modalの背景をフェードインする
+        $("#modal-content").fadeIn("slow"); // modalをフェードインする
+    });
+
+    // modalの非表示
+    $('#modal-close,#modal-overlay').click(function(){
+        $("#modal-content,#modal-overlay").fadeOut("slow",function(){
+         //フェードアウト後、[#modal-overlay]をHTML(DOM)上から削除
+            $("#modal-overlay").remove();
+        });
     });
 
 	//タグ削除

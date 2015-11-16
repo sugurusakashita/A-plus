@@ -84,33 +84,39 @@ class MyPageController extends Controller {
 		);
 
 		// 時間割用データ作成
+		$year = 2015;
+		$term = "春学期";
 
-		//ajaxかどうかで分岐
-		
-		if(count($_GET)>0){
-			$year = $request->input('year');
-			$term = $request->input('term');
-		}else{
-			$year = 2015;
-			$term = 0;
-		}
-
-		$class_registered = $this->class_registered->where("user_id","=",$this->user->user_id)->where("year","=",$year)->where("term","=",$term)->get();
+		// user_idとyear, term("春学期"and"通年"もしくは"秋学期"and"通年")で該当レコードを取得
+		$class_registered = $this->class_registered->leftjoin("class_registered_detail","class_registered.class_registered_id","=","class_registered_detail.class_registered_id")->where("user_id","=",$this->user->user_id)->where("year","=",$year)
+			->where(function($query)use (&$term){
+				$query->where("term","=",$term)->orWhere("term","=","通年");
+			})->get();
 
 		foreach ($class_registered as $class)
 		{
-			$class_registered_detail = $this->class_registered_detail->where("class_registered_id","=",$class->class_registered_id)->first();
-			$data['time_table'][$class_registered_detail->class_week][$class_registered_detail->class_period] = array(
-				'class_registered' => $class,
-				'class_registered_detail' => $class_registered_detail,
-				);
+			$data['time_table'][$class->class_week][$class->class_period] = $class;
 		}
 
 		// 年度プルダウン用
 		$data['years'] = $this->class_registered->where("user_id","=",$this->user->user_id)->orderBy('year','desc')->distinct()->select('year')->get();
 
 		// 学期プルダウン用
-		$data['terms'] = $this->class_registered->where("user_id","=",$this->user->user_id)->orderBy('term','asc')->distinct()->select('term')->get();
+		$data['terms'] = $this->class_registered_detail->leftjoin("class_registered","class_registered_detail.class_registered_id","=","class_registered.class_registered_id")
+							  ->where("class_registered.user_id","=",$this->user->user_id)->orderBy("term","asc")->distinct()->select("term")->get();
+
+		// 履修済リスト用
+		$class_registered_list = $this->class_registered->where("user_id","=",$this->user->user_id)->get();
+
+		foreach ($class_registered_list as $class) {
+
+			$registered_detail_list = $this->class_registered_detail->where("class_registered_id","=",$class->class_registered_id)->get();
+
+			$data['class_list'][] = array(
+			'class_registered' => $class,
+			'class_registered_detail' => $registered_detail_list
+			);
+		}
 
 		$data['count'] = $campaign->totalEntry(self::CAMP_TYPE);
 
@@ -123,42 +129,45 @@ class MyPageController extends Controller {
 		$request = isset($_SERVER['HTTP_X_REQUESTED_WITH']) ? strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) : '';
 		if($request !== 'xmlhttprequest') exit;
 
+		// AjaxからGET
 		$year = $_GET['year'];
 		$term = $_GET['term'];
 
-		$class_registered = $this->class_registered->where("user_id","=",$this->user->user_id)->where("year","=",$year)->where("term","=",$term)->get();
+		// user_idとyear, term("春学期"and"通年"もしくは"秋学期"and"通年")で該当レコードを取得
+		$class_registered = $this->class_registered->leftjoin("class_registered_detail","class_registered.class_registered_id","=","class_registered_detail.class_registered_id")->where("user_id","=",$this->user->user_id)->where("year","=",$year)
+			->where(function($query)use (&$term){
+				$query->where("term","=",$term)->orWhere("term","=","通年");
+			})->get();
 
-		
 		if (count($class_registered) > 0) {
 
 			// 当該year,termでの授業登録があった場合
 			foreach ($class_registered as $class){
 
-				$class_registered_detail = $this->class_registered_detail->where("class_registered_id","=",$class->class_registered_id)->first();
 				$data['time_table'][] = array(
 					"class_name" => $class->class_name,
-					"class_week" => $class_registered_detail->class_week,
-					"class_period" => $class_registered_detail->class_period,
-					"room_name" => $class_registered_detail->room_name,
-					);
+					"class_week" => $class->class_week,
+					"class_period" => $class->class_period,
+					"room_name" => $class->room_name,
+				);
 			}
 
 	        $data['success'] = true;
-	        $data['message'] = "ajaxテスト";
-	        $data['get'] = $_GET;
+	        $data['message'] = "登録が完了しました。";
 	        
 	        return json_encode($data);	
 		}else{
 
 			// 当該year,termでの授業登録がなかった場合
 			$data['success'] = false;
-			$data['message'] = "ajaxerrorテスト";
+			$data['message'] = "条件に合致する授業の登録がありません。";
 
 			return json_encode($data);
 
 		}
 
     }
+
 	public function postIndex(Request $request)
 	{
 		//バリデーション
@@ -206,6 +215,7 @@ class MyPageController extends Controller {
 
 		return view('mypage/avatar',$data);
 	}
+
 	public function postAvatarComplete(Request $request){
 
 		$message = "プロフィール画像の変更が完了しました。";
