@@ -4,7 +4,6 @@ $(function(){
     var $inputImage = $('#fileInput');
     var $radioType = $('input[name=radioAvatarType]');
     var URL = window.URL || window.webkitURL;
-    var blobURL;
 
     $image.cropper({
       autoCropArea:1.0,
@@ -16,6 +15,22 @@ $(function(){
       zoomable: false,
       preview:".preview-avatar",
     });
+
+    function resizeImage(file) {
+        var d = new $.Deferred();
+        var mpImg = new MegaPixImage(file);
+        var src_keeper = document.getElementsByClassName("thumbnail_avatar")[0];
+        EXIF.getData(file, function() {
+            var orientation = file.exifdata.Orientation;
+            $('input[name="orientation"]').val(orientation);
+            var mpImg = new MegaPixImage(file);
+            mpImg.render(src_keeper, {orientation: orientation }, function() {
+                var resized_img = $(src_keeper).attr('src');
+                d.resolve(resized_img,0);
+            });
+        });
+        return d.promise();
+    }
 
     if (URL) {
       $inputImage.on('change',function () {
@@ -30,11 +45,9 @@ $(function(){
           file = files[0];
 
           if (/^image\/\w+$/.test(file.type)) {
-            blobURL = URL.createObjectURL(file);
-            $image.one('built.cropper', function () {
-              URL.revokeObjectURL(blobURL); // Revoke when load complete
-            }).cropper('reset').cropper('replace', blobURL);
-            // $inputImage.val('');
+            resizeImage(file).then(function(img){
+              $image.cropper('reset').cropper('replace', img);
+            });
           } else {
             alertify.success("アップロードエラー");
           }

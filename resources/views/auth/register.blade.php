@@ -61,6 +61,7 @@
 					<div class="row-fluid">
 						<div class="col6">
 							<img class="thumbnail_avatar" src="/image/meta/logo320.png" alt="dummy_image">
+							<input type="hidden" value="0" name="orientation">
 						</div>
 						<div class="col6 section-margin">
 							<input id="fileInput" type="file" name="avatar" class="form-element" accept="image/*" style="display:none;">
@@ -86,7 +87,7 @@
 				<div class="panel panel-danger" style="margin-bottom: 15px;">
 					<div class="panel-title">
 					青い枠をドラッグして拡大縮小、枠内をドラッグで使用する領域を選択できます！(デフォルト画像以外)<br>
-					画像ファイルはjpg,png,gifのみで、ファイルサイズは2MBまでです。<br>
+					画像ファイルはjpg,png,gifのみで、ファイルサイズは4MBまでです。<br>
 					</div>
 				</div>
 
@@ -167,8 +168,7 @@
 @endsection
 
 @section('js')
-<script type="text/javascript" src="{{ asset('js/register.js') }}"></script>
-	   <script type="text/javascript">
+<script type="text/javascript">
       //アラートメッセージ用
       <?php
       if(old("alert")){
@@ -177,4 +177,7 @@
       ?>
 </script>
 <script src="https://cdn.rawgit.com/fengyuanchen/cropper/v1.0.0/dist/cropper.min.js"></script>
+<script type="text/javascript" src="{{ asset('/js/exif.js') }}"></script>
+<script type="text/javascript" src="{{ asset('/js/megapix-image.js') }}"></script>
+<script type="text/javascript" src="{{ asset('js/register.js') }}"></script>
 @endsection
