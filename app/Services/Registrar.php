@@ -67,8 +67,16 @@ class Registrar implements RegistrarContract {
 		$width = (int)round($cropData->width);
 		$height = (int)round($cropData->height);
 		$rotate = round($cropData->rotate);
-		if($data['orientation'] == 6){
-			$rotate += 90.0;
+		//iPhoneオリエンテーションバグ修正
+		switch($data['orientation']){
+			case 3:
+				$rotate += 180.0;
+				break;
+			case 6:
+				$rotate += 90.0;
+				break;
+			case 8;
+				$rotate += 270.0;
 		}
 		//IntervensionImageでのrotateは反時計回りが正。
 		$rotate = (float)($rotate * -1);
