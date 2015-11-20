@@ -38,6 +38,12 @@ jQuery(function ($) {
         console.log($(this).siblings(".edit-prof-field").val());
     });
 
+    $('input').click(function(e){
+        if (e.ctrlKey) {
+            $(this).prop('checked', false);
+        }
+    });
+
     // modalのセンタリング関数
     function centeringModalSyncer(){
 

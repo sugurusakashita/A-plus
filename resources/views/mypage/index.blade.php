@@ -258,12 +258,12 @@
 	</div>
 	<div class="panel panel-success section-margin">
 		<div class="panel-title">履修済授業リスト</div>
-		<div class="panel-body" style="over-flow-x:auto;">
+		<div class="panel-body">
 			@if($class_list)
 				<p style="margin-bottom: 10px;">※曜日、時限、教室が空白の場合、時間割にはその授業の内容は反映されません。</p>
-				<table class="table table-bordered mypage-table section-margin">
+				<table class="table table-bordered mypage-table">
 					<thead>
-						<!-- <th style="width: 50px;"></th> -->
+						<th>削除</th>
 						<th>学部</th>
 						<th style="width:100px;">受講年度</th>
 						<th>授業名</th>
@@ -271,66 +271,67 @@
 						<th>限</th>
 						<th>教室</th>
 						<th>カテゴリ</th>
-						<th>削除</th>
 					</thead>
 					<tbody>
 						@for($i = 0; $i < count($class_list); $i++)
-						<!-- <form class="retgister-delete" action="#" method="POST"> -->
-							<input type="hidden" name="_token" value="{{ csrf_token() }}">
 							<tr id="row-{{ $i }}">
-								<td style="width:100px;">{{ $class_list[$i]['class_registered']->faculty }}</td>
-								<td style="width:60px;">{{ $class_list[$i]['class_registered']->year }}</td>
-								<td style="width:450px;">{{ $class_list[$i]['class_registered']->class_name }}</td>
-								<td style="width:60px;">
-									@if(count($class_list[$i]['class_registered_detail']) > 1)
-										@for($j = 0; $j < count($class_list[$i]['class_registered_detail']); $j++)
-											@if($j < count($class_list[$i]['class_registered_detail'])-1 )
-												{{ $class_list[$i]['class_registered_detail'][$j]->class_week }}/
-											@else
-												{{ $class_list[$i]['class_registered_detail'][$j]->class_week }}
-											@endif
-										@endfor
-									@else
-										@foreach($class_list[$i]['class_registered_detail'] as $detail)
-											{{ $detail->class_week }}
-										@endforeach
-									@endif
-								</td>
-								<td style="width:60px;">
-									@if(count($class_list[$i]['class_registered_detail']) > 1)
-										@for($j = 0; $j < count($class_list[$i]['class_registered_detail']); $j++)
-											@if($j < count($class_list[$i]['class_registered_detail'])-1 )
-												{{ $class_list[$i]['class_registered_detail'][$j]->class_period }}/
-											@else
-												{{ $class_list[$i]['class_registered_detail'][$j]->class_period }}
-											@endif
-										@endfor
-									@else
-										@foreach($class_list[$i]['class_registered_detail'] as $detail)
-											{{ $detail->class_period }}
-										@endforeach
-									@endif
-								</td>
-								<td style="width:120px;">
-									@if(count($class_list[$i]['class_registered_detail']) > 1)
-										@for($j = 0; $j < count($class_list[$i]['class_registered_detail']); $j++)
-											@if($j < count($class_list[$i]['class_registered_detail'])-1 )
-												{{ $class_list[$i]['class_registered_detail'][$j]->room_name }}/
-											@else
-												{{ $class_list[$i]['class_registered_detail'][$j]->room_name }}
-											@endif
-										@endfor
-									@else
-										@foreach($class_list[$i]['class_registered_detail'] as $detail)
-											{{ $detail->room_name }}
-										@endforeach
-									@endif
-								</td>
-								<td style="width:120px;">{{ $class_list[$i]['class_registered']->category }}</td>
-								<td style="width: 70px;"><button style="font-size: 90%;"class="btn btn-sm btn-danger btn-xs">削除</button></td>
+								<form class="register" action="/mypage/delete-registered-class" method="POST">
+									<input type="hidden" name="_token" value="{{ csrf_token() }}">
+									<input type="hidden" name="class_registered_id" value="{{ $class_list[$i]['class_registered']->class_registered_id }}">
+									<td style="width: 70px;"><button type="submit" class="btn-sm btn-danger" style="margin-bottom: 10px;">削除</button></td>
+									<td style="width:100px;">{{ $class_list[$i]['class_registered']->faculty }}</td>
+									<td style="width:60px;">{{ $class_list[$i]['class_registered']->year }}</td>
+									<td style="width:450px;">{{ $class_list[$i]['class_registered']->class_name }}</td>
+									<td style="width:60px;">
+										@if(count($class_list[$i]['class_registered_detail']) > 1)
+											@for($j = 0; $j < count($class_list[$i]['class_registered_detail']); $j++)
+												@if($j < count($class_list[$i]['class_registered_detail'])-1 )
+													{{ $class_list[$i]['class_registered_detail'][$j]->class_week }}/
+												@else
+													{{ $class_list[$i]['class_registered_detail'][$j]->class_week }}
+												@endif
+											@endfor
+										@else
+											@foreach($class_list[$i]['class_registered_detail'] as $detail)
+												{{ $detail->class_week }}
+											@endforeach
+										@endif
+									</td>
+									<td style="width:60px;">
+										@if(count($class_list[$i]['class_registered_detail']) > 1)
+											@for($j = 0; $j < count($class_list[$i]['class_registered_detail']); $j++)
+												@if($j < count($class_list[$i]['class_registered_detail'])-1 )
+													{{ $class_list[$i]['class_registered_detail'][$j]->class_period }}/
+												@else
+													{{ $class_list[$i]['class_registered_detail'][$j]->class_period }}
+												@endif
+											@endfor
+										@else
+											@foreach($class_list[$i]['class_registered_detail'] as $detail)
+												{{ $detail->class_period }}
+											@endforeach
+										@endif
+									</td>
+									<td style="width:120px;">
+										@if(count($class_list[$i]['class_registered_detail']) > 1)
+											@for($j = 0; $j < count($class_list[$i]['class_registered_detail']); $j++)
+												@if($j < count($class_list[$i]['class_registered_detail'])-1 )
+													{{ $class_list[$i]['class_registered_detail'][$j]->room_name }}/
+												@else
+													{{ $class_list[$i]['class_registered_detail'][$j]->room_name }}
+												@endif
+											@endfor
+										@else
+											@foreach($class_list[$i]['class_registered_detail'] as $detail)
+												{{ $detail->room_name }}
+											@endforeach
+										@endif
+									</td>
+									<td style="width:120px;">{{ $class_list[$i]['class_registered']->category }}</td>
+								</form>
 							</tr>
-						@endfor
-					</tbody>
+							@endfor
+						</tbody>
 				</table>
 			@else
 				<p><strong>登録されている授業がありません。履修した授業を検索して履修済登録しましょう！</strong></p>
