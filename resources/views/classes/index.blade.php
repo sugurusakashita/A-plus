@@ -162,9 +162,6 @@
 							      	</tr>
 								</tbody>
 							</table>
-							@if($detail->faculty === "スポーツ科学部")
-							<p style="color:red">※スポーツ科学部における一部授業の成績評価法、教師データに関しては10月中に対応予定です。</p>
-							@endif
 						</div>
 
 						@if($attendance_data)
