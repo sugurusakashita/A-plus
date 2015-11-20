@@ -30,16 +30,16 @@ A+plusについて | A+plus
 <br />
 <div class="panel panel-warning">
   <div class="panel-title">
-    早稲田大学非公認アプリケーション開発サークル「A+plus」について
+    早稲田大学アプリケーション開発サークル「A+plus」について
   </div>
   <div class="panel-body">
   <div class="text-center">
     <img style="margin:3%;" src="image/ei-logo1.png" alt="アプリ開発サークル「A+plus」について" width="280">
   </div>
-    A+plusは、2015年5月に設立された早稲田大学非公認アプリケーション開発サークルです。<br>
+    A+plus（エイプラス）は、2015年5月に設立された早稲田大学アプリケーション開発サークルです。<br>
     <br>
     本サークルは、早稲田大学所沢キャンパスをメインキャンパスとする学生エンジニアが集結して
-    「何か面白いものをつくろう」をテーマに発足した、（所キャン初？）アプリケーション開発サークルです！<br>
+    「何か面白いものをつくろう」をテーマに発足した、所キャン初！アプリケーション開発サークルです！<br>
     A+plusでは常に、「ものづくりが大好き」なメンバーを募集しております。プログラミング経験なしでも、もちろん大丈夫！<br>
     <br>
     ご興味のある方は、<a href="https://twitter.com/waseda_Aplus">公式Twitter</a>へDMかリプライを！！<br>
