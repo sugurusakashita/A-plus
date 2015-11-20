@@ -275,7 +275,7 @@
 					</thead>
 					<tbody>
 						@for($i = 0; $i < count($class_list); $i++)
-						<form class="retgister-delete" action="#" method="POST">
+						<!-- <form class="retgister-delete" action="#" method="POST"> -->
 							<input type="hidden" name="_token" value="{{ csrf_token() }}">
 							<tr id="row-{{ $i }}">
 								<td style="width:100px;">{{ $class_list[$i]['class_registered']->faculty }}</td>
@@ -327,7 +327,7 @@
 									@endif
 								</td>
 								<td style="width:120px;">{{ $class_list[$i]['class_registered']->category }}</td>
-								<td style="width: 60px;"><button style="font-size: 90%;" id="register-delete-confirm" class="btn btn-sm btn-danger btn-xs">削除</button></td>
+								<td style="width: 70px;"><button style="font-size: 90%;"class="btn btn-sm btn-danger btn-xs">削除</button></td>
 							</tr>
 						@endfor
 					</tbody>
