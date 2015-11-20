@@ -79,7 +79,25 @@ jQuery(function ($) {
                 alertify.error('Error : ' + errorThrown);
             }
         });
+    });
 
+    // modal表示
+    $('#add_register_modal').click(function(){
+        $(this).blur();
+        centeringModalSyncer();
+        if($("#modal-overlay")[0]) return false; // 既にmodalが表示されていたら何も返さない
+        $("body").append('<div id="modal-overlay"></div>'); // modalを追加する
+
+        $("#modal-overlay").fadeIn("slow"); // modalの背景をフェードインする
+        $("#modal-content").fadeIn("slow"); // modalをフェードインする
+    });
+
+    // modalの非表示
+    $('#modal-close,#modal-overlay').click(function(){
+        $("#modal-content,#modal-overlay").fadeOut("slow",function(){
+         //フェードアウト後、[#modal-overlay]をHTML(DOM)上から削除
+            $("#modal-overlay").remove();
+        });
     });
 
     // modalのセンタリング関数
@@ -110,25 +128,6 @@ jQuery(function ($) {
         //[#modal-content]のCSSに[left]の値(pxleft)を設定
         $("#modal-content").css({'left': pxleft});
     }
-
-    // modal表示
-    $('#add_register_modal').click(function(){
-        $(this).blur();
-        centeringModalSyncer();
-        if($("#modal-overlay")[0]) return false; // 既にmodalが表示されていたら何も返さない
-        $("body").append('<div id="modal-overlay"></div>'); // modalを追加する
-
-        $("#modal-overlay").fadeIn("slow"); // modalの背景をフェードインする
-        $("#modal-content").fadeIn("slow"); // modalをフェードインする
-    });
-
-    // modalの非表示
-    $('#modal-close,#modal-overlay').click(function(){
-        $("#modal-content,#modal-overlay").fadeOut("slow",function(){
-         //フェードアウト後、[#modal-overlay]をHTML(DOM)上から削除
-            $("#modal-overlay").remove();
-        });
-    });
 
 	//タグ削除
 	$("#tag-list").on("click",".delete-tag-button",function(){

@@ -180,6 +180,11 @@ table{
 .review-edit-delete{
   display: inline
 }
+
+.mypage-table {
+  font-size: 90%;
+}
+
 /*mypage end*/
 svg{
   display: block;

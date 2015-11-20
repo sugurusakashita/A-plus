@@ -371,6 +371,17 @@ class MyPageController extends Controller {
 	 *
 	 */
 
+	public function postDeleteRegisteredClass(Request $request){
+		$class_registered_id = $request->class_registered_id;
+		$class_registered = $this->class_registered->where("class_registered_id","=",$class_registered_id);
+		$class_registered_detail = $this->class_registered_detail->where("class_registered_id","=",$class_registered_id);
+
+		$class_registered_detail->delete();
+		$class_registered->delete();
+
+		return redirect()->to("mypage/index");
+	}
+
 	public function reviewValidation($request){
 		return $this->validate($request,[
 			// "grade" => "required",
