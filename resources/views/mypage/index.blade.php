@@ -27,6 +27,19 @@
 	<!-- <div class="alert a-is-info">
 		My Page
 	</div> -->
+	<div class="mypage">
+		<div class="modal-content">
+			<div class="panel panel-primary">
+				<div class="panel-title">履修済登録</div>
+				<div class="panel-body">
+					<p style="margin-bottom: 10px;">履修済み登録から削除します。よろしいですか？</p>
+					<button class="btn btn-danger" id="register-delete">はい</button>
+					<button class="btn btn-primary" id="modal-close">いいえ</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
 	<div class="panel panel-warning section-margin">
 		<div class="panel-title">
 			<div class="row-fluid">
@@ -52,7 +65,7 @@
 			</div>
 		</div>
 		<div class="panel-body">
-			<table class="table table-bordered">
+			<table class="table table-bordered mypage-table">
 				<thead>
 					<th></th>
 					<th>月</th>
@@ -247,9 +260,10 @@
 		<div class="panel-title">履修済授業リスト</div>
 		<div class="panel-body" style="over-flow-x:auto;">
 			@if($class_list)
-				<table class="table table-bordered">
+				<p style="margin-bottom: 10px;">※曜日、時限、教室が空白の場合、時間割にはその授業の内容は反映されません。</p>
+				<table class="table table-bordered mypage-table section-margin">
 					<thead>
-						<!-- <th></th> -->
+						<!-- <th style="width: 50px;"></th> -->
 						<th>学部</th>
 						<th style="width:100px;">受講年度</th>
 						<th>授業名</th>
@@ -257,68 +271,70 @@
 						<th>限</th>
 						<th>教室</th>
 						<th>カテゴリ</th>
+						<th>削除</th>
 					</thead>
 					<tbody>
-						@foreach($class_list as $class)
-							<tr>
-								<!-- <td style="width:10px;"><input type="radio" name="test" value="test"></td> -->
-								<td style="width:100px;">{{ $class['class_registered']->faculty }}</td>
-								<td style="width:60px;">{{ $class['class_registered']->year }}</td>
-								<td style="width:450px;">{{ $class['class_registered']->class_name }}</td>
-								<td>
-									@if(count($class['class_registered_detail']) > 1)
-										@for($i = 0; $i < count($class['class_registered_detail']); $i++)
-											@if($i < count($class['class_registered_detail'])-1 )
-												{{ $class['class_registered_detail'][$i]->class_week }}/
+						@for($i = 0; $i < count($class_list); $i++)
+						<form class="retgister-delete" action="#" method="POST">
+							<input type="hidden" name="_token" value="{{ csrf_token() }}">
+							<tr id="row-{{ $i }}">
+								<td style="width:100px;">{{ $class_list[$i]['class_registered']->faculty }}</td>
+								<td style="width:60px;">{{ $class_list[$i]['class_registered']->year }}</td>
+								<td style="width:450px;">{{ $class_list[$i]['class_registered']->class_name }}</td>
+								<td style="width:60px;">
+									@if(count($class_list[$i]['class_registered_detail']) > 1)
+										@for($j = 0; $j < count($class_list[$i]['class_registered_detail']); $j++)
+											@if($j < count($class_list[$i]['class_registered_detail'])-1 )
+												{{ $class_list[$i]['class_registered_detail'][$j]->class_week }}/
 											@else
-												{{ $class['class_registered_detail'][$i]->class_week }}
+												{{ $class_list[$i]['class_registered_detail'][$j]->class_week }}
 											@endif
 										@endfor
 									@else
-										@foreach($class['class_registered_detail'] as $detail)
+										@foreach($class_list[$i]['class_registered_detail'] as $detail)
 											{{ $detail->class_week }}
 										@endforeach
 									@endif
 								</td>
-								<td>
-									@if(count($class['class_registered_detail']) > 1)
-										@for($i = 0; $i < count($class['class_registered_detail']); $i++)
-											@if($i < count($class['class_registered_detail'])-1 )
-												{{ $class['class_registered_detail'][$i]->class_period }}/
+								<td style="width:60px;">
+									@if(count($class_list[$i]['class_registered_detail']) > 1)
+										@for($j = 0; $j < count($class_list[$i]['class_registered_detail']); $j++)
+											@if($j < count($class_list[$i]['class_registered_detail'])-1 )
+												{{ $class_list[$i]['class_registered_detail'][$j]->class_period }}/
 											@else
-												{{ $class['class_registered_detail'][$i]->class_period }}
+												{{ $class_list[$i]['class_registered_detail'][$j]->class_period }}
 											@endif
 										@endfor
 									@else
-										@foreach($class['class_registered_detail'] as $detail)
+										@foreach($class_list[$i]['class_registered_detail'] as $detail)
 											{{ $detail->class_period }}
 										@endforeach
 									@endif
 								</td>
 								<td style="width:120px;">
-									@if(count($class['class_registered_detail']) > 1)
-										@for($i = 0; $i < count($class['class_registered_detail']); $i++)
-											@if($i < count($class['class_registered_detail'])-1 )
-												{{ $class['class_registered_detail'][$i]->room_name }}/
+									@if(count($class_list[$i]['class_registered_detail']) > 1)
+										@for($j = 0; $j < count($class_list[$i]['class_registered_detail']); $j++)
+											@if($j < count($class_list[$i]['class_registered_detail'])-1 )
+												{{ $class_list[$i]['class_registered_detail'][$j]->room_name }}/
 											@else
-												{{ $class['class_registered_detail'][$i]->room_name }}
+												{{ $class_list[$i]['class_registered_detail'][$j]->room_name }}
 											@endif
 										@endfor
 									@else
-										@foreach($class['class_registered_detail'] as $detail)
+										@foreach($class_list[$i]['class_registered_detail'] as $detail)
 											{{ $detail->room_name }}
 										@endforeach
 									@endif
 								</td>
-								<td style="width:120px;">{{ $class['class_registered']->category }}</td>
+								<td style="width:120px;">{{ $class_list[$i]['class_registered']->category }}</td>
+								<td style="width: 60px;"><button style="font-size: 90%;" id="register-delete-confirm" class="btn btn-sm btn-danger btn-xs">削除</button></td>
 							</tr>
-						@endforeach
+						@endfor
+					</tbody>
+				</table>
 			@else
-				<p>登録されている授業がありません。履修した授業を検索して履修済登録しましょう！</p>
+				<p><strong>登録されている授業がありません。履修した授業を検索して履修済登録しましょう！</strong></p>
 			@endif
-				</tbody>
-			</table>
-			<p>※曜日、時限、教室が空白の場合、時間割にはその授業の内容は反映されません。</p>
 		</div>
 	</div>
 
@@ -343,12 +359,12 @@
 									<input type="hidden" value="{{{ $review->review_id }}}" name="review_id">
 									<input type="hidden" name="_token" value="{{csrf_token()}}" />
 									<button type="submit" class="btn btn-success btn-sm" >編集</button>
-						        </form>
-						        <form action="/mypage/delete-confirm" method="POST" class="review-edit-delete">
-						          	<input type="hidden" value="{{{ $review->review_id }}}" name="review_id">
-						          	<input type="hidden" name="_token" value="{{csrf_token()}}" />
-						          	<button type="submit" class="btn btn-danger btn-sm">削除</button>
-						         </form>
+						    </form>
+					        <form action="/mypage/delete-confirm" method="POST" class="review-edit-delete">
+					          	<input type="hidden" value="{{{ $review->review_id }}}" name="review_id">
+					          	<input type="hidden" name="_token" value="{{csrf_token()}}" />
+					          	<button type="submit" class="btn btn-danger btn-sm">削除</button>
+					        </form>
 						</div>
 						<div class="col3">
 							更新日時:{{ $review->updated_at }}
