@@ -246,18 +246,6 @@ text{
   z-index:99;
 }
 
-.mypage .modal-content{
-  display: none;
-  position: fixed;
-  -moz-border-radius: 20px;
-  -webkit-border-radius: 20px;
-  border-radius: 20px;
-  width:50%;
-  margin:1.5em auto 0;
-  background:#fff;
-  z-index:99;
-}
-
 .modal-p{
   margin-top:1em;
 }

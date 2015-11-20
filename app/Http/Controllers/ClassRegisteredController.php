@@ -196,13 +196,6 @@ class ClassRegisteredController extends Controller {
 	 */
 	public function destroy($id)
 	{
-		//ajax以外のアクセスを禁止
-		$request = isset($_SERVER['HTTP_X_REQUESTED_WITH']) ? strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) : '';
-		if($request !== 'xmlhttprequest') exit;
-
-		$regisrered_id = $_POST['regisreredId'];
-
-		
 
 	}
 

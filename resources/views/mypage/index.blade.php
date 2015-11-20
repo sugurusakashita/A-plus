@@ -27,19 +27,6 @@
 	<!-- <div class="alert a-is-info">
 		My Page
 	</div> -->
-	<div class="mypage">
-		<div class="modal-content">
-			<div class="panel panel-primary">
-				<div class="panel-title">履修済登録</div>
-				<div class="panel-body">
-					<p style="margin-bottom: 10px;">履修済み登録から削除します。よろしいですか？</p>
-					<button class="btn btn-danger" id="register-delete">はい</button>
-					<button class="btn btn-primary" id="modal-close">いいえ</button>
-				</div>
-			</div>
-		</div>
-	</div>
-
 	<div class="panel panel-warning section-margin">
 		<div class="panel-title">
 			<div class="row-fluid">
