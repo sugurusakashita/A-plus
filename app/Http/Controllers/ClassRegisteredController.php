@@ -80,38 +80,37 @@ class ClassRegisteredController extends Controller {
 			return json_encode($data);
 		}
 
-
-
 		// 年度,学期,曜日,時限が被っているデータがあった場合、エラーを吐く
 		$user_registered_classes = $this->class_registered->where("user_id","=",$user_id)->get();
 
-		foreach($user_registered_classes as $user_class)
-		{	
-			$user_registered_details = $this->class_registered_detail->where("class_registered_id","=",$user_class->class_registered_id)->get();
-
-			foreach($user_registered_details as $user_class_detail)
+		if(count($user_registered_classes) > 0){
+			foreach($user_registered_classes as $user_class)
 			{
-				foreach ($classes_detail as $class_detail)
-				{
-					// echo "user_class: " . $user_class . "\n";
-					// echo "user_class_detail: " . $user_class_detail . "\n";
-					// echo "class_detail: " . $class_detail . "\n";
-					if($user_class->year == $year && $user_class_detail->term == $class_detail->term && $user_class_detail->class_week == $class_detail->class_week && $user_class_detail->class_period == $class_detail->class_period)
-					{
-						// 履修登録
-						$class_registered->user_id    = $user_id;
-						$class_registered->class_name = $class->class_name;
-						$class_registered->faculty    = $class->faculty;
-						$class_registered->credit     = $class->credit;
-						$class_registered->category   = $class->category;
-						$class_registered->textbook   = $class->textbook;
-						$class_registered->year       = $year;
-						$class_registered->term       = "秋学期"; // DB対応後消す
-						$class_registered->save();
+				$user_registered_details = $this->class_registered_detail->where("class_registered_id","=",$user_class->class_registered_id)->get();
 
-						$data["success"] = false;
-						$data["message"] = "年度、学期、曜日、時限が一致している授業が既に登録されているため\n登録はされますが時間割には表示されません。";
-						return json_encode($data);
+				foreach($user_registered_details as $user_class_detail)
+				{
+					foreach ($classes_detail as $class_detail)
+					{
+						// echo "user_class: " . $user_class . "\n";
+						// echo "user_class_detail: " . $user_class_detail . "\n";
+						// echo "class_detail: " . $class_detail . "\n";
+						if($user_class->year == $year && $user_class_detail->term == $class_detail->term && $user_class_detail->class_week == $class_detail->class_week && $user_class_detail->class_period == $class_detail->class_period)
+						{
+							// 履修登録
+							$class_registered->user_id    = $user_id;
+							$class_registered->class_name = $class->class_name;
+							$class_registered->faculty    = $class->faculty;
+							$class_registered->credit     = $class->credit;
+							$class_registered->category   = $class->category;
+							$class_registered->textbook   = $class->textbook;
+							$class_registered->year       = $year;
+							$class_registered->save();
+
+							$data["success"] = false;
+							$data["message"] = "年度、学期、曜日、時限が一致している授業が既に登録されているため\n登録はされますが時間割には表示されません。";
+							return json_encode($data);
+						}
 					}
 				}
 			}
@@ -125,7 +124,6 @@ class ClassRegisteredController extends Controller {
 		$class_registered->category   = $class->category;
 		$class_registered->textbook   = $class->textbook;
 		$class_registered->year       = $year;
-		$class_registered->term       = "秋学期"; //DB対応後消す
 		$class_registered->save();
 
 		// 直前のsaveで入った最新のidを取得
@@ -134,7 +132,6 @@ class ClassRegisteredController extends Controller {
 		// class_registered_detailにinsert
 		foreach($classes_detail as $class_detail)
 		{
-			echo $class_detail;
 			$result = $class_registered_detail->insert([
 				'class_registered_id' => $class_registered_id,
 				'class_week'          => $class_detail->class_week,
@@ -154,49 +151,4 @@ class ClassRegisteredController extends Controller {
 		$data["message"] = "履修済リストに登録しました。";
 		return json_encode($data);
 	}
-
-	/**
-	 * Display the specified resource.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function show($id)
-	{
-		//
-	}
-
-	/**
-	 * Show the form for editing the specified resource.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function edit($id)
-	{
-		//
-	}
-
-	/**
-	 * Update the specified resource in storage.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function update($id)
-	{
-		//
-	}
-
-	/**
-	 * Remove the specified resource from storage.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function destroy($id)
-	{
-
-	}
-
 }

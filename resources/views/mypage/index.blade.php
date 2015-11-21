@@ -27,224 +27,230 @@
 	<!-- <div class="alert a-is-info">
 		My Page
 	</div> -->
-	<div class="panel panel-warning section-margin">
-		<div class="panel-title">
-			<div class="row-fluid">
-				<div class="col1">
-					My時間割
-				</div>
-				<div class="col1">
-					<select id="year" name="year">
-						@foreach ($years as $year)
-							<option value="{{ $year->year }}">{{ $year->year }}年度</option>
-						@endforeach
-					</select>
-				</div>
-				<div class="col10">
-					<select id="term" name="term">
-						@foreach ($terms as $term)
-							@if ($term->term != "通年")
-								<option value="{{ $term->term }}"><?php echo $term->term == "春学期" || $term->term == "夏期集中" || $term->term == "集中講義（春学期）" || $term->term == "春季集中" || $term->term == "夏季集中"? "春学期・夏期集中":"秋学期・冬期集中"; ?></option>
-							@endif
-						@endforeach
-					</select>
+	@if($time_table)
+		<div class="panel panel-warning section-margin">
+			<div class="panel-title">
+				<div class="row-fluid">
+					<div class="col1">
+						My時間割
+					</div>
+					@if(count($years) > 0)
+						<div class="col1">
+							<select id="year" name="year">
+									@foreach ($years as $year)
+										<option value="{{ $year->year }}">{{ $year->year }}年度</option>
+									@endforeach
+							</select>
+						</div>
+					@endif
+					@if(count($terms) > 0)
+						<div class="col10">
+							<select id="term" name="term">
+								@foreach ($terms as $term)
+									@if ($term->term != "通年")
+										<option value="{{ $term->term }}"><?php echo $term->term == "春学期" || $term->term == "夏期集中" || $term->term == "集中講義（春学期）" || $term->term == "春季集中" || $term->term == "夏季集中"? "春学期・夏期集中":"秋学期・冬期集中"; ?></option>
+									@endif
+								@endforeach
+							</select>
+						</div>
+					@endif
 				</div>
 			</div>
+			<div class="panel-body">
+				<table class="table table-bordered mypage-table">
+					<thead>
+						<th></th>
+						<th>月</th>
+						<th>火</th>
+						<th>水</th>
+						<th>木</th>
+						<th>金</th>
+						<th>土</th> <!-- 土はあるかないかで表示非表示 -->
+					</thead>
+					<tr>
+						<td>1</td>
+						<td data-week="月" data-period=1>
+							{{ $time_table["月"][1]->class_name or "" }}<br>
+							{{ $time_table["月"][1]->room_name or "" }}
+						</td>
+						<td data-week="火" data-period=1>
+							{{ $time_table["火"][1]->class_name or "" }}<br>
+							{{ $time_table["火"][1]->room_name or "" }}
+						</td>
+						<td data-week="水" data-period=1>
+							{{ $time_table["水"][1]->class_name or "" }}<br>
+							{{ $time_table["水"][1]->room_name or "" }}
+						</td>
+						<td data-week="木" data-period=1>
+							{{ $time_table["木"][1]->class_name or "" }}<br>
+							{{ $time_table["木"][1]->room_name or "" }}
+						</td>
+						<td data-week="金" data-period=1>
+							{{ $time_table["金"][1]->class_name or "" }}<br>
+							{{ $time_table["金"][1]->room_name or "" }}
+						</td>
+						<td data-week="土" data-period=1>
+							{{ $time_table["土"][1]->class_name or "" }}<br>
+							{{ $time_table["土"][1]->room_name or "" }}
+						</td>
+					</tr>
+					<tr>
+						<td>2</td>
+						<td data-week="月" data-period=2>
+							{{ $time_table["月"][2]->class_name or "" }}<br>
+							{{ $time_table["月"][2]->room_name or "" }}
+						</td>
+						<td data-week="火" data-period=2>
+							{{ $time_table["火"][2]->class_name or "" }}<br>
+							{{ $time_table["火"][2]->room_name or "" }}
+						</td>
+						<td data-week="水" data-period=2>
+							{{ $time_table["水"][2]->class_name or "" }}<br>
+							{{ $time_table["水"][2]->room_name or "" }}
+						</td>
+						<td data-week="木" data-period=2>
+							{{ $time_table["木"][2]->class_name or "" }}<br>
+							{{ $time_table["木"][2]->room_name or "" }}
+						</td>
+						<td data-week="金" data-period=2>
+							{{ $time_table["金"][2]->class_name or "" }}<br>
+							{{ $time_table["金"][2]->room_name or "" }}
+						</td>
+						<td data-week="土" data-period=2>
+							{{ $time_table["土"][2]->class_name or "" }}<br>
+							{{ $time_table["土"][2]->room_name or "" }}
+						</td>
+					</tr>
+					<tr>
+						<td>3</td>
+						<td data-week="月" data-period=3>
+							{{ $time_table["月"][3]->class_name or "" }}<br>
+							{{ $time_table["月"][3]->room_name or "" }}
+						</td>
+						<td data-week="火" data-period=3>
+							{{ $time_table["火"][3]->class_name or "" }}<br>
+							{{ $time_table["火"][3]->room_name or "" }}
+						</td>
+						<td data-week="水" data-period=3>
+							{{ $time_table["水"][3]->class_name or "" }}<br>
+							{{ $time_table["水"][3]->room_name or "" }}
+						</td>
+						<td data-week="木" data-period=3>
+							{{ $time_table["木"][3]->class_name or "" }}<br>
+							{{ $time_table["木"][3]->room_name or "" }}
+						</td>
+						<td data-week="金" data-period=3>
+							{{ $time_table["金"][3]->class_name or "" }}<br>
+							{{ $time_table["金"][3]->room_name or "" }}
+						</td>
+						<td data-week="土" data-period=3>
+							{{ $time_table["土"][3]->class_name or "" }}<br>
+							{{ $time_table["土"][3]->room_name or "" }}
+						</td>
+					</tr>
+					<tr>
+						<td>4</td>
+						<td data-week="月" data-period=4>
+							{{ $time_table["月"][4]->class_name or "" }}<br>
+							{{ $time_table["月"][4]->room_name or "" }}
+						</td>
+						<td data-week="火" data-period=4>
+							{{ $time_table["火"][4]->class_name or "" }}<br>
+							{{ $time_table["火"][4]->room_name or "" }}
+						</td>
+						<td data-week="水" data-period=4>
+							{{ $time_table["水"][4]->class_name or "" }}<br>
+							{{ $time_table["水"][4]->room_name or "" }}
+						</td>
+						<td data-week="木" data-period=4>
+							{{ $time_table["木"][4]->class_name or "" }}<br>
+							{{ $time_table["木"][4]->room_name or "" }}
+						</td>
+						<td data-week="金" data-period=4>
+							{{ $time_table["金"][4]->class_name or "" }}<br>
+							{{ $time_table["金"][4]->room_name or "" }}
+						</td>
+						<td data-week="土" data-period=4>
+							{{ $time_table["土"][4]->class_name or "" }}<br>
+							{{ $time_table["土"][4]->room_name or "" }}
+						</td>
+					</tr>
+					<tr>
+						<td>5</td>
+						<td data-week="月" data-period=5>
+							{{ $time_table["月"][5]->class_name or "" }}<br>
+							{{ $time_table["月"][5]->room_name or "" }}
+						</td>
+						<td data-week="火" data-period=5>
+							{{ $time_table["火"][5]->class_name or "" }}<br>
+							{{ $time_table["火"][5]->room_name or "" }}
+						</td>
+						<td data-week="水" data-period=5>
+							{{ $time_table["水"][5]->class_name or "" }}<br>
+							{{ $time_table["水"][5]->room_name or "" }}
+						</td>
+						<td data-week="木" data-period=5>
+							{{ $time_table["木"][5]->class_name or "" }}<br>
+							{{ $time_table["木"][5]->room_name or "" }}
+						</td>
+						<td data-week="金" data-period=5>
+							{{ $time_table["金"][5]->class_name or "" }}<br>
+							{{ $time_table["金"][5]->room_name or "" }}
+						</td>
+						<td data-week="土" data-period=5>
+							{{ $time_table["土"][5]->class_name or "" }}<br>
+							{{ $time_table["土"][5]->room_name or "" }}
+						</td>
+					</tr>
+					<tr>
+						<td>6</td>
+						<td data-week="月" data-period=6>
+							{{ $time_table["月"][6]->class_name or "" }}<br>
+							{{ $time_table["月"][6]->room_name or "" }}
+						</td>
+						<td data-week="火" data-period=6>
+							{{ $time_table["火"][6]->class_name or "" }}<br>
+							{{ $time_table["火"][6]->room_name or "" }}
+						</td>
+						<td data-week="水" data-period=6>
+							{{ $time_table["水"][6]->class_name or "" }}<br>
+							{{ $time_table["水"][6]->room_name or "" }}
+						</td>
+						<td data-week="木" data-period=6>
+							{{ $time_table["木"][6]->class_name or "" }}<br>
+							{{ $time_table["木"][6]->room_name or "" }}
+						</td>
+						<td data-week="金" data-period=6>
+							{{ $time_table["金"][6]->class_name or "" }}<br>
+							{{ $time_table["金"][6]->room_name or "" }}
+						</td>
+						<td data-week="土" data-period=6>
+							{{ $time_table["土"][6]->class_name or "" }}<br>
+							{{ $time_table["土"][6]->room_name or "" }}
+						</td>
+					</tr>
+					<!-- <tr>
+						<td>7</td>
+						<td data-week="月" data-period=7>
+						</td>
+						<td data-week="火" data-period=7>
+						</td>
+						<td data-week="水" data-period=7>
+						</td>
+						<td data-week="木" data-period=7>
+						</td>
+						<td data-week="金" data-period=7>
+						</td>
+						<td data-week="土" data-period=7>
+						</td>
+					</tr> -->
+				</table>
+				<p>※履修済授業リストに追加されている授業のデータを基に時間割を作成しています。</p>
+			</div>
 		</div>
-		<div class="panel-body">
-			<table class="table table-bordered mypage-table">
-				<thead>
-					<th></th>
-					<th>月</th>
-					<th>火</th>
-					<th>水</th>
-					<th>木</th>
-					<th>金</th>
-					<th>土</th> <!-- 土はあるかないかで表示非表示 -->
-				</thead>
-				<tr>
-					<td>1</td>
-					<td data-week="月" data-period=1>
-						{{ $time_table["月"][1]->class_name or "" }}<br>
-						{{ $time_table["月"][1]->room_name or "" }}
-					</td>
-					<td data-week="火" data-period=1>
-						{{ $time_table["火"][1]->class_name or "" }}<br>
-						{{ $time_table["火"][1]->room_name or "" }}
-					</td>
-					<td data-week="水" data-period=1>
-						{{ $time_table["水"][1]->class_name or "" }}<br>
-						{{ $time_table["水"][1]->room_name or "" }}
-					</td>
-					<td data-week="木" data-period=1>
-						{{ $time_table["木"][1]->class_name or "" }}<br>
-						{{ $time_table["木"][1]->room_name or "" }}
-					</td>
-					<td data-week="金" data-period=1>
-						{{ $time_table["金"][1]->class_name or "" }}<br>
-						{{ $time_table["金"][1]->room_name or "" }}
-					</td>
-					<td data-week="土" data-period=1>
-						{{ $time_table["土"][1]->class_name or "" }}<br>
-						{{ $time_table["土"][1]->room_name or "" }}
-					</td>
-				</tr>
-				<tr>
-					<td>2</td>
-					<td data-week="月" data-period=2>
-						{{ $time_table["月"][2]->class_name or "" }}<br>
-						{{ $time_table["月"][2]->room_name or "" }}
-					</td>
-					<td data-week="火" data-period=2>
-						{{ $time_table["火"][2]->class_name or "" }}<br>
-						{{ $time_table["火"][2]->room_name or "" }}
-					</td>
-					<td data-week="水" data-period=2>
-						{{ $time_table["水"][2]->class_name or "" }}<br>
-						{{ $time_table["水"][2]->room_name or "" }}
-					</td>
-					<td data-week="木" data-period=2>
-						{{ $time_table["木"][2]->class_name or "" }}<br>
-						{{ $time_table["木"][2]->room_name or "" }}
-					</td>
-					<td data-week="金" data-period=2>
-						{{ $time_table["金"][2]->class_name or "" }}<br>
-						{{ $time_table["金"][2]->room_name or "" }}
-					</td>
-					<td data-week="土" data-period=2>
-						{{ $time_table["土"][2]->class_name or "" }}<br>
-						{{ $time_table["土"][2]->room_name or "" }}
-					</td>
-				</tr>
-				<tr>
-					<td>3</td>
-					<td data-week="月" data-period=3>
-						{{ $time_table["月"][3]->class_name or "" }}<br>
-						{{ $time_table["月"][3]->room_name or "" }}
-					</td>
-					<td data-week="火" data-period=3>
-						{{ $time_table["火"][3]->class_name or "" }}<br>
-						{{ $time_table["火"][3]->room_name or "" }}
-					</td>
-					<td data-week="水" data-period=3>
-						{{ $time_table["水"][3]->class_name or "" }}<br>
-						{{ $time_table["水"][3]->room_name or "" }}
-					</td>
-					<td data-week="木" data-period=3>
-						{{ $time_table["木"][3]->class_name or "" }}<br>
-						{{ $time_table["木"][3]->room_name or "" }}
-					</td>
-					<td data-week="金" data-period=3>
-						{{ $time_table["金"][3]->class_name or "" }}<br>
-						{{ $time_table["金"][3]->room_name or "" }}
-					</td>
-					<td data-week="土" data-period=3>
-						{{ $time_table["土"][3]->class_name or "" }}<br>
-						{{ $time_table["土"][3]->room_name or "" }}
-					</td>
-				</tr>
-				<tr>
-					<td>4</td>
-					<td data-week="月" data-period=4>
-						{{ $time_table["月"][4]->class_name or "" }}<br>
-						{{ $time_table["月"][4]->room_name or "" }}
-					</td>
-					<td data-week="火" data-period=4>
-						{{ $time_table["火"][4]->class_name or "" }}<br>
-						{{ $time_table["火"][4]->room_name or "" }}
-					</td>
-					<td data-week="水" data-period=4>
-						{{ $time_table["水"][4]->class_name or "" }}<br>
-						{{ $time_table["水"][4]->room_name or "" }}
-					</td>
-					<td data-week="木" data-period=4>
-						{{ $time_table["木"][4]->class_name or "" }}<br>
-						{{ $time_table["木"][4]->room_name or "" }}
-					</td>
-					<td data-week="金" data-period=4>
-						{{ $time_table["金"][4]->class_name or "" }}<br>
-						{{ $time_table["金"][4]->room_name or "" }}
-					</td>
-					<td data-week="土" data-period=4>
-						{{ $time_table["土"][4]->class_name or "" }}<br>
-						{{ $time_table["土"][4]->room_name or "" }}
-					</td>
-				</tr>
-				<tr>
-					<td>5</td>
-					<td data-week="月" data-period=5>
-						{{ $time_table["月"][5]->class_name or "" }}<br>
-						{{ $time_table["月"][5]->room_name or "" }}
-					</td>
-					<td data-week="火" data-period=5>
-						{{ $time_table["火"][5]->class_name or "" }}<br>
-						{{ $time_table["火"][5]->room_name or "" }}
-					</td>
-					<td data-week="水" data-period=5>
-						{{ $time_table["水"][5]->class_name or "" }}<br>
-						{{ $time_table["水"][5]->room_name or "" }}
-					</td>
-					<td data-week="木" data-period=5>
-						{{ $time_table["木"][5]->class_name or "" }}<br>
-						{{ $time_table["木"][5]->room_name or "" }}
-					</td>
-					<td data-week="金" data-period=5>
-						{{ $time_table["金"][5]->class_name or "" }}<br>
-						{{ $time_table["金"][5]->room_name or "" }}
-					</td>
-					<td data-week="土" data-period=5>
-						{{ $time_table["土"][5]->class_name or "" }}<br>
-						{{ $time_table["土"][5]->room_name or "" }}
-					</td>
-				</tr>
-				<tr>
-					<td>6</td>
-					<td data-week="月" data-period=6>
-						{{ $time_table["月"][6]->class_name or "" }}<br>
-						{{ $time_table["月"][6]->room_name or "" }}
-					</td>
-					<td data-week="火" data-period=6>
-						{{ $time_table["火"][6]->class_name or "" }}<br>
-						{{ $time_table["火"][6]->room_name or "" }}
-					</td>
-					<td data-week="水" data-period=6>
-						{{ $time_table["水"][6]->class_name or "" }}<br>
-						{{ $time_table["水"][6]->room_name or "" }}
-					</td>
-					<td data-week="木" data-period=6>
-						{{ $time_table["木"][6]->class_name or "" }}<br>
-						{{ $time_table["木"][6]->room_name or "" }}
-					</td>
-					<td data-week="金" data-period=6>
-						{{ $time_table["金"][6]->class_name or "" }}<br>
-						{{ $time_table["金"][6]->room_name or "" }}
-					</td>
-					<td data-week="土" data-period=6>
-						{{ $time_table["土"][6]->class_name or "" }}<br>
-						{{ $time_table["土"][6]->room_name or "" }}
-					</td>
-				</tr>
-				<!-- <tr>
-					<td>7</td>
-					<td data-week="月" data-period=7>
-					</td>
-					<td data-week="火" data-period=7>
-					</td>
-					<td data-week="水" data-period=7>
-					</td>
-					<td data-week="木" data-period=7>
-					</td>
-					<td data-week="金" data-period=7>
-					</td>
-					<td data-week="土" data-period=7>
-					</td>
-				</tr> -->
-			</table>
-			<p>※履修済授業リストに追加されている授業のデータを基に時間割を作成しています。</p>
-		</div>
-	</div>
+	@endif
 	<div class="panel panel-success section-margin">
-		<div class="panel-title">履修済授業リスト</div>
+		<div class="panel-title">履修授業リスト</div>
 		<div class="panel-body">
 			@if($class_list)
 				<p style="margin-bottom: 10px;">※曜日、時限、教室が空白の場合、時間割にはその授業の内容は反映されません。</p>
@@ -321,7 +327,8 @@
 						</tbody>
 				</table>
 			@else
-				<p><strong>登録されている授業がありません。履修した授業を検索して履修済登録しましょう！</strong></p>
+				<p><strong>履修登録されている授業がありません。</strong> -> 履修登録をすると<strong style="color: red;">時間割機能</strong>が使えるようになります！</p>
+				<p>履修した授業を検索して履修済登録しましょう！</p>
 			@endif
 		</div>
 	</div>

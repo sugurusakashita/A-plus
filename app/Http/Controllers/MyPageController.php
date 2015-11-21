@@ -94,6 +94,9 @@ class MyPageController extends Controller {
 				$query->where("term","=",$term)->orWhere("term","=","通年");
 			})->get();
 
+		$data['time_table'] = array();
+		// dd($data['time_table']);
+
 		foreach ($class_registered as $class)
 		{
 			$data['time_table'][$class->class_week][$class->class_period] = $class;
@@ -109,16 +112,19 @@ class MyPageController extends Controller {
 		// 履修済リスト用
 		$class_registered_list = $this->class_registered->where("user_id","=",$this->user->user_id)->get();
 
-		foreach ($class_registered_list as $class) {
+		$data['class_list'] = array();
 
-			$registered_detail_list = $this->class_registered_detail->where("class_registered_id","=",$class->class_registered_id)->get();
+		if($class_registered_list){
+			foreach ($class_registered_list as $class) {
 
-			$data['class_list'][] = array(
-			'class_registered' => $class,
-			'class_registered_detail' => $registered_detail_list
-			);
+				$registered_detail_list = $this->class_registered_detail->where("class_registered_id","=",$class->class_registered_id)->get();
+
+				$data['class_list'][] = array(
+				'class_registered' => $class,
+				'class_registered_detail' => $registered_detail_list
+				);
+			}
 		}
-
 		$data['count'] = $campaign->totalEntry(self::CAMP_TYPE);
 
 		return view('mypage/index',$data);
